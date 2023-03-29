@@ -1,0 +1,103 @@
+@font-face {
+    font-family: IRANSans;
+    src: url('../Font/IRANSans\ Regular.ttf');
+}
+*
+{
+    margin: 0;
+    padding: 0;
+}
+header
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;   
+    z-index: 10;
+}
+header nav
+{
+    display: flex;
+    height: 60px;
+    box-shadow: 0px 3px 4px #0000001A;
+    font-family: IRANSans;
+    text-align: center;
+    line-height: 60px;
+}
+header nav .navLeftSide
+{
+    width: 80%; 
+}
+.navLeftSide .navList
+{
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    width: 25%;
+    margin: 0 auto 0 auto;
+    align-items: center;
+    color: #0096FF;
+    font-size: 19px;
+}
+
+.navLeftSide .navList .navItem
+{
+    position: relative;
+}
+.navLeftSide .navList .navItem a 
+{
+    text-decoration: none;
+}
+.active a::before
+{
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    width: 100%;
+    height: 1.5px;
+    background-color: #0096FF;
+}
+.navLeftSide , .navRightSide
+{
+    display: flex;
+    align-items: center;
+}
+header nav .navRightSide
+{
+    width: 20%;
+}
+nav h3 
+{
+    margin:  0 auto 0 auto;
+    font-size: 20px;
+    color: #161D6F;
+}
+section
+{
+    background-color: #F6F6F6;
+    width: 100%;
+    height: 100vh;
+    font-family: IRANSans;
+}
+main , aside 
+{
+   float: left;
+   height: 100%;
+}
+main 
+{
+    width: 70%;
+
+}
+aside
+{
+    background-color: white;
+    width: 30%;
+    overflow-y: scroll;
+    box-shadow: -2px 0 10px #0000001f;
+}
+aside::-webkit-scrollbar 
+{
+    width: 0;
+}
