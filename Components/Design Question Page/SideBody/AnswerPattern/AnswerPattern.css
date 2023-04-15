@@ -1,0 +1,72 @@
+.AnswerPattern
+{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 25px auto 0 auto;
+    color: var(--brand-color);
+    font-family: IRANSans;
+}
+.AnswerPattern .PatternChoose
+{
+    display: flex;
+    justify-content: space-between;
+}
+.AnswerPattern select
+{
+    width: 60%;
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid #5360ED;
+    color: #5360ED;
+    outline: none;
+    font-family: 'IRANSANS';
+    text-align: center;
+    cursor: pointer;
+}
+.LimitInput
+{
+    margin-top: 20px;
+    color: #5360ED;
+}
+.AnswerAlphabetLimit
+{
+    width: 90%;
+    flex-direction: column;
+    display: flex;
+    margin: 20px auto 0 auto;
+}
+.maxInput
+{
+     margin-top: 10px;
+}
+.minInput input , .maxInput input , .AnwValidation  input
+{
+    border-radius: 10px;
+    padding: 5px;
+    width: 40%;
+    color: #5360ED;
+    font-size: 20px;
+    outline: none;
+    margin-right: 20px;
+    border: 1px solid #5360ED;
+}
+.AnwValidation  input
+{
+    width: 56%;
+    text-align: center;
+    font-family: IRANSans;
+    font-size: calc(0.75rem + 0.4vw);
+}
+.AnwValidation > div 
+{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.AnwValidation  input::placeholder
+{
+    color: var(--input-placeholder-color);
+}

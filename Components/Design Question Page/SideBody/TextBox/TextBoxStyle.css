@@ -1,0 +1,61 @@
+.GOptions
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0 8px 0;
+}
+.GOptions label
+{
+    display: flex;
+    cursor: pointer;
+}
+.GOptions label input 
+{
+    height: 0;
+    opacity: 0;
+}
+.TitleTextInput
+{
+    width: 95%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-family: IRANSans;
+    display: flex;
+    align-items: flex-start;
+    background-color: var(--text-input-bg-color);
+    position: relative;
+    resize: none;
+    padding: 10px;
+    border-radius: 0 0 15px 15px;
+    color: var(--brand-color);
+    font-size: calc(0.75rem + 0.4vw);
+}
+#TitleTextInput::placeholder
+{
+    color: #5360ed79;
+}
+.DescInput
+{
+    margin-top: 20px;
+    border-radius: var(--theme-radius-size) var(--theme-radius-size);
+    box-shadow: 4px 4px 3px var(--input-shadow-color);
+}
+.inputTitle , .TitleInputOptions
+{
+    background: var(--input-title-bg-color);
+    border-radius: var(--theme-radius-size) var(--theme-radius-size) 0 0;
+    padding: 5px;
+    text-align: center;
+    color: var(--theme-blue-color);
+}
+.inputUploader input 
+{
+    display: none;
+}
+.ToggleOption
+{
+    width: 90%;
+    margin: 1.5rem auto 1.5rem auto;
+}

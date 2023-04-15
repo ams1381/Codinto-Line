@@ -1,0 +1,73 @@
+.AssistiveButton
+{
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translate(0,-50%);
+    display: flex;
+    align-items: center;
+}
+.AssistiveButton .AssistiveToggle
+{
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    border-radius: 50%;
+    font-size: 28px;
+    background-color: var(--brand-color);
+}
+.AssistiveButton .AssistiveToggle .AssistiveToggleButton
+{
+    color: var(--theme-white);
+    border: 4px solid var(--theme-white);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.7rem;
+    background-color: var(--brand-color);
+    cursor: pointer;
+}
+.AssistiveButton .AssistiveItems
+{
+    height: 170px;
+    width: 60px;
+    background-color: var(--theme-white);
+    box-shadow: 3px 3px 4px #00000014;
+    margin-left: 14px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.AssistiveItems button
+{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.AssistiveItems button i
+{
+    font-size: 1.5rem;
+    color: var(--brand-color);
+}
+@media only screen and (max-width : 650px)
+{
+    .AssistiveButton
+    {
+      position: unset;
+      width: 25%;
+      margin: 0 auto 0 auto;
+      transform: none;
+    }
+    .AssistiveButton .AssistiveItems
+    {
+        display: none;
+    }
+    .AssistiveButton .AssistiveToggle
+    {
+        margin: 0 auto auto;
+    }
+}

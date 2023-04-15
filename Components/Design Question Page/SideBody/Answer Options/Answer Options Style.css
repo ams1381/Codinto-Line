@@ -1,0 +1,42 @@
+.Answer-Options
+{
+    width: 90%;
+    margin: 1.5rem auto 1.5rem auto;
+    font-family: IRANSans;
+}
+.Answer-Options
+{
+    color: var(--brand-color);
+}
+.Answer-Option
+{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.6rem;
+}
+.Answer-Option .anw-option-number
+{
+    width: 50%;
+    color: var(--brand-color);
+    background-color: var(--text-input-bg-color);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+}
+.anw-option-label
+{
+    background-color: var(--input-title-bg-color);
+    width: 10%;
+    text-align: center;
+    border-radius: 10px;
+    padding: 4px;
+}
+.anw-option-tools button {
+    color: var(--brand-color);
+    background: none;
+    font-size: 1.2rem;
+    border: 2px solid var(--brand-color);
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}

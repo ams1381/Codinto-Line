@@ -1,0 +1,57 @@
+.SideHeader
+{
+    padding-bottom: 15px;
+    text-align: center;
+    font-family: IRANSans;
+}
+.SideHeader .SideHeaderTitle h3
+{
+    font-size: 22px;
+    width: 55%;
+    margin: 20px auto 0 auto;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--brand-color);
+    color: var(--brand-color);
+}
+.SideHeaderBody
+{
+    position: relative;
+}
+.SideHeader .SideHeaderBody p 
+{
+    margin-top: 15px;
+    font-size: 15px;
+    color: var(--brand-color);
+}
+.navButton
+{
+    border: 2px solid var(--brand-color);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    position: absolute;
+}
+.cancelDesign
+{
+    right: 20px;
+    top: 0;
+}
+.viewQuestion
+{
+    top: 0;
+    left: 20px;
+    display: none;
+    font-size: 15px;
+}
+@media only  screen and (max-width : 650px)
+{
+    .viewQuestion
+    {
+        display: flex;
+    }
+}

@@ -1,0 +1,41 @@
+.QuestionContainer
+{
+    width: calc(17rem + 17vw);
+    background: white;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px #0000001a;
+    padding-bottom: 20px;
+    font-family: IRANSans;
+}
+.QuestionTitle
+{
+    height: 50px;
+    border-radius: 15px 15px 0 0;
+    background: #3F52E3;
+    width: 100%;
+    color: white;
+    line-height: 50px;
+    text-align: center;
+    font-size: 15px;
+}
+.QuestionDes
+{
+    padding: 10px;
+    color: #161D6F;
+}
+.QuestionStart
+{
+    display: flex;
+    justify-content: center;
+}
+.QuestionStartButton
+{
+    padding: 8px;
+    background: #3F52E3;
+    width: 22%;
+    border: none;
+    color: white;
+    border-radius: 40px;
+    font-family: 'IRANSANS';
+    cursor: pointer;
+}

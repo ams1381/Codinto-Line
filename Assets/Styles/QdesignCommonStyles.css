@@ -1,4 +1,9 @@
-
+main 
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
 .SideHeader
 {
     padding-bottom: 15px;
@@ -10,8 +15,8 @@
     width: 55%;
     margin: 20px auto 0 auto;
     padding-bottom: 10px;
-    border-bottom: 2px solid rgb(63, 82, 227);
-    color: rgb(63, 82, 227);
+    border-bottom: 2px solid var(--brand-color);
+    color: var(--brand-color);
 }
 .SideHeaderBody
 {
@@ -21,22 +26,33 @@
 {
     margin-top: 15px;
     font-size: 15px;
-    color: rgb(63, 82, 227);
+    color: var(--brand-color);
 }
-.SideHeaderBody .cancelDesign
+.navButton
 {
-    border: 3px solid rgb(63, 82, 227);
-    background: none;
+    border: 2px solid var(--brand-color);
     width: 30px;
     height: 30px;
-    cursor: pointer;
-    color: rgb(63, 82, 227);
     border-radius: 50%;
-    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
     font-weight: 600;
     position: absolute;
+}
+.cancelDesign
+{
     right: 20px;
     top: 0;
+}
+
+.viewQuestion
+{
+    top: 0;
+    left: 20px;
+    display: none;
+    font-size: 15px;
 }
 .SideBody
 {
@@ -50,7 +66,7 @@
 .fileFormat 
 {
     width: 48%;
-    background: #F6F7FF;
+    background: var(--text-input-bg-color);
     display: flex;
     justify-content: space-around;
     border-radius: 10px;
@@ -64,43 +80,41 @@
 }
 .fileFormat input[type=radio] + label {
     display: inline-block;
-    margin: -2px;
     padding: 4px 12px;
-    border-color: #ddd;
     width: 70px;
     border-radius: 6px;
     text-align: center;
     cursor: pointer;
 }
 .fileFormat input[type=radio]:checked + label  { 
-    background-color: white;
+    background-color: var(--theme-white);
     height: 20px;
     line-height: 20px;
-    color: rgb(63, 82, 227);
+    color: var(--brand-color);
 }
 .fileInput , .TitleInput , .DescInput
 {
     margin-top: 20px;
-    border-radius: 15px 15px;
-    box-shadow: 4px 4px 10px #0000001c;
+    border-radius: var(--theme-radius-size) var(--theme-radius-size);
+    box-shadow: 4px 4px 3px var(--input-shadow-color);
 }
 .inputTitle , .TitleInputOptions
 {
-    background: #EEF1FF;
-    border-radius: 15px 15px 0 0;
+    background: var(--input-title-bg-color);
+    border-radius: var(--theme-radius-size) var(--theme-radius-size) 0 0;
     padding: 5px;
     text-align: center;
-    color: rgb(63, 82, 227);
+    color: var(--brand-color);
 }
-.inputUploader , .TitleTextInput 
+.inputUploader 
 {
     height: 150px;
-    background: #F6F7FF;
-    border-radius: 0 0 15px 15px;
+    background: var(--text-input-bg-color);
+    border-radius: 0 0 var(--theme-radius-size) var(--theme-radius-size);
     text-align: center;
     line-height: 150px;
     font-size: 40px;
-    color: #161D6F;
+    color: var(--theme-Codinto);
 }
 .inputUploader input 
 {
@@ -110,74 +124,13 @@
 {
     transform: rotate(180deg);
 }
-.TitleSetter , .DescSetter , .ButtonSetter , .AnwserNecessity , .QuestionNumber , .AnwValidation
+.ToggleOption , .Answer-Options
 {
     width: 90%;
-    margin: 25px auto 25px auto;
+    margin: 1.5rem auto 1.5rem auto;
 }
-.Switch
-{
-    position: relative;
-    display: flex;
-    width: 100%;
-    margin: 0 auto 0 auto;
-    justify-content: space-between;
-}
-.Switch input
- {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-.slider 
-{
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    width: 66px;
-    height: 33px;
-    bottom: 0;
-    background-color: #EFEFEF;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-}
-.slider:before 
-{
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-}
-.Switch input:checked +  .slider 
-{
-    background-color: rgb(63, 82, 227);
-}
-.Switch input:checked +  .slider:before
-{
-    -webkit-transform: translateX(33px);
-    -ms-transform: translateX(33px);
-    transform: translateX(33px);
-}
-.Switch p
-{
-    color: rgb(63, 82, 227);
-    width: 100%;
-}
-.Switch .slider
-{
-    border-radius: 34px;
-}
-.Switch .slider:before 
-{
-    border-radius: 50%;
-}
-.TextField textarea
+
+.TitleTextInput
 {
     width: 95%;
     height: 100%;
@@ -186,15 +139,15 @@
     font-family: IRANSans;
     display: flex;
     align-items: flex-start;
-    background-color: #F6F7FF;
+    background-color: var(--text-input-bg-color);
     position: relative;
     resize: none;
     padding: 10px;
     border-radius: 0 0 15px 15px;
-    color: rgb(63, 82, 227);
-    font-size: 18px;
+    color: var(--brand-color);
+    font-size: calc(0.75rem + 0.4vw);
 }
-.TextField textarea::placeholder
+.TitleTextInput::placeholder
 {
     color: #5360ed79;
 }
@@ -233,35 +186,38 @@
 {
     cursor: pointer;
 }
+.bg-transp , .bg-colored 
+{
+    width: 100%;
+    height: 50px;
+    transition: 0.3s;
+}
 .ShapeOptions .bg-colored
 {
-    width: 100%;
-    height: 50px;
-    background-color: rgb(63, 82, 227);
+    background-color: var(--brand-color);
 }
 .ShapeOptions .bg-transp
+{      
+    border: 2px solid var(--brand-color);
+}
+.bg-transp:hover , .bg-colored:hover 
 {
-    width: 100%;
-    height: 50px;
-    border: 2px solid rgb(63, 82, 227);
+    transform: scale(1.1);
 }
 .GButtonShape .TitleInput 
 {
     padding-bottom: 20px;
 }
-main .GreetingContainer
+.QuestionContainer
 {
-    width: 30%;
+    width: calc(15rem + 17vw);
+    margin-right: 1.5rem;
     background: white;
     border-radius: 20px;
     box-shadow: 3px 3px 10px #0000001a;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
     padding-bottom: 20px;
 }
-main .GreetingTitle
+.QuestionTitle
 {
     height: 50px;
     border-radius: 15px 15px 0 0;
@@ -272,17 +228,17 @@ main .GreetingTitle
     text-align: center;
     font-size: 15px;
 }
-.GreetingDes
+.QuestionDes
 {
     padding: 10px;
     color: #161D6F;
 }
-.GreetingStart
+.QuestionStart
 {
     display: flex;
     justify-content: center;
 }
-.GreetingStartButton
+.QuestionStartButton
 {
     padding: 8px;
     background: #3F52E3;
@@ -293,21 +249,21 @@ main .GreetingTitle
     font-family: 'IRANSANS';
     cursor: pointer;
 }
-.AnwserPattern
+.AnswerPattern
 {
     width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 25px auto 0 auto;
-    color: rgb(63, 82, 227);
+    color: var(--brand-color);
 }
-.AnwserPattern .PatternChoose
+.AnswerPattern .PatternChoose
 {
     display: flex;
     justify-content: space-between;
 }
-.AnwserPattern select
+.AnswerPattern select
 {
     width: 60%;
     padding: 5px;
@@ -324,7 +280,7 @@ main .GreetingTitle
     margin-top: 20px;
     color: #5360ED;
 }
-.AnwserAlphabetLimit
+.AnswerAlphabetLimit
 {
     width: 90%;
     flex-direction: column;
@@ -334,6 +290,10 @@ main .GreetingTitle
 .maxInput
 {
      margin-top: 10px;
+}
+.LimitInput input::placeholder
+{
+    color: var(--input-placeholder-color);
 }
 .minInput input , .maxInput input , .AnwValidation  input
 {
@@ -350,14 +310,116 @@ main .GreetingTitle
 {
     width: 56%;
     text-align: center;
+    font-family: IRANSans;
+    font-size: calc(0.75rem + 0.4vw);
 }
 .AnwValidation > div 
 {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .AnwValidation  input::placeholder
 {
-    color: #5360ed4d;
+    color: var(--input-placeholder-color);
+}
+.Answer-Options
+{
+    color: var(--brand-color);
+}
+.Answer-Option
+{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.6rem;
+}
+.Answer-Option .anw-option-number
+{
+    width: 50%;
+    color: var(--brand-color);
+    background-color: var(--text-input-bg-color);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+}
+.anw-option-label
+{
+    background-color: var(--input-title-bg-color);
+    width: 10%;
+    text-align: center;
+    border-radius: 10px;
+    padding: 4px;
+}
+.anw-option-tools button {
+    color: var(--brand-color);
+    background: none;
+    font-size: 1.2rem;
+    border: 2px solid var(--brand-color);
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.minInput input , .maxInput input 
+{
+    text-align: center;
+    width: 30%;
+}
+.additional-options-container > div 
+{
+    color: var(--input-placeholder-color);
+}
+.range-setter
+{
+    width: 90%;
+    margin: 1.5rem auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.range-setter .range-input
+{
+    width: 90%;
+}
+.range-input input[type="range"]
+{
+    width: 100%;
+}
+/* .range-input input[type="range"]::-webkit-slider-thumb
+{
+    -webkit-appearance: none; 
+   appearance: none;
+   margin-top: -12px; 
+   background-color: red;
+   height: 2rem;
+   width: 1rem;    
+} */
+.range-setter #markers
+{
+    width: 100%;
+    display: flex;
+    writing-mode: vertical-lr;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#markers option
+{
+    height: 13px;
+    width: 3px;
+    background: var(--input-title-bg-color);
+    margin-top: -30px;
+}
+@media only  screen and (max-width : 650px)
+{
+    main 
+    {
+       display : none;
+    }
+    aside 
+    {
+        width: 100%;
+    }
+    .viewQuestion
+    {
+        display: flex;
+    }
 }

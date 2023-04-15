@@ -1,54 +1,54 @@
 body 
 {
-    background-color: #F6F6F6;
+    background-color: var(--theme-Page-Graybg);
 }
 
 .SettingContainer
 {
-    position: absolute;
-    left: 50%;
-    top: 60%;
-    transform: translate(-50%,-50%);
-    width: 34%;
-    background-color: white;
-    box-shadow: 3px 3px 10px rgba(31, 31, 31, 0.099);
-    border-radius: 20px;
+    margin: 1vw auto 0 auto;
+    width: min(100%,500px);
+    background-color: var(--theme-white);
+    box-shadow: 3px 3px 10px var(--theme-navbar-shadow);
+    border-radius: calc(0.3rem + 1vw);
     padding: 25px 0 25px 0;
 }
 .SettingContainer form 
 {
-    width: 81.5%;
+    width: max(81.5%,90%);
     margin: 30px auto 0 auto;
     font-family: IRANSans;
-    color: #161D6F;
+    color: var(--brand-color);
+    font-size: calc(0.80rem + 0.25vw);
 }
 .form-name input 
 {
-    float: left;
+    font-family: 'IRANSans';
+    font-size: calc(0.88rem + 0.25vw);
+    color: var(--theme-Codinto);
     border-radius: 10px;
     border: none;
-    background: #F6F6F6;
-    width: 73%;
+    background: #F6F7FF;
+    width: min(70%,68%);
     height: 30px;
     padding: 2px 5px 0 0;
     outline: none;
-    font-size: 19px;
 }
-.form-lan
+.form-lan , .form-name
 {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
     margin-top: 30px;
 }
 .form-lan input[type=radio] , .datePicker input[type=radio] {
-    display:none; 
-    margin:10px;
+    display: none; 
+    margin: 10px;
 }
 .form-lan .options 
 {
     width: 73%;
-    background: #F6F6F6;
+    background: #F6F7FF;
     display: flex;
     justify-content: space-around;
     border-radius: 10px;
@@ -82,8 +82,9 @@ body
     width: 100%;
     display: flex;
     justify-content: space-between;
+
 }
- .autoSet-Switch {
+ /* .autoSet-Switch {
     position: relative;
     display: inline-block;
 }
@@ -103,9 +104,10 @@ body
     width: 66px;
     height: 33px;
     bottom: 0;
-    background-color: #EFEFEF;
+    background-color: #EEF1FF;
     -webkit-transition: 0.4s;
     transition: 0.4s;
+    box-shadow: 1px 1px 4px var(--toggle-shadow-color);
     }
 
 .form-date .autoSet-Switch .slider:before 
@@ -116,12 +118,13 @@ body
     width: 26px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: var(--theme-white);
     -webkit-transition: 0.4s;
     transition: 0.4s;
+    box-shadow: 1px 1px 4px var(--toggle-shadow-color);
   }
 .autoSet-Switch input:checked +  .slider {
-    background-color: rgb(63, 82, 227);
+    background-color: var(--brand-color);
   }
 .autoSet-Switch input:checked +  .slider:before
   {
@@ -135,10 +138,11 @@ body
   }
 .autoSet-Switch .slider:before {
     border-radius: 50%;
-  }
+  } */
 .datePicker 
   {
-    background: #F6F6F6;
+    background: var(--text-input-bg-color);
+    box-shadow: 1px 1px 10px var(--input-shadow-color);
     margin-top: 30px;
     height: 190px;
     border-radius: 10px;
@@ -157,7 +161,7 @@ body
 {
     width: 20%;
     overflow-y: scroll;
-    font-size: 20px;
+    font-size: calc(0.9rem + 0.4vw);
 }
 .YearPicker::-webkit-scrollbar , .MonthPicker::-webkit-scrollbar
 {
@@ -186,12 +190,12 @@ body
 }
 .MonthPicker input[type=radio] + label 
 {
-    font-size: 16px;
+    font-size: calc(0.8rem + 0.25vw);
     margin-top: 10px;
 }
 .datePicker input[type=radio]:checked + label
 {
-    background-color: #3f52e335;
+    background-color: var(--selected-date-bg-color);
 }
 .ResponeTiming
 {
@@ -209,18 +213,20 @@ body
     display: flex;
     margin-top: 20px;
     padding: 20px;
-    background-color: #F6F6F6;
+    background-color: #F6F7FF;
     justify-content: center;
-    color: #161D6F;
+    color: var(--theme-Codinto);
 }
 .ResponePicker > div 
 {
    display: flex;
    margin: 0 1px 0 1px;
+   color: var(--brand-color);
+   align-items: center;
 }
 .ResponePicker > div input 
 {
-    width: 75px;
+    width: 70%;
     height: 35px;
     font-size: 22px;
     padding-right: 7px;
@@ -228,11 +234,19 @@ body
     border-radius: 10px;
     border: none;
     outline: none;
-    color: #161D6F;
+    color: var(--theme-Codinto);
 }
 .ProgressBar , .Isolator
 {
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+}
+@media only screen and (max-width : 400px)
+{
+    .SettingContainer
+    {
+        border-radius: 0;
+    }
+
 }

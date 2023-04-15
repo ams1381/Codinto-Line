@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Pattern</title>
+    <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
+    <link rel="stylesheet" href="/Components/Design Question Page/SideBody/AnswerPattern/AnswerPattern.css">
+</head>
+<body>
+    <div class="AnswerPattern">
+        <div class="PatternChoose">
+            <p>الگوی پاسخ</p>
+            <select name="" id="">
+                <option value="">متن آزاد</option>
+                <option value="">تاریخ شمسی</option>
+                <option value="">تاریخ میلادی</option>
+                <option value="">شماره موبایل</option>
+                <option value="">شماره تلفن</option>
+                <option value="">کاراکتر های عددی</option>
+                <option value="">حروف فارسی</option>
+                <option value="">حروف انگلیسی</option>
+            </select>
+        </div>
+        <div class="AnswerAlphabetLimit">
+            <p>محدودیت تعداد حروف پاسخ</p>
+            <div class="LimitInput">
+                <div class="minInput">
+                    <label for="min">حداقل</label>
+                    <input type="number" id="min">
+                </div>
+                <div class="maxInput">
+                    <label for="max">حداکثر</label>
+                    <input type="number" id="max">
+                </div>
+
+                
+            </div>
+        </div>
+        <div class="AnwValidation">
+            <div class="SampleAnw">
+                <label for="">نمونه پاسخ</label>
+                <input type="number" placeholder="021-37773637">
+            </div>
+            <div class="Validator">
+                <label for="">پیام اعتبار سنجی</label>
+                <input type="number" placeholder="لطفا یک شماره تلفن معتبر وارد کنید">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

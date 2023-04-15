@@ -1,0 +1,67 @@
+.fileUploader
+{
+    width: 90%;
+    margin: 20px auto 0 auto;
+    font-family: IRANSans;
+}
+.fileFormat 
+{
+    width: 48%;
+    background: var(--text-input-bg-color);
+    display: flex;
+    justify-content: space-around;
+    border-radius: 10px;
+    align-items: center;
+    padding: 2px;
+    color: #5360ed77;
+}
+.fileFormat input[type=radio] + label {
+    display: inline-block;
+    padding: 4px 12px;
+    width: 70px;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+}
+.fileFormat  input[type=radio]
+{
+    display: none;
+}
+.fileFormat input[type=radio]:checked + label  { 
+    background-color: var(--theme-white);
+    height: 20px;
+    line-height: 20px;
+    color: var(--theme-blue-color);
+}
+.fileInput , .TitleInput , .DescInput
+{
+    margin-top: 20px;
+    border-radius: var(--theme-radius-size) var(--theme-radius-size);
+    box-shadow: 4px 4px 3px var(--input-shadow-color);
+}
+.inputTitle , .TitleInputOptions
+{
+    background: var(--input-title-bg-color);
+    border-radius: var(--theme-radius-size) var(--theme-radius-size) 0 0;
+    padding: 5px;
+    text-align: center;
+    color: var(--theme-blue-color);
+}
+.inputUploader , .TitleTextInput 
+{
+    height: 150px;
+    background: var(--text-input-bg-color);
+    border-radius: 0 0 var(--theme-radius-size) var(--theme-radius-size);
+    text-align: center;
+    line-height: 150px;
+    font-size: 40px;
+    color: var(--theme-Codinto);
+}
+.box__file
+{
+    display: none;
+}
+.inputUploader label ion-icon
+{
+    transform: rotate(180deg);
+}

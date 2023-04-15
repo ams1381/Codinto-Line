@@ -6,10 +6,10 @@
 .AddForm , .form
 {
     margin: 20px 20px 0 0;
-    width: 290px;
-    background: white;
-    height: 290px;
-    border-radius: 39px;
+    width: max(180px,269px);
+    background: var(--theme-white);
+    height: calc(9rem + 4vw);
+    border-radius: calc(0.8rem + 1vw);
     box-shadow: 2px 2px 10px #0000001f;
     display: flex;
     flex-direction: column;
@@ -21,19 +21,20 @@
 }
 .form p 
 {
-    font-size: 20px;
+    font-size: calc(0.8rem + 0.5vw);
     margin-bottom: 11px;
     font-family: IRANSans;
+    text-align: center;
 }
-.form ion-icon 
+.form i
 {
-    font-size: 30px;
+    font-size: calc(1.5rem + 0.7vw);
 }
 .form:hover 
 {
     background-color: #3F52E3;
 }
-.form:hover ion-icon  ,.form:hover  p 
+.form:hover i  ,.form:hover  p 
 {
     color: white;
 }
@@ -55,7 +56,7 @@
 {
     display: flex;
 }
-.navTools button , .FolderEdit
+/* .navTools button , .FolderEdit
 {
     border: none;
     display: flex;
@@ -65,6 +66,10 @@
     font-size: 30px;
     color: #3F52E3;
     margin-right: 10px;
+} */
+.FolderSearch
+{
+    margin-left: 10px;
 }
 .FolderEdit 
 {
@@ -186,4 +191,52 @@
     border: 2px solid #3F52E3;
     color: #3F52E3;
     background: none;
+}
+.navMenu
+{
+    position: absolute;
+    top: 0;
+}
+@media only screen and (max-width : 650px)
+{
+    section 
+    {
+        flex-direction: column;
+    }
+    main , aside
+    {
+        width: 100%;
+        height: auto;
+    }
+    .navTools .AddFolder 
+    {
+        display: none;
+    }
+    .navTitle
+    {
+        margin: 0 auto 0 auto;
+    }
+    .FormsManagement
+    {
+        align-items: center;
+        justify-content: center;
+    }
+    .Folder
+    {
+        display: none;
+    }
+    .Selected
+    {
+        display: flex;
+        background: none;
+        box-shadow: none;
+    }
+    .Selected .FolderName
+    {
+        margin: 0 auto 0 auto;
+    }
+    .Selected .FolderEdit
+    {
+        display: none;
+    }
 }

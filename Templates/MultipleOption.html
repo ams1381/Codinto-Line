@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متنی با پاسخ</title>
+    <title>چند گزینه ای</title>
     <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
     <link rel="stylesheet" href="/Assets/Styles/QdesignCommonStyles.css">
-    <link rel="stylesheet" href="/Assets/Styles/AssistiveButton.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Assets/Styles/AssistiveButton.css">
 </head>
 <body>
     <section>
@@ -21,7 +21,7 @@
                     <button class="cancelDesign navButton">
                         <i class="fa fa-close"></i>
                     </button>
-                       <p class="quetion-type">متنی با پاسخ</p>
+                       <p class="quetion-type">چند گزینه ای</p>
                        <button class="viewQuestion navButton">
                           <i class="fa fa-eye"></i>
                        </button>
@@ -31,7 +31,7 @@
                <div class="GTitle">
                    <div class="TitleSetter ToggleOption">
                     <div class="Switch-Container">
-                        <p>عنوان</p>
+                        <p>سوال</p>
                     <label class="Switch-toggle">
                         <input type="checkbox">
                         <span class="slider-button"</span>
@@ -89,48 +89,44 @@
                        </div>
                    </div>
                </div>
-               <div class="AnswerPattern">
-                   <div class="PatternChoose">
-                       <p>الگوی پاسخ</p>
-                       <select name="" id="">
-                           <option value="">متن آزاد</option>
-                           <option value="">تاریخ شمسی</option>
-                           <option value="">تاریخ میلادی</option>
-                           <option value="">شماره موبایل</option>
-                           <option value="">شماره تلفن</option>
-                           <option value="">کاراکتر های عددی</option>
-                           <option value="">حروف فارسی</option>
-                           <option value="">حروف انگلیسی</option>
-                       </select>
-                   </div>
-                   <div class="AnswerAlphabetLimit">
-                       <p>محدودیت تعداد حروف پاسخ</p>
-                       <div class="LimitInput">
-                           <div class="minInput">
-                               <label for="min">حداقل</label>
-                               <input type="number" id="Alphabetmin">
-                           </div>
-                           <div class="maxInput">
-                               <label for="max">حداکثر</label>
-                               <input type="number" id="Alphabetmax">
-                           </div>
-   
-                           
-                       </div>
-                   </div>
-                   <div class="AnwValidation">
-                       <div class="SampleAnw">
-                           <label for="">نمونه پاسخ</label>
-                           <input type="number" placeholder="021-37773637">
-                       </div>
-                       <div class="Validator">
-                           <label for="">پیام اعتبار سنجی</label>
-                           <input type="number" placeholder="لطفا یک شماره تلفن معتبر وارد کنید">
-                       </div>
-                   </div>
+
+               <div class="Answer-Options">
+                <div class="anw-option-title">
+                    گزینه ها
+                </div>
+                <div class="Answer-Option">
+                    <div class="anw-option-number">
+                        <label class="anw-option-label">
+                            1
+                        </label>      
+                    </div>
+                    <div class="anw-option-tools">
+                        <button class="aop-view">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                        <button class="aop-remove">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <button class="aop-add">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                        <button class="aop-upload">
+                            <i class="fa fa-upload"></i>
+                        </button>
+                    </div>
+                </div>
                </div>
-               
+               <div class="UploadToggle ToggleOption">
+                <div class="Switch-Container">
+                    <p>فیلم یا عکس</p>
+                <label class="Switch-toggle">
+                    <input type="checkbox">
+                    <span class="slider-button"</span>
+                </label>
+                </div>
+               </div>
                <div class="fileUploader">
+                
                    <div class="fileFormat">
                        <input type="radio" name="lang" id="Picture" value="Picture" checked>
                        <label for="Picture">عکس</label>
@@ -153,9 +149,9 @@
                          
                    </div>
                </div>
-               <div class="AnswerNecessity ToggleOption">
+               <div class="double-image-size ToggleOption">
                 <div class="Switch-Container">
-                    <p>پاسخ به سوال اجباری باشد</p>
+                    <p>اندازه نمایش تصاویر دو برابر شود</p>
                 <label class="Switch-toggle">
                     <input type="checkbox">
                     <span class="slider-button"</span>
@@ -163,9 +159,68 @@
                 </div>
                    
                </div>
-               <div class="QuestionNumber ToggleOption">
+               <div class="multiple-answer ToggleOption">
                 <div class="Switch-Container">
-                    <p>عدم نمایش شماره سوال</p>
+                    <p>سوال چند انتخابی باشد</p>
+                <label class="Switch-toggle">
+                    <input type="checkbox">
+                    <span class="slider-button"</span>
+                </label>
+                </div>
+               </div>
+               <div class="answer-number-selector">
+                <div class="LimitInput">
+                    <div class="minInput">
+                        <label for="min">حداقل</label>
+                        <input type="number" id="Answermin" placeholder="0">
+                    </div>
+                    <div class="maxInput">
+                        <label for="max">حداکثر</label>
+                        <input type="number" id="Answermax" placeholder="2">
+                    </div>
+                </div>
+               </div>
+               <div class="additional-options-toggle ToggleOption">
+                <div class="Switch-Container">
+                    <p>گزینه های اضافی</p>
+                <label class="Switch-toggle">
+                    <input type="checkbox">
+                    <span class="slider-button"</span>
+                </label>
+                </div>
+               </div>
+               <div class="additional-options-container ToggleOption">
+                  <div class="additional-option-all ToggleOption">
+                    <div class="Switch-Container">
+                        <p>همه</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"</span>
+                    </label>
+                    </div>
+                   </div>
+                   <div class="additional-option-none ToggleOption">
+                    <div class="Switch-Container">
+                        <p>هیچکدام</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"</span>
+                    </label>
+                    </div>
+                   </div>
+                   <div class="additional-option-etc ToggleOption">
+                    <div class="Switch-Container">
+                        <p>بقیه</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"</span>
+                    </label>
+                    </div>
+                   </div>
+               </div>
+               <div class="select-all-options ToggleOption">
+                <div class="Switch-Container">
+                    <p>انتخاب همه گزینه ها</p>
                 <label class="Switch-toggle">
                     <input type="checkbox">
                     <span class="slider-button"</span>
@@ -174,13 +229,13 @@
                </div>
             </div>
             <div class="SideFooter">
-                <button class="saveQ">
-                     ذخیره
-                </button>
-                <button class="cancelQ">
-                     انصراف
-                </button>
-             </div>
+               <button class="saveQ">
+                    ذخیره
+               </button>
+               <button class="cancelQ">
+                    انصراف
+               </button>
+            </div>
        </aside>
         <main>
              <div class="QuestionContainer">
@@ -216,7 +271,5 @@
         </div>
         
        </div>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

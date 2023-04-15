@@ -4,52 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتظـیمات</title>
-    <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
-    <link rel="stylesheet" href="../Assets/Styles/Setting.css">
-    <link rel="stylesheet" href="/Assets/Styles/AssistiveButton.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Date Picker</title>
+    <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
+    <link rel="stylesheet" href="/Components/FormSettings/DatePicker/DatePickerStyle.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <h3 class="codinto-title">
-                کدینتو لاین
-             </h3>
-        </nav>
-     </header>
     <div class="SettingContainer">
-        <form action="">
-            <div class="form-name">
-                <p>
-                    نام پرسشنامه
-                </p>
-                <input type="text">
-            </div>
-            <div class="form-lan">
-                <p>
-                    زبان پرسشنامه
-                </ح>
-                <div class="options">
-                    <input type="radio" name="lang" id="persian" value="فـارسـی">
-                    <label for="persian" >فارسی</label>
-                    
-                    <input type="radio" name="lang" id="English" value="انگلیسـی">
-                    <label for="English">انگلیسی</label>
-    
-                    <input type="radio" name="lang" id="Arabic" value="عربـی">
-                    <label for="Arabic">عـربـی</label>
-                </div>
-                
-            </div>
+        <form>
             <div class="form-date">
-                    <div class="DateautoSet Switch-Container">
-                        <p>عنوان</p>
-                    <label class="Switch-toggle">
+                <div class="DateautoSet">
+                    <p>تنظیم شروع و پایان خودکار</p>
+                    <label class="autoSet-Switch">
                         <input type="checkbox">
-                        <span class="slider-button"</span>
-                    </label>
-                    </div>
+                        <span class="slider"</span>
+                    </label>      
                 </div>
                 <div class="datePicker">
                     <div class="YearPicker">
@@ -203,68 +171,10 @@
                         <label for="d30">30</label>
                     </div>
                 </div>
-                <div class="ResponeTiming">
-                    <div class="ResponseAutoSet Switch-Container">
-                        <p>تنظیم مدت زمان پاسخ دهی</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"</span>
-                    </label>
-                    </div>
-                    <div class="ResponePicker">
-                        <div class="RhourPicker">
-                            <label for="">
-                                ساعت
-                            </label>
-                            <input type="number">
-                        </div>
-                        <div class="RminutePicker">
-                            <label for="">
-                                دقیقه
-                            </label>
-                            <input type="number">
-                        </div>
-                        <div class="RsecondPicker">
-                            <label for="">ثانیه</label>
-                            <input type="number">
-                        </div>
-                    </div>
-                </div>
-                <div class="ProgressBar Switch-Container">
-                    <p>نمایش نوار پیشرفت در صفحه</p>
-                <label class="Switch-toggle">
-                    <input type="checkbox">
-                    <span class="slider-button"</span>
-                </label>
-                </div>
-                <div class="Isolator Switch-Container">
-                    <p>نمایش پرسش ها در صفحه های مجزا</p>
-                <label class="Switch-toggle">
-                    <input type="checkbox">
-                    <span class="slider-button"</span>
-                </label>
-                </div>
+            
             </div>
         </form>
         
     </div>
-    <div class="AssistiveButton">
-        <div class="AssistiveItems">
-                <button class="AddQuestion">
-                    <i class="fa fa-plus-circle"></i>
-                </button>
-                <button class="Setting">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                </button>
-                <button class="Send">
-                    <i class='fa fa-paper-plane'></i>
-                </button>
-        </div>
-        <div class="AssistiveToggle">
-            <button class="AssistiveToggleButton"> + </button>
-        </div>
-       </div>
-       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

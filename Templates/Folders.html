@@ -7,33 +7,66 @@
     <title>پوشه ها</title>
     <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
     <link rel="stylesheet" href="/Assets/Styles/FoldersStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <div class="navMenu hide">
+        <ul class="navItemlist">
+            <li class="navItem">
+                <a href="">ایجاد پرسشنامه</a>
+                <i class="fa fa-plus-circle"></i>
+            </li>
+            <li class="navItem">
+                <a href="">تنظیمات</a>
+                <i class="fa fa-cog" aria-hidden="true"></i>
+            </li>
+            <li class="navItem">
+                <a href="">ارسال</a>
+                <i class='fa fa-paper-plane'></i>
+            </li>
+            <li class="navItem">
+                <a href="">مشاهده</a>
+                <i class="fa fa-eye"></i>
+            </li>
+        </ul>
+    </div>
     <section>
-        <main>
-            <div class="FormsManagement">
-                <div class="form">
-                    <p>دانش یا ثروت</p>
-                    <ion-icon name="options-outline"></ion-icon>
-                </div>
-                <div class="form AddForm">
-                    <p>ساخت پرسشنامه جدید</p>
-                    <ion-icon name="add-circle-outline"></ion-icon>
-                </div>
-            </div>
-        </main>
         <aside>
             <div class="sidenavbar">
+                <button class="navToggleButton navButton">
+                    <i class="fa fa-bars"></i>
+                </button>
                 <div class="navTitle">
                     <h3>کدینتو لاین</h3>
                     <input type="text" id="search-input" placeholder="جستجو">
                 </div>
+                
+                <div class="navMenu hide">
+                    <ul class="navItemlist">
+                        <li class="navItem">
+                            <a href="">ایجاد پرسشنامه</a>
+                            <i class="fa fa-plus-circle"></i>
+                        </li>
+                        <li class="navItem">
+                            <a href="">تنظیمات</a>
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </li>
+                        <li class="navItem">
+                            <a href="">ارسال</a>
+                            <i class='fa fa-paper-plane'></i>
+                        </li>
+                        <li class="navItem">
+                            <a href="">مشاهده</a>
+                            <i class="fa fa-eye"></i>
+                        </li>
+                    </ul>
+                </div>
                 <div class="navTools">
-                    <button class="FolderSearch">
-                        <ion-icon name="search-outline"></ion-icon>
+                    <button class="FolderSearch navButton">
+                        <i class="fa fa-search"></i>
                     </button>
-                    <button class="AddFolder">
-                        <ion-icon name="add-circle-outline"></ion-icon>
+                    <button class="AddFolder navButton">
+                        <i class="fa fa-plus-circle"></i>
                     </button>
                 </div>
             </div>
@@ -42,8 +75,8 @@
                     <div class="FolderName">
                         <p>نظام سرمایه داری</p>
                     </div>
-                    <button class="FolderEdit">
-                        <ion-icon name="options-outline"></ion-icon>
+                    <button class="FolderEdit navButton">
+                        <i class="fa fa-sliders" aria-hidden="true"></i>
                     </button>
                 </div>
                 <div class="Folder">
@@ -51,7 +84,7 @@
                         <p>عدالت آموزشی</p>
                     </div>
                     <button class="FolderEdit">
-                        <ion-icon name="options-outline"></ion-icon>
+                        <i class="fa fa-sliders" aria-hidden="true"></i>
                     </button>
                 </div>
                 <div class="Folder">
@@ -59,11 +92,24 @@
                         <p>حجاب اجباری</p>
                     </div>
                     <button class="FolderEdit">
-                        <ion-icon name="options-outline"></ion-icon>
+                        <i class="fa fa-sliders" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
         </aside>
+        <main>
+            <div class="FormsManagement">
+                <div class="form">
+                    <p>دانش یا ثروت</p>
+                    <i class="fa fa-sliders" aria-hidden="true"></i>
+                </div>
+                <div class="form AddForm">
+                    <p>ساخت پرسشنامه جدید</p>
+                    <i class="fa fa-plus-circle"></i>
+                </div>
+            </div>
+        </main>
+        
         <div class="createFolderPopUp">
             <p>پوشه ی جدید خود را بسازید</p>
             <div class="PopUpInput">

@@ -1,8 +1,6 @@
-
 section
 {
-    margin-top: 60px;
-    background-color: #F6F6F6;
+    background-color: var(--theme-Page-Graybg);
     font-family: IRANSans;
     height: 750px;
     display: flex;
@@ -27,45 +25,39 @@ section aside .qDesignItem
     border-radius: 20px;
     justify-content: center;
     align-items: center;
-    color: #3F52E3;
+    color: var(--brand-color);
     cursor: pointer;
     transition: 0.3s;
 }
 .qDesignItem:hover 
 {
-    background-color: #3F52E3;
-    color: white;
+    background-color: var(--brand-color);
+    color: var(--theme-white);
 }
 .qDesignItem:hover i svg 
 {
-    fill: white;
+    fill: var(--theme-white);
 }
-.qDesignItem ion-icon
+.qDesignItem i
 {
-    font-size: 23px;
+    font-size: calc(1.2rem + 0.5vw);
     margin-top: 5px;
 }
 
 section aside .qDesignItem p 
 {
-    font-size: 15px;
+    font-size: 1rem;
     font-weight: 500;
+    text-align: center;
 }
 section aside .qDesignItem i svg
 {
     width: 30px;
-    fill: #3F52E3;
+    fill: var(--brand-color);
     margin-top: 5px;
     
 }
-section aside .qDesignItem:hover i svg path 
-{
-    fill: white;
-}
-section aside .qDesignItem:hover i svg path 
-{
-    stroke: white;
-}
+
 .qDesignItem:first-child { grid-area: 1 / 1 / 2 / 4; width: 96%;}
 .qDesignItem:nth-child(2) { grid-area: 2 / 3 / 3 / 4; }
 .qDesignItem:nth-child(3) { grid-area: 2 / 2 / 3 / 3; }
@@ -84,7 +76,6 @@ section aside .qDesignItem:hover i svg path
 section main 
 {
     width: 70%;
-    height: 100%;
 }
 section main .QuestionsBox
 {
@@ -97,7 +88,7 @@ section main .QuestionsBox
     position: relative;
     width: 100%;
     height: 50px;
-    border: 2px solid #3F52E3;
+    border: 2px solid var(--brand-color);
     border-radius: 20px;
     padding: 0;
     display: flex;
@@ -111,12 +102,12 @@ section main .QuestionsBox
 }
 .QLabel
 {
-    width: 50px;
-    height: 50px;
+    width: calc(3.9rem + 0.5vw);;
+    height: 100%;
     border-radius: 17px;
-    background-color: #3F52E3;
-    color: white;
-    font-size: 15px;
+    background-color: var(--brand-color);
+    color: var(--theme-white);
+    font-size: 1.1rem;
     text-align: center;
     display: flex;
     align-items: center;
@@ -124,35 +115,73 @@ section main .QuestionsBox
 }
 .QLabel i
 {
-    fill: white;
+    fill: var(--theme-white);
 }
 .QitemText
 { 
     margin-right: 10px;
-    color: #161D6F;
+    color: var(--brand-color);
+    width: 90%;
+    font-size: calc(0.65rem + 0.5vw);
 }
 .QTools
 {
-    position: absolute;
-    left: 15px;
+    display: flex;
     line-height: 0;
+    margin-left: 5px;
 }
 .QTools button 
 {
     border: none;
     background: none;
     cursor: pointer;
+    margin-left: 8px;
 }
-.QTools button  ion-icon 
+.QTools button  i
 {
-    font-size: 25px;
-    color: #3F52E3;
+    font-size: 1.5rem;
+    color: var(--brand-color);
 } 
 
+.Q-Nested
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
 .Q-Nested-items
 {
     width: 91%;
-    margin-bottom: 20px;
-    float: left;
+}
+@media only screen and (max-width : 1000px)
+{
+    section main .QuestionsBox {
+        width: 80%;
+    }
+}
+@media only screen and (max-width : 650px) {
+    section aside 
+    {
+        display: none;
+        width: 100%;
+    }
+    section main {
+        width: 100%;
+    }
+    section main .QuestionsBox {
+        width: 90%;
+        margin-top: 30px;
+    }
 }
 
+@media only screen and (max-width : 400px)
+{
+    section main .QuestionsBox {
+        width: 95%;
+    }
+    .QLabel svg 
+    {
+        width: 25px;
+    }
+}

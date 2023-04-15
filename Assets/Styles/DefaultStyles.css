@@ -1,6 +1,24 @@
 @font-face {
     font-family: IRANSans;
-    src: url('../Font/IRANSans\ Regular.ttf');
+    src: url('../Font/IRANSans\ Regular.woff') format("woff");
+}
+:root
+{
+    --brand-color : #3F52E3;
+    --theme-white : #FFFFFF;
+    --theme-navbar-shadow : #0000001A;
+    --theme-Page-Graybg : #F6F6F6;
+    --text-input-bg-color : #F6F7FF;
+    --theme-Checkbox-Toggle-bg : #EFEFEF;
+    --toggle-shadow-color : #3f52e34d;
+    --input-title-bg-color : #EEF1FF;
+    --input-shadow-color : #12004e1c;
+    --input-placeholder-color : #5360ed4d;
+    --selected-date-bg-color : #3f52e335;
+    --theme-Codinto : #161D6F;
+
+    --theme-radius-size : 15px;
+    /* --system-default-font : IRANSans 3rem; */
 }
 *
 {
@@ -9,95 +27,237 @@
 }
 header
 {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 100%;
-    background-color: white;   
+    background-color: var(--theme-white);   
     z-index: 10;
 }
 header nav
 {
     display: flex;
     height: 60px;
-    box-shadow: 0px 3px 4px #0000001A;
+    box-shadow: 0px 3px 4px var(--theme-navbar-shadow);
     font-family: IRANSans;
     text-align: center;
     line-height: 60px;
+    justify-content: space-between;
 }
-header nav .navLeftSide
-{
-    width: 80%; 
-}
-.navLeftSide .navList
-{
-    display: flex;
-    list-style: none;
-    justify-content: space-around;
-    width: 25%;
-    margin: 0 auto 0 auto;
-    align-items: center;
-    color: #0096FF;
-    font-size: 19px;
-}
-
-.navLeftSide .navList .navItem
-{
-    position: relative;
-}
-.navLeftSide .navList .navItem a 
-{
-    text-decoration: none;
-}
-.active a::before
-{
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    width: 100%;
-    height: 1.5px;
-    background-color: #0096FF;
-}
-.navLeftSide , .navRightSide
-{
-    display: flex;
-    align-items: center;
-}
-header nav .navRightSide
-{
-    width: 20%;
-}
-nav h3 
+.codinto-title
 {
     margin:  0 auto 0 auto;
-    font-size: 20px;
-    color: #161D6F;
+    font-size: 1.5rem;
+    color: var(--theme-Codinto);
 }
 section
 {
-    background-color: #F6F6F6;
+    background-color: var(--theme-Page-Graybg);
     width: 100%;
     height: 100vh;
     font-family: IRANSans;
+    display: flex;
 }
 main , aside 
 {
-   float: left;
    height: 100%;
 }
 main 
 {
     width: 70%;
-
 }
 aside
 {
-    background-color: white;
+    background-color: var(--theme-white);
     width: 30%;
     overflow-y: scroll;
-    box-shadow: -2px 0 10px #0000001f;
+    box-shadow: -2px 0 10px var(--theme-navbar-shadow);
 }
-aside::-webkit-scrollbar 
+aside::-webkit-scrollbar
 {
     width: 0;
+}
+.navButton
+{
+    background: none;
+    border: none;
+    font-size: calc(1.3rem + 0.5vw);
+    color: var(--brand-color);
+    cursor: pointer;
+}
+.navToggleButton , .viewFormQuestions
+{
+    display: none;
+}
+.navToggleButton
+{
+    margin-right: 15px;
+}
+.viewFormQuestions
+{
+    margin-left: 15px;
+}
+.navMenu
+{
+    width: 65%;
+    right: 0;
+    position: fixed;
+    height: 100vh;
+    background: white;
+}
+.navMenu.hide
+{
+    display: none;
+}
+.navMenu.show 
+{
+    display: block;
+}
+.navMenu .navItemlist 
+{
+    text-align: right;
+    list-style: none;
+}
+.navItem
+{
+    width: 95%;
+    margin-right: 20px;
+    padding-right: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px auto 0 auto;
+    cursor: pointer;
+    border-radius: 7px;
+}
+.navItem:hover 
+{
+    background-color: var(--input-title-bg-color);
+}
+.navItem i 
+{
+    font-size: 1.8rem;
+    color: var(--brand-color);
+    margin-left: 15px;
+}
+
+.navMenu .navItemlist .navItem a
+{
+    text-decoration: none;
+}
+.slider-button 
+{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    width: 66px;
+    height: 33px;
+    bottom: 0;
+    background-color: var(--theme-Checkbox-Toggle-bg);
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    box-shadow: 1px 1px 4px var(--toggle-shadow-color);
+}
+.slider-button:before 
+{
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--theme-white);
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    box-shadow: 1px 1px 4px var(--toggle-shadow-color);
+}
+.Switch-Container
+{
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin: 0 auto 0 auto;
+    justify-content: space-between;
+}
+.Switch-toggle input
+ {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.Switch-toggle input:checked +  .slider-button 
+{
+    background-color: var(--brand-color);
+}
+.Switch-toggle input:checked +  .slider-button:before
+{
+    -webkit-transform: translateX(33px);
+    -ms-transform: translateX(33px);
+    transform: translateX(33px);
+}
+.Switch-Container p
+{
+    color: var(--brand-color);
+    width: 100%;
+}
+.Switch-toggle .slider-button
+{
+    border-radius: 34px;
+}
+.Switch-toggle .slider-button:before 
+{
+    border-radius: 50%;
+}
+.SideFooter
+{
+    display: flex;
+    justify-content: flex-end;
+    width: 90%;
+    margin: 10px auto 20px auto;
+}
+.saveQ
+{
+    margin-left: 10px;
+    background-color: var(--brand-color);
+    border: none;
+    color: white;
+}
+.cancelQ
+{
+    border: 2px solid var(--brand-color);
+    color: var(--brand-color);
+}
+.SideFooter button
+{
+    font-size: 1.2rem;
+    padding: 4px;
+    width: 50%;
+    border-radius: 10px;
+    font-family: 'IRANSANS';
+}
+@media only screen and (max-width : 650px)
+{
+    .navToggleButton , .viewFormQuestions
+    {
+        display: block;
+    }
+}
+@media only screen and (max-width : 400px)
+{
+     .slider
+    {
+        width: 58px;
+        height: 26px;
+    }
+    .slider:before
+    {
+        width: 21px;
+        height: 21px;
+    }
+    .Switch-Container input:checked + .slider-button:before
+    {
+        transform: translateX(31px);
+        bottom: 3px;
+    }
+    
 }

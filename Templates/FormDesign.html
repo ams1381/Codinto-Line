@@ -5,112 +5,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>طـراحی پرسشنامه</title>
+    <link rel="stylesheet" href="/Assets/Styles/AssistiveButton.css">
     <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
     <link rel="stylesheet" href="/Assets/Styles/FormDesign.css">
-    <link rel="stylesheet" href="/Assets/Styles/NavTools.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    
      <header>
         <nav>
-                <h3>
+            <button class="navToggleButton navButton">
+                <i class="fa fa-bars"></i>
+            </button>
+                <h3 class="codinto-title">
                    کدینتو لاین
                 </h3>
-         
-            <!-- <div class="navLeftSide">
-                <ul class="navList">
-                    <li class="active navItem">
-                        <a href="">
-                            ایجاد
-                        </a>
-                    </li>
-                    <li class="navItem">
-                        <a href="">
-                            تنظیمات
-                        </a>
-                    </li>
-                    <li class=" navItem">
-                        <a href="">
-                            ارسال
-                        </a>
-                    </li>
-
-                </ul>
-            </div> -->
-            
+                <div class="navMenu hide">
+                    <ul class="navItemlist">
+                        <li class="navItem">
+                            <a href="">ایجاد پرسشنامه</a>
+                            <i class="fa fa-plus-circle"></i>
+                        </li>
+                        <li class="navItem">
+                            <a href="">تنظیمات</a>
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </li>
+                        <li class="navItem">
+                            <a href="">ارسال</a>
+                            <i class='fa fa-paper-plane'></i>
+                        </li>
+                        <li class="navItem">
+                            <a href="">مشاهده</a>
+                            <i class="fa fa-eye"></i>
+                        </li>
+                    </ul>
+                </div>
+                <button class="viewFormQuestions navButton">
+                    <i class="fa fa-eye"></i>
+                </button>
         </nav>
      </header>
      <section>
         <aside>
             <div class="qDesignItem">
                 <p>خوش آمد گویی</p>
-                <i>
-                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.997 511.997" xml:space="preserve">
-
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                        
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                        
-                        <g id="SVGRepo_iconCarrier"> <g> <g> <path d="M505.899,211.567L368.7,74.369c-7.876-7.902-21.649-7.902-29.525,0l-62.925,62.899c-8.064,8.124-8.064,21.35,0.034,29.525 l17.05,16.853c-11.042-0.879-26.547,4.838-27.989,4.745l-39.083-12.109l9.455-9.455c3.951-3.951,6.135-9.199,6.135-14.771 c0-5.598-2.185-10.846-6.127-14.771L172.834,74.36c-7.91-7.876-21.615-7.876-29.525,0.026L6.135,211.542 C2.185,215.493,0,220.749,0,226.347c0,5.572,2.185,10.829,6.127,14.754l62.874,62.899c3.934,3.951,9.19,6.127,14.763,6.127 s10.812-2.176,14.771-6.127l4.318-4.318c11.136,23.322,48.546,70.741,74.633,96.845l34.304,34.304 c10.513,10.496,20.471,12.723,26.991,12.723c8.303,0,16.102-3.422,22.554-9.873c6.315-6.323,8.098-12.476,8.499-16.922 c7.561,1.775,18.91,0.947,25.796-5.948c6.315-6.298,8.098-12.476,8.499-16.922c7.561,1.775,18.91,0.973,25.796-5.922 c6.315-6.323,8.098-12.476,8.491-16.922c7.612,1.672,18.927,0.922,25.796-5.948c5.837-5.845,12.194-16.29,7.578-30.839 c9.813-9.156,26.377-19.831,42.735-29.559c3.823,3.388,8.567,5.419,13.713,5.419c5.598,0,10.846-2.176,14.763-6.127l62.891-62.874 C514.031,232.943,514.031,219.717,505.899,211.567z M83.772,282.573l-56.209-56.226L158.071,95.796l56.209,56.226L83.772,282.573z M347.034,346.539c-0.913,0-2.662-0.427-4.215-0.802c-2.628-0.623-5.598-1.348-8.909-1.348c-6.673,0-11.025,2.953-13.508,5.427 c-5.803,5.803-6.426,12.023-6.801,15.753c-0.265,2.628-0.29,2.773-0.836,3.849c-0.913,0-2.662-0.427-4.215-0.802 c-2.628-0.648-5.598-1.348-8.926-1.348c-6.699,0-11.059,2.953-13.525,5.427c-5.803,5.803-6.426,12.023-6.801,15.727 c-0.265,2.628-0.29,2.773-0.853,3.849c-0.913,0-2.671-0.427-4.224-0.802c-2.611-0.623-5.572-1.323-8.9-1.323 c-6.699,0-11.059,2.953-13.5,5.402c-5.828,5.803-6.451,12.023-6.827,15.753c-0.265,2.628-0.29,2.773-1.775,4.275 c-2.364,2.372-3.934,2.372-4.446,2.372c-2.338,0-5.572-1.903-8.892-5.222l-34.304-34.304 c-29.261-29.278-62.515-75.947-75.349-96.128l85.709-85.709l18.91,5.333c-15.812,12.075-28.365,29.372-38.502,41.933 c-3.362,4.173-6.025,7.526-7.902,9.404c-8.004,8.004-10.453,16.375-7.279,24.926c2.338,6.349,7.441,11.452,13.901,17.903 c5.751,5.751,12.996,8.798,20.966,8.798c16.316,0,31.94-12.373,47.053-24.354c3.311-2.62,13.261-9.353,19.507-13.542 c24.55,22.349,48.23,44.245,64.93,60.937C351.352,341.718,347.674,345.396,347.034,346.539z M357.914,312.44 c-0.828-0.905-1.374-1.715-2.278-2.62c-21.896-21.897-50.466-45.338-68.036-62.174c-5.393-5.171-15.121-3.618-22.69-1.289 c-8.841,1.502-17.118,5.7-27.708,14.089c-10.027,7.953-23.748,18.825-31.164,18.825c-0.998,0-6.801-4.122-7.902-5.222 c-2.125-2.125,4.113-9.122,8.141-14.123c14.046-17.399,32.725-37.001,57.19-46.404c20.804-8.004,35.26-4.557,54.4-4.267 l77.781,76.902C381.628,294.665,368.145,303.693,357.914,312.44z M428.245,282.514l-130.534-130.5l56.226-56.201l130.526,130.5 L428.245,282.514z"/> </g> </g> </g>
-                        
-                    </svg>
-                </i>
+                <i class="fa fa-handshake-o" aria-hidden="true"></i>
             </div>
             <div class="qDesignItem">
                 <p>چند گزینه ای</p>
-                <ion-icon name="list-outline"></ion-icon>
+                <i class="fa fa-list-ul"></i>
             </div>
             <div class="qDesignItem">
                 <p>متنی بدون پاسخ</p>
-                <i>آیکون</i>
+                <i class="fa-flip-horizontal"></i>
             </div>
             <div class="qDesignItem">
                 <p>متنی با پاسخ</p>
-                <i>
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M3 5C3 4.44772 3.44772 4 4 4H12H20C20.5523 4 21 4.44772 21 5V7C21 7.55228 20.5523 8 20 8C19.4477 8 19 7.55228 19 7V6H13V19H15C15.5523 19 16 19.4477 16 20C16 20.5523 15.5523 21 15 21H12H9C8.44772 21 8 20.5523 8 20C8 19.4477 8.44772 19 9 19H11V6H5V7C5 7.55228 4.55228 8 4 8C3.44772 8 3 7.55228 3 7V5Z" fill="#3F52E3"></path> </g>
-                    </svg>
-                </i>
+                <i class="fa-solid fa-text"></i>
             </div>
             <div class="qDesignItem">
                 <p>گروه سوال</p>
-                <ion-icon name="text-outline"></ion-icon>
+                <i class="fa fa-font"></i>
             </div>
             <div class="qDesignItem">
                 <p>لیست کشویی</p>
-                <ion-icon name="stats-chart-outline"></ion-icon>
+                <i class="fa fa-angle-double-down"></i>
             </div>
             <div class="qDesignItem">
                 <p>عدد</p>
-                <i>
-                    <svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
-
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                        
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                        
-                        <g id="SVGRepo_iconCarrier"> <path d="M10.6923 6L7.69231 19M6.38462 9.5H18.8847M16.1924 6L13.1924 19M5 15.5H17.5001" stroke="#3F52E3" stroke-width="0.9359999999999999" stroke-linecap="round"/> </g>
-                        
-                        </svg>
-                </i>
+                <i class="fa fa-hashtag" aria-hidden="true"></i>
             </div>
             <div class="qDesignItem">
                 <p>درجه بندی</p>
-                <ion-icon name="star-outline"></ion-icon>
+                <i class="fa fa-star-o"></i>
             </div>
             <div class="qDesignItem">
                 <p>ایمیل</p>
-                <i>
-                    <svg  version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#3F52E3">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0">
-                        </g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                        </g><g id="SVGRepo_iconCarrier"> 
-                         <g> 
-                         <path class="st0" d="M510.746,110.361c-2.128-10.754-6.926-20.918-13.926-29.463c-1.422-1.794-2.909-3.39-4.535-5.009 c-12.454-12.52-29.778-19.701-47.531-19.701H67.244c-17.951,0-34.834,7-47.539,19.708c-1.608,1.604-3.099,3.216-4.575,5.067 c-6.97,8.509-11.747,18.659-13.824,29.428C0.438,114.62,0,119.002,0,123.435v265.137c0,9.224,1.874,18.206,5.589,26.745 c3.215,7.583,8.093,14.772,14.112,20.788c1.516,1.509,3.022,2.901,4.63,4.258c12.034,9.966,27.272,15.45,42.913,15.45h377.51 c15.742,0,30.965-5.505,42.967-15.56c1.604-1.298,3.091-2.661,4.578-4.148c5.818-5.812,10.442-12.49,13.766-19.854l0.438-1.05 c3.646-8.377,5.497-17.33,5.497-26.628V123.435C512,119.06,511.578,114.649,510.746,110.361z M34.823,99.104 c0.951-1.392,2.165-2.821,3.714-4.382c7.689-7.685,17.886-11.914,28.706-11.914h377.51c10.915,0,21.115,4.236,28.719,11.929 c1.313,1.327,2.567,2.8,3.661,4.272l2.887,3.88l-201.5,175.616c-6.212,5.446-14.21,8.443-22.523,8.443 c-8.231,0-16.222-2.99-22.508-8.436L32.19,102.939L34.823,99.104z M26.755,390.913c-0.109-0.722-0.134-1.524-0.134-2.341V128.925 l156.37,136.411L28.199,400.297L26.755,390.913z M464.899,423.84c-6.052,3.492-13.022,5.344-20.145,5.344H67.244 c-7.127,0-14.094-1.852-20.142-5.344l-6.328-3.668l159.936-139.379l17.528,15.246c10.514,9.128,23.922,14.16,37.761,14.16 c13.89,0,27.32-5.032,37.827-14.16l17.521-15.253L471.228,420.18L464.899,423.84z M485.372,388.572 c0,0.803-0.015,1.597-0.116,2.304l-1.386,9.472L329.012,265.409l156.36-136.418V388.572z">
-                         </path> </g> </g>
-                         </svg>
-                </i>
+                <i class="fa fa-envelope"></i>
             </div>
             
             <div class="qDesignItem">
@@ -119,21 +90,15 @@
             </div>
             <div class="qDesignItem">
                 <p>لینک</p>
-                <i>
-                    <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" >
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                        </g><g id="SVGRepo_iconCarrier">
-                        <path  d="M715.648 625.152 670.4 579.904l90.496-90.56c75.008-74.944 85.12-186.368 22.656-248.896-62.528-62.464-173.952-52.352-248.96 22.656L444.16 353.6l-45.248-45.248 90.496-90.496c100.032-99.968 251.968-110.08 339.456-22.656 87.488 87.488 77.312 239.424-22.656 339.456l-90.496 90.496zm-90.496 90.496-90.496 90.496C434.624 906.112 282.688 916.224 195.2 828.8c-87.488-87.488-77.312-239.424 22.656-339.456l90.496-90.496 45.248 45.248-90.496 90.56c-75.008 74.944-85.12 186.368-22.656 248.896 62.528 62.464 173.952 52.352 248.96-22.656l90.496-90.496 45.248 45.248zm0-362.048 45.248 45.248L398.848 670.4 353.6 625.152 625.152 353.6z">
-                        </path></g></svg>
-                </i>
+                <i class="fa fa-link"></i>
             </div>
             <div class="qDesignItem">
                 <p>اولویت دهی</p>
-                <ion-icon name="stats-chart-outline"></ion-icon>
+                <i class="fa fa-bar-chart"></i>
             </div>
             <div class="qDesignItem">
                 <p>آپلود فایل</p>
-                <ion-icon name="document-outline"></ion-icon>
+                <i class="fa fa-files-o"></i>
             </div>
             <div class="qDesignItem">
                 <p>صفحه ی تشکر</p>
@@ -159,20 +124,14 @@
            <div class="QuestionsBox">
               <div class="Qitem GreetingPage">
                 <div class="QLabel">
-                        <svg fill="#FFF" height="25px" width="25px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 511.997 511.997" xml:space="preserve" stroke="#FFF">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier"> 
-                                <g> <g> <path d="M505.899,211.567L368.7,74.369c-7.876-7.902-21.649-7.902-29.525,0l-62.925,62.899c-8.064,8.124-8.064,21.35,0.034,29.525 l17.05,16.853c-11.042-0.879-26.547,4.838-27.989,4.745l-39.083-12.109l9.455-9.455c3.951-3.951,6.135-9.199,6.135-14.771 c0-5.598-2.185-10.846-6.127-14.771L172.834,74.36c-7.91-7.876-21.615-7.876-29.525,0.026L6.135,211.542 C2.185,215.493,0,220.749,0,226.347c0,5.572,2.185,10.829,6.127,14.754l62.874,62.899c3.934,3.951,9.19,6.127,14.763,6.127 s10.812-2.176,14.771-6.127l4.318-4.318c11.136,23.322,48.546,70.741,74.633,96.845l34.304,34.304 c10.513,10.496,20.471,12.723,26.991,12.723c8.303,0,16.102-3.422,22.554-9.873c6.315-6.323,8.098-12.476,8.499-16.922 c7.561,1.775,18.91,0.947,25.796-5.948c6.315-6.298,8.098-12.476,8.499-16.922c7.561,1.775,18.91,0.973,25.796-5.922 c6.315-6.323,8.098-12.476,8.491-16.922c7.612,1.672,18.927,0.922,25.796-5.948c5.837-5.845,12.194-16.29,7.578-30.839 c9.813-9.156,26.377-19.831,42.735-29.559c3.823,3.388,8.567,5.419,13.713,5.419c5.598,0,10.846-2.176,14.763-6.127l62.891-62.874 C514.031,232.943,514.031,219.717,505.899,211.567z M83.772,282.573l-56.209-56.226L158.071,95.796l56.209,56.226L83.772,282.573z M347.034,346.539c-0.913,0-2.662-0.427-4.215-0.802c-2.628-0.623-5.598-1.348-8.909-1.348c-6.673,0-11.025,2.953-13.508,5.427 c-5.803,5.803-6.426,12.023-6.801,15.753c-0.265,2.628-0.29,2.773-0.836,3.849c-0.913,0-2.662-0.427-4.215-0.802 c-2.628-0.648-5.598-1.348-8.926-1.348c-6.699,0-11.059,2.953-13.525,5.427c-5.803,5.803-6.426,12.023-6.801,15.727 c-0.265,2.628-0.29,2.773-0.853,3.849c-0.913,0-2.671-0.427-4.224-0.802c-2.611-0.623-5.572-1.323-8.9-1.323 c-6.699,0-11.059,2.953-13.5,5.402c-5.828,5.803-6.451,12.023-6.827,15.753c-0.265,2.628-0.29,2.773-1.775,4.275 c-2.364,2.372-3.934,2.372-4.446,2.372c-2.338,0-5.572-1.903-8.892-5.222l-34.304-34.304 c-29.261-29.278-62.515-75.947-75.349-96.128l85.709-85.709l18.91,5.333c-15.812,12.075-28.365,29.372-38.502,41.933 c-3.362,4.173-6.025,7.526-7.902,9.404c-8.004,8.004-10.453,16.375-7.279,24.926c2.338,6.349,7.441,11.452,13.901,17.903 c5.751,5.751,12.996,8.798,20.966,8.798c16.316,0,31.94-12.373,47.053-24.354c3.311-2.62,13.261-9.353,19.507-13.542 c24.55,22.349,48.23,44.245,64.93,60.937C351.352,341.718,347.674,345.396,347.034,346.539z M357.914,312.44 c-0.828-0.905-1.374-1.715-2.278-2.62c-21.896-21.897-50.466-45.338-68.036-62.174c-5.393-5.171-15.121-3.618-22.69-1.289 c-8.841,1.502-17.118,5.7-27.708,14.089c-10.027,7.953-23.748,18.825-31.164,18.825c-0.998,0-6.801-4.122-7.902-5.222 c-2.125-2.125,4.113-9.122,8.141-14.123c14.046-17.399,32.725-37.001,57.19-46.404c20.804-8.004,35.26-4.557,54.4-4.267 l77.781,76.902C381.628,294.665,368.145,303.693,357.914,312.44z M428.245,282.514l-130.534-130.5l56.226-56.201l130.526,130.5 L428.245,282.514z"></path> </g> </g> </g>
-                        </svg>
-                    
+                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
                 </div>
                 <div class="QitemText">
                     <p>صفحه ی خوش آمد گویی</p>
                 </div>
                 <div class="QTools">
                     <button class="DeleteButton">
-                        <ion-icon name="trash-outline"></ion-icon>
+                        <i class="fa fa-trash"></i>
                     </button>
                 </div>
 
@@ -186,10 +145,10 @@
                 </div>
                 <div class="QTools">
                     <button class="EditButton">
-                        <ion-icon name="duplicate-outline"></ion-icon>
+                        <i class="fa fa-copy"></i>
                     </button>
                     <button class="DeleteButton">
-                        <ion-icon name="trash-outline"></ion-icon>
+                        <i class="fa fa-trash"></i>
                     </button>
                 </div>
 
@@ -203,10 +162,10 @@
                 </div>
                 <div class="QTools">
                     <button class="EditButton">
-                        <ion-icon name="duplicate-outline"></ion-icon>
+                        <i class="fa fa-copy"></i>
                     </button>
                     <button class="DeleteButton">
-                        <ion-icon name="trash-outline"></ion-icon>
+                        <i class="fa fa-trash"></i>
                     </button>
                 </div>
 
@@ -221,10 +180,10 @@
                     </div>
                     <div class="QTools">
                         <button class="EditButton">
-                            <ion-icon name="duplicate-outline"></ion-icon>
+                            <i class="fa fa-copy"></i>
                         </button>
                         <button class="DeleteButton">
-                            <ion-icon name="trash-outline"></ion-icon>
+                            <i class="fa fa-trash"></i>
                         </button>
                     </div>
                 </div>
@@ -238,10 +197,10 @@
                     </div>
                     <div class="QTools">
                         <button class="EditButton">
-                            <ion-icon name="duplicate-outline"></ion-icon>
+                            <i class="fa fa-copy"></i>
                         </button>
                         <button class="DeleteButton">
-                            <ion-icon name="trash-outline"></ion-icon>
+                            <i class="fa fa-trash"></i>
                         </button>
                     </div>
                    </div>
@@ -254,10 +213,10 @@
                     </div>
                     <div class="QTools">
                         <button class="EditButton">
-                            <ion-icon name="duplicate-outline"></ion-icon>
+                            <i class="fa fa-copy"></i>
                         </button>
                         <button class="DeleteButton">
-                            <ion-icon name="trash-outline"></ion-icon>
+                            <i class="fa fa-trash"></i>
                         </button>
                     </div>
                    </div>
@@ -273,10 +232,10 @@
                 </div>
                 <div class="QTools">
                     <button class="EditButton">
-                        <ion-icon name="duplicate-outline"></ion-icon>
+                        <i class="fa fa-copy"></i>
                     </button>
                     <button class="DeleteButton">
-                        <ion-icon name="trash-outline"></ion-icon>
+                        <i class="fa fa-trash"></i>
                     </button>
                 </div>
 
@@ -290,17 +249,17 @@
                 </div>
                 <div class="QTools">
                     <button class="EditButton">
-                        <ion-icon name="duplicate-outline"></ion-icon>
+                        <i class="fa fa-copy"></i>
                     </button>
                     <button class="DeleteButton">
-                        <ion-icon name="trash-outline"></ion-icon>
+                        <i class="fa fa-trash"></i>
                     </button>
                 </div>
 
               </div>
               <div class="Qitem ThankPage">
                 <div class="QLabel">
-                    <svg width="25px" height="25px" viewBox="-9 0 163 163" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="white">
+                    <svg width="30px" height="30px" viewBox="-9 0 163 163" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="white">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                         <g id="SVGRepo_iconCarrier">
@@ -311,29 +270,28 @@
                 </div>
                 <div class="QTools">
                     <button class="EditButton">
-                        <ion-icon name="duplicate-outline"></ion-icon>
+                        <i class="fa fa-copy"></i>
                     </button>
                     <button class="DeleteButton">
-                        <ion-icon name="trash-outline"></ion-icon>
+                        <i class="fa fa-trash"></i>
                     </button>
                 </div>
-
               </div>
            </div>
-           <div class="NavTools">
-            <div class="NavMenuItems">
+           <div class="AssistiveButton">
+            <div class="AssistiveItems">
                     <button class="AddQuestion">
-                        <ion-icon name="add-circle-outline"></ion-icon>
+                        <i class="fa fa-plus-circle"></i>
                     </button>
                     <button class="Setting">
-                        <ion-icon name="options-outline"></ion-icon>
+                        <i class="fa fa-cog" aria-hidden="true"></i>
                     </button>
                     <button class="Send">
-                        <ion-icon name="paper-plane-outline"></ion-icon>
+                        <i class='fa fa-paper-plane'></i>
                     </button>
             </div>
-            <div class="MenuToggle">
-                <button class="MenuToggleButton"> + </button>
+            <div class="AssistiveToggle">
+                <button class="AssistiveToggleButton"> + </button>
             </div>
             
            </div>

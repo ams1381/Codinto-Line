@@ -7,277 +7,232 @@
     <title>صفحه ی خوش آمد گویی</title>
     <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
     <link rel="stylesheet" href="/Assets/Styles/QdesignCommonStyles.css">
-    <link rel="stylesheet" href="/Assets/Styles/NavTools.css">
+    <link rel="stylesheet" href="/Assets/Styles/AssistiveButton.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="NavTools">
-        <div class="NavMenuItems">
-                <button class="AddQuestion">
-                    <ion-icon name="add-circle-outline"></ion-icon>
-                </button>
-                <button class="Setting">
-                    <ion-icon name="options-outline"></ion-icon>
-                </button>
-                <button class="Send">
-                    <ion-icon name="paper-plane-outline"></ion-icon>
-                </button>
-        </div>
-        <div class="MenuToggle">
-            <button class="MenuToggleButton"> + </button>
-        </div>
-        
-       </div>
     <section>
+        <aside>
+            <div class="SideHeader">
+               <div class="SideHeaderTitle">
+                   <h3>کدینتو لاین</h3>
+               </div>
+               <div class="SideHeaderBody">
+                <button class="cancelDesign navButton">
+                    <i class="fa fa-close"></i>
+                </button>
+                   <p class="quetion-type">صفحه ی خوش آمد گویی</p>
+                   <button class="viewQuestion navButton">
+                      <i class="fa fa-eye"></i>
+                   </button>
+               </div>
+            </div>
+            <div class="SideBody">
+                <div class="GTitle">
+                    <div class="TitleSetter ToggleOption">
+                     <div class="Switch-Container">
+                         <p>عنوان</p>
+                     <label class="Switch-toggle">
+                         <input type="checkbox">
+                         <span class="slider-button"</span>
+                     </label>
+                     </div>
+                    </div>
+                    <div class="TitleInput">
+                        <div class="TitleInputOptions  GOptions">
+                            <label>
+                                <input type="checkbox" name="" id="Textbolder">
+                                <i class="fa fa-bold"></i>
+                            </label>
+                            <label>
+                            <input type="checkbox" name="" id="TextItalic">
+                            <i class="fa fa-italic"></i>
+                            </label>
+                            <label>
+                            <input type="checkbox" name="" id="TextUnderline">
+                            <i class="fa fa-underline"></i>
+                            </label>
+                        </div>
+                        <div class="TextField">
+                            <textarea class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
+                        </div>
+                    </div>
+                </div>
+               <div class="GDesc">
+                   <div class="DescSetter ToggleOption">
+                    <div class="Switch-Container">
+                        <p>توضیحات</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"</span>
+                    </label>
+                    </div>
+                   </div>
+                   <div class="DescInput">
+                    <div class="TitleInputOptions  GOptions">
+                        <label>
+                            <input type="checkbox" name="" id="Textbolder">
+                            <i class="fa fa-bold"></i>
+                        </label>
+                        <label>
+                        <input type="checkbox" name="" id="TextItalic">
+                        <i class="fa fa-italic"></i>
+                        </label>
+                        <label>
+                        <input type="checkbox" name="" id="TextUnderline">
+                        <i class="fa fa-underline"></i>
+                        </label>
+                    </div>
+                    <div class="TextField">
+                        <textarea class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
+                        <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
+                    </div>
+                </div>
+               </div>
+               <div class="fileUploader">
+                   <div class="fileFormat">
+                       <input type="radio" name="lang" id="Picture" value="Picture" checked>
+                       <label for="Picture">عکس</label>
+                       
+                       <input type="radio" name="lang" id="Video" value="Video">
+                       <label for="Video">ویدیو</label>
+       
+                   </div>
+                   <div class="fileInput">
+                       <div class="inputTitle">
+                           حداکثر حجم 3 مگابایت
+                       </div>
+
+                       <div class="inputUploader">
+                           <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+                           <label for="file">
+                               <i class="fa fa-upload"></i>
+                               </label>
+                         </div>
+                         
+                   </div>
+               </div>
+               <div class="GEntryButton">
+                   <div class="ButtonSetter ToggleOption">
+                    <div class="Switch-Container">
+                        <p>دکمه ی ورود</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"</span>
+                    </label>
+                    </div>
+                   </div>
+                   <div class="TitleInput">
+                       <div class="TitleInputOptions  GOptions">
+                           <label>
+                               <input type="checkbox" name="" id="Tbolder">
+                               <i class="fa fa-bold"></i>
+                           </label>
+                           <label>
+                           <input type="checkbox" name="" id="TextItalic">
+                           <i class="fa fa-italic"></i>
+                           </label>
+                           <label>
+                           <input type="checkbox" name="" id="TitleUnderline">
+                           <i class="fa fa-underline"></i>
+                           </label>
+                       </div>
+                       <div class="TextField">
+                           <textarea class="TitleTextInput" cols="10" rows="5" placeholder="متن دکمه را بنویسید"></textarea>
+                           <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
+                       </div>
+                   </div>
+               </div>
+               <div class="GButtonShape">
+                   <div class="ButtonSetter ToggleOption">
+                    <div class="Switch-Container">
+                        <p>شکل دکمه</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"</span>
+                    </label>
+                    </div>
+                   </div>
+                   <div class="TitleInput">
+                    <div class="TitleInputOptions  GOptions">
+                        <label>
+                            <input type="checkbox" name="" id="Textbolder">
+                            <i class="fa fa-bold"></i>
+                        </label>
+                        <label>
+                        <input type="checkbox" name="" id="TextItalic">
+                        <i class="fa fa-italic"></i>
+                        </label>
+                        <label>
+                        <input type="checkbox" name="" id="TextUnderline">
+                        <i class="fa fa-underline"></i>
+                        </label>
+                    </div>
+                       <div class="ShapeOptions">
+                           <input  type="radio" name="shape" id="sh1">
+                           <label class="bg-colored" for="sh1"></label>
+                           
+                           <input  type="radio" name="shape" id="sh2">
+                           <label class="bg-colored" style="border-radius: 10px;" for="sh2"></label>
+           
+                           <input  type="radio" name="shape" id="sh3">
+                           <label class="bg-colored" style="border-radius: 40px;" for="sh3"></label>
+
+                           <input  type="radio" name="shape" id="sh4">
+                           <label class="bg-transp" for="sh4"></label>
+
+                           <input  type="radio" name="shape" id="sh5">
+                           <label class="bg-transp" style="border-radius: 10px;" for="sh5"></label>
+
+                           <input  type="radio" name="shape" id="sh6">
+                           <label class="bg-transp" style="border-radius: 40px;" for="sh6"></label>
+                       </div>
+                   </div>
+               </div>
+            </div>
+            <div class="SideFooter">
+                <button class="saveQ">
+                     ذخیره
+                </button>
+                <button class="cancelQ">
+                     انصراف
+                </button>
+             </div>
+       </aside>
         <main>
-             <div class="GreetingContainer">
-                <div class="GreetingTitle">
+            <div class="QuestionContainer">
+                <div class="QuestionTitle">
                     <p>سلام و عرض ادب خدمت همه ی همراهان کدینتولاین</p>
                 </div>
-                <div class="GreetingDes">
+                <div class="QuestionDes">
                   
                 </div>
-                <div class="GreetingStart">
-                   <button class="GreetingStartButton">
+                <div class="QuestionStart">
+                   <button class="QuestionStartButton">
                       شروع
                    </button>
                 </div>
              </div>
         </main>
-        <aside>
-             <div class="SideHeader">
-                <div class="SideHeaderTitle">
-                    <h3>کدینتو لاین</h3>
-                    
-                </div>
-                    <div class="SideHeaderBody">
-                        <p>صفحه خوش آمد گویی</p>
-                        <button class="cancelDesign">
-                            X
-                        </button>
-                    </div>
-             </div>
-             <div class="SideBody">
-                <div class="GTitle">
-                    <div class="TitleSetter">
-                        <div class="Switch">
-                            <p>عنوان</p>
-                        <label class="Switch">
-                            <input type="checkbox">
-                            <span class="slider"</span>
-                        </label>
-                        </div>
-                    </div>
-                    <div class="TitleInput">
-                        <div class="TitleInputOptions  GOptions">
-                            <label>
-                                <input type="checkbox" name="" id="Textbolder">
-                                <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier"> <path d="M480.286 822.857h548.571c151.269 0 274.286-123.017 274.286-274.286 0-151.268-123.017-274.285-274.286-274.285H480.286v548.571Zm0 822.857H1166c151.269 0 274.286-123.017 274.286-274.285 0-151.269-123.017-274.286-274.286-274.286H480.286v548.571ZM1166 1920H206V0h822.857c302.537 0 548.572 246.034 548.572 548.571 0 134.263-48.549 257.418-128.778 352.732 159.223 96.137 265.92 270.994 265.92 470.126 0 302.537-246.034 548.571-548.571 548.571Z" fill-rule="evenodd"></path>
-                                    </g>
-                                </svg>
-                            </label>
-                            <label>
-                            <input type="checkbox" name="" id="TextItalic">
-                            <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier"><path d="M13.5 1.25V0H4.71v1.25h3.67l-2.02 13.5H2.5V16h8.79v-1.25H7.62l2.02-13.5h3.86z"></path>
-                                </g>
-                            </svg>
-                            </label>
-                            <label>
-                            <input type="checkbox" name="" id="TextUnderline">
-                            <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier"> <path d="M1698.923 1772.308V1920H222v-147.692h1476.923ZM369.693 0v812.308c0 285.046 231.876 516.923 516.922 516.923h147.693c285.046 0 516.923-231.877 516.923-516.923V0h147.692v812.308c0 366.424-298.19 664.615-664.615 664.615H886.615c-366.424 0-664.615-298.19-664.615-664.615V0h147.692Z" fill-rule="evenodd"></path> </g>
-                            </svg>
-                            </label>
-                        </div>
-                        <div class="TextField">
-                            <textarea id="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
-                            <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="GDesc">
-                    <div class="DescSetter">
-                        <div class="Switch">
-                            <p>توضیحات</p>
-                        <label class="Switch">
-                            <input type="checkbox">
-                            <span class="slider"</span>
-                        </label>
-                        </div>
-                    </div>
-                    <div class="DescInput">
-                        <div class="TitleInputOptions  GOptions">
-                            <label>
-                                <input type="checkbox" name="" id="Textbolder">
-                                <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier"> <path d="M480.286 822.857h548.571c151.269 0 274.286-123.017 274.286-274.286 0-151.268-123.017-274.285-274.286-274.285H480.286v548.571Zm0 822.857H1166c151.269 0 274.286-123.017 274.286-274.285 0-151.269-123.017-274.286-274.286-274.286H480.286v548.571ZM1166 1920H206V0h822.857c302.537 0 548.572 246.034 548.572 548.571 0 134.263-48.549 257.418-128.778 352.732 159.223 96.137 265.92 270.994 265.92 470.126 0 302.537-246.034 548.571-548.571 548.571Z" fill-rule="evenodd"></path>
-                                    </g>
-                                </svg>
-                            </label>
-                            <label>
-                            <input type="checkbox" name="" id="TextItalic">
-                            <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier"><path d="M13.5 1.25V0H4.71v1.25h3.67l-2.02 13.5H2.5V16h8.79v-1.25H7.62l2.02-13.5h3.86z"></path>
-                                </g>
-                            </svg>
-                            </label>
-                            <label>
-                            <input type="checkbox" name="" id="TextUnderline">
-                            <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier"> <path d="M1698.923 1772.308V1920H222v-147.692h1476.923ZM369.693 0v812.308c0 285.046 231.876 516.923 516.922 516.923h147.693c285.046 0 516.923-231.877 516.923-516.923V0h147.692v812.308c0 366.424-298.19 664.615-664.615 664.615H886.615c-366.424 0-664.615-298.19-664.615-664.615V0h147.692Z" fill-rule="evenodd"></path> </g>
-                            </svg>
-                            </label>
-                        </div>
-                        <div class="TextField">
-                            <textarea id="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
-                            <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="fileUploader">
-                    <div class="fileFormat">
-                        <input type="radio" name="lang" id="Picture" value="Picture" checked>
-                        <label for="Picture">عکس</label>
-                        
-                        <input type="radio" name="lang" id="Video" value="Video">
-                        <label for="Video">ویدیو</label>
         
-                    </div>
-                    <div class="fileInput">
-                        <div class="inputTitle">
-                            حداکثر حجم 3 مگابایت
-                        </div>
-
-                        <div class="inputUploader">
-                            <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
-                            <label for="file">
-                                <ion-icon name="download-outline"></ion-icon>
-                                </label>
-                          </div>
-                          
-                    </div>
-                </div>
-                <div class="GEntryButton">
-                    <div class="ButtonSetter">
-                        <div class="Switch">
-                            <p>دکمه ی ورود</p>
-                        <label class="Switch">
-                            <input type="checkbox">
-                            <span class="slider"</span>
-                        </label>
-                        </div>
-                    </div>
-                    <div class="TitleInput">
-                        <div class="TitleInputOptions  GOptions">
-                            <label>
-                                <input type="checkbox" name="" id="Textbolder">
-                                <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier"> <path d="M480.286 822.857h548.571c151.269 0 274.286-123.017 274.286-274.286 0-151.268-123.017-274.285-274.286-274.285H480.286v548.571Zm0 822.857H1166c151.269 0 274.286-123.017 274.286-274.285 0-151.269-123.017-274.286-274.286-274.286H480.286v548.571ZM1166 1920H206V0h822.857c302.537 0 548.572 246.034 548.572 548.571 0 134.263-48.549 257.418-128.778 352.732 159.223 96.137 265.92 270.994 265.92 470.126 0 302.537-246.034 548.571-548.571 548.571Z" fill-rule="evenodd"></path>
-                                    </g>
-                                </svg>
-                            </label>
-                            <label>
-                            <input type="checkbox" name="" id="TextItalic">
-                            <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier"><path d="M13.5 1.25V0H4.71v1.25h3.67l-2.02 13.5H2.5V16h8.79v-1.25H7.62l2.02-13.5h3.86z"></path>
-                                </g>
-                            </svg>
-                            </label>
-                            <label>
-                            <input type="checkbox" name="" id="TextUnderline">
-                            <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier"> <path d="M1698.923 1772.308V1920H222v-147.692h1476.923ZM369.693 0v812.308c0 285.046 231.876 516.923 516.922 516.923h147.693c285.046 0 516.923-231.877 516.923-516.923V0h147.692v812.308c0 366.424-298.19 664.615-664.615 664.615H886.615c-366.424 0-664.615-298.19-664.615-664.615V0h147.692Z" fill-rule="evenodd"></path> </g>
-                            </svg>
-                            </label>
-                        </div>
-                        <div class="TextField">
-                            <textarea id="TitleTextInput" cols="10" rows="5" placeholder="متن دکمه را بنویسید"></textarea>
-                            <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="GButtonShape">
-                    <div class="ButtonSetter">
-                        <div class="Switch">
-                            <p>شکل دکمه</p>
-                        <label class="Switch">
-                            <input type="checkbox">
-                            <span class="slider"</span>
-                        </label>
-                        </div>
-                    </div>
-                    <div class="TitleInput">
-                        <div class="TitleInputOptions  GOptions">
-                            <label>
-                                <input type="checkbox" name="" id="Textbolder">
-                                <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier"> <path d="M480.286 822.857h548.571c151.269 0 274.286-123.017 274.286-274.286 0-151.268-123.017-274.285-274.286-274.285H480.286v548.571Zm0 822.857H1166c151.269 0 274.286-123.017 274.286-274.285 0-151.269-123.017-274.286-274.286-274.286H480.286v548.571ZM1166 1920H206V0h822.857c302.537 0 548.572 246.034 548.572 548.571 0 134.263-48.549 257.418-128.778 352.732 159.223 96.137 265.92 270.994 265.92 470.126 0 302.537-246.034 548.571-548.571 548.571Z" fill-rule="evenodd"></path>
-                                    </g>
-                                </svg>
-                            </label>
-                            <label>
-                            <input type="checkbox" name="" id="TextItalic">
-                            <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier"><path d="M13.5 1.25V0H4.71v1.25h3.67l-2.02 13.5H2.5V16h8.79v-1.25H7.62l2.02-13.5h3.86z"></path>
-                                </g>
-                            </svg>
-                            </label>
-                            <label>
-                            <input type="checkbox" name="" id="TextUnderline">
-                            <svg fill="rgb(63, 82, 227)" width="15px" height="15px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier"> <path d="M1698.923 1772.308V1920H222v-147.692h1476.923ZM369.693 0v812.308c0 285.046 231.876 516.923 516.922 516.923h147.693c285.046 0 516.923-231.877 516.923-516.923V0h147.692v812.308c0 366.424-298.19 664.615-664.615 664.615H886.615c-366.424 0-664.615-298.19-664.615-664.615V0h147.692Z" fill-rule="evenodd"></path> </g>
-                            </svg>
-                            </label>
-                        </div>
-                        <div class="ShapeOptions">
-                            <input  type="radio" name="shape" id="sh1">
-                            <label class="bg-colored" for="sh1"></label>
-                            
-                            <input  type="radio" name="shape" id="sh2">
-                            <label class="bg-colored" style="border-radius: 10px;" for="sh2"></label>
-            
-                            <input  type="radio" name="shape" id="sh3">
-                            <label class="bg-colored" style="border-radius: 40px;" for="sh3"></label>
-
-                            <input  type="radio" name="shape" id="sh4">
-                            <label class="bg-transp" for="sh4"></label>
-
-                            <input  type="radio" name="shape" id="sh5">
-                            <label class="bg-transp" style="border-radius: 10px;" for="sh5"></label>
-
-                            <input  type="radio" name="shape" id="sh6">
-                            <label class="bg-transp" style="border-radius: 40px;" for="sh6"></label>
-                        </div>
-                    </div>
-                </div>
-             </div>
-        </aside>
     </section>
+    <div class="AssistiveButton">
+        <div class="AssistiveItems">
+                <button class="AddQuestion">
+                    <i class="fa fa-plus-circle"></i>
+                </button>
+                <button class="Setting">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <button class="Send">
+                    <i class='fa fa-paper-plane'></i>
+                </button>
+        </div>
+        <div class="AssistiveToggle">
+            <button class="AssistiveToggleButton"> + </button>
+        </div>
+        
+       </div>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

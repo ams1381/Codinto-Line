@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Uploader</title>
+    <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
+    <link rel="stylesheet" href="/Components/Design Question Page/SideBody/FileUploader/FileUploaderStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="fileUploader">
+        <div class="fileFormat">
+            <input type="radio" name="lang" id="Picture" value="Picture" checked>
+            <label for="Picture">عکس</label>
+            
+            <input type="radio" name="lang" id="Video" value="Video">
+            <label for="Video">ویدیو</label>
+
+        </div>
+        <div class="fileInput">
+            <div class="inputTitle">
+                حداکثر حجم 3 مگابایت
+            </div>
+
+            <div class="inputUploader">
+                <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+                <label for="file">
+                    <i class="fa fa-upload"></i>
+                    </label>
+              </div>
+              
+        </div>
+    </div>
+</body>
+</html>
