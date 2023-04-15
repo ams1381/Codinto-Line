@@ -72,7 +72,7 @@ main
     border-radius: 10px;
     align-items: center;
     padding: 2px;
-    color: #5360ed77;
+    color: var(--label-default-color);
 }
 .fileFormat  input[type=radio]
 {
@@ -149,7 +149,7 @@ main
 }
 .TitleTextInput::placeholder
 {
-    color: #5360ed79;
+    color: var(--input-placeholder-color);
 }
 .GOptions
 {
@@ -268,8 +268,8 @@ main
     width: 60%;
     padding: 5px;
     border-radius: 10px;
-    border: 2px solid #5360ED;
-    color: #5360ED;
+    border: 2px solid var(--brand-color);
+    color: var(--brand-color);
     outline: none;
     font-family: 'IRANSANS';
     text-align: center;

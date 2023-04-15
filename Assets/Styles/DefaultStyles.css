@@ -14,11 +14,10 @@
     --input-title-bg-color : #EEF1FF;
     --input-shadow-color : #12004e1c;
     --input-placeholder-color : #5360ed4d;
+    --label-default-color : #5360ed77;
     --selected-date-bg-color : #3f52e335;
     --theme-Codinto : #161D6F;
 
-    --theme-radius-size : 15px;
-    /* --system-default-font : IRANSans 3rem; */
 }
 *
 {
