@@ -1,0 +1,79 @@
+.TitleTextInput {
+    width: 95%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-family: IRANSans;
+    display: flex;
+    align-items: flex-start;
+    background-color: var(--text-input-bg-color);
+    position: relative;
+    resize: none;
+    padding: 10px;
+    border-radius: 0 0 15px 15px;
+    color: var(--brand-color);
+    font-size: calc(0.75rem + 0.4vw);
+}
+.ToggleOption{
+    width: 90%;
+    margin: 1.5rem auto 1.5rem auto;
+    font-family: IRANSans;
+}
+.TitleInput{
+    margin-top: 20px;
+    border-radius: var(--theme-radius-size) var(--theme-radius-size);
+    box-shadow: 4px 4px 3px var(--input-shadow-color);
+}
+.GOptions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0 8px 0;
+}
+.TitleInputOptions {
+    background: var(--input-title-bg-color);
+    border-radius: var(--theme-radius-size) var(--theme-radius-size) 0 0;
+    padding: 5px;
+    text-align: center;
+    color: var(--brand-color);
+}
+.ShapeOptions
+{
+    width: 90%;
+    margin: 20px auto 0 auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 11px;
+}
+.ShapeOptions input 
+{
+    height: 0;
+    opacity: 0;
+    display: none;
+}
+.ShapeOptions label 
+{
+    cursor: pointer;
+}
+.bg-transp , .bg-colored 
+{
+    width: 100%;
+    height: 50px;
+    transition: 0.3s;
+}
+.ShapeOptions .bg-colored
+{
+    background-color: var(--brand-color);
+}
+.ShapeOptions .bg-transp
+{      
+    border: 2px solid var(--brand-color);
+}
+.bg-transp:hover , .bg-colored:hover 
+{
+    transform: scale(1.1);
+}
+.GButtonShape .TitleInput 
+{
+    padding-bottom: 20px;
+}

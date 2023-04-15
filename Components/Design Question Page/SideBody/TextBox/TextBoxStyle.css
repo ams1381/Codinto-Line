@@ -34,7 +34,7 @@
 }
 #TitleTextInput::placeholder
 {
-    color: #5360ed79;
+    color: var(--input-placeholder-color);
 }
 .DescInput
 {
