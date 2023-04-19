@@ -1,4 +1,4 @@
-main 
+.block__main 
 {
     display: flex;
     align-items: center;
@@ -9,7 +9,7 @@ main
     padding-bottom: 15px;
     text-align: center;
 }
-.SideHeader .SideHeaderTitle h3
+.SideHeader .SideHeaderTitle .sidebar-codinto-title
 {
     font-size: 22px;
     width: 55%;
@@ -275,19 +275,19 @@ main
     text-align: center;
     cursor: pointer;
 }
-.LimitInput
+.LimitInput , .label-inputs
 {
     margin-top: 20px;
     color: #5360ED;
 }
-.AnswerAlphabetLimit
+.AnswerAlphabetLimit , .answer-number-selector
 {
     width: 90%;
     flex-direction: column;
     display: flex;
     margin: 20px auto 0 auto;
 }
-.maxInput
+.maxInput , .middle-Input , .left-Input
 {
      margin-top: 10px;
 }
@@ -295,16 +295,16 @@ main
 {
     color: var(--input-placeholder-color);
 }
-.minInput input , .maxInput input , .AnwValidation  input
+.label-text-input
 {
     border-radius: 10px;
     padding: 5px;
     width: 40%;
-    color: #5360ED;
+    color: var(--brand-color);
     font-size: 20px;
     outline: none;
     margin-right: 20px;
-    border: 1px solid #5360ED;
+    border: 1px solid var(--brand-color);
 }
 .AnwValidation  input
 {
@@ -360,7 +360,8 @@ main
     border-radius: 10px;
     cursor: pointer;
 }
-.minInput input , .maxInput input 
+.minInput input , .maxInput input , .right-part input ,
+.middle-Input input , .left-input input
 {
     text-align: center;
     width: 30%;
@@ -369,10 +370,13 @@ main
 {
     color: var(--input-placeholder-color);
 }
-.range-setter
+.range-setter , .range-container , .label-container
 {
     width: 90%;
     margin: 1.5rem auto 0 auto;
+}
+.range-setter
+{
     display: flex;
     justify-content: space-between;
 }
@@ -380,19 +384,33 @@ main
 {
     width: 90%;
 }
+.range-title , .label-title
+{
+    color: var(--brand-color);
+}
+.range-label
+{
+    color: var(--brand-color);
+    padding: 0 10px 0 10px;
+    border-radius: 6px;
+    background-color: var(--input-title-bg-color);
+}
 .range-input input[type="range"]
 {
     width: 100%;
+    appearance: none;
+    background-color: var(--input-title-bg-color);
+    height: 5px;
 }
-/* .range-input input[type="range"]::-webkit-slider-thumb
-{
-    -webkit-appearance: none; 
-   appearance: none;
-   margin-top: -12px; 
-   background-color: red;
-   height: 2rem;
-   width: 1rem;    
-} */
+input[type=range]::-webkit-slider-thumb {
+    position: relative;
+    -webkit-appearance: none;
+    width: 10px;
+    height: 26px;
+    background-color: var(--brand-color);
+    border-radius: 5px;
+    z-index: 5;
+}  
 .range-setter #markers
 {
     width: 100%;
@@ -407,14 +425,16 @@ main
     width: 3px;
     background: var(--input-title-bg-color);
     margin-top: -30px;
+    border-radius: 5px;
 }
-@media only  screen and (max-width : 650px)
+
+@media only  screen and (max-width : 768px)
 {
-    main 
+    .block__main 
     {
        display : none;
     }
-    aside 
+    .block__side
     {
         width: 100%;
     }

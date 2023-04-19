@@ -13,25 +13,26 @@
     --toggle-shadow-color : #3f52e34d;
     --input-title-bg-color : #EEF1FF;
     --input-shadow-color : #12004e1c;
+    --folder-shadow-color : #0000001a;
     --input-placeholder-color : #5360ed4d;
     --label-default-color : #5360ed77;
     --selected-date-bg-color : #3f52e335;
+    --nav-mask-bg-color : #00000087;
     --theme-Codinto : #161D6F;
-
+    --theme-radius-size : 15px;
 }
 *
 {
     margin: 0;
     padding: 0;
 }
-header
+.block__header
 {
     position: relative;
     width: 100%;
     background-color: var(--theme-white);   
-    z-index: 10;
 }
-header nav
+.block__header nav
 {
     display: flex;
     height: 60px;
@@ -41,13 +42,13 @@ header nav
     line-height: 60px;
     justify-content: space-between;
 }
-.codinto-title
+.navbar-codinto-title
 {
     margin:  0 auto 0 auto;
     font-size: 1.5rem;
     color: var(--theme-Codinto);
 }
-section
+.block__section
 {
     background-color: var(--theme-Page-Graybg);
     width: 100%;
@@ -55,22 +56,22 @@ section
     font-family: IRANSans;
     display: flex;
 }
-main , aside 
+.block__main , .block__side 
 {
    height: 100%;
 }
-main 
+.block__main 
 {
     width: 70%;
 }
-aside
+.block__side
 {
     background-color: var(--theme-white);
     width: 30%;
     overflow-y: scroll;
     box-shadow: -2px 0 10px var(--theme-navbar-shadow);
 }
-aside::-webkit-scrollbar
+.block__side::-webkit-scrollbar
 {
     width: 0;
 }
@@ -101,10 +102,19 @@ aside::-webkit-scrollbar
     position: fixed;
     height: 100vh;
     background: white;
+    z-index: 99;   
+    animation-name: slide-left;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
 }
 .navMenu.hide
 {
     display: none;
+}
+@keyframes slide-left {
+    from { right: -80%; }
+    to { right: 0%; }
 }
 .navMenu.show 
 {
@@ -214,14 +224,14 @@ aside::-webkit-scrollbar
     width: 90%;
     margin: 10px auto 20px auto;
 }
-.saveQ
+.saveQuestion
 {
     margin-left: 10px;
     background-color: var(--brand-color);
     border: none;
-    color: white;
+    color: var(--theme-white);
 }
-.cancelQ
+.cancelQuestion
 {
     border: 2px solid var(--brand-color);
     color: var(--brand-color);
@@ -233,22 +243,39 @@ aside::-webkit-scrollbar
     width: 50%;
     border-radius: 10px;
     font-family: 'IRANSANS';
+    cursor: pointer;
 }
-@media only screen and (max-width : 650px)
+.nav-mask 
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: var(--nav-mask-bg-color);
+    height: 100%;
+    z-index: 12;
+    display: none;
+    cursor: pointer;
+}
+.nav-mask.active 
+{
+    display: block;
+}
+@media only screen and (max-width : 768px)
 {
     .navToggleButton , .viewFormQuestions
     {
         display: block;
     }
 }
-@media only screen and (max-width : 400px)
+@media only screen and (max-width : 576px)
 {
-     .slider
+     .slider-button
     {
         width: 58px;
         height: 26px;
     }
-    .slider:before
+    .slider-button:before
     {
         width: 21px;
         height: 21px;

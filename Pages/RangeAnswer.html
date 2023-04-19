@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
     <link rel="stylesheet" href="/Assets/Styles/QdesignCommonStyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Assets/Styles/AssistiveButton.css">
 </head>
 <body>
-    <section>
-        <aside>
+    <section class="block__section">
+        <aside class="block__side">
             <div class="SideHeader">
                <div class="SideHeaderTitle">
-                   <h3>کدینتو لاین</h3>
-                   
+                   <h3 class="sidebar-codinto-title">کدینتو لاین</h3>
                </div>
                <div class="SideHeaderBody">
                 <button class="cancelDesign navButton">
@@ -41,15 +41,15 @@
                    <div class="TitleInput">
                        <div class="TitleInputOptions  GOptions">
                            <label>
-                               <input type="checkbox" name="" id="Textbolder">
+                               <input type="checkbox" name="" id="Tbolder">
                                <i class="fa fa-bold"></i>
                            </label>
                            <label>
-                           <input type="checkbox" name="" id="TextItalic">
+                           <input type="checkbox" name="" id="TItalic">
                            <i class="fa fa-italic"></i>
                            </label>
                            <label>
-                           <input type="checkbox" name="" id="TextUnderline">
+                           <input type="checkbox" name="" id="TUnderline">
                            <i class="fa fa-underline"></i>
                            </label>
                            <label>
@@ -59,7 +59,6 @@
                        </div>
                        <div class="TextField">
                            <textarea class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
-                           <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
                        </div>
                    </div>
                </div>
@@ -76,15 +75,15 @@
                    <div class="DescInput">
                     <div class="TitleInputOptions  GOptions">
                         <label>
-                            <input type="checkbox" name="" id="Textbolder">
+                            <input type="checkbox" name="" id="Desbolder">
                             <i class="fa fa-bold"></i>
                         </label>
                         <label>
-                        <input type="checkbox" name="" id="TextItalic">
+                        <input type="checkbox" name="" id="DesItalic">
                         <i class="fa fa-italic"></i>
                         </label>
                         <label>
-                        <input type="checkbox" name="" id="TextUnderline">
+                        <input type="checkbox" name="" id="DesUnderline">
                         <i class="fa fa-underline"></i>
                         </label>
                         <label>
@@ -98,23 +97,59 @@
                        </div>
                    </div>
                </div>
-                <div class="range-setter">
-                    <div class="range-number">
-                        <label class="range-label">
-                            1
-                        </label>
+               <div class="range-container">
+                <div class="range-title">
+                    تنظیم طیف
+                   </div>
+                    <div class="range-setter">
+                        <div class="range-number">
+                            <label class="range-label">
+                                1
+                            </label>
+                        </div>
+                        <div class="range-input">
+                            <input type="range" step="10" list="range-markers" min="0" max="100">
+                            <datalist id="markers">
+                                <option value="0">
+                                    <option value="10">
+                                    <option value="20">
+                                    <option value="30">
+                                    <option value="40">
+                                    <option value="50">
+                                    <option value="60">
+                                    <option value="70">
+                                    <option value="80">
+                                    <option value="90">
+                                    <option value="100">
+                              </datalist>
+                        </div>
                     </div>
-                    <div class="range-input">
-                        <input type="range" step="10" list="range-markers">
-                        <datalist id="markers">
-                            <option value="0"></option>
-                            <option value="25"></option>
-                            <option value="50"></option>
-                            <option value="75"></option>
-                            <option value="100"></option>
-                          </datalist>
+               </div>
+
+               <div class="label-container">
+                <div class="label-title">
+                    برچسب
+                </div>
+                <div class="label-inputs">
+                    <div class="LimitInput">
+                        <div class="right-Input">
+                            <label for="right-part">راست</label>
+                            <input class="label-text-input" type="text" id="right-part">
+                        </div>
+                        <div class="middle-Input">
+                            <label for="middle-part">وسط</label>
+                            <input class="label-text-input" type="text" id="middle-part">
+                        </div>
+                        <div class="left-Input">
+                            <label for="left-part">چپ</label>
+                            <input class="label-text-input" type="text" id="left-part">
+                        </div>
+        
+                        
                     </div>
                 </div>
+               </div>
+               
                <div class="fileUploader">
                    <div class="fileFormat">
                        <input type="radio" name="lang" id="Picture" value="Picture" checked>
@@ -141,15 +176,15 @@
                
             </div>
             <div class="SideFooter">
-                <button class="saveQ">
+                <button class="saveQuestion">
                      ذخیره
                 </button>
-                <button class="cancelQ">
+                <button class="cancelQuestion">
                      انصراف
                 </button>
              </div>
        </aside>
-        <main>
+        <main class="block__main">
              <div class="QuestionContainer">
                 <div class="QuestionTitle">
                     <p>سلام و عرض ادب خدمت همه ی همراهان کدینتولاین</p>
@@ -164,7 +199,6 @@
                 </div>
              </div>
         </main>
-        
     </section>
 </body>
 </html>

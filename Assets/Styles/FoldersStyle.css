@@ -32,7 +32,7 @@
 }
 .form:hover 
 {
-    background-color: #3F52E3;
+    background-color: var(--brand-color);
 }
 .form:hover i  ,.form:hover  p 
 {
@@ -44,29 +44,14 @@
     justify-content: space-between;
     align-items: center;
     width: 90%;
-    border-bottom: 2px solid #3F52E3;
+    border-bottom: 2px solid var(--brand-color);
     margin: 16px auto 0 auto;
     padding-bottom: 15px;
-}
-.navTitle h3 
-{
-    color: #161D6F;
 }
 .navTools
 {
     display: flex;
 }
-/* .navTools button , .FolderEdit
-{
-    border: none;
-    display: flex;
-    align-items: center;
-    background: none;
-    cursor: pointer;
-    font-size: 30px;
-    color: #3F52E3;
-    margin-right: 10px;
-} */
 .FolderSearch
 {
     margin-left: 10px;
@@ -83,9 +68,9 @@
     margin: 20px auto 0 auto;
     cursor: pointer;
     padding: 10px;
-    box-shadow: 2px 2px 10px #0000001a;
+    box-shadow: 2px 2px 10px var(--folder-shadow-color);
     border-radius: 15px;
-    color: #3F52E3;
+    color: var(--brand-color);
     transition: 0.3s;
 }
 .FolderName
@@ -107,7 +92,7 @@
 #search-input
 {
     border: none;
-    border-bottom: 2px solid #3F52E3;
+    border-bottom: 2px solid var(--brand-color);
     outline: none;
     font-size: 18px;
     padding-bottom: 5px;
@@ -117,7 +102,7 @@
 }
 #search-input::placeholder
 {
-    color: #3F52E3;
+    color: var(--brand-color);
 }
 #search-input:focus
 {
@@ -137,7 +122,7 @@
     display: none;
     color: #3F52E3;
     flex-direction: column;
-    box-shadow: 2px 2px 10px #0000002e;
+    box-shadow: 2px 2px 10px var(--theme-navbar-shadow);
     border-radius: 20px;
     font-family: IRANSans;
 }
@@ -171,7 +156,7 @@
     width: 50%;
     margin: 0 auto 0 auto;
 }
-.PopUpButtons button 
+.confirm-button , .cancle-button
 {
     width: 92px;
     height: 37px;
@@ -180,16 +165,16 @@
     font-family: IRANSans;
     cursor: pointer;
 }
-.confirmButton
+.confirm-button
 {
-    background: #3F52E3;
+    background: var(--brand-color);
     border: none;
-    color: white;
+    color: var(--theme-white);
 }
-.cancleButton
+.cancle-button
 {
-    border: 2px solid #3F52E3;
-    color: #3F52E3;
+    border: 2px solid var(--brand-color);
+    color: var(--brand-color);
     background: none;
 }
 .navMenu
@@ -197,13 +182,13 @@
     position: absolute;
     top: 0;
 }
-@media only screen and (max-width : 650px)
+@media only screen and (max-width : 768px)
 {
-    section 
+    .block__section
     {
         flex-direction: column;
     }
-    main , aside
+    .block__main , .block__side
     {
         width: 100%;
         height: auto;
