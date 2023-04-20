@@ -1,14 +1,5 @@
-.block__section
-{
-    background-color: var(--theme-Page-Graybg);
-    font-family: IRANSans;
-    height: 750px;
-    display: flex;
-}
 .block__section .block__side
 {
-    background-color: var(--theme-white);
-    width: 30%;
     display: grid;
     grid-template: repeat(6, 1fr) / repeat(3, 1fr);
     padding-left: 10px;

@@ -177,10 +177,13 @@
     color: var(--brand-color);
     background: none;
 }
-.navMenu
+.navItem
 {
-    position: absolute;
-    top: 0;
+    height: 60px;
+}
+.navItemlist
+{
+    font-family: IRANSans;
 }
 @media only screen and (max-width : 768px)
 {
