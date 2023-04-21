@@ -1,3 +1,4 @@
+@import url(/Assets/Styles/normalize.css);
 @font-face {
     font-family: IRANSans;
     src: url('../Font/IRANSans\ Regular.woff') format("woff");
@@ -17,7 +18,7 @@
     --input-placeholder-color: #5360ed4d;
     --label-default-color: #5360ed77;
     --selected-date-bg-color: #3f52e335;
-    --nav-mask-bg-color: #00000087;
+    --screen-mask-bg-color: #00000087;
     --theme-Codinto: #161D6F;
     --theme-radius-size: 15px;
 }
@@ -83,6 +84,8 @@
     font-size: calc(1.3rem + 0.5vw);
     color: var(--brand-color);
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .navToggleButton,
@@ -234,20 +237,23 @@
     cursor: pointer;
 }
 
-.nav-mask {
+.screen-mask {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
-    background: var(--nav-mask-bg-color);
+    opacity: 0;
+    background: var(--screen-mask-bg-color);
     height: 100%;
     z-index: 12;
-    display: none;
     cursor: pointer;
+    transition: opacity 0.3s;
+    visibility: hidden;
 }
 
-.nav-mask.active {
-    display: block;
+.screen-mask.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 @media only screen and (max-width : 768px) {
