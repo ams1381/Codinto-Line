@@ -3,25 +3,35 @@
     width: calc(17rem + 17vw);
     background: white;
     border-radius: 20px;
-    box-shadow: 3px 3px 10px #0000001a;
+    box-shadow: 3px 3px 10px var(--folder-shadow-color);
     padding-bottom: 20px;
     font-family: IRANSans;
 }
-.QuestionTitle
+.Question-Title , .Greeting-Title
 {
     height: 50px;
-    border-radius: 15px 15px 0 0;
-    background: #3F52E3;
-    width: 100%;
-    color: white;
     line-height: 50px;
+    width: 100%;
+}
+.Greeting-Title
+{
+    border-radius: 15px 15px 0 0;
+    background: var(--brand-color);
+    color: white;
     text-align: center;
     font-size: 15px;
 }
-.QuestionDes
+.Question-Title
+{
+    color: var(--brand-color);
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+}
+.description_block
 {
     padding: 10px;
-    color: #161D6F;
+    color: var(--brand-color);
 }
 .QuestionStart
 {
@@ -31,10 +41,10 @@
 .QuestionStartButton
 {
     padding: 8px;
-    background: #3F52E3;
+    background: var(--brand-color);
     width: 22%;
     border: none;
-    color: white;
+    color: var(--theme-white);
     border-radius: 40px;
     font-family: 'IRANSANS';
     cursor: pointer;

@@ -1,0 +1,30 @@
+.view-controller
+{
+    display: flex;
+    justify-content: flex-end;
+    width: 90%;
+    margin: 10px auto 20px auto;
+}
+.prev-Question
+{
+    border: 2px solid var(--brand-color);
+    color: var(--brand-color);
+    background-color: var(--theme-white);
+}
+
+.next-Question , .prev-Question
+{
+    font-size: 1.2rem;
+    padding: 4px;
+    width: 50%;
+    border-radius: 10px;
+    font-family: 'IRANSANS';
+    cursor: pointer;
+}
+.next-Question 
+{
+    margin-left: 10px;
+    background-color: var(--brand-color);
+    border: none;
+    color: var(--theme-white);
+}

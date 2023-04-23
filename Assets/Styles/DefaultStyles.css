@@ -17,6 +17,7 @@
     --folder-shadow-color: #0000001a;
     --input-placeholder-color: #5360ed4d;
     --label-default-color: #5360ed77;
+    --answer-option-default-color : #5360eda3;
     --selected-date-bg-color: #3f52e335;
     --screen-mask-bg-color: #00000087;
     --theme-Codinto: #161D6F;
@@ -216,19 +217,22 @@
     margin: 10px auto 20px auto;
 }
 
-.saveQuestion {
+.saveQuestion 
+{
     margin-left: 10px;
     background-color: var(--brand-color);
     border: none;
     color: var(--theme-white);
 }
 
-.cancelQuestion {
+.cancelQuestion 
+{
     border: 2px solid var(--brand-color);
     color: var(--brand-color);
 }
 
-.SideFooter button {
+.saveQuestion , .cancelQuestion
+{
     font-size: 1.2rem;
     padding: 4px;
     width: 50%;
