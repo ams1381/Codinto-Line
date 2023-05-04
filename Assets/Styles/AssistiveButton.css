@@ -53,21 +53,29 @@
     font-size: 1.5rem;
     color: var(--brand-color);
 }
-@media only screen and (max-width : 768px)
+
+@media only screen and (max-width : 992px)
 {
     .AssistiveButton
     {
-      position: unset;
-      width: 25%;
-      margin: 0 auto 0 auto;
-      transform: none;
+        transform: translate(-47%,220%);
+        left: 47%;
+        flex-direction: column;
     }
-    .AssistiveButton .AssistiveItems
-    {
-        display: none;
+    .AssistiveButton .AssistiveItems {
+        height: 48px;
+        width: 218px;
+        flex-direction: row;
     }
     .AssistiveButton .AssistiveToggle
     {
-        margin: 0 auto auto;
+        margin-top: 0.8rem;
+    }
+}
+@media only screen and (max-width : 576px)
+{
+    .AssistiveButton
+    {
+        display: none;
     }
 }

@@ -57,21 +57,23 @@
     height: 100vh;
     font-family: IRANSans;
     display: flex;
+    padding-bottom: 1rem;
 }
 
 .block__main,
 .block__side {
     height: 100%;
+    overflow-y: scroll;
 }
 
 .block__main {
     width: 70%;
+    position : relative;
 }
 
 .block__side {
     background-color: var(--theme-white);
-    width: 30%;
-    overflow-y: scroll;
+    width: calc(11vw + 18rem);
     box-shadow: -2px 0 10px var(--theme-navbar-shadow);
 }
 

@@ -158,6 +158,10 @@
 }
 @media only screen and (max-width : 576px)
 {
+    .block__section
+    {
+        height: 100%;
+    }
     .block__section main .QuestionsBox {
         width: 95%;
     }

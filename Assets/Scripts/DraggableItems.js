@@ -1,7 +1,8 @@
 const nestedContainer = document.querySelectorAll('.nested');
 const nestedQuestionContainer = document.querySelectorAll(".nested-container");
 const sideContainer = document.querySelectorAll(".block__side");
-
+const QuestionBoxContainer = document.querySelector('.QuestionsBox');
+const ThankPageItem = document.querySelector('.ThankPage');
 
 const mainDrake = dragula(
     [...nestedContainer], {
@@ -18,23 +19,34 @@ const mainDrake = dragula(
           accepts: function (el, target, source, sibling) {
             if(sibling)
             {
-                if(sibling.className.indexOf('GreetingPage') != -1 ||
-                sibling.className.indexOf('ThankPage') != -1)
+                if(sibling.className.indexOf('GreetingPage') != -1 )
                 return false;
             }
             return true; 
+          },
+          invalid: function (el, handle) {
+            if(el.className.indexOf('Question-Nested-items') != -1)
+                return true;
+            return false; 
           },
          revertOnSpill: true,
          removeOnSpill: false,
     }
 );
-
+const InnerNestedContainer = dragula(
+    [...nestedQuestionContainer], {
+        direction: 'vertical',
+        slideFactorX: 0,
+        mirrorContainer: document.body,  
+        revertOnSpill: true,
+        removeOnSpill: false,
+   }
+)
 const MainDroppedHandler = (el, target, source, sibling) => {
     
-    let QuestionSupLabels = document.querySelectorAll(".sup-label");
-    let QuestionSubLabels = document.querySelectorAll(".sub-label");
-    let nestedLabels = document.querySelectorAll(".Question-Nested .QuestionLabel")
+    var QuestionSupLabels = document.querySelectorAll(".sup-label");
     var QuestionNumbers = [];
+    
     QuestionSupLabels.forEach((QuestionLabel,index) => {
         QuestionNumbers.push(parseInt(QuestionLabel.firstChild.textContent))    
     })
@@ -45,12 +57,32 @@ const MainDroppedHandler = (el, target, source, sibling) => {
     QuestionSupLabels.forEach((item,index) => {
             QuestionSupLabels[index].textContent =  QuestionNumbers[index]
     })
-    QuestionSubLabels.forEach((QuestionSubLabel,index) => {
-            let subLabelFirstNumber = QuestionSubLabel.textContent.toString().split('-')[0] = nestedLabels[0].textContent;
-            let subLabelSecondNumber = QuestionSubLabel.textContent.toString().split('-')[1];
-
-            QuestionSubLabel.textContent = subLabelFirstNumber + '-' + subLabelSecondNumber;
-    })
+       DashedNumberSorter();
 }
+
+const DashedNumberSorter = () => {
+    
+    var QuestionSubLabels = document.querySelectorAll(".sub-label");
+    var QuestionSubNumbers = Array.from(QuestionSubLabels).map((item) => item.textContent)
+    var nestedLabels = document.querySelectorAll(".Question-Nested .QuestionLabel")
+    
+    const splitByDash = str => str.split(/-/).map(Number);
+  
+    const compareArrays = (a, b) =>
+      a.reduce((result, number, index) =>
+        result || (number - b[index]) * Math.pow(10, (a.length - index) * 2), 0);
+    
+    QuestionSubNumbers = [...new Set(QuestionSubNumbers)].sort((a, b) =>
+      compareArrays(splitByDash(a), splitByDash(b))
+    );
+    Array.from(QuestionSubNumbers).forEach((item,index) => {
+        let QuestionNumber =  QuestionSubNumbers[index];
+        QuestionNumber =  QuestionNumber.slice(1,QuestionNumber.length)
+        QuestionSubLabels[index].textContent = nestedLabels[0].textContent.trim()[0] + QuestionNumber;
+     }
+    ) 
+}
+
 mainDrake.on('drop',MainDroppedHandler)
+InnerNestedContainer.on('drop',DashedNumberSorter)
 
