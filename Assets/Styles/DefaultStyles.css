@@ -13,6 +13,9 @@
     --theme-Checkbox-Toggle-bg: #EFEFEF;
     --toggle-shadow-color: #3f52e34d;
     --input-title-bg-color: #EEF1FF;
+    --deActive-input-title-bg : #EFEFEF;
+    --deActive-input-bg : #f5f5f8;
+    --deActive-input-text-color : #d6d8e7;
     --input-shadow-color: #12004e1c;
     --folder-shadow-color: #0000001a;
     --input-placeholder-color: #5360ed4d;
@@ -159,7 +162,6 @@
     background-color: var(--theme-Checkbox-Toggle-bg);
     -webkit-transition: 0.4s;
     transition: 0.4s;
-    box-shadow: 1px 1px 4px var(--toggle-shadow-color);
 }
 
 .slider-button:before {
@@ -202,6 +204,7 @@
 .Switch-Container p {
     color: var(--brand-color);
     width: 100%;
+    font-weight: 600;
 }
 
 .Switch-toggle .slider-button {
@@ -231,6 +234,7 @@
 {
     border: 2px solid var(--brand-color);
     color: var(--brand-color);
+    background: var(--theme-white);
 }
 
 .saveQuestion , .cancelQuestion
