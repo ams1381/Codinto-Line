@@ -1,3 +1,4 @@
+@import url('./Dragula.css');
 .block__section .block__side
 {
     display: grid;
@@ -12,7 +13,7 @@
     display: flex;
     flex-direction: column;
     box-shadow: 0px 3px 4px var(--input-shadow-color);
-    border-radius: 20px;
+    border-radius: 50px/110px;
     justify-content: center;
     align-items: center;
     color: var(--brand-color);
@@ -45,10 +46,19 @@
     align-items: center;
     margin-top: 20px;
     cursor: pointer;
+    transition: all 0.3s;
+}
+.Questionitem.is_dragging 
+{
+    opacity: 0.85;
+}
+.Questionitem.is_dropped
+{
+    opacity: 1;
 }
 .QuestionDesignItem  i
 {
-    font-size: calc(1.2rem + 0.5vw);
+    font-size: calc(0.9rem + 0.5vw);
     margin-top: 5px;
 }
 .Questionitem:hover , .Question-Nested-item:hover 
@@ -122,6 +132,9 @@
 .Question-Nested-items
 {
     width: 91%;
+    display: flex;
+    align-items: inherit;
+    flex-direction: column;
 }
 @media only screen and (max-width : 992px)
 {
@@ -145,6 +158,10 @@
 }
 @media only screen and (max-width : 576px)
 {
+    .block__section
+    {
+        height: 100%;
+    }
     .block__section main .QuestionsBox {
         width: 95%;
     }

@@ -13,6 +13,9 @@
     --theme-Checkbox-Toggle-bg: #EFEFEF;
     --toggle-shadow-color: #3f52e34d;
     --input-title-bg-color: #EEF1FF;
+    --deActive-input-title-bg : #EFEFEF;
+    --deActive-input-bg : #f5f5f8;
+    --deActive-input-text-color : #d6d8e7;
     --input-shadow-color: #12004e1c;
     --folder-shadow-color: #0000001a;
     --input-placeholder-color: #5360ed4d;
@@ -57,21 +60,23 @@
     height: 100vh;
     font-family: IRANSans;
     display: flex;
+    padding-bottom: 1rem;
 }
 
 .block__main,
 .block__side {
     height: 100%;
+    overflow-y: scroll;
 }
 
 .block__main {
     width: 70%;
+    position : relative;
 }
 
 .block__side {
     background-color: var(--theme-white);
-    width: 30%;
-    overflow-y: scroll;
+    width: calc(11vw + 18rem);
     box-shadow: -2px 0 10px var(--theme-navbar-shadow);
 }
 
@@ -157,7 +162,6 @@
     background-color: var(--theme-Checkbox-Toggle-bg);
     -webkit-transition: 0.4s;
     transition: 0.4s;
-    box-shadow: 1px 1px 4px var(--toggle-shadow-color);
 }
 
 .slider-button:before {
@@ -200,6 +204,7 @@
 .Switch-Container p {
     color: var(--brand-color);
     width: 100%;
+    font-weight: 600;
 }
 
 .Switch-toggle .slider-button {
@@ -212,14 +217,14 @@
 
 .SideFooter {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
     width: 90%;
-    margin: 10px auto 20px auto;
+    margin: 20px auto 20px auto;
 }
 
 .saveQuestion 
 {
-    margin-left: 10px;
     background-color: var(--brand-color);
     border: none;
     color: var(--theme-white);
@@ -227,15 +232,17 @@
 
 .cancelQuestion 
 {
+    margin-left: 10px;
     border: 2px solid var(--brand-color);
     color: var(--brand-color);
+    background: var(--theme-white);
 }
 
 .saveQuestion , .cancelQuestion
 {
-    font-size: 1.2rem;
-    padding: 4px;
-    width: 50%;
+    font-size: 1.0rem;
+    padding: 6px;
+    width: 25%;
     border-radius: 10px;
     font-family: 'IRANSANS';
     cursor: pointer;

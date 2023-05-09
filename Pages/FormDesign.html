@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/Assets/Styles/FormDesign.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    
 </head>
 <body>
      <header class="block__header">
@@ -46,7 +47,7 @@
         </nav>
      </header>
      <section class="block__section">
-        <aside class="block__side">
+        <aside class="block__side drag">
             <div class="QuestionDesignItem">
                 <p class="question-design-item-text">خوش آمد گویی</p>
                 <i class="fa fa-handshake-o" aria-hidden="true"></i>
@@ -121,7 +122,7 @@
             </div>
         </aside>
         <main class="block__main">
-           <div class="QuestionsBox">
+           <div class="QuestionsBox nested drop">
               <div class="Questionitem GreetingPage">
                 <div class="QuestionLabel">
                     <i class="fa fa-handshake-o" aria-hidden="true"></i>
@@ -137,7 +138,7 @@
 
               </div>
               <div class="Questionitem Q-Parag-Anw">
-                <div class="QuestionLabel">
+                <div class="QuestionLabel sup-label">
                     1
                 </div>
                 <div class="QuestionitemText">
@@ -154,7 +155,7 @@
 
               </div>
               <div class="Questionitem Q-Test">
-                <div class="QuestionLabel">
+                <div class="QuestionLabel sup-label">
                     2
                 </div>
                 <div class="QuestionitemText">
@@ -170,9 +171,9 @@
                 </div>
 
               </div>
-              <div class="Question-Nested">
+              <div class="Question-Nested ">
                 <div class="Questionitem">
-                    <div class="QuestionLabel">
+                    <div class="QuestionLabel sup-label">
                         3
                     </div>
                     <div class="QuestionitemText">
@@ -187,13 +188,11 @@
                         </button>
                     </div>
                 </div>
-                <div class="Question-Nested-items">
+                <div class="Question-Nested-items nested-container">
                    <div class="Question-Nested-item">
-                    <div class="QuestionLabel">
-                        3-1
-                    </div>
+                    <div class="QuestionLabel sub-label">3-1</div>
                     <div class="QuestionitemText">
-                        <p>امیرکبیر چند سال عمر کرد؟</p>
+                        <p>علت مرگ او چه بود؟</p>
                     </div>
                     <div class="QuestionTools">
                         <button class="EditButton">
@@ -205,9 +204,7 @@
                     </div>
                    </div>
                    <div class="Question-Nested-item">
-                    <div class="QuestionLabel">
-                        3-2
-                    </div>
+                    <div class="QuestionLabel sub-label">3-2</div>
                     <div class="QuestionitemText">
                         <p>محل تولد او کجا بود؟</p>
                     </div>
@@ -221,10 +218,9 @@
                     </div>
                    </div>
                 </div>
-               
               </div>  
               <div class="Questionitem Q-Test-Sort">
-                <div class="QuestionLabel">
+                <div class="QuestionLabel sup-label">
                     4
                 </div>
                 <div class="QuestionitemText">
@@ -241,7 +237,7 @@
 
               </div>
               <div class="Questionitem Q-Image-Anw">
-                <div class="QuestionLabel">
+                <div class="QuestionLabel sup-label">
                     5
                 </div>
                 <div class="QuestionitemText">
@@ -257,6 +253,7 @@
                 </div>
 
               </div>
+              
               <div class="Questionitem ThankPage">
                 <div class="QuestionLabel">
                     <svg width="30px" height="30px" viewBox="-9 0 163 163" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="white">
@@ -269,9 +266,6 @@
                     <p>صفحه ی تشکر</p>
                 </div>
                 <div class="QuestionTools">
-                    <button class="EditButton">
-                        <i class="fa fa-copy"></i>
-                    </button>
                     <button class="DeleteButton">
                         <i class="fa fa-trash"></i>
                     </button>
@@ -291,15 +285,17 @@
                     </button>
             </div>
             <div class="AssistiveToggle">
-                <button class="AssistiveToggleButton"> + </button>
+                <button class="AssistiveToggleButton"> <i class="fa fa-plus"></i> </button>
             </div>
             
            </div>
         </main>
      </section>
      <div class="screen-mask"></div>
-     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.js"></script>
+     
      <script src="/Assets/Scripts/NavigationHandler.js"></script>
+     <script src="/Assets/Scripts/DraggableItems.js"></script>
+     <script src="/Assets/Scripts/CommonScript.js"></script>
 </body>
 </html>
