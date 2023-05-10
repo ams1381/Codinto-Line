@@ -1,0 +1,115 @@
+body{
+    width: 100%;
+    height: 90vh;
+    background-color: white;
+    overflow-x: hidden;
+}
+
+.question__container{
+    width: calc(17rem + 17vw);
+    height: auto;
+    padding: 2rem 0rem;
+    box-shadow: 3px 3px 10px var(--folder-shadow-color);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    row-gap: 0.8rem;
+}
+.justify__question{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 1.1rem;
+    width: calc(14rem + 17vw);
+    height: auto;
+    box-shadow: 3px 3px 10px var(--folder-shadow-color);
+    border-radius: 10px;
+    align-items: center;
+    padding: 1rem ;
+
+}
+.question__row{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 0.1rem;
+}
+.textErea__container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 0.1rem;
+    width: 100%;
+}
+.ansswer__row{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    padding-right: 1rem;
+}
+.question__style{
+    font-size: 15px;
+    font-family: IRANSans;
+    font-weight: 600;
+    color: var(--brand-color);
+}
+/* .action__input{
+    background-color: transparent;
+    border: 1px solid var(--brand-color);
+    height: 30px;
+    outline: none;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    color: var(--brand-color);
+    font-size: 15px;
+    font-weight: 400;
+    font-family: IRANSans;
+    border-radius: 25px;
+    padding: 0.6rem; 
+    border: 1px solid var(--brand-color);
+    transition: 0.4s;
+    width: 100%;
+}
+
+.action__input:focus{
+  background-color: var(--input-title-bg-color);
+} */
+.ansswer__text{
+    font-size: 15px;
+    font-family: IRANSans;
+    font-weight: 100;
+    color: var(--brand-color);
+}
+.range__select{
+    width: 80%;
+    background-color: var(--input-title-bg-color);
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding:0 0.5rem;
+}
+.range__number{
+    color: var(--brand-color);
+    font-size: 15px;
+    font-weight: 600;
+    font-family: IRANSans; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 30px;
+}
+.range__active{
+    width: 25px;
+    height: 30px;
+    background-color: var(--theme-white);
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
