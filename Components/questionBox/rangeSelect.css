@@ -57,73 +57,59 @@ body{
     font-weight: 600;
     color: var(--brand-color);
 }
-.entry__input{
-    resize: none;
+/* .action__input{
     background-color: transparent;
-    border: none;
+    border: 1px solid var(--brand-color);
+    height: 30px;
     outline: none;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     color: var(--brand-color);
     font-size: 15px;
     font-weight: 400;
     font-family: IRANSans;
-    border-radius: 10px;
+    border-radius: 25px;
     padding: 0.6rem; 
     border: 1px solid var(--brand-color);
     transition: 0.4s;
     width: 100%;
 }
-.entry__input::placeholder{
-    color: var(--input-placeholder-color);
-    font-size: 14px;
-    font-weight: 400;
-    font-family: IRANSans;
-}
-.entry__input:focus{
+
+.action__input:focus{
   background-color: var(--input-title-bg-color);
-}
+} */
 .ansswer__text{
     font-size: 15px;
     font-family: IRANSans;
     font-weight: 100;
     color: var(--brand-color);
 }
-/* .button__container{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end ;
-    align-items: center;
-    column-gap: 0.5rem;
-}
-.cansel{
-    width: 30%;
-    padding:  0.4rem 0 0.4rem 0 ;
-    border: 1px solid var(--brand-color);
+.range__select{
+    width: 80%;
+    background-color: var(--input-title-bg-color);
+    height: 40px;
     border-radius: 10px;
-    background-color: transparent;
-    outline: none;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding:0 0.5rem;
+}
+.range__number{
     color: var(--brand-color);
     font-size: 15px;
-    font-weight: 500;
-    font-family: IRANSans;
+    font-weight: 600;
+    font-family: IRANSans; 
     cursor: pointer;
-}
-.confirm{
-    width: 30%;
-    padding: 0.4rem 0 0.4rem 0 ;
-    border-radius: 10px;
-    background-color: var(--brand-color);
-    outline: none;
-    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--theme-white);
-    font-size: 15px;
-    font-weight: 500;
-    font-family: IRANSans;
-    cursor: pointer;
-} */
+    width: 25px;
+    height: 30px;
+}
+.range__active{
+    width: 25px;
+    height: 30px;
+    background-color: var(--theme-white);
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
