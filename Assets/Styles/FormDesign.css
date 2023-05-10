@@ -59,7 +59,7 @@
 .QuestionDesignItem  i
 {
     font-size: calc(0.9rem + 0.5vw);
-    margin-top: 5px;
+    margin-top: 10px;
 }
 .Questionitem:hover , .Question-Nested-item:hover 
 {

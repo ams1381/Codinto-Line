@@ -267,7 +267,7 @@
     background: white;
     border-radius: 20px;
     box-shadow: 3px 3px 10px var(--folder-shadow-color);
-    padding-bottom: 20px;
+    padding: 0.6rem;
 }
 .Question-Title , .Greeting-Title
 {
@@ -288,13 +288,44 @@
     color: var(--brand-color);
     display: flex;
     justify-content: flex-start;
-    flex-direction: row-reverse;
 }
 .description_block
 {
     padding: 10px;
     color: var(--brand-color);
 }
+.multiple_answer_block-options
+{
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 90%;
+    gap: 12px;
+    margin: 1rem auto 0 auto;
+}
+.multiple_answer_block-option {
+    width: 94%;
+    height: 50px;
+    display: flex;
+    margin: 0 auto 0 auto;
+}
+.multiple_answer_block-option .answer_option-label
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-right: 15px;
+    width: 100%;
+    background: var(--text-input-bg-color);
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-right: 10px;
+    color: var(--answer-option-default-color);
+}
+.multiple_answer_block-option input:checked + .answer_option-label
+{
+    color: var(--brand-color);
+}
+
 .QuestionStart
 {
     display: flex;
@@ -337,10 +368,19 @@
     text-align: center;
     cursor: pointer;
 }
-.LimitInput , .label-inputs
+.answer-number-selector .LimitInput
 {
     margin-top: 20px;
-    color: #5360ED;
+    color: var(--deActive-input-text-color);
+    transition: 0.3s;
+}
+.label-inputs .LimitInput
+{
+    color: var(--brand-color);
+}
+.active.answer-number-selector .LimitInput
+{
+    color: var(--brand-color);
 }
 .AnswerAlphabetLimit , .answer-number-selector
 {
@@ -353,7 +393,11 @@
 {
      margin-top: 10px;
 }
-.LimitInput input::placeholder
+.answer-number-selector .LimitInput input::placeholder
+{
+    color: var(--deActive-input-text-color);
+}
+.active.answer-number-selector .LimitInput input::placeholder
 {
     color: var(--input-placeholder-color);
 }
@@ -367,6 +411,17 @@
     outline: none;
     margin-right: 20px;
     border: 1px solid var(--brand-color);
+    transition: border 0.3s;
+}
+.answer-number-selector .label-text-input
+{
+    border-color: var(--deActive-input-text-color);
+    pointer-events: none;
+}
+.active.answer-number-selector .label-text-input
+{
+    border-color: var(--brand-color);
+    pointer-events: all;
 }
 .AnwValidation  input
 {
@@ -449,6 +504,11 @@
 .range-title , .label-title
 {
     color: var(--brand-color);
+    font-weight: 600;
+}
+.label-inputs
+{
+    margin-top: 1.5rem;
 }
 .range-label
 {
