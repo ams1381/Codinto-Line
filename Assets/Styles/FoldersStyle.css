@@ -68,7 +68,6 @@
     margin: 20px auto 0 auto;
     cursor: pointer;
     padding: 10px;
-    box-shadow: 2px 2px 10px var(--folder-shadow-color);
     border-radius: 15px;
     color: var(--brand-color);
     transition: 0.3s;
@@ -85,9 +84,14 @@
 {
     display: block;
 }
-.Selected .FolderName
+.Selected .FolderEdit i:hover 
 {
+    text-shadow: 1px 3px 10px rgba(0, 0, 255, 0.197);
+}
+.Selected .FolderName {
     margin: 0;
+    display: flex;
+    align-items: center;
 }
 .navTitle
 {
@@ -129,6 +133,16 @@
 #search-input:focus
 {
     width: 97%;
+}
+.FormEdit
+{
+    width: 35%;
+    display: flex;
+    justify-content: space-around;
+}
+.FormEdit i:hover 
+{
+    text-shadow: 1px 3px 10px rgba(255, 255, 255, 0.256);
 }
 .navTitle.search-active 
 {

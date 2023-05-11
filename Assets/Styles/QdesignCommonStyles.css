@@ -94,13 +94,13 @@
     line-height: 20px;
     color: var(--brand-color);
 }
-.fileInput , .TitleInput , .DescInput
+.fileInput , .TitleInput , .DescInput , .ButtonTextInput
 {
     margin-top: 20px;
     border-radius: var(--theme-radius-size) var(--theme-radius-size);
     box-shadow: 4px 4px 3px var(--input-shadow-color);
 }
-.inputTitle , .TitleInputOptions
+.inputTitle , .TitleInputOptions 
 {
     background: var(--input-title-bg-color);
     border-radius: var(--theme-radius-size) var(--theme-radius-size) 0 0;
@@ -148,7 +148,7 @@
 {
     color: red;
 }
-.TextField .TitleTextInput , .DescInput .TitleTextInput
+.TitleTextInput , .DescTextInput , .ButtonTextInput 
 {
     width: 100%;
     height: 100%;
@@ -157,14 +157,26 @@
     font-family: IRANSans;
     display: flex;
     align-items: flex-start;
-    background-color: var(--deActive-input-bg);
     position: relative;
     resize: none;
     border-radius: 0 0 15px 15px;
-    pointer-events: none;
     padding: 10px;
     font-size: calc(0.69rem + 0.4vw);
     transition: 0.2s;
+}
+.ButtonTextInput
+{
+    background-color: var(--text-input-bg-color);
+    color: var(--brand-color);
+}
+.TitleTextInput , .DescTextInput
+{
+    background-color: var(--deActive-input-bg);
+    pointer-events: none;
+}
+.ButtonTextInput::placeholder
+{
+    color: var(--input-placeholder-color);
 }
 .TitleInput .TitleTextInput::placeholder , .DescInput .TitleTextInput::placeholder
 {
@@ -190,7 +202,7 @@
     pointer-events: none;
     transition: 0.2s;
 }
-.TitleInput.active .GOptions ,  .DescInput.active .GOptions
+.TitleInput.active .GOptions ,  .DescInput.active .GOptions , .ButtonTextInputOptions
 {
     background-color: var(--input-title-bg-color);
     color: var(--brand-color);
@@ -267,7 +279,11 @@
     background: white;
     border-radius: 20px;
     box-shadow: 3px 3px 10px var(--folder-shadow-color);
-    padding: 0.6rem;
+    padding-bottom: 1.4rem;
+}
+.Greeting.QuestionContainer
+{
+    padding-bottom: 1.4rem;
 }
 .Question-Title , .Greeting-Title
 {
@@ -368,9 +384,12 @@
     text-align: center;
     cursor: pointer;
 }
+.LimitInput
+{
+    margin-top: 30px;
+}
 .answer-number-selector .LimitInput
 {
-    margin-top: 20px;
     color: var(--deActive-input-text-color);
     transition: 0.3s;
 }
