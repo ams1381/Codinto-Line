@@ -148,6 +148,7 @@
 
 .navMenu .navItemlist .navItem a {
     text-decoration: none;
+    color: var(--brand-color);
 }
 
 .slider-button {

@@ -1,0 +1,241 @@
+.parent__container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100vh;
+}
+.right__container{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.right__container .login__image{
+    max-width: 55%;
+}
+.left__container{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+#loginForm
+{
+    width: 90%;
+    height: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+.LContainer__header
+{
+    font-family: IRANSans;
+    font-size: calc(0.7rem + 0.3vw);
+    color: var(--brand-color);
+    text-align: center;
+    line-height: 45px;
+}
+.LContainer__header span
+{
+    font-weight: 900;
+}
+.LContainer__body
+{
+    width: 95%;
+    margin: 0 auto 0 auto;
+    display: flex;
+}
+.Login_LContainer__inputs
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 4rem;
+    margin-top: 7rem;
+}
+.Login_LContainer__inputs input 
+{
+    width: 75%;
+    padding: 0px 0rem 1rem 0;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--brand-color);
+    color: var(--brand-color);
+    font-size: calc(0.88rem + 0.25vw);
+    font-family: IRANSans;
+}
+.Login_LContainer__inputs input::placeholder{
+    color: var(--brand-color);
+    font-size: 1rem;
+    font-family: IRANSans;
+    font-size: calc(0.9rem + 0.25vw);
+}
+.Login_LContainer__inputs input[type=number]::-webkit-inner-spin-button,
+.Login_LContainer__inputs input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+.Login__btn {
+    width: 75%;
+    height: 3rem;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--brand-color);
+    margin: 2rem auto 0 auto;
+    color: var(--theme-white);
+    font-family: 'IRANSANS';
+    font-size: calc(0.9rem + 0.25vw);
+    cursor: pointer;
+}
+.Login_LContainer__Footer , .SignUp_LContainer__Footer , .SMS_SignUp_LContainer__inputs
+{
+    width: 75%;
+    display: flex;
+    margin-top: 2rem;
+    align-items: center;
+}
+.Login_LContainer__Footer a, .SignUp_LContainer__Footer a
+{
+    text-decoration: none;
+}
+.Login_LContainer__Footer
+{
+    justify-content: space-between;
+}
+.SignUp_LContainer__Footer
+{
+    justify-content: center;
+}
+.LContainer__Footer .forget__pass
+{
+    font-size: 12px;
+    color: var(--brand-color);
+    font-family: IRANSans;
+    cursor: pointer;
+}
+.SignUp__btn
+{
+    outline: none;
+    border: none;
+    border: 1px solid var(--brand-color);
+    width: 7rem;
+    height: 2.6rem;
+    background-color: var(--theme-white);
+    border-radius: 15px;
+    color: var(--brand-color);
+    font-size: 1rem;
+    font-family: IRANSans;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.SignUp__btn:hover 
+{
+    color: var(--theme-white);
+    background-color: var(--brand-color);
+}
+.SignUp_LContainer__inputs
+{
+    width: 95%;
+    align-items: center;   
+    column-gap: 2rem;
+    margin-top: 4rem;
+}
+#SignUpForm 
+{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+}
+.input__style 
+{
+    width: 80%;
+    height: 2rem;
+    padding: 0px 0rem 0.5rem 0;
+    margin: 2rem auto 0 auto;
+    border: none;
+    outline: none;
+    font-family: 'IRANSANS';
+    border-bottom: 1px solid var(--brand-color);
+    font-size: calc(0.9rem + 0.25vw);
+}
+.input__style::placeholder
+{
+    color: var(--brand-color);
+    font-size: calc(0.9rem + 0.25vw);
+    font-family: IRANSans;
+}
+.continue_btn
+{
+    width: 12rem;
+    height: 3.6rem;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--brand-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+    color: var(--theme-white);
+    font-family: IRANSans;
+    font-size: calc(0.9rem + 0.25vw);
+}
+.SMS_SignUp_LContainer__inputs
+{
+    margin: 0 auto 0 auto;
+}
+.sms_dialogue_box
+{
+    font-family: IRANSans;
+    margin-bottom: 3rem;
+}
+.sms_dialogue_box p.default_massage
+{
+    color: var(--brand-color);
+}
+.SMS_number_input {
+    width: 20%;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid var(--brand-color);
+    font-size: 2rem;
+    margin: 0 10px 0 10px;
+    color: var(--brand-color);
+    font-family: IRANSans;
+    text-align: center;
+    padding-bottom: 10px;
+}
+.SMS_number_input[type=number]::-webkit-inner-spin-button, 
+.SMS_number_input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+.forget__pass {
+    color: var(--brand-color);
+    font-size: 0.8rem;
+    font-family: 'IRANSANS';
+}
+@media only screen and (max-width : 768px)
+{
+    .right__container
+    {
+        display: none;
+    }
+    .left__container
+    {
+        width: 100%;
+    }
+    #loginForm
+    {
+        width: 100%;
+    }
+    .input__style
+    {
+        width: 90%;
+    }
+}

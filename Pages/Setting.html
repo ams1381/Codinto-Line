@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../Assets/Styles/Setting.css">
     <link rel="stylesheet" href="/Assets/Styles/AssistiveButton.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 </head>
 <body>
     <header class="block__header">
@@ -44,7 +45,7 @@
             </div>
             <div class="form-date">
                     <div class="DateautoSet Switch-Container">
-                        <p>عنوان</p>
+                        <p>تاریخ شروع</p>
                     <label class="Switch-toggle">
                         <input type="checkbox">
                         <span class="slider-button"</span>
@@ -244,6 +245,14 @@
                     <span class="slider-button"</span>
                 </label>
                 </div>
+                <div class="FormFooter SideFooter">
+                    <button class="save-Form saveQuestion">
+                         ذخیره
+                    </button>
+                    <button class="cancel-Form cancelQuestion">
+                        <a href="./Folders.html">انصراف</a>
+                    </button>
+                 </div>
             </div>
         </form>
         
@@ -265,6 +274,7 @@
         </div>
         
        </div>
-      <script src="/Assets/Scripts/CommonScript.js"></script>
+       <script src="../Assets/Scripts/Form_Setting_Script.js"></script>
+       <script src="../Assets/Scripts/CommonScript.js"></script>
 </body>
 </html>

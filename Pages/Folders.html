@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>پوشه ها</title>
-    <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
-    <link rel="stylesheet" href="/Assets/Styles/FoldersStyle.css">
+    <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/FoldersStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
@@ -14,20 +14,13 @@
     <div class="navMenu">
         <ul class="navItemlist">
             <li class="navItem">
-                <a href="">ایجاد پرسشنامه</a>
-                <i class="fa fa-plus-circle"></i>
+                <a href="">نظام سرمایه داری</a>
             </li>
             <li class="navItem">
-                <a href="">تنظیمات</a>
-                <i class="fa fa-cog" aria-hidden="true"></i>
+                <a href="">عدالت آموزشی</a>
             </li>
             <li class="navItem">
-                <a href="">ارسال</a>
-                <i class='fa fa-paper-plane'></i>
-            </li>
-            <li class="navItem">
-                <a href="">مشاهده</a>
-                <i class="fa fa-eye"></i>
+                <a href="">حجاب اجباری</a>
             </li>
         </ul>
     </div>
@@ -75,31 +68,67 @@
             </div>
             <div class="sideBody">
                 <div class="Folder Selected">
+                    <button class="FolderEdit navButton">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                   
                     <div class="FolderName">
                         <p>نظام سرمایه داری</p>
                     </div>
-                    <button class="FolderEdit navButton">
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <button class="FolderRemove navButton">
                         <i class="fa fa-trash-o"></i>
                     </button>
+                    <div class="folder_control">
+                        <button class="FolderEdit navButton">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                        <button class="FolderRemove navButton">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                    
                 </div>
                 <div class="Folder">
+                    <button class="FolderEdit navButton">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
                     <div class="FolderName">
                         <p>عدالت آموزشی</p>
                     </div>
-                    <button class="FolderEdit">
-                        <i class="fa fa-sliders" aria-hidden="true"></i>
+                    <button class="FolderRemove navButton">
+                        <i class="fa fa-trash-o"></i>
                     </button>
+                    <div class="folder_control">
+                        <button class="FolderEdit navButton">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                        <button class="FolderRemove navButton">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                    
                 </div>
                 <div class="Folder">
+                    <button class="FolderEdit navButton">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
                     <div class="FolderName">
                         <p>حجاب اجباری</p>
                     </div>
-                    <button class="FolderEdit">
-                        <i class="fa fa-sliders" aria-hidden="true"></i>
+                    <button class="FolderRemove navButton">
+                        <i class="fa fa-trash-o"></i>
                     </button>
+                    <div class="folder_control">
+                        <button class="FolderEdit navButton">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                        <button class="FolderRemove navButton">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
+            
         </aside>
         <main class="block__main">
             <div class="FormsManagement">
@@ -117,25 +146,39 @@
                 </div>
             </div>
         </main>
-        
         <div class="createFolderPopUp">
             <p>پوشه ی جدید خود را بسازید</p>
             <div class="PopUpInput">
-                <input type="text" id="NewFolderName" placeholder="نام پوشه">
+                <input type="text" class="popup_input" id="create_folder_name" placeholder="نام پوشه">
             </div>
             <div class="PopUpButtons">
                 <button class="confirm-button">
                     تایید
                 </button>
-                <button class="cancle-button">
+                <button class="cancel-button">
+                    انصراف
+            </div>
+            </button>
+        </div>
+
+        <div class="renameFolderPopUp">
+            <p>نام پوشه را وارد کنید</p>
+            <div class="PopUpInput">
+                <input type="text" class="popup_input" id="rename_folder_name" placeholder="نام پوشه">
+            </div>
+            <div class="PopUpButtons">
+                <button class="confirm-button">
+                    تایید
+                </button>
+                <button class="cancel-button">
                     انصراف
             </div>
             </button>
         </div>
     </section>
     <div class="screen-mask"></div>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-     <script src="/Assets/Scripts/NavigationHandler.js"></script>
+     
+     <script src="../Assets/Scripts/NavigationHandler.js"></script>
+     <script src="../Assets/Scripts/FolderScript.js"></script>
 </body>
 </html>

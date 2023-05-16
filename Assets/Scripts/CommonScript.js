@@ -32,7 +32,9 @@ const AssistiveItemsHandler = () => {
 }
 AssistiveToggleButton.addEventListener('click', AssistiveItemsHandler);
 
-if (Switch_toggle_input)
+
+
+if(Switch_toggle_input) {
     Switch_toggle_input.forEach((item, index) => {
         item.addEventListener('click', () => {
             if (item.checked)
@@ -42,8 +44,7 @@ if (Switch_toggle_input)
 
         })
     })
-
-
+}
 
 
 

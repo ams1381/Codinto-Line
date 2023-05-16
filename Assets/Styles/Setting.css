@@ -198,6 +198,19 @@ body
     justify-content: space-between;
     margin-top: 30px;
 }
+.FormFooter
+{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    margin-top: 2.6rem;
+    width: 100%;
+}
+.cancel-Form a 
+{
+    text-decoration: none;
+    color: var(--brand-color);
+}
 @media only screen and (max-width : 400px)
 {
     .SettingContainer
