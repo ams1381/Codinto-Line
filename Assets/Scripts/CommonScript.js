@@ -35,9 +35,9 @@ if(Switch_toggle_input)
     Switch_toggle_input.forEach((item,index) => {
         item.addEventListener('click',() => {
             if(item.checked)
-            item.parentElement.parentElement.parentElement.nextElementSibling.classList.add('active')
+               item.parentElement.parentElement.parentElement.nextElementSibling.classList.add('active')
             else 
-            item.parentElement.parentElement.parentElement.nextElementSibling.classList.remove('active') 
+              item.parentElement.parentElement.parentElement.nextElementSibling.classList.remove('active') 
 
         })
 })

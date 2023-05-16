@@ -80,14 +80,20 @@
 {
     background-color: #5360ed1a;
 }
-.Selected .FolderEdit 
+.Folder .FolderEdit  , .Folder .FolderRemove
+{
+    display: none;
+}
+
+.Selected .folder_control button
 {
     display: block;
 }
-.Selected .FolderEdit i:hover 
+.Selected .folder_control .FolderEdit i:hover 
 {
     text-shadow: 1px 3px 10px rgba(0, 0, 255, 0.197);
 }
+
 .Selected .FolderName {
     margin: 0;
     display: flex;
@@ -167,13 +173,13 @@
     display: none;
 }
 
-.createFolderPopUp
+.createFolderPopUp , .renameFolderPopUp
 {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: calc(20rem + 9vw);
     height: 200px;
     justify-content: space-around;
     text-align: center;
@@ -188,11 +194,12 @@
     transition: opacity 0.4s;
     opacity: 0;
 }
-.createFolderPopUp.active 
+.createFolderPopUp.active , .renameFolderPopUp.active
 {
     opacity: 1;
+    z-index: 15;
 }
-.createFolderPopUp #NewFolderName
+.popup_input
 {
     border: 2px solid #3f52e32e;
     border-radius: 5px;
@@ -206,15 +213,15 @@
     border-radius: 10px;
     transition: 0.4s;
 }
-#NewFolderName::placeholder
+.popup_input::placeholder
 {
     color: #3f52e32e;
 }
-#NewFolderName:focus
+.popup_input:focus
 {
     width: 70%;
 }
-.createFolderPopUp .PopUpButtons
+.PopUpButtons
 {
     display: flex;
     justify-content: space-around;
@@ -222,14 +229,20 @@
     width: 50%;
     margin: 0 auto 0 auto;
 }
-.confirm-button , .cancle-button
+.Selected .folder_control {
+    display: flex;
+    width: 20%;
+    justify-content: space-around;
+}
+.confirm-button , .cancel-button
 {
-    width: 92px;
+    width: 95%;
     height: 37px;
     border-radius: 14px;
     font-size: 18px;
     font-family: IRANSans;
     cursor: pointer;
+    margin: 0 5px 0 5px;
 }
 .confirm-button
 {
@@ -237,7 +250,7 @@
     border: none;
     color: var(--theme-white);
 }
-.cancle-button
+.cancel-button
 {
     border: 2px solid var(--brand-color);
     color: var(--brand-color);
@@ -251,6 +264,7 @@
 {
     font-family: IRANSans;
 }
+
 @media only screen and (max-width : 768px)
 { 
     .block__section
@@ -262,7 +276,7 @@
         width: 100%;
         height: auto;
     }
-    .navTools .AddFolder 
+    .Selected .folder_control
     {
         display: none;
     }
@@ -294,9 +308,9 @@
     {
         margin: 0 auto 0 auto;
     }
-    .Selected .FolderEdit
+    .Selected .FolderEdit , .Selected .FolderRemove
     {
-        display: none;
+        display: block;
     }
     .navTitle
     {
