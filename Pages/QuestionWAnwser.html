@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>متنی با پاسخ</title>
-    <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
-    <link rel="stylesheet" href="/Assets/Styles/QdesignCommonStyles.css">
-    <link rel="stylesheet" href="/Assets/Styles/AssistiveButton.css">
+    <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/QdesignCommonStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <section class="block__section">
@@ -16,6 +17,7 @@
             <div class="SideHeader">
                <div class="SideHeaderTitle">
                    <h3 class="sidebar-codinto-title">کدینتو لاین</h3>
+                  
                </div>
                    <div class="SideHeaderBody">
                     <button class="cancelDesign navButton">
@@ -34,7 +36,7 @@
                         <p>عنوان</p>
                     <label class="Switch-toggle">
                         <input type="checkbox">
-                        <span class="slider-button"</span>
+                        <span class="slider-button"></span>
                     </label>
                     </div>
                    </div>
@@ -64,7 +66,7 @@
                         <p>توضیحات</p>
                     <label class="Switch-toggle">
                         <input type="checkbox">
-                        <span class="slider-button"</span>
+                        <span class="slider-button"></span>
                     </label>
                     </div>
                    </div>
@@ -106,11 +108,11 @@
                        <p>محدودیت تعداد حروف پاسخ</p>
                        <div class="LimitInput">
                            <div class="minInput">
-                               <label for="min">حداقل</label>
+                               <label for="Alphabetmin">حداقل</label>
                                <input class="label-text-input" type="number" id="Alphabetmin">
                            </div>
                            <div class="maxInput">
-                               <label for="max">حداکثر</label>
+                               <label for="Alphabetmax">حداکثر</label>
                                <input class="label-text-input" type="number" id="Alphabetmax">
                            </div>
    
@@ -119,11 +121,11 @@
                    </div>
                    <div class="AnwValidation">
                        <div class="SampleAnw">
-                           <label for="">نمونه پاسخ</label>
-                           <input class="label-text-input" type="number" placeholder="021-37773637">
+                           <label >نمونه پاسخ</label>
+                           <input class="label-text-input" type="number" placeholder="021-37773637"/>
                        </div>
                        <div class="Validator">
-                           <label for="">پیام اعتبار سنجی</label>
+                           <label >پیام اعتبار سنجی</label>
                            <input class="label-text-input" type="number" placeholder="لطفا یک شماره تلفن معتبر وارد کنید">
                        </div>
                    </div>
@@ -157,7 +159,7 @@
                     <p>پاسخ به سوال اجباری باشد</p>
                 <label class="Switch-toggle">
                     <input type="checkbox">
-                    <span class="slider-button"</span>
+                    <span class="slider-button"></span>
                 </label>
                 </div>
                    
@@ -167,7 +169,7 @@
                     <p>عدم نمایش شماره سوال</p>
                 <label class="Switch-toggle">
                     <input type="checkbox">
-                    <span class="slider-button"</span>
+                    <span class="slider-button"></span>
                 </label>
                 </div>
                </div>
@@ -215,7 +217,8 @@
         </main>
         
     </section>
-   
-    <script src="/Assets/Scripts/CommonScript.js"></script>
+
+    <script src="../Assets/Scripts/CommonScript.js" type="module"></script>
+    <script src="../Assets/Scripts/ajax/QuestionWAnwser.js" type="module"></script>
 </body>
 </html>

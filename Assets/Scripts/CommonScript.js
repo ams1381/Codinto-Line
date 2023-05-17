@@ -1,3 +1,4 @@
+
 const AssistiveItems = document.querySelector(".AssistiveButton .AssistiveItems");
 const AssistiveToggleButton = document.querySelector(".AssistiveToggleButton");
 const AssistiveToggleButtonIcon = document.querySelector(".AssistiveToggleButton i");
@@ -10,15 +11,18 @@ const AssistiveItemsHandler = () => {
 
     AssistiveToggleButtonIcon.classList.toggle('active');
 }
-AssistiveToggleButton.addEventListener('click' , AssistiveItemsHandler);
+AssistiveToggleButton.addEventListener('click', AssistiveItemsHandler);
 
-if(Switch_toggle_input)
-    Switch_toggle_input.forEach((item,index) => {
-        item.addEventListener('click',() => {
-            if(item.checked)
-               item.parentElement.parentElement.parentElement.nextElementSibling.classList.add('active')
-            else 
-              item.parentElement.parentElement.parentElement.nextElementSibling.classList.remove('active') 
 
+if (Switch_toggle_input)
+    Switch_toggle_input.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            if (item.checked)
+                item.parentElement.parentElement.parentElement.nextElementSibling.classList.add('active')
+            else
+                item.parentElement.parentElement.parentElement.nextElementSibling.classList.remove('active')
         })
-})
+    })
+
+
+

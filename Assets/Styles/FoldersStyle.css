@@ -70,7 +70,6 @@
     padding: 10px;
     border-radius: 15px;
     color: var(--brand-color);
-    transition: 0.3s;
 }
 .FolderName
 {
@@ -190,7 +189,7 @@
     box-shadow: 2px 2px 10px var(--theme-navbar-shadow);
     border-radius: 20px;
     font-family: IRANSans;
-    z-index: 13;
+    z-index: -1;
     transition: opacity 0.4s;
     opacity: 0;
 }
@@ -202,7 +201,6 @@
 .popup_input
 {
     border: 2px solid #3f52e32e;
-    border-radius: 5px;
     width: 60%;
     text-align: center;
     height: 40px;
@@ -264,7 +262,24 @@
 {
     font-family: IRANSans;
 }
-
+.folder_slide_toggle {
+    border: none;
+    background: none;
+    font-size: 1.8rem;
+    color: var(--brand-color);
+    margin: 0 auto;
+    display: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.folder_slide_toggle.active
+{
+    transform: rotate(180deg);
+}
+.sideBody
+{
+    text-align: center;
+}
 @media only screen and (max-width : 768px)
 { 
     .block__section
@@ -294,13 +309,13 @@
         align-items: center;
         justify-content: center;
     }
-    .Folder
-    {
-        display: none;
-    }
+    /*.Folder*/
+    /*{*/
+    /*    display: none;*/
+    /*}*/
     .Selected
     {
-        display: flex;
+        display: flex !important;
         background: none;
         box-shadow: none;
     }
@@ -319,5 +334,9 @@
     #search-input
     {
         text-align: center;
+    }
+    .folder_slide_toggle
+    {
+        display: block;
     }
 }

@@ -9,18 +9,26 @@
     <link rel="stylesheet" href="../Assets/Styles/FoldersStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="navMenu">
         <ul class="navItemlist">
             <li class="navItem">
-                <a href="">نظام سرمایه داری</a>
+                <a href="">ایجاد پرسشنامه</a>
+                <i class="fa fa-plus-circle"></i>
             </li>
             <li class="navItem">
-                <a href="">عدالت آموزشی</a>
+                <a href="/Pages/Setting.html">تنظیمات</a>
+                <i class="fa fa-cog" aria-hidden="true"></i>
             </li>
             <li class="navItem">
-                <a href="">حجاب اجباری</a>
+                <a href="">ارسال</a>
+                <i class='fa fa-paper-plane'></i>
+            </li>
+            <li class="navItem">
+                <a href="">مشاهده</a>
+                <i class="fa fa-eye"></i>
             </li>
         </ul>
     </div>
@@ -128,7 +136,9 @@
                     </div>
                 </div>
             </div>
-            
+            <Button class="folder_slide_toggle">
+                <i class="fa fa-angle-up"></i>
+            </Button>
         </aside>
         <main class="block__main">
             <div class="FormsManagement">
@@ -180,5 +190,6 @@
      
      <script src="../Assets/Scripts/NavigationHandler.js"></script>
      <script src="../Assets/Scripts/FolderScript.js"></script>
+    <script src="../Assets/Scripts/ajax/Folders.js" type="module"></script>
 </body>
 </html>
