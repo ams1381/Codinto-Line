@@ -15,7 +15,7 @@ async function patchRequest(url){
     });
 }
 async function postRequest(url){
-    return axios.post(url, {
+    return axios.post(url ,{
         headers: {
             Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg0NTY1MTQ5LCJqdGkiOiI2ZDk2MTZlODY2ZjA0ZTNjYjU5ODgyODRmMDkwZjZmMiIsInVzZXJfaWQiOjF9.Htd-3K2LmyOtF3rPcpd9pc2Xez-fMe4g8UvMFGNKRJM"
         }

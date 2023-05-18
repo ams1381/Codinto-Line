@@ -32,18 +32,18 @@
                    <div class="TitleSetter ToggleOption">
                     <div class="Switch-Container">
                         <p>عنوان</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"></span>
-                    </label>
+<!--                    <label class="Switch-toggle">-->
+<!--                        <input type="checkbox">-->
+<!--                        <span class="slider-button"></span>-->
+<!--                    </label>-->
                     </div>
                    </div>
-                   <div class="TitleInput">
+                   <div class="TitleInput active">
                        <div class="TitleInputOptions  GOptions">
-                           <label>
-                               <input type="checkbox" name="" id="Tbolder">
-                               <i class="fa fa-bold"></i>
-                           </label>
+<!--                           <label>-->
+<!--                               <input type="checkbox" name="" id="Tbolder">-->
+<!--                               <i class="fa fa-bold"></i>-->
+<!--                           </label>-->
                            <label>
                            <input type="checkbox" name="" id="TItalic">
                            <i class="fa fa-italic"></i>
@@ -62,13 +62,13 @@
                    <div class="DescSetter ToggleOption">
                     <div class="Switch-Container">
                         <p>توضیحات</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"></span>
-                    </label>
+<!--                    <label class="Switch-toggle">-->
+<!--                        <input type="checkbox">-->
+<!--                        <span class="slider-button"></span>-->
+<!--                    </label>-->
                     </div>
                    </div>
-                   <div class="DescInput">
+                   <div class="DescInput active">
                        <div class="TitleInputOptions  GOptions">
                            <label>
                                <input type="checkbox" name="" id="Desbolder">
@@ -92,14 +92,14 @@
                    <div class="PatternChoose">
                        <p>الگوی پاسخ</p>
                        <select  id="pattern-select">
-                           <option value="">متن آزاد</option>
-                           <option value="">تاریخ شمسی</option>
-                           <option value="">تاریخ میلادی</option>
-                           <option value="">شماره موبایل</option>
-                           <option value="">شماره تلفن</option>
-                           <option value="">کاراکتر های عددی</option>
-                           <option value="">حروف فارسی</option>
-                           <option value="">حروف انگلیسی</option>
+                           <option value="" class="selectionOption date__shamsi">تاریخ شمسی</option>
+                           <option value="" class="selectionOption text">متن آزاد</option>
+                           <option value="" class="selectionOption date__miladi">تاریخ میلادی</option>
+                           <option value="" class="selectionOption phone__number">شماره موبایل</option>
+                           <option value="" class="selectionOption home__phone">شماره تلفن</option>
+                           <option value="" class="selectionOption number">کاراکتر های عددی</option>
+                           <option value="" class="selectionOption persion">حروف فارسی</option>
+                           <option value="" class="selectionOption english">حروف انگلیسی</option>
                        </select>
                    </div>
                    <div class="AnswerAlphabetLimit">
@@ -122,10 +122,10 @@
                            <label >نمونه پاسخ</label>
                            <input class="label-text-input" type="number" placeholder="021-37773637"/>
                        </div>
-                       <div class="Validator">
-                           <label >پیام اعتبار سنجی</label>
-                           <input class="label-text-input" type="number" placeholder="لطفا یک شماره تلفن معتبر وارد کنید">
-                       </div>
+<!--                       <div class="Validator">-->
+<!--                           <label >پیام اعتبار سنجی</label>-->
+<!--                           <input class="label-text-input" type="number" placeholder="لطفا یک شماره تلفن معتبر وارد کنید">-->
+<!--                       </div>-->
                    </div>
                </div>
                
