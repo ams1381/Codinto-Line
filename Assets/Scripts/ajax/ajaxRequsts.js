@@ -6,8 +6,8 @@ async function getRequest(url){
             }
         });
 }
-async function patchRequest(url){
-    return axios.patch(url, {
+async function patchRequest(url,patchData){
+    return axios.patch(url,patchData ,{
         headers: {
             Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg0NTY1MTQ5LCJqdGkiOiI2ZDk2MTZlODY2ZjA0ZTNjYjU5ODgyODRmMDkwZjZmMiIsInVzZXJfaWQiOjF9.Htd-3K2LmyOtF3rPcpd9pc2Xez-fMe4g8UvMFGNKRJM"
         }
