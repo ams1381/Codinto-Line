@@ -1,4 +1,4 @@
-@import url('./Dragula.css');
+@import url('Dragula.css');
 .block__section .block__side
 {
     display: grid;

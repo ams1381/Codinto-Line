@@ -87,10 +87,11 @@ body
     width: 100%;
     display: flex;
     justify-content: space-between;
+    color: var(--deActive-input-text-color);
 }
 .datePicker 
-  {
-    background: var(--text-input-bg-color);
+{
+    background-color: var(--deActive-input-title-bg);
     box-shadow: 1px 1px 10px var(--input-shadow-color);
     margin-top: 30px;
     height: 190px;
@@ -98,8 +99,17 @@ body
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
+    color: #d6d8e7;
     align-items: center;
-  }
+    transition: 0.3s;
+    pointer-events: none;
+}
+.datePicker.active  
+{
+    background-color: var(--text-input-bg-color);
+    color: var(--brand-color);
+    pointer-events: all;
+}
 .YearPicker , .MonthPicker , .DayPicker
 {
     background: #FFFFFF;
@@ -171,15 +181,26 @@ body
     padding: 20px;
     background-color: #F6F7FF;
     justify-content: center;
+    pointer-events: none;
     color: var(--theme-Codinto);
+    transition: 0.3s;
+}
+.ResponePicker.active 
+{
+    pointer-events: all;
+    color: var(--brand-color);
 }
 .ResponePicker > div 
 {
    display: flex;
    margin: 0 1px 0 1px;
-   color: var(--brand-color);
+   color: var(--deActive-input-text-color);
    align-items: center;
 }
+.ResponePicker.active > div
+{
+    color: var(--brand-color);
+} 
 .ResponePicker > div input 
 {
     width: 70%;
@@ -190,6 +211,11 @@ body
     border-radius: 10px;
     border: none;
     outline: none;
+    text-align: center;
+    color: var(--deActive-input-text-color);
+}
+.ResponePicker.active > div input 
+{
     color: var(--theme-Codinto);
 }
 .ProgressBar , .Isolator
@@ -217,5 +243,10 @@ body
     {
         border-radius: 0;
     }
-
+}
+@media only screen and (max-width: 992px)
+{
+    .AssistiveButton {
+        display: none;
+    }
 }

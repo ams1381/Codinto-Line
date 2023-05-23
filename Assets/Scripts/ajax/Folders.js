@@ -13,7 +13,8 @@ const folderLoader =  async () => {
                 const response_Data = FoldersRes.data;
                 response_Data.forEach((item, index) => {
                     if (folder_generator)
-                        folder_generator(item.name,item.id);
+                        folder_generator(item.name,item.id,item.questionnaires);
+                    console.log(item)
                 })
         }
     catch (err)
