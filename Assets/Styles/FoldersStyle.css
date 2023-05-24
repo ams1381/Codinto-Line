@@ -379,7 +379,7 @@
     .AddForm , .form
     {
         margin: 20px auto 0 auto;
-        width: 45%;
+        width: 90%;
     }
     .navTitle
     {
@@ -387,13 +387,9 @@
     }
     .FormsManagement
     {
-        align-items: center;
-        justify-content: center;
+        grid-template-columns: auto auto auto;
+        display: grid;
     }
-    /*.Folder*/
-    /*{*/
-    /*    display: none;*/
-    /*}*/
     .Selected
     {
         display: flex !important;
@@ -419,5 +415,12 @@
     .folder_slide_toggle
     {
         display: block;
+    }
+}
+@media only screen and (max-width : 576px)
+{
+    .FormsManagement
+    {
+        grid-template-columns: auto auto;
     }
 }

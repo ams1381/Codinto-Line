@@ -1,9 +1,9 @@
 import {getRequest, patchRequest, postRequest} from "./ajax/ajaxRequsts.js";
 import {deleteRequest} from "./ajax/ajaxRequsts.js";
-import {folderLoader} from "./ajax/Folders.js";
-import {folderUrl} from './ajax/Folders.js'
-import {questionnaire_generator} from "./ajax/questionnaire.js";
-import {questionnaire_reLoader} from "./ajax/questionnaire.js";
+import {folderLoader} from "./ajax/FoldersAjax.js";
+import {folderUrl} from './ajax/FoldersAjax.js'
+import {questionnaire_generator} from "./ajax/QuestionnaireAjax.js";
+
 
 const SideBodyContainer= document.querySelector('.sideBody');
 const rename_folder_popup = document.querySelector(".renameFolderPopUp");
@@ -21,7 +21,6 @@ const add_folder_button = document.querySelector(".AddFolder");
 const search_folder_button = document.querySelector(".FolderSearch");
 const search_folder_input = document.querySelector("#search-input");
 const search_folder_container = document.querySelector(".search-box");
-const questionnaires = document.querySelectorAll('.form');
 let remove_folder_button = document.querySelectorAll(".Folder .FolderRemove");
 let folder_items = document.querySelectorAll(".sideBody .Folder");
 let rename_folder_button = document.querySelectorAll(".FolderEdit");
@@ -30,6 +29,7 @@ const add_Questionnaire_button = document.querySelector(".form.AddForm")
 let folder_generator;
 let SelectedFolderId;
 export default folder_generator = (folderName, id , Questionnaires) => {
+
     let FolderDiv = document.createElement('div');
     let RenameButton = document.createElement('button');
     let DeleteButton = document.createElement('button');
@@ -74,33 +74,30 @@ export default folder_generator = (folderName, id , Questionnaires) => {
 
     FolderDiv.setAttribute('id',id)
     FolderDiv.addEventListener('click',() => {
-        //questionnaire_reLoader();
-        questionnaires.forEach((item) => {
-            if(!item.classList.contains('AddForm'))
-            item.remove();
-        })
-        setActive_folder(FolderDiv,folder_items);
-        Questionnaires.forEach((Questionnaire) => {
-            questionnaire_generator(Questionnaire)
-        })
-
+        setActive_folder(FolderDiv,folder_items,Questionnaires);
     })
     if(window.innerWidth < 768)
         FolderDiv.style.display = 'none';
     $(FolderDiv).hide(200);
     SideBodyContainer.append(FolderDiv);
-    if(folder_items.length == 1)
-    {
-        questionnaire_reLoader()
-        folder_items[0].classList.add('Selected');
-        Questionnaires.forEach((Questionnaire) => {
-            questionnaire_generator(Questionnaire)
-        })
-    }
 
     $(FolderDiv).show(200);
 
     folder_items = document.querySelectorAll('.sideBody .Folder');
+
+    if(folder_items.length == 1)
+    {
+        folder_items[0].classList.add('Selected');
+        let QuestionnaireForms = document.querySelectorAll('.form');
+               QuestionnaireForms.forEach((item) => {
+                if(!item.classList.contains("AddForm"))
+                    item.remove();
+            })
+        Questionnaires.forEach((Questionnaire) => {
+            questionnaire_generator(Questionnaire)
+        })  
+    }
+
     rename_folder_button = document.querySelectorAll('.FolderEdit');
     remove_folder_button = document.querySelectorAll(".Folder .FolderRemove");
 
@@ -148,12 +145,8 @@ const search_button_handler = () => {
     search_folder_button.classList.toggle("search-active");
     search_folder_container.classList.toggle("search-active");
 }
-const setActive_folder = (folder_item,elements) => {
-    //questionnaire_reLoader();
-    questionnaires.forEach((item) => {
-        if(!item.classList.contains('AddForm'))
-            item.remove();
-    })
+const setActive_folder = (folder_item,elements,questionnaires) => {
+
     SelectedFolderId = parseInt(folder_item.getAttribute('id'));
     if(folder_item.classList.contains("Selected"))
         return;
@@ -161,6 +154,33 @@ const setActive_folder = (folder_item,elements) => {
         item.classList.remove('Selected');
     });
     folder_item.classList.add('Selected');
+
+    if(questionnaires === undefined)
+        return;
+    else
+    {
+        if(questionnaires.length !== 0)
+        {
+            let QuestionnaireForms = document.querySelectorAll('.form');
+            QuestionnaireForms.forEach((item) => {
+                if(!item.classList.contains("AddForm"))
+                    item.remove();
+            })
+
+            questionnaires.forEach((item) => {
+                questionnaire_generator(item)
+            })
+        }
+        else
+        {
+            let questionnaires = document.querySelectorAll('.form');
+            questionnaires.forEach((item) => {
+                if(!item.classList.contains("AddForm"))
+                    item.remove();
+            })
+        }
+    }
+
 
   }
 const folder_rename_handler = async (FolderItemId) => {
@@ -178,6 +198,7 @@ const folder_rename_handler = async (FolderItemId) => {
 }
 const folder_remove_handler = async (FolderItemId , deletedFolderItem) => {
     let delUrl = folderUrl + FolderItemId + '/'
+    console.log(delUrl)
     let delRes = await deleteRequest(delUrl)
     if(delRes.status === 204)
     {

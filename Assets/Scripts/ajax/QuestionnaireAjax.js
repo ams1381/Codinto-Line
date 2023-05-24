@@ -1,4 +1,7 @@
-const questionnaires = document.querySelectorAll('.form');
+import {deleteRequest} from "./ajaxRequsts.js";
+import {baseUrl} from "./ajaxRequsts.js";
+const DeleteUrl = `${baseUrl}/question-api/questionnaires/`
+
 const questionnaire_edit_panels = document.querySelectorAll('.form .form_edit');
 const edit_panel_open_buttons = document.querySelectorAll('.form .form_edit_toggle_button');
 const edit_panel_close_buttons = document.querySelectorAll('.form  .form_edit_cancel');
@@ -30,6 +33,12 @@ export const questionnaire_generator = (Questionnaire) => {
         let questionnaire_edit_button = document.createElement('button');
         questionnaire_edit_button.className = questionnaire_edit_buttons_cNames[i];
         questionnaire_edit_button.textContent = questionnaire_edit_buttons_textContents[i];
+        if(i === 0)
+        {
+            questionnaire_edit_button.addEventListener('click',() => {
+                questionnaire_remove_handler(Questionnaire.uuid,Questionnaire.id);
+            })
+        }
         if(i === 4) {
             let panel_close_icon = document.createElement('i');
             panel_close_icon.className = 'fa fa-close';
@@ -37,10 +46,8 @@ export const questionnaire_generator = (Questionnaire) => {
             questionnaire_edit_button.addEventListener('click',() => {
                 form_edit_panel_handler('close',Questionnaire.id);
             })
-
         }
         questionnaire_edit_panel.append(questionnaire_edit_button);
-
     }
     questionnaire_edit_panel_open_button.className = 'form_edit_toggle_button';
 
@@ -48,21 +55,32 @@ export const questionnaire_generator = (Questionnaire) => {
 
     questionnaireDiv.setAttribute('id','Questionnaire' + Questionnaire.id);
     questionnaireName.textContent = Questionnaire.name;
-
+    $(questionnaireDiv).hide(50);
     questionnaire_edit_panel_open_button.append(questionnaire_edit_panel_open_icon);
     questionnaireDiv.append(questionnaireName , questionnaire_edit_panel , questionnaire_edit_panel_open_button);
     questionnaireDiv.classList.add('form')
     main_questionnaire_container.prepend(questionnaireDiv);
-
+    $(questionnaireDiv).fadeIn(100);
     questionnaire_edit_panel_open_button.addEventListener('click',() => {
         form_edit_panel_handler('open',Questionnaire.id)
     });
+
 }
-export const questionnaire_reLoader = () => {
-    questionnaires.forEach((item) => {
-         if(!item.classList.contains('AddForm'))
-             item.remove();
-    })
+
+const questionnaire_remove_handler = async (questionnaireUUID,questionnaireID) => {
+    console.log(DeleteUrl + questionnaireUUID)
+   let delRes = await deleteRequest(DeleteUrl + questionnaireUUID);
+
+    let deleted_questionnaire = document.getElementById(`Questionnaire${questionnaireID}`);
+    if(delRes.status === 204)
+    {
+        $(deleted_questionnaire).hide(200,() => {
+            deleted_questionnaire.remove();
+        })
+
+    }
+
+
 }
 const form_edit_panel_handler = (ACTION,index) => {
     let selected_questionnaire = document.getElementById('Questionnaire' + index);

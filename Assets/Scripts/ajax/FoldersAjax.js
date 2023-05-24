@@ -14,7 +14,6 @@ const folderLoader =  async () => {
                 response_Data.forEach((item, index) => {
                     if (folder_generator)
                         folder_generator(item.name,item.id,item.questionnaires);
-                    console.log(item)
                 })
         }
     catch (err)

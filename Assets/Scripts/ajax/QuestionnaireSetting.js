@@ -38,6 +38,8 @@ const create_questionnaire = async () => {
         QuestionnairePostData.end_date = GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2];
     }
     await postRequest(baseUrl + '/question-api/questionnaires/',QuestionnairePostData);
+
+    window.open("FormDesign.html","_Self");
 }
 const QuestionnaireTimerToggleLabel = document.querySelector(".ResponeTiming .ResponseAutoSet .slider-button");
 const QuestionnaireTimerToggleInput = document.querySelector(".ResponeTiming .ResponseAutoSet input");
@@ -67,7 +69,6 @@ const TimerSetter = (e) => {
     `${(TimerMinute < 10) ? ('0' + TimerMinute) : TimerMinute}:` + 
     `${(TimerSecond < 10) ? ('0' + TimerSecond) : TimerSecond}`;
 
-    console.log(QuestionnairePostData)
 }
 const DateSetter = (e) => {
     let StartYear , endYear;
