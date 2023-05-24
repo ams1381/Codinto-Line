@@ -18,6 +18,7 @@
     color: #3F52E3;
     transition: 0.3s;
     cursor: pointer;
+    position: relative;
 }
 .form p 
 {
@@ -74,6 +75,7 @@
 .FolderName
 {
     margin: 0 auto 0 auto;
+    transition: 0.3s;
 }
 .Selected
 {
@@ -88,6 +90,10 @@
 {
     display: block;
 }
+.Selected .FolderRemove:hover
+{
+    color: red;
+}
 .Selected .folder_control .FolderEdit i:hover 
 {
     text-shadow: 1px 3px 10px rgba(0, 0, 255, 0.197);
@@ -97,6 +103,7 @@
     margin: 0;
     display: flex;
     align-items: center;
+    transition: 0.3s;
 }
 .navTitle
 {
@@ -139,16 +146,6 @@
 {
     width: 97%;
 }
-.FormEdit
-{
-    width: 35%;
-    display: flex;
-    justify-content: space-around;
-}
-.FormEdit i:hover 
-{
-    text-shadow: 1px 3px 10px rgba(255, 255, 255, 0.256);
-}
 .navTitle.search-active 
 {
     width: 0;
@@ -172,7 +169,7 @@
     display: none;
 }
 
-.createFolderPopUp , .renameFolderPopUp
+.createFolderPopUp , .renameFolderPopUp , .removeFolderPopUp
 {
     position: absolute;
     left: 50%;
@@ -193,7 +190,7 @@
     transition: opacity 0.4s;
     opacity: 0;
 }
-.createFolderPopUp.active , .renameFolderPopUp.active
+.createFolderPopUp.active , .renameFolderPopUp.active , .removeFolderPopUp.active
 {
     opacity: 1;
     z-index: 15;
@@ -227,10 +224,36 @@
     width: 50%;
     margin: 0 auto 0 auto;
 }
+.popup_deleteIcon {
+    color: var(--brand-color);
+    font-size: 4em;
+    display: flex;
+    justify-content: center;
+}
+.popup_deleteIcon i 
+{
+    border: 7px solid var(--brand-color);
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popup_headerText
+{
+    margin-top: 1rem;
+}
 .Selected .folder_control {
     display: flex;
     width: 20%;
     justify-content: space-around;
+    opacity: 1;
+}
+.folder_control
+{
+    transition: 0.2s;
+    opacity: 0;
 }
 .confirm-button , .cancel-button
 {
@@ -280,6 +303,64 @@
 {
     text-align: center;
 }
+.form p , .form_edit_toggle_button
+{
+    transition: 0.3s;
+}
+.form.editActive p , .form.editActive .form_edit_toggle_button
+{
+    opacity: 0;
+}
+.form_edit
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: calc(0.8rem + 1vw);
+    z-index: -2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    opacity: 0;
+    transition: 0.3s;
+}
+.form_edit button
+{
+    position: relative;
+    font-size: calc(0.8rem + 0.5vw);
+}
+.form_edit button:not(:last-child):after
+{
+    content: '';
+    width: 0;
+    height: 3px;
+    display: block;
+    margin: 7px auto 0 auto;
+    background-color: var(--theme-white);
+    transition: width 0.3s;
+    border-radius: 5px;
+}
+.form:hover .form_edit button
+{
+    color: var(--theme-white);
+}
+.form:hover .form_edit button:hover:after
+{
+    width: 100%;
+}
+.form_edit.active
+{
+    z-index: 20;
+    opacity: 1;
+}
+.form button
+{
+    background: none;
+    border: none;
+    color: var(--brand-color);
+    cursor: pointer;
+}
 @media only screen and (max-width : 768px)
 { 
     .block__section
@@ -298,7 +379,7 @@
     .AddForm , .form
     {
         margin: 20px auto 0 auto;
-        width: 45%;
+        width: 90%;
     }
     .navTitle
     {
@@ -306,13 +387,9 @@
     }
     .FormsManagement
     {
-        align-items: center;
-        justify-content: center;
+        grid-template-columns: auto auto auto;
+        display: grid;
     }
-    /*.Folder*/
-    /*{*/
-    /*    display: none;*/
-    /*}*/
     .Selected
     {
         display: flex !important;
@@ -338,5 +415,12 @@
     .folder_slide_toggle
     {
         display: block;
+    }
+}
+@media only screen and (max-width : 576px)
+{
+    .FormsManagement
+    {
+        grid-template-columns: auto auto;
     }
 }

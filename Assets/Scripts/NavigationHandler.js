@@ -14,14 +14,6 @@ const mask_close_panel = () => {
          nav_menu.classList.remove("active");
     nav_mask.classList.remove("active");  
 }
-const create_folder_popup_handler = () => {
-    create_folder_popup.classList.add("active");
-    nav_mask.classList.add("active");
-}
-const rename_folder_popup_handler = () => {
-    rename_folder_popup.classList.add("active");
-    nav_mask.classList.add("active");
-}
 
 
 nav_menu_toggle.addEventListener("click" , menu_toggle_handler);
