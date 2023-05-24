@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تتظـیمات</title>
     <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
-    <link rel="stylesheet" href="../Assets/Styles/Setting.css">
     <link rel="stylesheet" href="/Assets/Styles/AssistiveButton.css">
+    <link rel="stylesheet" href="../Assets/Styles/Setting.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 </head>
 <body>
@@ -20,188 +21,333 @@
         </nav>
      </header>
     <div class="SettingContainer">
-        <form action="">
-            <div class="form-name">
-                <p>
-                    نام پرسشنامه
-                </p>
-                <input type="text">
-            </div>
-            <div class="form-lan">
-                <p>
-                    زبان پرسشنامه
-                </ح>
-                <div class="options">
-                    <input type="radio" name="lang" id="persian" value="فـارسـی">
-                    <label for="persian" >فارسی</label>
-                    
-                    <input type="radio" name="lang" id="English" value="انگلیسـی">
-                    <label for="English">انگلیسی</label>
-    
-                    <input type="radio" name="lang" id="Arabic" value="عربـی">
-                    <label for="Arabic">عـربـی</label>
+        <form>
+                <div class="form-name">
+                    <p>
+                        نام پرسشنامه
+                    </p>
+                    <input type="text">
                 </div>
-                
-            </div>
-            <div class="form-date">
+                <div class="form-date date-start">
+                        <div class="DateautoSet Switch-Container">
+                            <p>تاریخ شروع</p>
+                        <label class="Switch-toggle">
+                            <input type="checkbox">
+                            <span class="slider-button"</span>
+                        </label>
+                        </div>
+                </div>
+                <div class="datePicker start-picker">
+                    <div class="YearPicker">
+                        <input type="radio" name="sYear" id="sy1401" value="1401">
+                        <label for="sy1401">1401</label>
+
+                        <input type="radio" name="sYear" id="sy1402" value="1402">
+                        <label for="sy1402">1402</label>
+                       
+                        <input type="radio" name="sYear" id="sy1403" value="1403">
+                        <label for="sy1403">1403</label>
+
+                        <input type="radio" name="sYear" id="sy1404" value="1404">
+                        <label for="sy1404">1404</label>
+
+                        <input type="radio" name="sYear" id="sy1405" value="1405">
+                        <label for="sy1405">1405</label>
+
+                        <input type="radio" name="sYear" id="sy1406" value="1406">
+                        <label for="sy1406">1406</label>
+                        
+                        <input type="radio" name="sYear" id="sy1407" value="1407">
+                        <label for="sy1407">1407</label>
+
+                        <input type="radio" name="sYear" id="sy1408" value="1408">
+                        <label for="sy1408">1408</label>
+                    </div>
+                    <div class="MonthPicker">
+                        <input type="radio" name="sMonth" id="sm1" value="m1">
+                        <label for="sm1">فروردین</label>
+
+                        <input type="radio" name="sMonth" id="sm2" value="m2">
+                        <label for="sm2">اردیبهشت</label>
+                       
+                        <input type="radio" name="sMonth" id="sm3" value="m3">
+                        <label for="sm3">خرداد</label>
+
+                        <input type="radio" name="sMonth" id="sm4" value="m4">
+                        <label for="sm4">تیر</label>
+
+                        <input type="radio" name="sMonth" id="sm5" value="m5">
+                        <label for="sm5">مرداد</label>
+
+                        <input type="radio" name="sMonth" id="sm6" value="m6">
+                        <label for="sm6">شهریور</label>
+                        
+                        <input type="radio" name="sMonth" id="sm7" value="m7">
+                        <label for="sm7">مهر</label>
+
+                        <input type="radio" name="sMonth" id="sm8" value="m8">
+                        <label for="sm8">آبان</label>
+
+                        <input type="radio" name="sMonth" id="sm9" value="m9">
+                        <label for="sm9">آذر</label>
+
+                        <input type="radio" name="sMonth" id="sm10" value="m10">
+                        <label for="sm10">دی</label>
+
+                        <input type="radio" name="sMonth" id="sm11" value="m11">
+                        <label for="sm11">اسفند</label>
+                    </div>
+                    <div class="DayPicker">
+                        <input type="radio" name="sDay" id="sd1" value="md">
+                        <label for="sd1">1</label>
+
+                        <input type="radio" name="sDay" id="sd2" value="d2">
+                        <label for="sd2">2</label>
+                       
+                        <input type="radio" name="sDay" id="sd3" value="d3">
+                        <label for="sd3">3</label>
+
+                        <input type="radio" name="sDay" id="sd4" value="d4">
+                        <label for="sd4">4</label>
+
+                        <input type="radio" name="sDay" id="sd5" value="d5">
+                        <label for="sd5">5</label>
+
+                        <input type="radio" name="sDay" id="sd6" value="d6">
+                        <label for="sd6">6</label>
+                        
+                        <input type="radio" name="sDay" id="sd7" value="d7">
+                        <label for="sd7">7</label>
+
+                        <input type="radio" name="sDay" id="sd8" value="d8">
+                        <label for="sd8">8</label>
+
+                        <input type="radio" name="sDay" id="sd9" value="d9">
+                        <label for="sd9">9</label>
+
+                        <input type="radio" name="sDay" id="sd10" value=d10">
+                        <label for="sd10">10</label>
+
+                        <input type="radio" name="sDay" id="sd11" value=d11">
+                        <label for="sd11">11</label>
+
+                        <input type="radio" name="sDay" id="sd12" value=d12">
+                        <label for="sd12">12</label>
+
+                        <input type="radio" name="sDay" id="sd13" value="d13">
+                        <label for="sd13">13</label>
+
+                        <input type="radio" name="sDay" id="sd14" value="d14">
+                        <label for="sd14">14</label>
+
+                        <input type="radio" name="sDay" id="sd15" value="d15">
+                        <label for="sd15">15</label>
+
+                        <input type="radio" name="sDay" id="sd16" value="d16">
+                        <label for="sd16">16</label>
+
+                        <input type="radio" name="sDay" id="sd17" value="d17">
+                        <label for="sd17">17</label>
+
+                        <input type="radio" name="sDay" id="sd18" value="d18">
+                        <label for="sd18">18</label>
+
+                        <input type="radio" name="sDay" id="sd19" value="d19">
+                        <label for="sd19">19</label>
+
+                        <input type="radio" name="sDay" id="sd20" value="d20">
+                        <label for="sd20">20</label>
+
+                        <input type="radio" name="sDay" id="sd21" value="d21">
+                        <label for="sd21">21</label>
+
+                        <input type="radio" name="sDay" id="sd22" value="d22">
+                        <label for="sd22">22</label>
+
+                        <input type="radio" name="sDay" id="sd23" value="d23">
+                        <label for="sd23">23</label>
+
+                        <input type="radio" name="sDay" id="sd24" value="d24">
+                        <label for="sd24">24</label>
+
+                        <input type="radio" name="sDay" id="sd25" value="d25">
+                        <label for="sd25">25</label>
+
+                        <input type="radio" name="sDay" id="sd26" value="d26">
+                        <label for="sd26">26</label>
+
+                        <input type="radio" name="sDay" id="sd27" value="d27">
+                        <label for="sd27">27</label>
+
+                        <input type="radio" name="sDay" id="sd28" value="d28">
+                        <label for="sd28">28</label>
+
+                        <input type="radio" name="sDay" id="sd29" value="d29">
+                        <label for="sd29">29</label>
+
+                        <input type="radio" name="sDay" id="sd30" value="d30">
+                        <label for="sd30">30</label>
+                    </div>
+                </div>
+                <div class="form-date date-end">
                     <div class="DateautoSet Switch-Container">
-                        <p>تاریخ شروع</p>
+                        <p>تاریخ پایان</p>
                     <label class="Switch-toggle">
                         <input type="checkbox">
                         <span class="slider-button"</span>
                     </label>
                     </div>
-                </div>
-                <div class="datePicker">
+               </div>
+                <div class="datePicker end-picker">
                     <div class="YearPicker">
-                        <input type="radio" name="Year" id="y1401" value="1401">
-                        <label for="y1401">1401</label>
+                        <input type="radio" name="eYear" id="ey1401" value="1401">
+                        <label for="ey1401">1401</label>
 
-                        <input type="radio" name="Year" id="y1402" value="1402">
-                        <label for="y1402">1402</label>
-                       
-                        <input type="radio" name="Year" id="y1403" value="1403">
-                        <label for="y1403">1403</label>
+                        <input type="radio" name="eYear" id="ey1402" value="1402">
+                        <label for="ey1402">1402</label>
+                    
+                        <input type="radio" name="eYear" id="ey1403" value="1403">
+                        <label for="ey1403">1403</label>
 
-                        <input type="radio" name="Year" id="y1404" value="1404">
-                        <label for="y1404">1404</label>
+                        <input type="radio" name="eYear" id="ey1404" value="1404">
+                        <label for="ey1404">1404</label>
 
-                        <input type="radio" name="Year" id="y1405" value="1405">
-                        <label for="y1405">1405</label>
+                        <input type="radio" name="eYear" id="ey1405" value="1405">
+                        <label for="ey1405">1405</label>
 
-                        <input type="radio" name="Year" id="y1406" value="1406">
-                        <label for="y1406">1406</label>
+                        <input type="radio" name="eYear" id="ey1406" value="1406">
+                        <label for="ey1406">1406</label>
                         
-                        <input type="radio" name="Year" id="y1407" value="1407">
-                        <label for="y1407">1407</label>
+                        <input type="radio" name="eYear" id="ey1407" value="1407">
+                        <label for="ey1407">1407</label>
 
-                        <input type="radio" name="Year" id="y1408" value="1408">
-                        <label for="y1408">1408</label>
+                        <input type="radio" name="eYear" id="ey1408" value="1408">
+                        <label for="ey1408">1408</label>
                     </div>
                     <div class="MonthPicker">
-                        <input type="radio" name="Month" id="m1" value="m1">
-                        <label for="m1">فروردین</label>
+                        <input type="radio" name="eMonth" id="em1" value="m1">
+                        <label for="em1">فروردین</label>
 
-                        <input type="radio" name="Month" id="m2" value="m2">
-                        <label for="m2">اردیبهشت</label>
-                       
-                        <input type="radio" name="Month" id="m3" value="m3">
-                        <label for="m3">خرداد</label>
+                        <input type="radio" name="eMonth" id="em2" value="m2">
+                        <label for="em2">اردیبهشت</label>
+                    
+                        <input type="radio" name="eMonth" id="em3" value="m3">
+                        <label for="em3">خرداد</label>
 
-                        <input type="radio" name="Month" id="m4" value="m4">
-                        <label for="m4">تیر</label>
+                        <input type="radio" name="eMonth" id="em4" value="m4">
+                        <label for="em4">تیر</label>
 
-                        <input type="radio" name="Month" id="m5" value="m5">
-                        <label for="m5">مرداد</label>
+                        <input type="radio" name="eMonth" id="em5" value="m5">
+                        <label for="em5">مرداد</label>
 
-                        <input type="radio" name="Month" id="m6" value="m6">
-                        <label for="m6">شهریور</label>
+                        <input type="radio" name="eMonth" id="em6" value="m6">
+                        <label for="em6">شهریور</label>
                         
-                        <input type="radio" name="Month" id="m7" value="m7">
-                        <label for="m7">مهر</label>
+                        <input type="radio" name="eMonth" id="em7" value="m7">
+                        <label for="em7">مهر</label>
 
-                        <input type="radio" name="Month" id="m8" value="m8">
-                        <label for="m8">آبان</label>
+                        <input type="radio" name="eMonth" id="em8" value="m8">
+                        <label for="em8">آبان</label>
 
-                        <input type="radio" name="Month" id="m9" value="m9">
-                        <label for="m9">آذر</label>
+                        <input type="radio" name="eMonth" id="em9" value="m9">
+                        <label for="em9">آذر</label>
 
-                        <input type="radio" name="Month" id="m10" value="m10">
-                        <label for="m10">دی</label>
+                        <input type="radio" name="eMonth" id="em10" value="m10">
+                        <label for="em10">دی</label>
 
-                        <input type="radio" name="Month" id="m11" value="m11">
-                        <label for="m11">اسفند</label>
+                        <input type="radio" name="eMonth" id="em11" value="m11">
+                        <label for="em11">اسفند</label>
                     </div>
                     <div class="DayPicker">
-                        <input type="radio" name="Day" id="d1" value="md">
-                        <label for="d1">1</label>
+                        <input type="radio" name="eDay" id="ed1" value="md">
+                        <label for="ed1">1</label>
 
-                        <input type="radio" name="Day" id="d2" value="d2">
-                        <label for="d2">2</label>
-                       
-                        <input type="radio" name="Day" id="d3" value="d3">
-                        <label for="d3">3</label>
+                        <input type="radio" name="eDay" id="ed2" value="d2">
+                        <label for="ed2">2</label>
+                    
+                        <input type="radio" name="eDay" id="ed3" value="d3">
+                        <label for="ed3">3</label>
 
-                        <input type="radio" name="Day" id="d4" value="d4">
-                        <label for="d4">4</label>
+                        <input type="radio" name="eDay" id="ed4" value="d4">
+                        <label for="ed4">4</label>
 
-                        <input type="radio" name="Day" id="d5" value="d5">
-                        <label for="d5">5</label>
+                        <input type="radio" name="eDay" id="ed5" value="d5">
+                        <label for="ed5">5</label>
 
-                        <input type="radio" name="Day" id="d6" value="d6">
-                        <label for="d6">6</label>
+                        <input type="radio" name="eDay" id="ed6" value="d6">
+                        <label for="ed6">6</label>
                         
-                        <input type="radio" name="Day" id="d7" value="d7">
-                        <label for="d7">7</label>
+                        <input type="radio" name="eDay" id="ed7" value="d7">
+                        <label for="ed7">7</label>
 
-                        <input type="radio" name="Day" id="d8" value="d8">
-                        <label for="d8">8</label>
+                        <input type="radio" name="eDay" id="ed8" value="d8">
+                        <label for="ed8">8</label>
 
-                        <input type="radio" name="Day" id="d9" value="d9">
-                        <label for="d9">9</label>
+                        <input type="radio" name="eDay" id="ed9" value="d9">
+                        <label for="ed9">9</label>
 
-                        <input type="radio" name="Day" id="d10" value=d10">
-                        <label for="d10">10</label>
+                        <input type="radio" name="eDay" id="ed10" value=d10">
+                        <label for="ed10">10</label>
 
-                        <input type="radio" name="Day" id="d11" value=d11">
-                        <label for="d11">11</label>
+                        <input type="radio" name="eDay" id="ed11" value=d11">
+                        <label for="ed11">11</label>
 
-                        <input type="radio" name="Day" id="d12" value=d12">
-                        <label for="d12">12</label>
+                        <input type="radio" name="eDay" id="ed12" value=d12">
+                        <label for="ed12">12</label>
 
-                        <input type="radio" name="Day" id="d13" value="d13">
-                        <label for="d13">13</label>
+                        <input type="radio" name="eDay" id="ed13" value="d13">
+                        <label for="ed13">13</label>
 
-                        <input type="radio" name="Day" id="d14" value="d14">
-                        <label for="d14">14</label>
+                        <input type="radio" name="eDay" id="ed14" value="d14">
+                        <label for="ed14">14</label>
 
-                        <input type="radio" name="Day" id="d15" value="d15">
-                        <label for="d15">15</label>
+                        <input type="radio" name="eDay" id="ed15" value="d15">
+                        <label for="ed15">15</label>
 
-                        <input type="radio" name="Day" id="d16" value="d16">
-                        <label for="d16">16</label>
+                        <input type="radio" name="eDay" id="ed16" value="d16">
+                        <label for="ed16">16</label>
 
-                        <input type="radio" name="Day" id="d17" value="d17">
-                        <label for="d17">17</label>
+                        <input type="radio" name="eDay" id="ed17" value="d17">
+                        <label for="ed17">17</label>
 
-                        <input type="radio" name="Day" id="d18" value="d18">
-                        <label for="d18">18</label>
+                        <input type="radio" name="eDay" id="ed18" value="d18">
+                        <label for="ed18">18</label>
 
-                        <input type="radio" name="Day" id="d19" value="d19">
-                        <label for="d19">19</label>
+                        <input type="radio" name="eDay" id="ed19" value="d19">
+                        <label for="ed19">19</label>
 
-                        <input type="radio" name="Day" id="d20" value="d20">
-                        <label for="d20">20</label>
+                        <input type="radio" name="eDay" id="ed20" value="d20">
+                        <label for="ed20">20</label>
 
-                        <input type="radio" name="Day" id="d21" value="d21">
-                        <label for="d21">21</label>
+                        <input type="radio" name="eDay" id="ed21" value="d21">
+                        <label for="ed21">21</label>
 
-                        <input type="radio" name="Day" id="d22" value="d22">
-                        <label for="d22">22</label>
+                        <input type="radio" name="eDay" id="ed22" value="d22">
+                        <label for="ed22">22</label>
 
-                        <input type="radio" name="Day" id="d23" value="d23">
-                        <label for="d23">23</label>
+                        <input type="radio" name="eDay" id="ed23" value="d23">
+                        <label for="ed23">23</label>
 
-                        <input type="radio" name="Day" id="d24" value="d24">
-                        <label for="d24">24</label>
+                        <input type="radio" name="eDay" id="ed24" value="d24">
+                        <label for="ed24">24</label>
 
-                        <input type="radio" name="Day" id="d25" value="d25">
-                        <label for="d25">25</label>
+                        <input type="radio" name="eDay" id="ed25" value="d25">
+                        <label for="ed25">25</label>
 
-                        <input type="radio" name="Day" id="d26" value="d26">
-                        <label for="d26">26</label>
+                        <input type="radio" name="eDay" id="ed26" value="d26">
+                        <label for="ed26">26</label>
 
-                        <input type="radio" name="Day" id="d27" value="d27">
-                        <label for="d27">27</label>
+                        <input type="radio" name="eDay" id="ed27" value="d27">
+                        <label for="ed27">27</label>
 
-                        <input type="radio" name="Day" id="d28" value="d28">
-                        <label for="d28">28</label>
+                        <input type="radio" name="eDay" id="ed28" value="d28">
+                        <label for="ed28">28</label>
 
-                        <input type="radio" name="Day" id="d29" value="d29">
-                        <label for="d29">29</label>
+                        <input type="radio" name="eDay" id="ed29" value="d29">
+                        <label for="ed29">29</label>
 
-                        <input type="radio" name="Day" id="d30" value="d30">
-                        <label for="d30">30</label>
+                        <input type="radio" name="eDay" id="ed30" value="d30">
+                        <label for="ed30">30</label>
                     </div>
                 </div>
                 <div class="ResponeTiming">
@@ -214,20 +360,20 @@
                     </div>
                     <div class="ResponePicker">
                         <div class="RhourPicker">
-                            <label for="">
+                            <label>
                                 ساعت
                             </label>
-                            <input type="number">
+                            <input type="number" min="0" id="RhourInput">
                         </div>
                         <div class="RminutePicker">
-                            <label for="">
+                            <label>
                                 دقیقه
                             </label>
-                            <input type="number">
+                            <input type="number" min="0" id="RminuteInput" maxlength="2" max="59">
                         </div>
                         <div class="RsecondPicker">
-                            <label for="">ثانیه</label>
-                            <input type="number">
+                            <label>ثانیه</label>
+                            <input type="number" min="0" id="RsecondInput" maxlength="2" max="59">
                         </div>
                     </div>
                 </div>
@@ -253,9 +399,7 @@
                         <a href="./Folders.html">انصراف</a>
                     </button>
                  </div>
-            </div>
         </form>
-        
     </div>
     <div class="AssistiveButton">
         <div class="AssistiveItems">
@@ -274,7 +418,8 @@
         </div>
         
        </div>
-       <script src="../Assets/Scripts/Form_Setting_Script.js"></script>
+       <script src="../Assets/Scripts/farvardin.min.js"></script>
        <script src="../Assets/Scripts/CommonScript.js"></script>
+       <script src="../Assets/Scripts/ajax/QuestionnaireSetting.js" type="module"></script>
 </body>
 </html>
