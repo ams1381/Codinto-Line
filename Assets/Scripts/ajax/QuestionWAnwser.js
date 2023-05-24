@@ -1,3 +1,4 @@
+
 import {baseUrl , postRequest} from "./ajaxRequsts.js";
 
 const reqUrl = baseUrl +"/question-api/questionnaires/e4f2305e-d282-4417-9484-e429f9a661a2/textanswer-questions/"
@@ -8,63 +9,126 @@ const minInput = document.querySelector(".minInput .label-text-input")
 const maxInput = document.querySelector(".maxInput .label-text-input")
 const sampleAnswer = document.querySelector(".SampleAnw .label-text-input")
 const minVmax = document.querySelector(".AnswerAlphabetLimit")
+const sampleAnswerBox = document.querySelector(".SampleAnw")
+const uploadInput = document.querySelector(".box__file")
 const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle input")
 const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle input")
 const saveBtn = document.querySelector(".saveQuestion")
+let options = null;
+// let question_type = "text_answer"
+// initial data------------------------------------
+options =  "free"
+sampleAnswer.value = null;
 
-let sendFile  = {
-    min: minInput.value,
-    max: maxInput.value,
-    title: titleInput.value,
-    text: textInput.value,
-    sampleAnswer: sampleAnswer.value,
-    necessary: necessaryQuestion.checked,
-    questionNumber: QuestionNumber.value,
 
-}
-
-// function processInput(entry) {
-//     console.log(entry)
-// }
-//
-// function inputValueInclude(input){
-//     input.addEventListener("keyup", function(e) {
-//         let InputEntry  = e.target.value;
-//         processInput(InputEntry)
-//     });
-// }
-// inputValueInclude(minInput)
 //event listener------------------------------------
 
-
+document.addEventListener("DOMContentLoaded", function(event) {
+    minVmax.style.display = "block";
+    sampleAnswerBox.style.display = "none";
+})
 selection.addEventListener("change", function(event) {
    let selectedOption = event.target.options[event.target.selectedIndex];
     let classList = selectedOption.classList;
     switch (classList[1]) {
-        case "text":  minVmax.style.display = "none";
+        case "text":
+            minVmax.style.display = "block";
+            sampleAnswerBox.style.display = "none";
+            options = selectedOption.classList[2]
              break;
-        case "date__shamsi": minVmax.style.display="block";
+        case "date__shamsi":
+            minVmax.style.display="none";
+            sampleAnswerBox.style.display = "block";
+            options = selectedOption.classList[2]
+            minInput.value = "";
+            maxInput.value = "";
             break;
-        case "date__miladi": minVmax.style.display="block";
+        case "date__miladi":
+            minVmax.style.display="none";
+            sampleAnswerBox.style.display = "block";
+            options = selectedOption.classList[2]
+            minInput.value = "";
+            maxInput.value = "";
             break;
-        case "phone__number": minVmax.style.display="block";
+        case "phone__number1":
+            minVmax.style.display="none";
+            sampleAnswerBox.style.display = "block";
+            options = selectedOption.classList[2];
+            minInput.value = "";
+            maxInput.value = "";
             break;
-        case "home__phone": minVmax.style.display="block";
+        case "home__phone":
+            minVmax.style.display="none";
+            sampleAnswerBox.style.display = "block";
+            options = selectedOption.classList[2];
+            minInput.value = "";
+            maxInput.value = "";
             break;
-        case "number":  minVmax.style.display = "none"
+        case "number":
+            minVmax.style.display = "block"
+            sampleAnswerBox.style.display = "none";
+            options = selectedOption.classList[2]
             break;
-        case "persion":  minVmax.style.display = "none"
+        case "persion":
+            minVmax.style.display = "block"
+            sampleAnswerBox.style.display = "none";
+            options = selectedOption.classList[2]
             break;
-        case "english":  minVmax.style.display = "none"
+        case "english":
+            minVmax.style.display = "block"
+            sampleAnswerBox.style.display = "none";
+            options = selectedOption.classList[2]
             break;
     }
+    console.log(options)
 });
+
 saveBtn.addEventListener("click", function(event) {
+   console.log(uploadInput.value)
+
+    let sendFile  = {
+        question_type : "text_answer",
+        title: titleInput.value,
+        question_text: textInput.value,
+        placement: 12,
+        group: "",
+        is_required: necessaryQuestion.checked,
+        show_number: QuestionNumber.checked,
+        media: uploadInput.files[0],
+        answer_template: null,
+        pattern: options,
+        min: minInput.value !== "" ? parseInt(minInput.value) : null,
+        max: maxInput.value !== "" ? parseInt(maxInput.value) : null,
+    };
+    // if (sendFile.media === undefined){
+    //     sendFile.media = ""
+    // }
+    // if (sendFile.min === undefined){
+    //     sendFile.min = 200
+    // }
+    // if (sendFile.max === undefined){
+    //     sendFile.max = 500
+    // }
+
+
+
+    if(titleInput.value === ""){
+        alert("Please fill the title")
+    }
+    if (textInput.value === ""){
+        alert("Please fill the description")
+    }
+    const formData = new FormData();
+    for (let key in sendFile){
+        if(sendFile[key] !== null && sendFile[key] !== undefined){
+            formData.append(key, sendFile[key]);
+        }
+    }
     // ajax request----------------------------------
-    postRequest(reqUrl,sendFile).then((response) => {
+    postRequest(reqUrl,formData)
+        .then((response) => {
         console.log(response.status);
     }).catch((error) => {
         console.log(error);
     })
 })
-

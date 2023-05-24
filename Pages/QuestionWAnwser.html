@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../Assets/Styles/QdesignCommonStyles.css">
     <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <section class="block__section">
@@ -16,6 +17,7 @@
             <div class="SideHeader">
                <div class="SideHeaderTitle">
                    <h3 class="sidebar-codinto-title">کدینتو لاین</h3>
+                  
                </div>
                    <div class="SideHeaderBody">
                     <button class="cancelDesign navButton">
@@ -92,14 +94,14 @@
                    <div class="PatternChoose">
                        <p>الگوی پاسخ</p>
                        <select  id="pattern-select">
-                           <option value="" class="selectionOption date__shamsi">تاریخ شمسی</option>
-                           <option value="" class="selectionOption text">متن آزاد</option>
-                           <option value="" class="selectionOption date__miladi">تاریخ میلادی</option>
-                           <option value="" class="selectionOption phone__number">شماره موبایل</option>
-                           <option value="" class="selectionOption home__phone">شماره تلفن</option>
-                           <option value="" class="selectionOption number">کاراکتر های عددی</option>
-                           <option value="" class="selectionOption persion">حروف فارسی</option>
-                           <option value="" class="selectionOption english">حروف انگلیسی</option>
+                           <option value="" class="selectionOption text free">متن آزاد</option>
+                           <option value="" class="selectionOption date__shamsi jalali_date">تاریخ شمسی</option>
+                           <option value="" class="selectionOption date__miladi georgian_date">تاریخ میلادی</option>
+                           <option value="" class="selectionOption phone__number1 mobile_number">شماره موبایل</option>
+                           <option value="" class="selectionOption home__phone phone_number">شماره تلفن</option>
+                           <option value="" class="selectionOption number number_character">کاراکتر های عددی</option>
+                           <option value="" class="selectionOption persion persian_letters">حروف فارسی</option>
+                           <option value="" class="selectionOption english english_letters">حروف انگلیسی</option>
                        </select>
                    </div>
                    <div class="AnswerAlphabetLimit">
@@ -215,9 +217,8 @@
         </main>
         
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" type="module"></script>
-    <script src="../Assets/Scripts/ajax/QuestionWAnwser.js" type="module"></script>
-    <script src="../Assets/Scripts/CommonScript.js" type="module"></script>
 
+    <script src="../Assets/Scripts/CommonScript.js" type="module"></script>
+    <script src="../Assets/Scripts/ajax/QuestionWAnwser.js" type="module"></script>
 </body>
 </html>

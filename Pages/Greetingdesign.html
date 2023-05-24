@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحه ی خوش آمد گویی</title>
-    <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
-    <link rel="stylesheet" href="/Assets/Styles/QdesignCommonStyles.css">
-    <link rel="stylesheet" href="/Assets/Styles/AssistiveButton.css">
+    <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/QdesignCommonStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <section class="block__section">
@@ -28,28 +29,28 @@
                </div>
             </div>
             <div class="SideBody">
-                <div class="GTitle">
+                <div class="GTitle active">
                     <div class="TitleSetter ToggleOption">
                      <div class="Switch-Container">
                          <p>عنوان</p>
-                     <label class="Switch-toggle">
-                         <input type="checkbox">
-                         <span class="slider-button"</span>
-                     </label>
+<!--                     <label class="Switch-toggle">-->
+<!--                         <input type="checkbox">-->
+<!--                         <span class="slider-button"></span>-->
+<!--                     </label>-->
                      </div>
                     </div>
-                    <div class="TitleInput">
+                    <div class="TitleInput active">
                         <div class="TitleInputOptions  GOptions">
                             <label>
-                                <input type="checkbox" name="" id="Textbolder">
+                                <input type="checkbox" name="" id="Textbolder5">
                                 <i class="fa fa-bold"></i>
                             </label>
                             <label>
-                            <input type="checkbox" name="" id="TextItalic">
+                            <input type="checkbox" name="" id="TextItalic6">
                             <i class="fa fa-italic"></i>
                             </label>
                             <label>
-                            <input type="checkbox" name="" id="TextUnderline">
+                            <input type="checkbox" name="" id="TextUnderline8">
                             <i class="fa fa-underline"></i>
                             </label>
                         </div>
@@ -62,13 +63,13 @@
                    <div class="DescSetter ToggleOption">
                     <div class="Switch-Container">
                         <p>توضیحات</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"</span>
-                    </label>
+<!--                    <label class="Switch-toggle">-->
+<!--                        <input type="checkbox">-->
+<!--                        <span class="slider-button"</span>-->
+<!--                    </label>-->
                     </div>
                    </div>
-                   <div class="DescInput">
+                   <div class="DescInput  active">
                     <div class="TitleInputOptions  GOptions">
                         <label>
                             <input type="checkbox" name="" id="Textbolder">
@@ -126,7 +127,7 @@
                                <i class="fa fa-bold"></i>
                            </label>
                            <label>
-                           <input type="checkbox" name="" id="TextItalic">
+                           <input type="checkbox" name="" id="TextItalic4">
                            <i class="fa fa-italic"></i>
                            </label>
                            <label>
@@ -144,45 +145,42 @@
                    <div class="ButtonSetter ToggleOption">
                     <div class="Switch-Container">
                         <p>شکل دکمه</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"</span>
-                    </label>
+                    <label class="Switch-toggle"></label>
                     </div>
                    </div>
-                   <div class="TitleInput">
+                   <div class="TitleInput active">
                     <div class="TitleInputOptions  GOptions">
                         <label>
-                            <input type="checkbox" name="" id="Textbolder">
+                            <input type="checkbox" name="" id="Textbolder3">
                             <i class="fa fa-bold"></i>
                         </label>
                         <label>
-                        <input type="checkbox" name="" id="TextItalic">
+                        <input type="checkbox" name="" id="TextItalic2">
                         <i class="fa fa-italic"></i>
                         </label>
                         <label>
-                        <input type="checkbox" name="" id="TextUnderline">
+                        <input type="checkbox" name="" id="TextUnderline1">
                         <i class="fa fa-underline"></i>
                         </label>
                     </div>
                        <div class="ShapeOptions">
                            <input  type="radio" name="shape" id="sh1">
-                           <label class="bg-colored" for="sh1"></label>
+                           <label class="bg-colored sharp" for="sh1"></label>
                            
                            <input  type="radio" name="shape" id="sh2">
-                           <label class="bg-colored" style="border-radius: 10px;" for="sh2"></label>
+                           <label class="bg-colored round" style="border-radius: 10px;" for="sh2"></label>
            
                            <input  type="radio" name="shape" id="sh3">
-                           <label class="bg-colored" style="border-radius: 40px;" for="sh3"></label>
+                           <label class="bg-colored oval" style="border-radius: 40px;" for="sh3"></label>
 
                            <input  type="radio" name="shape" id="sh4">
-                           <label class="bg-transp" for="sh4"></label>
+                           <label class="bg-transp sharp" for="sh4"></label>
 
                            <input  type="radio" name="shape" id="sh5">
-                           <label class="bg-transp" style="border-radius: 10px;" for="sh5"></label>
+                           <label class="bg-transp round" style="border-radius: 10px;" for="sh5"></label>
 
                            <input  type="radio" name="shape" id="sh6">
-                           <label class="bg-transp" style="border-radius: 40px;" for="sh6"></label>
+                           <label class="bg-transp oval" style="border-radius: 40px;" for="sh6"></label>
                        </div>
                    </div>
                </div>
@@ -230,7 +228,7 @@
         </main>
         
     </section>
-    
-    <script src="/Assets/Scripts/CommonScript.js"></script>
+    <script src="../Assets/Scripts/CommonScript.js" type="module"></script>
+    <script src="../Assets/Scripts/ajax/welcome.js" type="module"></script>
 </body>
 </html>

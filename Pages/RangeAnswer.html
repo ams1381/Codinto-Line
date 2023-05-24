@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>طیفی</title>
-    <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
-    <link rel="stylesheet" href="/Assets/Styles/QdesignCommonStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/QdesignCommonStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/Assets/Styles/AssistiveButton.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <section class="block__section">
@@ -32,13 +33,13 @@
                    <div class="TitleSetter ToggleOption">
                     <div class="Switch-Container">
                         <p>سوال</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"</span>
-                    </label>
+<!--                    <label class="Switch-toggle">-->
+<!--                        <input type="checkbox">-->
+<!--                        <span class="slider-button"></span>-->
+<!--                    </label>-->
                     </div>
                    </div>
-                   <div class="TitleInput">
+                   <div class="TitleInput active">
                        <div class="TitleInputOptions  GOptions">
                            <label>
                                <input type="checkbox" name="" id="Tbolder">
@@ -66,13 +67,13 @@
                    <div class="DescSetter ToggleOption">
                     <div class="Switch-Container">
                         <p>توضیحات</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"</span>
-                    </label>
+<!--                    <label class="Switch-toggle">-->
+<!--                        <input type="checkbox">-->
+<!--                        <span class="slider-button"></span>-->
+<!--                    </label>-->
                     </div>
                    </div>
-                   <div class="DescInput">
+                   <div class="DescInput active">
                     <div class="TitleInputOptions  GOptions">
                         <label>
                             <input type="checkbox" name="" id="Desbolder">
@@ -108,19 +109,21 @@
                             </label>
                         </div>
                         <div class="range-input">
-                            <input type="range" step="10" value="100" list="range-markers" min="0" max="100">
+<!--                            list="range-markers"-->
+                            <input type="range" step="1" value="4" min="4" max="11" class="rangeInput" list="markers"/>
                             <datalist id="markers">
-                                <option value="0">
-                                    <option value="10">
-                                    <option value="20">
-                                    <option value="30">
-                                    <option value="40">
-                                    <option value="50">
-                                    <option value="60">
-                                    <option value="70">
-                                    <option value="80">
-                                    <option value="90">
-                                    <option value="100">
+                                    <option value="4" >
+                                    <option value="5" >
+                                    <option value="6" >
+                                    <option value="7" >
+                                    <option value="8" >
+                                    <option value="9" >
+                                    <option value="10" >
+                                    <option value="11" >
+<!--                                    <option value="8" >-->
+<!--                                    <option value="9" >-->
+<!--                                    <option value="10" >-->
+<!--                                    <option value="11" >-->
                               </datalist>
                         </div>
                     </div>
@@ -173,8 +176,25 @@
                          
                    </div>
                </div>
-               
+                <div class="AnswerNecessity ToggleOption">
+                    <div class="Switch-Container">
+                        <p>پاسخ به سوال اجباری باشد</p>
+                        <label class="Switch-toggle">
+                            <input type="checkbox">
+                            <span class="slider-button"></span>
+                        </label>
+                    </div>
+
             </div>
+                <div class="QuestionNumber ToggleOption">
+                    <div class="Switch-Container">
+                        <p>عدم نمایش شماره سوال</p>
+                        <label class="Switch-toggle">
+                            <input type="checkbox">
+                            <span class="slider-button"></span>
+                        </label>
+                    </div>
+                </div>
             <div class="SideFooter">
                 <button class="saveQuestion">
                      ذخیره
@@ -215,8 +235,10 @@
                 </div>
                 
                </div>
+
         </main>
     </section>
-    <script src="/Assets/Scripts/CommonScript.js"></script>
+    <script src="../Assets/Scripts/CommonScript.js" type="module"></script>
+    <script src="../Assets/Scripts/ajax/Range.js" type="module"></script>
 </body>
 </html>

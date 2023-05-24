@@ -166,6 +166,7 @@
 }
 .ButtonTextInput
 {
+    margin-top: 0;
     background-color: var(--text-input-bg-color);
     color: var(--brand-color);
 }
