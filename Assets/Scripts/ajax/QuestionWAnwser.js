@@ -1,7 +1,8 @@
 
 import {baseUrl , postRequest} from "./ajaxRequsts.js";
 
-const reqUrl = baseUrl +"/question-api/questionnaires/e4f2305e-d282-4417-9484-e429f9a661a2/textanswer-questions/"
+const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/textanswer-questions/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
 const selection = document.querySelector("#pattern-select")
@@ -128,6 +129,7 @@ saveBtn.addEventListener("click", function(event) {
     postRequest(reqUrl,formData)
         .then((response) => {
         console.log(response.status);
+        window.open("/Pages/FormDesign.html","_Self");
     }).catch((error) => {
         console.log(error);
     })
