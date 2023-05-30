@@ -11,29 +11,6 @@ const AssistiveItemsHandler = () => {
 
     AssistiveToggleButtonIcon.classList.toggle('active');
 }
-<<<<<<< HEAD
+
 AssistiveToggleButton.addEventListener('click', AssistiveItemsHandler);
 
-
-
-// if(Switch_toggle_input) {
-//
-// if (Switch_toggle_input)
-//
-//     Switch_toggle_input.forEach((item, index) => {
-//         item.addEventListener('click', () => {
-//             if (item.checked)
-//                 item.parentElement.parentElement.parentElement.nextElementSibling.classList.add('active')
-//             else
-//                 item.parentElement.parentElement.parentElement.nextElementSibling.classList.remove('active')
-//
-//
-//
-//
-//         })
-//     })
-// }
-//
-=======
-AssistiveToggleButton.addEventListener('click', AssistiveItemsHandler);
->>>>>>> 71597a747cd77bb5e015e49f78c1a94968348ee5

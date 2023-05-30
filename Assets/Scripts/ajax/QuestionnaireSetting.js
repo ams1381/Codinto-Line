@@ -24,7 +24,8 @@ const QuestionnairePostData = {
     show_question_in_pages : false ,
     folder : localStorage.getItem("SelectedFolderID")
 };
-const create_questionnaire = async () => {
+const create_questionnaire = async (e) => {
+    e.preventDefault();
     if (QuestionnairePostData.pub_date !== null)
     {
         let publish_date = QuestionnairePostData.pub_date;
@@ -37,9 +38,11 @@ const create_questionnaire = async () => {
         let GregorianDate = farvardin.solarToGregorian(parseInt(end_date.split("/")[0]) , parseInt(end_date.split("/")[1]) , parseInt(end_date.split("/")[2]));
         QuestionnairePostData.end_date = GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2];
     }
-    await postRequest(baseUrl + '/question-api/questionnaires/',QuestionnairePostData);
+    let create_questionnaire_res =  await postRequest(baseUrl + '/question-api/questionnaires/',QuestionnairePostData);
+    console.log(create_questionnaire_res)
 
-    window.open("FormDesign.html","_Self");
+    window.open("/Pages/FormDesign.html","_self");
+    localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
 }
 const QuestionnaireTimerToggleLabel = document.querySelector(".ResponeTiming .ResponseAutoSet .slider-button");
 const QuestionnaireTimerToggleInput = document.querySelector(".ResponeTiming .ResponseAutoSet input");

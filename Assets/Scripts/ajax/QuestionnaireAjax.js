@@ -47,6 +47,13 @@ export const questionnaire_generator = (Questionnaire) => {
                 form_edit_panel_handler('close',Questionnaire.id);
             })
         }
+        if(i === 1)
+            {
+                questionnaire_edit_button.addEventListener('click',() => {
+                    window.open("/Pages/FormDesign.html","_self");
+                    localStorage.setItem("SelectedQuestionnaire",JSON.stringify(Questionnaire))
+                })
+            }
         questionnaire_edit_panel.append(questionnaire_edit_button);
     }
     questionnaire_edit_panel_open_button.className = 'form_edit_toggle_button';
@@ -58,18 +65,18 @@ export const questionnaire_generator = (Questionnaire) => {
     $(questionnaireDiv).hide(50);
     questionnaire_edit_panel_open_button.append(questionnaire_edit_panel_open_icon);
     questionnaireDiv.append(questionnaireName , questionnaire_edit_panel , questionnaire_edit_panel_open_button);
+
     questionnaireDiv.classList.add('form')
     main_questionnaire_container.prepend(questionnaireDiv);
+
     $(questionnaireDiv).fadeIn(100);
     questionnaire_edit_panel_open_button.addEventListener('click',() => {
         form_edit_panel_handler('open',Questionnaire.id)
     });
 
 }
-
 const questionnaire_remove_handler = async (questionnaireUUID,questionnaireID) => {
-    console.log(DeleteUrl + questionnaireUUID)
-   let delRes = await deleteRequest(DeleteUrl + questionnaireUUID);
+    let delRes = await deleteRequest(DeleteUrl + questionnaireUUID + '/');
 
     let deleted_questionnaire = document.getElementById(`Questionnaire${questionnaireID}`);
     if(delRes.status === 204)
@@ -77,9 +84,7 @@ const questionnaire_remove_handler = async (questionnaireUUID,questionnaireID) =
         $(deleted_questionnaire).hide(200,() => {
             deleted_questionnaire.remove();
         })
-
     }
-
 
 }
 const form_edit_panel_handler = (ACTION,index) => {

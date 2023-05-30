@@ -10,18 +10,16 @@ const mainDrake = dragula(
          slideFactorX: 0,
          mirrorContainer: document.body,  
          moves: function (el, source, handle, sibling) {
+
             const draggedItem = el;
-            if(draggedItem.className.indexOf('GreetingPage') != -1 
+            if(draggedItem.className.indexOf('welcome-page') != -1 
             || draggedItem.className.indexOf('ThankPage') != -1 )
                 return false;
             return true; 
           },
           accepts: function (el, target, source, sibling) {
-            if(sibling)
-            {
-                if(sibling.className.indexOf('GreetingPage') != -1 )
-                return false;
-            }
+            if(el.nextElementSibling)
+               return  !(el.nextElementSibling.className.indexOf('welcome-page') != -1);
             return true; 
           },
           invalid: function (el, handle) {
@@ -59,7 +57,6 @@ const MainDroppedHandler = (el, target, source, sibling) => {
     })
        DashedNumberSorter();
 }
-
 const DashedNumberSorter = () => {
     
     var QuestionSubLabels = document.querySelectorAll(".sub-label");
