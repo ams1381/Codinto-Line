@@ -8,11 +8,14 @@
     <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
     <link rel="stylesheet" href="../Assets/Styles/QdesignCommonStyles.css">
     <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
+    <link rel="stylesheet" href="../Components/questionBox/questionBox.css">
+    <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <section class="block__section">
+    <section class="block__section" id="topPage">
         <aside class="block__side">
             <div class="SideHeader">
                <div class="SideHeaderTitle">
@@ -134,10 +137,10 @@
                <div class="fileUploader">
                    <div class="fileFormat">
                        <input type="radio" name="lang" id="Picture" value="Picture" checked>
-                       <label for="Picture">عکس</label>
+                       <label for="Picture" class="picture__switcher active">عکس</label>
                        
                        <input type="radio" name="lang" id="Video" value="Video">
-                       <label for="Video">ویدیو</label>
+                       <label for="Video" class="video__switcher">ویدیو</label>
        
                    </div>
                    <div class="fileInput">
@@ -175,28 +178,41 @@
                </div>
             </div>
             <div class="SideFooter">
-                <button class="saveQuestion">
+                <a class="saveQuestion">
                      ذخیره
-                </button>
+                </a>
                 <button class="cancelQuestion">
                      انصراف
                 </button>
              </div>
        </aside>
         <main class="block__main">
-             <div class="QuestionContainer">
-                <div class="QuestionTitle Greeting-Title">
-                    <p>سلام و عرض ادب خدمت همه ی همراهان کدینتولاین</p>
+<!--             <div class="QuestionContainer">-->
+<!--                <div class="QuestionTitle Greeting-Title">-->
+<!--                    <p>سلام و عرض ادب خدمت همه ی همراهان کدینتولاین</p>-->
+<!--                </div>-->
+<!--                <div class="description_block">-->
+<!--                   -->
+<!--                </div>-->
+<!--                <div class="QuestionStart">-->
+<!--                   <button class="QuestionStartButton">-->
+<!--                      شروع-->
+<!--                   </button>-->
+<!--                </div>-->
+<!--             </div>-->
+            <section class="justify__question">
+                <div class="question__row">
+                    <span class="question__style">1</span>
+                    <span class="question__style">-</span>
+                    <span class="question__style questionText">اقدامات امیر کبیر را بنویسید</span>
                 </div>
-                <div class="description_block">
-                   
+                <div class="ansswer__row">
+                    <span class="ansswer__text">پاسخ به صورت متن باشد</span>
                 </div>
-                <div class="QuestionStart">
-                   <button class="QuestionStartButton">
-                      شروع
-                   </button>
+                <div class="textErea__container">
+                    <textarea class="entry__input" id="w3review" name="w3review" rows="7" cols="50" placeholder="لطفا پاسخ خود را وارد کنید"></textarea>
                 </div>
-             </div>
+            </section>
              <div class="AssistiveButton">
                 <div class="AssistiveItems">
                         <button class="AddQuestion">
@@ -212,12 +228,12 @@
                 <div class="AssistiveToggle">
                     <button class="AssistiveToggleButton"> <i class="fa fa-plus"></i> </button>
                 </div>
-                
                </div>
         </main>
-        
     </section>
-
+    <div class="wrongEntry">
+        <span class="wrong__text"></span>
+    </div>
     <script src="../Assets/Scripts/CommonScript.js" type="module"></script>
     <script src="../Assets/Scripts/ajax/QuestionWAnwser.js" type="module"></script>
 </body>

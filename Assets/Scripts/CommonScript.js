@@ -11,7 +11,7 @@ const AssistiveItemsHandler = () => {
 
     AssistiveToggleButtonIcon.classList.toggle('active');
 }
-<<<<<<< HEAD
+
 AssistiveToggleButton.addEventListener('click', AssistiveItemsHandler);
 
 
@@ -34,6 +34,6 @@ AssistiveToggleButton.addEventListener('click', AssistiveItemsHandler);
 //     })
 // }
 //
-=======
-AssistiveToggleButton.addEventListener('click', AssistiveItemsHandler);
->>>>>>> 71597a747cd77bb5e015e49f78c1a94968348ee5
+
+// AssistiveToggleButton.addEventListener('click', AssistiveItemsHandler);
+
