@@ -70,24 +70,13 @@ export const questionnaire_generator = (Questionnaire) => {
     main_questionnaire_container.prepend(questionnaireDiv);
 
     $(questionnaireDiv).fadeIn(100);
-    // questionnaireDiv.addEventListener('click',(e) => {
-    //     if(!questionnaire_edit_panel.classList.contains("active"))
-    //     {
-            
-    //     }
-    //     console.log((e.target.classList[1] !== 'fa-close'))
-    // })
-
-
     questionnaire_edit_panel_open_button.addEventListener('click',() => {
         form_edit_panel_handler('open',Questionnaire.id)
     });
 
 }
-
 const questionnaire_remove_handler = async (questionnaireUUID,questionnaireID) => {
-    console.log(DeleteUrl + questionnaireUUID)
-   let delRes = await deleteRequest(DeleteUrl + questionnaireUUID);
+    let delRes = await deleteRequest(DeleteUrl + questionnaireUUID + '/');
 
     let deleted_questionnaire = document.getElementById(`Questionnaire${questionnaireID}`);
     if(delRes.status === 204)
@@ -95,9 +84,7 @@ const questionnaire_remove_handler = async (questionnaireUUID,questionnaireID) =
         $(deleted_questionnaire).hide(200,() => {
             deleted_questionnaire.remove();
         })
-
     }
-
 
 }
 const form_edit_panel_handler = (ACTION,index) => {

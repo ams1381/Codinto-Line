@@ -24,7 +24,8 @@ const QuestionnairePostData = {
     show_question_in_pages : false ,
     folder : localStorage.getItem("SelectedFolderID")
 };
-const create_questionnaire = async () => {
+const create_questionnaire = async (e) => {
+    e.preventDefault();
     if (QuestionnairePostData.pub_date !== null)
     {
         let publish_date = QuestionnairePostData.pub_date;
@@ -38,6 +39,7 @@ const create_questionnaire = async () => {
         QuestionnairePostData.end_date = GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2];
     }
     let create_questionnaire_res =  await postRequest(baseUrl + '/question-api/questionnaires/',QuestionnairePostData);
+    console.log(create_questionnaire_res)
 
     window.open("/Pages/FormDesign.html","_self");
     localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));

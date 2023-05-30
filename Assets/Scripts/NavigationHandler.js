@@ -1,7 +1,6 @@
 const nav_menu = document.querySelector(".navMenu");
 const nav_menu_toggle = document.querySelector(".navToggleButton");
 const nav_mask = document.querySelector(".screen-mask");
-const nav_search_container = document.querySelector(".navTitle");
 const nav_title_text = document.querySelector(".sidebar-codinto-title");
 
 

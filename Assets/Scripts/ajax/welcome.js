@@ -1,4 +1,5 @@
 import {baseUrl , postRequest} from "./ajaxRequsts.js";
+
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/welcome-pages/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput")

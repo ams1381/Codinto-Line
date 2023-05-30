@@ -121,10 +121,10 @@
             </div>
         </aside>
         <main class="block__main">
-           <div class="QuestionsBox nested drop">
+           <div class="QuestionsBox nested">
             <div id="loading-animation">
                 <div class="spinner"></div>
-              </div
+            </div>
            </div>
            <div class="AssistiveButton">
             <div class="AssistiveItems">
@@ -146,11 +146,30 @@
         </main>
      </section>
      <div class="screen-mask"></div>
+     <div class="removeFolderPopUp">
+        <div class="popUpHeader">
+            <div class="popup_deleteIcon">
+                <i class="fa fa-close"></i>
+            </div>
+            <div class="popup_headerText">
+                آیا مطمعن هستید؟
+            </div>
+        </div>
+        <div class="PopUpButtons">
+            <button class="confirm-button">
+                حذف
+            </button>
+            <button class="cancel-button">
+                انصراف
+            </button>
+        </div>
+    </div>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.js"></script>
      
+     <script src="/Assets/Scripts/CommonScript.js"></script>
      <script src="/Assets//Scripts/ajax/FormDesignAjax.js" type="module"></script>
      <script src="/Assets/Scripts/NavigationHandler.js"></script>
      <script src="/Assets/Scripts/DraggableItems.js"></script>
-     <script src="/Assets/Scripts/CommonScript.js"></script>
+     
 </body>
 </html>
