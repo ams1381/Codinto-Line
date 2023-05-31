@@ -34,13 +34,13 @@ function showAlert(text){
     }, 3000);
 }
 
-// function showValue(input , value){
-//     input.addEventListener("input" , (e)=>{
-//         value.innerText = e.target.value
-//     })
-// }
-// showValue(titleInput , questionText)
-// showValue(textInput , questionDescription)
+function showValue(input , value){
+    input.addEventListener("input" , (e)=>{
+        value.innerText = e.target.value
+    })
+}
+showValue(titleInput , questionText)
+showValue(textInput , questionDescription)
 
 
 //event listener------------------------------------
@@ -68,6 +68,9 @@ videoSwitcher.addEventListener("click" , (e)=>{
         pictureSwitcher.classList.remove("active")
         videoSwitcher.classList.add("active")
     }
+})
+uploadInput.addEventListener("change" , (e)=>{
+    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
 })
 
 // add event listener to save button

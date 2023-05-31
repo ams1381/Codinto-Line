@@ -72,6 +72,9 @@ videoSwitcher.addEventListener("click" , (e)=>{
         videoSwitcher.classList.add("active")
     }
 })
+uploadInput.addEventListener("change" , (e)=>{
+    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
+})
 saveBtn.addEventListener("click" , function (){
 
     if(titleInput.value === "" && textInput.value === ""){

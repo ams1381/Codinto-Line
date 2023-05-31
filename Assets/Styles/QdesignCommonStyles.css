@@ -100,6 +100,7 @@
     margin-top: 20px;
     border-radius: var(--theme-radius-size) var(--theme-radius-size);
     box-shadow: 4px 4px 3px var(--input-shadow-color);
+    margin-bottom: 0.5rem;
 }
 .inputTitle , .TitleInputOptions 
 {
@@ -644,4 +645,9 @@ input[type=range]::-webkit-slider-thumb {
 }
 .underline{
     text-decoration: underline;
+}
+.upload__link{
+    font-size: 1rem;
+    color: var(--brand-color);
+     margin-right: 0.2rem;
 }

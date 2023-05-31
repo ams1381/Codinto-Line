@@ -74,7 +74,9 @@ videoSwitcher.addEventListener("click" , (e)=>{
         videoSwitcher.classList.add("active")
     }
 })
-
+uploadInput.addEventListener("change" , (e)=>{
+    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
+})
 
 // add event listener to save button
 saveBtn.addEventListener("click", function(event) {
