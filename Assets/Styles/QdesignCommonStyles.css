@@ -636,3 +636,12 @@ input[type=range]::-webkit-slider-thumb {
 .file__size__upload::-webkit-inner-spin-button {
     display: none;
 }
+.bold{
+    font-weight: 900;
+}
+.italic{
+    font-style: italic;
+}
+.underline{
+    text-decoration: underline;
+}

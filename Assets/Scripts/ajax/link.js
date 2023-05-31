@@ -148,7 +148,10 @@ saveBtn.addEventListener("click", function(event) {
     // ajax request----------------------------------
     postRequest(reqUrl,formData)
         .then((response) => {
-            console.log(response.status);
+            // console.log(response.status);
+            if(response.status === 201){
+                window.open("/Pages/FormDesign.html","_Self");
+            }
         }).catch((error) => {
         console.log(error);
     })

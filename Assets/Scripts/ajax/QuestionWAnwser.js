@@ -51,24 +51,28 @@ showValue(textInput , questionDescription)
 //event listener------------------------------------
 // create folder and questionnaire
 document.addEventListener("DOMContentLoaded" , (e)=>{
-    let sendData = {
-        name : "test",
-    }
-    let ques ={
-        name : "burak",
-        folder : 2,
-    }
-    postRequest(folder , sendData).then((response)=>{
-        console.log(response.data);
-    })
-    postRequest(questionnairesUrl , ques).then((response)=>{
-        console.log(response.data);
-    })
+    // let sendData = {
+    //     name : "test",
+    // }
+    // let ques ={
+    //     name : "burak",
+    //     folder : 2,
+    // }
+    // postRequest(folder , sendData).then((response)=>{
+    //     console.log(response.data);
+    // })
+    // postRequest(questionnairesUrl , ques).then((response)=>{
+    //     console.log(response.data);
+    // })
 
 })
 // upload file limitation
 pictureSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+    if(videoSwitcher.classList.contains("active")){
+        videoSwitcher.classList.remove("active")
+        pictureSwitcher.classList.add("active")
+    }
 })
 videoSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"

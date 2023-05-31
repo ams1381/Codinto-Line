@@ -171,7 +171,6 @@ const QuestionDesignItemsHandler = (QuestionType) => {
         case 'thank-page':
             window.open("/Pages/thanks.html","_Self");
             break;
-
 }
 }
 const remove_folder_popup_handler = (QuestionType,QuestionId) => {

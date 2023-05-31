@@ -17,7 +17,8 @@ const rangeInput = document.querySelector(".rangeInput");
 const wrongAlert = document.querySelector(".wrongEntry")
 const questionText = document.querySelector(".questionText")
 const questionDescription = document.querySelector(".ansswer__text")
-const titleBoldIcon = document.querySelector(".GTitle .fa-bold")
+const pictureSwitcher = document.querySelector(".picture__switcher")
+const videoSwitcher = document.querySelector(".video__switcher")
 rightInput.value = null;
 middleInput.value = null;
 leftInput.value = null;
@@ -39,23 +40,40 @@ function showValue(input , value){
 }
 showValue(titleInput , questionText)
 showValue(textInput , questionDescription)
-document.addEventListener("DOMContentLoaded" , (e)=>{
-    // let sendData = {
-    //     name : "test",
-    // }
-    // let ques ={
-    //     name : "burak",
-    //     folder : 2,
-    // }
-    // postRequest(folder , sendData).then((response)=>{
-    //     console.log(response.data);
-    // })
-    // postRequest(questionnairesUrl , ques).then((response)=>{
-    //     console.log(response.data);
-    // })
 
+function textStyle(input){
+    const textEditor = document.querySelector(".TitleInputOptions")
+    textEditor.addEventListener("click" , (e)=>{
+        switch (e.target.classList[1]){
+            case "fa-bold":
+                input.classList.toggle("bold")
+                break;
+            case "fa-italic":
+                input.classList.toggle("italic")
+                break;
+            case "fa-underline":
+                input.classList.toggle("underline")
+                break;
+        }
+    })
+}
+textStyle(titleInput)
+pictureSwitcher.addEventListener("click" , (e)=>{
+    uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+    if(videoSwitcher.classList.contains("active")){
+        videoSwitcher.classList.remove("active")
+        pictureSwitcher.classList.add("active")
+    }
+})
+videoSwitcher.addEventListener("click" , (e)=>{
+    uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
+    if(pictureSwitcher.classList.contains("active")){
+        pictureSwitcher.classList.remove("active")
+        videoSwitcher.classList.add("active")
+    }
 })
 saveBtn.addEventListener("click" , function (){
+
     if(titleInput.value === "" && textInput.value === ""){
         showAlert("عنوان و متن سوال را وارد کنید")
     }else if(textInput.value === ""){

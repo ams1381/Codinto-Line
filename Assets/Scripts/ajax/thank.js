@@ -57,6 +57,10 @@ document.addEventListener("DOMContentLoaded" , (e)=>{
 // upload file limitation
 pictureSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+    if(videoSwitcher.classList.contains("active")){
+        videoSwitcher.classList.remove("active")
+        pictureSwitcher.classList.add("active")
+    }
 })
 videoSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
