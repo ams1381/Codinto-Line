@@ -7,6 +7,7 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
     filter: alpha(opacity=80);
     pointer-events: none;
+    font-family: IRANSans;
 }
   /* high-performance display:none; helper */
   .gu-hide {
@@ -18,10 +19,12 @@
     -moz-user-select: none !important;
     -ms-user-select: none !important;
     user-select: none !important;
+    font-family: IRANSans;
 }
   /* added to the source element while its mirror is dragged */
   .gu-transit {
     opacity: 0.35;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
     filter: alpha(opacity=20);
+    font-family: IRANSans;
 }

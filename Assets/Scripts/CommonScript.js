@@ -1,4 +1,3 @@
-
 const AssistiveItems = document.querySelector(".AssistiveButton .AssistiveItems");
 const AssistiveToggleButton = document.querySelector(".AssistiveToggleButton");
 const AssistiveToggleButtonIcon = document.querySelector(".AssistiveToggleButton i");
@@ -13,8 +12,6 @@ const AssistiveItemsHandler = () => {
 }
 
 AssistiveToggleButton.addEventListener('click', AssistiveItemsHandler);
-
-
 
 // if(Switch_toggle_input) {
 //

@@ -126,7 +126,6 @@ const folder_creator_handler = async () => {
     else
     folder_generator(create_folder_name_input.value,parseInt(folder_items[folder_items.length - 1].getAttribute('id')) + 1);
 
-
     folder_reloader();
     await folderLoader();
 }

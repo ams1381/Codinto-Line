@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آپلود</title>
+    <title>تشکر</title>
     <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
     <link rel="stylesheet" href="../Assets/Styles/QdesignCommonStyles.css">
     <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
-    <link rel="stylesheet" href="../Components/questionBox/upload.css">
+<!--    <link rel="stylesheet" href="../Components/questionBox/rowInput.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
@@ -24,7 +24,7 @@
                 <button class="cancelDesign navButton">
                     <i class="fa fa-close"></i>
                 </button>
-                <p class="quetion-type">آپلود</p>
+                <p class="quetion-type">تشکر</p>
                 <button class="viewQuestion navButton">
                     <i class="fa fa-eye"></i>
                 </button>
@@ -125,25 +125,14 @@
 <!--                        <label >نمونه پاسخ</label>-->
 <!--                        <input class="label-text-input" type="number" placeholder="021-37773637"/>-->
 <!--                    </div>-->
-<!--                    &lt;!&ndash;                       <div class="Validator">&ndash;&gt;-->
-<!--                    &lt;!&ndash;                           <label >پیام اعتبار سنجی</label>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                           <input class="label-text-input" type="number" placeholder="لطفا یک شماره تلفن معتبر وارد کنید">&ndash;&gt;-->
-<!--                    &lt;!&ndash;                       </div>&ndash;&gt;-->
+<!--                                           <div class="Validator">-->
+<!--                                               <label >پیام اعتبار سنجی</label>-->
+<!--                                               <input class="label-text-input" type="number" placeholder="لطفا یک شماره تلفن معتبر وارد کنید">-->
+<!--                                           </div>-->
 <!--                </div>-->
             </div>
-<!--            mb and kb-->
 
-<!--            -->
             <div class="fileUploader">
-                <section class="upload__file__size__container">
-                    <div class="fileSize__container">
-                            <input type="radio" name="size"  id="MB" value="MB" class="size__input" checked>
-                            <label for="MB" class="MB__switcher active">MB</label>
-                            <input type="radio" name="size" id="KB" value="KB" class="size__input"/>
-                            <label for="KB" class="KB__switcher">KB</label>
-                    </div>
-                    <input class="file__size__upload" type="number" placeholder="4"/>
-                </section>
                 <div class="fileFormat">
                     <input type="radio" name="lang" id="Picture" value="Picture" checked>
                     <label for="Picture" class="picture__switcher active">عکس</label>
@@ -166,19 +155,82 @@
 
                 </div>
             </div>
-            <div class="AnswerNecessity ToggleOption">
+<!--            <div class="AnswerNecessity ToggleOption">-->
+<!--                <div class="Switch-Container">-->
+<!--                    <p>پاسخ به سوال اجباری باشد</p>-->
+<!--                    <label class="Switch-toggle">-->
+<!--                        <input type="checkbox">-->
+<!--                        <span class="slider-button"></span>-->
+<!--                    </label>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--            <div class="QuestionNumber ToggleOption">-->
+<!--                <div class="Switch-Container">-->
+<!--                    <p>عدم نمایش شماره سوال</p>-->
+<!--                    <label class="Switch-toggle">-->
+<!--                        <input type="checkbox">-->
+<!--                        <span class="slider-button"></span>-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="ShareQuestion ToggleOption">
                 <div class="Switch-Container">
-                    <p>پاسخ به سوال اجباری باشد</p>
+                    <p>اشتراک گذاری لینک پرسشنامه</p>
                     <label class="Switch-toggle">
                         <input type="checkbox">
                         <span class="slider-button"></span>
                     </label>
                 </div>
-
+            </div>
+            <div class="telegram ToggleOption">
+                <div class="Switch-Container">
+                    <p>تلگرام</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="instagram ToggleOption">
+                <div class="Switch-Container">
+                    <p>اینستاگرام</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="whatsapp ToggleOption">
+                <div class="Switch-Container">
+                    <p>واتس اپ</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="eitaa ToggleOption">
+                <div class="Switch-Container">
+                    <p>ایتا</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="sorush ToggleOption">
+                <div class="Switch-Container">
+                    <p>سروش</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
             </div>
             <div class="QuestionNumber ToggleOption">
                 <div class="Switch-Container">
-                    <p>عدم نمایش شماره سوال</p>
+                    <p>استفاده به عنوان صفحه ی تشکر پیشفرض</p>
                     <label class="Switch-toggle">
                         <input type="checkbox">
                         <span class="slider-button"></span>
@@ -209,24 +261,19 @@
         <!--                   </button>-->
         <!--                </div>-->
         <!--             </div>-->
-        <section class="justify__question">
-            <div class="question__row">
-                <span class="question__style">1</span>
-                <span class="question__style">-</span>
-                <span class="question__style questionText">امیرکبیر چند سال عمر کرد؟</span>
-            </div>
-            <div class="ansswer__row">
-                <span class="ansswer__text">از نوشتن جواب اضافی پرهیز کنید</span>
-            </div>
-            <div class="textErea__container">
-                <div class="upload__box">
-                    <input type="file" id="uploadInput" class="uploadInput"/>
-                    <label for="uploadInput">
-                        <i class="fa fa-upload uploadIcon"></i>
-                    </label>
-                </div>
-            </div>
-        </section>
+<!--        <section class="justify__question">-->
+<!--            <div class="question__row">-->
+<!--                <span class="question__style">1</span>-->
+<!--                <span class="question__style">-</span>-->
+<!--                <span class="question__style questionText">امیرکبیر چند سال عمر کرد؟</span>-->
+<!--            </div>-->
+<!--            <div class="ansswer__row">-->
+<!--                <span class="ansswer__text">از نوشتن پاسخ اضافی پرهیز کنید</span>-->
+<!--            </div>-->
+<!--            <div class="textErea__container">-->
+<!--                <input type="text" class="action__input">-->
+<!--            </div>-->
+<!--        </section>-->
         <div class="AssistiveButton">
             <div class="AssistiveItems">
                 <button class="AddQuestion">
@@ -251,6 +298,6 @@
     <span class="wrong__text"></span>
 </div>
 <script src="../Assets/Scripts/CommonScript.js" type="module"></script>
-<script src="../Assets/Scripts/ajax/uploadPage.js" type="module"></script>
+<script src="../Assets/Scripts/ajax/thank.js" type="module"></script>
 </body>
 </html>

@@ -254,6 +254,10 @@
 {      
     border: 2px solid var(--deActive-input-text-color);
 }
+.ShapeOptions input:checked + label
+{
+    transform: scale(1.1);
+}
 .TitleInput.active .bg-colored
 {
     background-color: var(--brand-color);

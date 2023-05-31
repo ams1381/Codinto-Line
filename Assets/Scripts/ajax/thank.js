@@ -1,25 +1,29 @@
 
 import {baseUrl, getRequest, postRequest} from "./ajaxRequsts.js";
+const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const folder = baseUrl + "/user-api/folders/"
 const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
-const reqUrl = baseUrl +"/question-api/questionnaires/e65a7256-72d0-49b5-b084-1fd61f0caf5a/textanswer-questions/"
+const reqUrl = baseUrl +`/question-api/questionnaires/${QuestionnaireUUID}/thanks-pages/`
+console.log(reqUrl);
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
-const sampleAnswer = document.querySelector(".SampleAnw .label-text-input")
 const uploadInput = document.querySelector(".box__file")
-const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle input")
-const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle input")
+// const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle input")
+// const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle input")
 const saveBtn = document.querySelector(".saveQuestion")
 const questionText = document.querySelector(".questionText")
 const questionDescription = document.querySelector(".ansswer__text")
 const wrongAlert = document.querySelector(".wrongEntry")
 const pictureSwitcher = document.querySelector(".picture__switcher")
 const videoSwitcher = document.querySelector(".video__switcher")
-let options = null;
+const shareQuestion = document.querySelector(".ShareQuestion")
+const telegram = document.querySelector(".telegram")
+const whatsapp = document.querySelector(".whatsapp")
+const instagram = document.querySelector(".instagram")
+const eitaa = document.querySelector(".eitaa")
+const sorush = document.querySelector(".sorush")
 
 // initial data------------------------------------
-options =  "free"
-sampleAnswer.value = null;
 function showAlert(text){
     wrongAlert.style.opacity = "1";
     document.querySelector('.block__side').scrollTo(0,0)
@@ -29,13 +33,14 @@ function showAlert(text){
         wrongAlert.style.opacity = "0";
     }, 3000);
 }
-function showValue(input , value){
-    input.addEventListener("input" , (e)=>{
-        value.innerText = e.target.value
-    })
-}
-showValue(titleInput , questionText)
-showValue(textInput , questionDescription)
+
+// function showValue(input , value){
+//     input.addEventListener("input" , (e)=>{
+//         value.innerText = e.target.value
+//     })
+// }
+// showValue(titleInput , questionText)
+// showValue(textInput , questionDescription)
 
 
 //event listener------------------------------------
@@ -44,7 +49,7 @@ document.addEventListener("DOMContentLoaded" , (e)=>{
     getRequest(folder).then((response)=>{
         console.log(response.data);
     })
-   getRequest(questionnairesUrl).then((response)=>{
+    getRequest(questionnairesUrl).then((response)=>{
         console.log(response.data);
     })
 
@@ -60,6 +65,7 @@ videoSwitcher.addEventListener("click" , (e)=>{
         videoSwitcher.classList.add("active")
     }
 })
+
 // add event listener to save button
 saveBtn.addEventListener("click", function(event) {
 
@@ -69,10 +75,12 @@ saveBtn.addEventListener("click", function(event) {
         showAlert("متن سوال را وارد کنید")
     }else if(titleInput.value === ""){
         showAlert("عنوان سوال را وارد کنید")
+    }else{
+        console.log("ok");
     }
+
     // upload wrong error
     if(uploadInput.files[0] !== undefined){
-        // console.log(uploadInput.files[0].name.split("."));
         let uploadUrl = uploadInput.files[0].name.split(".")
         if(pictureSwitcher.classList.contains("active")){
             switch (uploadUrl[1]) {
@@ -119,24 +127,24 @@ saveBtn.addEventListener("click", function(event) {
                     break;
                 default:
                     showAlert("فرمت وارد شده پذیرفته نیست")
-
             }
         }
     }else {
         console.log("no file");
     }
-
     let sendFile  = {
-        question_type : "Link question",
+        question_type : "File",
         title: titleInput.value,
         question_text: textInput.value,
-        placement: 12,
+        placement: 3,
         group: "",
-        is_required: necessaryQuestion.checked,
-        show_number: QuestionNumber.checked,
+        share_link: shareQuestion.checked,
+        instagram: instagram.checked,
+        telegram: telegram.checked,
+        whatsapp: whatsapp.checked,
+        eitaa: eitaa.checked,
+        sorush: sorush.checked,
         media: uploadInput.files[0],
-        answer_template: null,
-        pattern: options,
     };
 
     const formData = new FormData();
@@ -149,6 +157,9 @@ saveBtn.addEventListener("click", function(event) {
     postRequest(reqUrl,formData)
         .then((response) => {
             console.log(response.status);
+            if (response.status === 201){
+                window.open("/Pages/FormDesign.html","_Self");
+            }
         }).catch((error) => {
         console.log(error);
     })

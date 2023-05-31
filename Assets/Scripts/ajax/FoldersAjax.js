@@ -10,11 +10,11 @@ const folderLoader =  async () => {
         {
             let FoldersRes = await getRequest(folderUrl);
 
-                const response_Data = FoldersRes.data;
-                response_Data.forEach((item, index) => {
-                    if (folder_generator)
-                        folder_generator(item.name,item.id,item.questionnaires);
-                })
+            const response_Data = FoldersRes.data;
+            response_Data.forEach((item, index) => {
+                if (folder_generator)
+                    folder_generator(item.name,item.id,item.questionnaires);
+            })
         }
     catch (err)
         {

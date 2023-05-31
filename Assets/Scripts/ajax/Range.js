@@ -3,6 +3,8 @@ import {baseUrl , postRequest , getRequest} from "./ajaxRequsts.js";
 let reqUrl = baseUrl +`/question-api/questionnaires/14a19d1d-da76-48d5-aff0-75db0e2b4af6/integerrange-questions/`
 const folder = baseUrl + "/user-api/folders/"
 const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
+const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+let reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/integerrange-questions/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput");
 const textInput = document.querySelector(".GDesc .TitleTextInput");
 const rightInput = document.querySelector(".right-Input .label-text-input")
@@ -97,6 +99,7 @@ saveBtn.addEventListener("click" , function (){
     postRequest(reqUrl,formData)
         .then((response) => {
             console.log(response.data);
+            window.open("/Pages/FormDesign.html","_Self");
         }).catch((error) => {
         console.log(error);
     })

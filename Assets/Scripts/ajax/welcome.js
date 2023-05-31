@@ -1,11 +1,13 @@
 import {baseUrl , postRequest} from "./ajaxRequsts.js";
-const reqUrl = baseUrl + "/question-api/questionnaires/e4f2305e-d282-4417-9484-e429f9a661a2/welcome-pages/"
+const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/welcome-pages/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
 const mediaInput = document.querySelector(".box__file")
 const buttonText = document.querySelector(".ButtonTextInput")
 const shapeSelector = document.querySelectorAll(".ShapeOptions label")
 const saveBtn = document.querySelector(".saveQuestion")
+
 let selectedObject = null
 shapeSelector.forEach((e)=>{
     e.addEventListener("click" , ()=>{
@@ -42,6 +44,7 @@ saveBtn.addEventListener("click" , function (){
     postRequest(reqUrl,formData)
         .then((response) => {
             console.log(response.data);
+            window.open("/Pages/FormDesign.html","_Self");
         }).catch((error) => {
         console.log(error);
     })

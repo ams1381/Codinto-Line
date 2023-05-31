@@ -47,6 +47,13 @@ export const questionnaire_generator = (Questionnaire) => {
                 form_edit_panel_handler('close',Questionnaire.id);
             })
         }
+        if(i === 1)
+            {
+                questionnaire_edit_button.addEventListener('click',() => {
+                    window.open("/Pages/FormDesign.html","_self");
+                    localStorage.setItem("SelectedQuestionnaire",JSON.stringify(Questionnaire))
+                })
+            }
         questionnaire_edit_panel.append(questionnaire_edit_button);
     }
     questionnaire_edit_panel_open_button.className = 'form_edit_toggle_button';
@@ -58,9 +65,20 @@ export const questionnaire_generator = (Questionnaire) => {
     $(questionnaireDiv).hide(50);
     questionnaire_edit_panel_open_button.append(questionnaire_edit_panel_open_icon);
     questionnaireDiv.append(questionnaireName , questionnaire_edit_panel , questionnaire_edit_panel_open_button);
+
     questionnaireDiv.classList.add('form')
     main_questionnaire_container.prepend(questionnaireDiv);
+
     $(questionnaireDiv).fadeIn(100);
+    // questionnaireDiv.addEventListener('click',(e) => {
+    //     if(!questionnaire_edit_panel.classList.contains("active"))
+    //     {
+            
+    //     }
+    //     console.log((e.target.classList[1] !== 'fa-close'))
+    // })
+
+
     questionnaire_edit_panel_open_button.addEventListener('click',() => {
         form_edit_panel_handler('open',Questionnaire.id)
     });

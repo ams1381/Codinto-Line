@@ -1,8 +1,9 @@
 
 import {baseUrl, getRequest, postRequest} from "./ajaxRequsts.js";
+const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const folder = baseUrl + "/user-api/folders/"
 const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
-const reqUrl = baseUrl +"/question-api/questionnaires/e65a7256-72d0-49b5-b084-1fd61f0caf5a/textanswer-questions/"
+const reqUrl = baseUrl +`/question-api/questionnaires/${QuestionnaireUUID}/file-questions/`
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
 const uploadInput = document.querySelector(".box__file")
@@ -16,10 +17,11 @@ const pictureSwitcher = document.querySelector(".picture__switcher")
 const videoSwitcher = document.querySelector(".video__switcher")
 const MBSelector = document.querySelector(".MB__switcher")
 const KBSelector = document.querySelector(".KB__switcher")
-let options = null;
+const sizeInput = document.querySelector(".file__size__upload")
+
 
 // initial data------------------------------------
-options =  "free"
+
 
 function showAlert(text){
     wrongAlert.style.opacity = "1";
@@ -30,6 +32,7 @@ function showAlert(text){
         wrongAlert.style.opacity = "0";
     }, 3000);
 }
+
 function showValue(input , value){
     input.addEventListener("input" , (e)=>{
         value.innerText = e.target.value
@@ -61,19 +64,29 @@ videoSwitcher.addEventListener("click" , (e)=>{
         videoSwitcher.classList.add("active")
     }
 })
+KBSelector.addEventListener("click" , (e)=>{
+    if(MBSelector.classList.contains("active")){
+        MBSelector.classList.remove("active")
+        KBSelector.classList.add("active")
+    }
+})
 // add event listener to save button
 saveBtn.addEventListener("click", function(event) {
-
+console.log(sizeInput.value);
     if(titleInput.value === "" && textInput.value === ""){
         showAlert("عنوان و متن سوال را وارد کنید")
     }else if(textInput.value === ""){
         showAlert("متن سوال را وارد کنید")
     }else if(titleInput.value === ""){
         showAlert("عنوان سوال را وارد کنید")
+    }else if(sizeInput.value === null || sizeInput.value === undefined || sizeInput.value === ""){
+        showAlert("حجم فایل را وارد کنید")
+    }else{
+        console.log("ok");
     }
+
     // upload wrong error
     if(uploadInput.files[0] !== undefined){
-        // console.log(uploadInput.files[0].name.split("."));
         let uploadUrl = uploadInput.files[0].name.split(".")
         if(pictureSwitcher.classList.contains("active")){
             switch (uploadUrl[1]) {
@@ -126,18 +139,21 @@ saveBtn.addEventListener("click", function(event) {
     }else {
         console.log("no file");
     }
+    // kb and mb
 
+    if(KBSelector.classList.contains("active")){
+        sizeInput.value = Math.round((sizeInput.value ) / 1024)
+    }
     let sendFile  = {
-        question_type : "text_answer",
+        question_type : "File",
         title: titleInput.value,
         question_text: textInput.value,
-        placement: 12,
+        placement: 3,
         group: "",
         is_required: necessaryQuestion.checked,
         show_number: QuestionNumber.checked,
         media: uploadInput.files[0],
-        answer_template: null,
-        pattern: options,
+        max_volume : sizeInput.value,
     };
 
     const formData = new FormData();
@@ -150,6 +166,9 @@ saveBtn.addEventListener("click", function(event) {
     postRequest(reqUrl,formData)
         .then((response) => {
             console.log(response.status);
+            if (response.status === 201){
+                window.open("/Pages/FormDesign.html","_Self");
+            }
         }).catch((error) => {
         console.log(error);
     })
