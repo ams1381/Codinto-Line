@@ -251,7 +251,11 @@
     font-family: 'IRANSANS';
     cursor: pointer;
 }
-
+.cancelQuestion a 
+{
+    text-decoration: none;
+    color: var(--brand-color);
+}
 .screen-mask {
     position: absolute;
     left: 0;

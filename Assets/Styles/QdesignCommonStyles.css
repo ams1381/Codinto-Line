@@ -47,7 +47,13 @@
     right: 20px;
     top: 0;
 }
-
+.cancelDesign a 
+{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--brand-color);
+}
 .viewQuestion
 {
     top: 0;
@@ -506,7 +512,6 @@
 .minInput input , .maxInput input , .right-part input ,
 .middle-Input input , .left-input input
 {
-    text-align: center;
     width: 30%;
 }
 .additional-options-container > div 
@@ -561,6 +566,7 @@ input[type=range]::-webkit-slider-thumb {
     z-index: 5;
     cursor: pointer;
     transition: 0.3s;
+    margin-top: -10px;
 }  
 .range-setter #markers
 {

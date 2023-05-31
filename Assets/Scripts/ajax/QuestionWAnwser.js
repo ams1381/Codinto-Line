@@ -3,8 +3,6 @@ import {baseUrl , postRequest} from "./ajaxRequsts.js";
 
 const folder = baseUrl + "/user-api/folders/"
 const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
-const reqUrl = baseUrl +"/question-api/questionnaires/1139d4d6-5ce2-49eb-9267-0bb81f2a0e87/textanswer-questions/"
-
 
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/textanswer-questions/`;
