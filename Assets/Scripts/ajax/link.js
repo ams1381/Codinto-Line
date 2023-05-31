@@ -118,7 +118,7 @@ saveBtn.addEventListener("click", function(event) {
                 case "WMV":
                     break;
                 default:
-                    showAlert("فرمت وارد شده پذیرفته نیست")
+                    return showAlert("فرمت وارد شده پذیرفته نیست")
 
             }
         }

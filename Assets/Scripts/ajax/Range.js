@@ -1,6 +1,5 @@
 import {baseUrl , postRequest , getRequest} from "./ajaxRequsts.js";
 
-let reqUrl = baseUrl +`/question-api/questionnaires/14a19d1d-da76-48d5-aff0-75db0e2b4af6/integerrange-questions/`
 const folder = baseUrl + "/user-api/folders/"
 const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
@@ -10,69 +9,110 @@ const textInput = document.querySelector(".GDesc .TitleTextInput");
 const rightInput = document.querySelector(".right-Input .label-text-input")
 const middleInput = document.querySelector(".middle-Input .label-text-input")
 const leftInput = document.querySelector(".left-Input .label-text-input")
-const mediaInput = document.querySelector(".box__file")
+const uploadInput = document.querySelector(".box__file")
 const saveBtn = document.querySelector(".saveQuestion")
 const isRequired = document.querySelector(".AnswerNecessity input")
 const showNumber = document.querySelector(".QuestionNumber input")
 const rangeInput = document.querySelector(".rangeInput");
 const wrongAlert = document.querySelector(".wrongEntry")
+const questionText = document.querySelector(".questionText")
+const questionDescription = document.querySelector(".ansswer__text")
 const titleBoldIcon = document.querySelector(".GTitle .fa-bold")
 rightInput.value = null;
 middleInput.value = null;
 leftInput.value = null;
 rangeInput.value = 0;
 // functions--------------------------------------
-// function bolder(input , icon){
-//     icon.addEventListener("click" , (e)=>{
-//         input.value.style.fontWeight = "900";
-//     })
-//     input.addEventListener("input" , (e)=>{
-//         input.target.value
-//     })
-// }
-// bolder(titleInput , titleBoldIcon)
+function showAlert(text){
+    wrongAlert.style.opacity = "1";
+    document.querySelector('.block__side').scrollTo(0,0)
+    let spanInput =  wrongAlert.childNodes[1]
+    spanInput.innerText = `${text}`
+    setTimeout(()=>{
+        wrongAlert.style.opacity = "0";
+    }, 3000);
+}
+function showValue(input , value){
+    input.addEventListener("input" , (e)=>{
+        value.innerText = e.target.value
+    })
+}
+showValue(titleInput , questionText)
+showValue(textInput , questionDescription)
 document.addEventListener("DOMContentLoaded" , (e)=>{
-    let sendData = {
-        name : "test",
-    }
-    let ques ={
-        name : "burak",
-        folder : 2,
-    }
-    postRequest(folder , sendData).then((response)=>{
-        console.log(response.data);
-    })
-    postRequest(questionnairesUrl , ques).then((response)=>{
-        console.log(response.data);
-    })
+    // let sendData = {
+    //     name : "test",
+    // }
+    // let ques ={
+    //     name : "burak",
+    //     folder : 2,
+    // }
+    // postRequest(folder , sendData).then((response)=>{
+    //     console.log(response.data);
+    // })
+    // postRequest(questionnairesUrl , ques).then((response)=>{
+    //     console.log(response.data);
+    // })
 
 })
 saveBtn.addEventListener("click" , function (){
     if(titleInput.value === "" && textInput.value === ""){
-        wrongAlert.style.opacity = "1";
-        document.querySelector('.block__side').scrollTo(0,0)
-       let spanInput =  wrongAlert.childNodes[1]
-        spanInput.innerText = "عنوان و متن سوال را وارد کنید"
-        setTimeout(()=>{
-            wrongAlert.style.opacity = "0";
-        }, 3000);
+        showAlert("عنوان و متن سوال را وارد کنید")
     }else if(textInput.value === ""){
-        wrongAlert.style.opacity = "1";
-        document.querySelector('.block__side').scrollTo(0,0)
-        let spanInput =  wrongAlert.childNodes[1]
-        spanInput.innerText = "متن سوال را وارد کنید"
-        setTimeout(()=>{
-            wrongAlert.style.opacity = "0";
-        }, 3000);
+        showAlert("متن سوال را وارد کنید")
     }else if(titleInput.value === ""){
-        wrongAlert.style.opacity = "1";
-        document.querySelector('.block__side').scrollTo(0,0)
-        let spanInput =  wrongAlert.childNodes[1]
-        spanInput.innerText = "عنوان سوال را وارد کنید"
-        setTimeout(()=>{
-            wrongAlert.style.opacity = "0";
-        }, 3000);
+        showAlert("عنوان سوال را وارد کنید")
+    }
+    if(uploadInput.files[0] !== undefined) {
+        let uploadUrl = uploadInput.files[0].name.split(".")
+        if (pictureSwitcher.classList.contains("active")) {
+            switch (uploadUrl[1]) {
+                case "jpg":
+                    break;
+                case "png":
+                    break;
+                case "jpeg":
+                    break;
+                case "JPG":
+                    break;
+                case "PNG":
+                    break;
+                case "JPEG":
+                    break;
+                default:
+                    showAlert("فرمت وارد شده پذیرفته نیست")
+            }
+        } else if (videoSwitcher.classList.contains("active")) {
+            switch (uploadUrl[1]) {
+                case "mp4":
+                    break;
+                case "mov":
+                    break;
+                case "m4v":
+                    break;
+                case "mkv":
+                    break;
+                case "flv":
+                    break;
+                case "wmv":
+                    break;
+                case "MP4":
+                    break;
+                case "MOV":
+                    break;
+                case "M4V":
+                    break;
+                case "MKV":
+                    break;
+                case "FLV":
+                    break;
+                case "WMV":
+                    break;
+                default:
+                    return showAlert("فرمت وارد شده پذیرفته نیست")
 
+            }
+        }
     }
     let sendData = {
        "question_type": "integer_range",
@@ -82,7 +122,7 @@ saveBtn.addEventListener("click" , function (){
        "group": null,
        "is_required": isRequired.checked,
        "show_number": showNumber.checked,
-       "media": mediaInput.files[0],
+       "media": uploadInput.files[0],
        "min": 0,
        "max": rangeInput.value,
        "min_label": rightInput.value,

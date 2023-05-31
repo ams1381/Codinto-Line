@@ -96,19 +96,26 @@ const QuestionItemSetter = async () => {
     try
     {
         let QuestionsResponse = await getRequest(getQuestionsUrl + SelectedQuestionnaire.uuid + '/');
-
+        console.log(QuestionsResponse.data);
         if(QuestionsResponse.data.welcome_page)
         {
             let WelcomePage = QuestionsResponse.data.welcome_page;
             QuestionItemGenerator('welcome-page',WelcomePage.title,WelcomePage.id)
         }
+         if(QuestionsResponse.data.thanks_page)
+         {
+            let ThankPage = QuestionsResponse.data.thanks_page;
+            QuestionItemGenerator('thank-page',ThankPage.title,ThankPage.id)
+         }
         if(QuestionsResponse.data.questions.length !== 0)
         {
             QuestionsResponse.data.questions.forEach((Question,index) => {
                 QuestionItemGenerator(Question.question.question_type,Question.question.title,Question.question.id,index);
             })
         }
-        else if(QuestionsResponse.data.questions.length === 0 && !QuestionsResponse.data.welcome_page)
+        else if(QuestionsResponse.data.questions.length === 0 && !QuestionsResponse.data.welcome_page &&
+            !QuestionsResponse.data.thanks_page
+            )
         {
             QuestionsBoxContainer.classList.remove("nested")
             QuestionsBoxContainer.classList.add('emptyActive')
@@ -158,7 +165,7 @@ const QuestionDesignItemsHandler = (QuestionType) => {
         case 'upload-question':
             window.open("/Pages/uploadPage.html","_Self");
             break;
-        case 'number_answer':
+        case 'number-question':
             window.open("/Pages/NumberPage.html","_Self");
             break;
         case 'thank-page':

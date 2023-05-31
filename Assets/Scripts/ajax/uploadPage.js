@@ -132,7 +132,7 @@ console.log(sizeInput.value);
                 case "WMV":
                     break;
                 default:
-                    showAlert("فرمت وارد شده پذیرفته نیست")
+                    return  showAlert("فرمت وارد شده پذیرفته نیست")
 
             }
         }
