@@ -149,6 +149,7 @@ saveBtn.addEventListener("click", function(event) {
     postRequest(reqUrl,formData)
         .then((response) => {
             console.log(response.status);
+            window.open("/Pages/FormDesign.html","_Self");
         }).catch((error) => {
         console.log(error);
     })

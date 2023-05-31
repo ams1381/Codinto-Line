@@ -143,9 +143,6 @@ const QuestionItemSetter = async () => {
         let loading = document.getElementById('loading-animation');
         loading.classList.add('hide');
     }
-    
-    
-    
 }
 QuestionItemSetter();
 
@@ -167,6 +164,9 @@ const QuestionDesignItemsHandler = (QuestionType) => {
             break;
         case 'number-question':
             window.open("/Pages/NumberPage.html","_Self");
+            break;
+        case 'link-question':
+            window.open("/Pages/Link.html","_Self");
             break;
         case 'thank-page':
             window.open("/Pages/thanks.html","_Self");
