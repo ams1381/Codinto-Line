@@ -1,7 +1,6 @@
 import {baseUrl , postRequest , getRequest} from "./ajaxRequsts.js";
-
-const folder = baseUrl + "/user-api/folders/"
-const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
+// const folder = baseUrl + "/user-api/folders/"
+// const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 let reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/integerrange-questions/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput");
@@ -33,6 +32,12 @@ function showAlert(text){
         wrongAlert.style.opacity = "0";
     }, 3000);
 }
+function rangePreview(input){
+    input.addEventListener("input" , (e)=>{
+       document.querySelector(".range-label").innerText =  e.target.value
+    })
+}
+rangePreview(rangeInput)
 function showValue(input , value){
     input.addEventListener("input" , (e)=>{
         value.innerText = e.target.value
