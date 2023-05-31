@@ -270,5 +270,6 @@ remove_folder_confirm_btn.addEventListener('click',() => {
 add_Questionnaire_button.addEventListener('click',() => {
     let Selected_folder_id = document.querySelector(".Folder.Selected").getAttribute("id");
     window.open("Setting.html","_self")
+    localStorage.setItem("SETTING_ACTION_TYPE","Create");
     localStorage.setItem("SelectedFolderID",Selected_folder_id)
 })

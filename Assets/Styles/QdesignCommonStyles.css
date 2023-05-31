@@ -47,7 +47,13 @@
     right: 20px;
     top: 0;
 }
-
+.cancelDesign a 
+{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--brand-color);
+}
 .viewQuestion
 {
     top: 0;
@@ -311,6 +317,7 @@
     color: var(--brand-color);
     display: flex;
     justify-content: flex-start;
+    padding-right: 10px;
 }
 .description_block
 {
@@ -502,11 +509,16 @@
     padding: 5px;
     border-radius: 10px;
     cursor: pointer;
+    transition: 0.2s;
+}
+.anw-option-tools button:hover 
+{
+    color: var(--theme-white);
+    background-color: var(--brand-color);
 }
 .minInput input , .maxInput input , .right-part input ,
 .middle-Input input , .left-input input
 {
-    text-align: center;
     width: 30%;
 }
 .additional-options-container > div 
@@ -561,6 +573,7 @@ input[type=range]::-webkit-slider-thumb {
     z-index: 5;
     cursor: pointer;
     transition: 0.3s;
+    margin-top: -10px;
 }  
 .range-setter #markers
 {

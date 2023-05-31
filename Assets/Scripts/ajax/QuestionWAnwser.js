@@ -3,6 +3,7 @@ import {baseUrl , postRequest} from "./ajaxRequsts.js";
 
 const folder = baseUrl + "/user-api/folders/"
 const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
+const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/textanswer-questions/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
@@ -23,7 +24,17 @@ const wrongAlert = document.querySelector(".wrongEntry")
 const pictureSwitcher = document.querySelector(".picture__switcher")
 const videoSwitcher = document.querySelector(".video__switcher")
 let options = null;
-
+if(ACTION_TYPE == 'Edit')
+{  
+   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+   titleInput.value = EditableQuestion.title;
+   textInput.value = EditableQuestion.description;
+   necessaryQuestion.checked = EditableQuestion.is_required;
+   minInput.value = EditableQuestion.min;
+   maxInput.value = EditableQuestion.max;
+   //buttonText.value = EditableQuestion.button_text
+   console.log(EditableQuestion)
+}
 // initial data------------------------------------
 options =  "free"
 sampleAnswer.value = null;
@@ -44,34 +55,28 @@ function showValue(input , value){
 showValue(titleInput , questionText)
 showValue(textInput , questionDescription)
 
-uploadInput.addEventListener("change" , (e)=>{
-    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
-})
+
 //event listener------------------------------------
 // create folder and questionnaire
 document.addEventListener("DOMContentLoaded" , (e)=>{
-    // let sendData = {
-    //     name : "test",
-    // }
-    // let ques ={
-    //     name : "burak",
-    //     folder : 2,
-    // }
-    // postRequest(folder , sendData).then((response)=>{
-    //     console.log(response.data);
-    // })
-    // postRequest(questionnairesUrl , ques).then((response)=>{
-    //     console.log(response.data);
-    // })
+    let sendData = {
+        name : "test",
+    }
+    let ques ={
+        name : "burak",
+        folder : 2,
+    }
+    postRequest(folder , sendData).then((response)=>{
+        console.log(response.data);
+    })
+    postRequest(questionnairesUrl , ques).then((response)=>{
+        console.log(response.data);
+    })
 
 })
 // upload file limitation
 pictureSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
-    if(videoSwitcher.classList.contains("active")){
-        videoSwitcher.classList.remove("active")
-        pictureSwitcher.classList.add("active")
-    }
 })
 videoSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"

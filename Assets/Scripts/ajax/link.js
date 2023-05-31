@@ -15,7 +15,6 @@ const questionDescription = document.querySelector(".ansswer__text")
 const wrongAlert = document.querySelector(".wrongEntry")
 const pictureSwitcher = document.querySelector(".picture__switcher")
 const videoSwitcher = document.querySelector(".video__switcher")
-const uploadPreview = document.querySelector(".inputUploader")
 let options = null;
 
 // initial data------------------------------------
@@ -37,21 +36,19 @@ function showValue(input , value){
 }
 showValue(titleInput , questionText)
 showValue(textInput , questionDescription)
-uploadInput.addEventListener("change" , (e)=>{
-    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
-})
+
 
 //event listener------------------------------------
 // create folder and questionnaire
-document.addEventListener("DOMContentLoaded" , (e)=>{
-    getRequest(folder).then((response)=>{
-        console.log(response.data);
-    })
-   getRequest(questionnairesUrl).then((response)=>{
-        console.log(response.data);
-    })
+// document.addEventListener("DOMContentLoaded" , (e)=>{
+//     getRequest(folder).then((response)=>{
+//         console.log(response.data);
+//     })
+//    getRequest(questionnairesUrl).then((response)=>{
+//         console.log(response.data);
+//     })
 
-})
+// })
 // upload file limitation
 pictureSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
@@ -63,7 +60,6 @@ videoSwitcher.addEventListener("click" , (e)=>{
         videoSwitcher.classList.add("active")
     }
 })
-
 // add event listener to save button
 saveBtn.addEventListener("click", function(event) {
 
@@ -76,7 +72,6 @@ saveBtn.addEventListener("click", function(event) {
     }
     // upload wrong error
     if(uploadInput.files[0] !== undefined){
-
         // console.log(uploadInput.files[0].name.split("."));
         let uploadUrl = uploadInput.files[0].name.split(".")
         if(pictureSwitcher.classList.contains("active")){
@@ -153,10 +148,8 @@ saveBtn.addEventListener("click", function(event) {
     // ajax request----------------------------------
     postRequest(reqUrl,formData)
         .then((response) => {
-            // console.log(response.status);
-            if(response.status === 201){
-                window.open("/Pages/FormDesign.html","_Self");
-            }
+            console.log(response.status);
+            window.open("/Pages/FormDesign.html","_Self");
         }).catch((error) => {
         console.log(error);
     })

@@ -4,12 +4,11 @@ const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const folder = baseUrl + "/user-api/folders/"
 const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
 const reqUrl = baseUrl +`/question-api/questionnaires/${QuestionnaireUUID}/thanks-pages/`
-console.log(reqUrl);
+
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
 const uploadInput = document.querySelector(".box__file")
-// const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle input")
-// const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle input")
+const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const saveBtn = document.querySelector(".saveQuestion")
 const questionText = document.querySelector(".questionText")
 const questionDescription = document.querySelector(".ansswer__text")
@@ -22,6 +21,20 @@ const whatsapp = document.querySelector(".whatsapp")
 const instagram = document.querySelector(".instagram")
 const eitaa = document.querySelector(".eitaa")
 const sorush = document.querySelector(".sorush")
+
+if(ACTION_TYPE == 'Edit')
+{  
+   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+   titleInput.value = EditableQuestion.title;
+   textInput.value = EditableQuestion.description;
+   console.log(EditableQuestion)
+   telegram.checked = EditableQuestion.telegram;
+   sorush.checked = EditableQuestion.sorush;
+   whatsapp.checked = EditableQuestion.whatsapp;
+   eitaa.checked = EditableQuestion.eitaa;
+   instagram.checked = EditableQuestion.instagram;
+
+}
 
 // initial data------------------------------------
 function showAlert(text){
@@ -45,15 +58,15 @@ showValue(textInput , questionDescription)
 
 //event listener------------------------------------
 // create folder and questionnaire
-document.addEventListener("DOMContentLoaded" , (e)=>{
-    getRequest(folder).then((response)=>{
-        console.log(response.data);
-    })
-    getRequest(questionnairesUrl).then((response)=>{
-        console.log(response.data);
-    })
+// document.addEventListener("DOMContentLoaded" , (e)=>{
+//     getRequest(folder).then((response)=>{
+//         console.log(response.data);
+//     })
+//     getRequest(questionnairesUrl).then((response)=>{
+//         console.log(response.data);
+//     })
 
-})
+// })
 // upload file limitation
 pictureSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
