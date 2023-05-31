@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
     <link rel="stylesheet" href="../Assets/Styles/QdesignCommonStyles.css">
     <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
+    <link rel="stylesheet" href="../Assets/../Components/questionBox/rangeSelect.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <section class="block__section">
+    <section class="block__section" id="topPage">
         <aside class="block__side">
             <div class="SideHeader">
                <div class="SideHeaderTitle">
@@ -22,7 +23,7 @@
                 <button class="cancelDesign navButton">
                     <i class="fa fa-close"></i>
                 </button>
-                  <p class="quetion-type">متنی بدون پاسخ</p>
+                  <p class="quetion-type">طیفی</p>
                    <button class="viewQuestion navButton">
                       <i class="fa fa-eye"></i>
                    </button>
@@ -136,15 +137,15 @@
                 <div class="label-inputs">
                     <div class="LimitInput">
                         <div class="right-Input">
-                            <label for="right-part">راست</label>
+                            <label for="right-part" class="direction__lable">راست</label>
                             <input class="label-text-input" type="text" id="right-part">
                         </div>
                         <div class="middle-Input">
-                            <label for="middle-part">وسط</label>
+                            <label for="middle-part" class="direction__lable">وسط</label>
                             <input class="label-text-input" type="text" id="middle-part">
                         </div>
                         <div class="left-Input">
-                            <label for="left-part">چپ</label>
+                            <label for="left-part" class="direction__lable">چپ</label>
                             <input class="label-text-input" type="text" id="left-part">
                         </div>
         
@@ -205,19 +206,40 @@
              </div>
        </aside>
         <main class="block__main">
-             <div class="QuestionContainer">
-                <div class="QuestionTitle Greeting-Title">
-                    <p>سلام و عرض ادب خدمت همه ی همراهان کدینتولاین</p>
+<!--             <div class="QuestionContainer">-->
+<!--                <div class="QuestionTitle Greeting-Title">-->
+<!--                    <p>سلام و عرض ادب خدمت همه ی همراهان کدینتولاین</p>-->
+<!--                </div>-->
+<!--                <div class="description_block">-->
+<!--                  -->
+<!--                </div>-->
+<!--                <div class="QuestionStart">-->
+<!--                   <button class="QuestionStartButton">-->
+<!--                      شروع-->
+<!--                   </button>-->
+<!--                </div>-->
+<!--             </div>-->
+            <section class="justify__question">
+                <div class="question__row">
+                    <span class="question__style">1</span>
+                    <span class="question__style">-</span>
+                    <span class="question__style questionText">امیرکبیر چند سال عمر کرد؟</span>
                 </div>
-                <div class="description_block">
-                  
+                <div class="ansswer__row">
+                    <span class="ansswer__text">از نوشتن جواب اضافی پرهیز کنید</span>
                 </div>
-                <div class="QuestionStart">
-                   <button class="QuestionStartButton">
-                      شروع
-                   </button>
+                <div class="textErea__container">
+                    <div class="range__select">
+                        <span class="range__number">1</span>
+                        <span class="range__number">2</span>
+                        <span class="range__number">3</span>
+                        <span class="range__number">4</span>
+                        <span class="range__number">5</span>
+                        <span class="range__number">6</span>
+                        <span class="range__number">7</span>
+                    </div>
                 </div>
-             </div>
+            </section>
              <div class="AssistiveButton">
                 <div class="AssistiveItems">
                         <button class="AddQuestion">
@@ -238,7 +260,11 @@
 
         </main>
     </section>
+    <div class="wrongEntry">
+        <span class="wrong__text"></span>
+    </div>
     <script src="../Assets/Scripts/CommonScript.js" type="module"></script>
     <script src="../Assets/Scripts/ajax/Range.js" type="module"></script>
+    <script src="../Components/questionBox/rangeSelect.js"></script>
 </body>
 </html>

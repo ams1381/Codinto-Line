@@ -1,7 +1,7 @@
 @import url(/Assets/Styles/normalize.css);
 @font-face {
     font-family: IRANSans;
-    src: url('../Font/IRANSans\ Regular.woff') format("woff");
+    src: url('../Font/IRANSans Regular.woff') format("woff");
 }
 
 :root {
@@ -228,6 +228,10 @@
     background-color: var(--brand-color);
     border: none;
     color: var(--theme-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
 }
 
 .cancelQuestion 
@@ -291,4 +295,31 @@
         bottom: 3px;
     }
 
+}
+.LimitInput .direction__lable{
+    display: inline-block;
+    width: 40px;
+ }
+#topPage{
+     position: relative;
+ }
+.wrongEntry{
+    width: 280px;
+    height: 40px;
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff456a;
+    border-radius : 8px;
+    transition: ease-in 0.6s;
+    opacity: 0;
+}
+.wrong__text{
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: IRANSans;
 }

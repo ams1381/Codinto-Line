@@ -28,6 +28,7 @@ body{
     border-radius: 10px;
     align-items: center;
     padding: 1rem ;
+    margin-right: 2rem;
 
 }
 .question__row{
@@ -43,6 +44,7 @@ body{
     justify-content: flex-start;
     column-gap: 0.1rem;
     width: 100%;
+    position: relative;
 }
 .ansswer__row{
     display: flex;
@@ -91,4 +93,15 @@ body{
     border: 1px solid var(--brand-color);
     height: 70px;
     border-radius: 10px;
+}
+.uploadIcon{
+    position: absolute !important;
+    top: 1rem;
+    left: 13rem;
+    font-size: 40px !important;
+    color: var(--brand-color);
+    cursor: pointer;
+}
+.uploadInput{
+    display: none;
 }

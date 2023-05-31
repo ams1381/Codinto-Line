@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تشکر</title>
+    <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/QdesignCommonStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
+<!--    <link rel="stylesheet" href="../Components/questionBox/rowInput.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<section class="block__section" id="topPage">
+    <aside class="block__side">
+        <div class="SideHeader">
+            <div class="SideHeaderTitle">
+                <h3 class="sidebar-codinto-title">کدینتو لاین</h3>
+
+            </div>
+            <div class="SideHeaderBody">
+                <button class="cancelDesign navButton">
+                    <i class="fa fa-close"></i>
+                </button>
+                <p class="quetion-type">تشکر</p>
+                <button class="viewQuestion navButton">
+                    <i class="fa fa-eye"></i>
+                </button>
+            </div>
+        </div>
+        <div class="SideBody">
+            <div class="GTitle">
+                <div class="TitleSetter ToggleOption">
+                    <div class="Switch-Container">
+                        <p>عنوان</p>
+                        <!--                    <label class="Switch-toggle">-->
+                        <!--                        <input type="checkbox">-->
+                        <!--                        <span class="slider-button"></span>-->
+                        <!--                    </label>-->
+                    </div>
+                </div>
+                <div class="TitleInput active">
+                    <div class="TitleInputOptions  GOptions">
+                        <!--                           <label>-->
+                        <!--                               <input type="checkbox" name="" id="Tbolder">-->
+                        <!--                               <i class="fa fa-bold"></i>-->
+                        <!--                           </label>-->
+                        <label>
+                            <input type="checkbox" name="" id="TItalic">
+                            <i class="fa fa-italic"></i>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="" id="TUnderline">
+                            <i class="fa fa-underline"></i>
+                        </label>
+                    </div>
+                    <div class="TextField">
+                        <textarea class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="GDesc">
+                <div class="DescSetter ToggleOption">
+                    <div class="Switch-Container">
+                        <p>توضیحات</p>
+                        <!--                    <label class="Switch-toggle">-->
+                        <!--                        <input type="checkbox">-->
+                        <!--                        <span class="slider-button"></span>-->
+                        <!--                    </label>-->
+                    </div>
+                </div>
+                <div class="DescInput active">
+                    <div class="TitleInputOptions  GOptions">
+                        <label>
+                            <input type="checkbox" name="" id="Desbolder">
+                            <i class="fa fa-bold"></i>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="" id="DesItalic">
+                            <i class="fa fa-italic"></i>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="" id="DesUnderline">
+                            <i class="fa fa-underline"></i>
+                        </label>
+                    </div>
+                    <div class="TextField">
+                        <textarea class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="AnswerPattern">
+                <!--                <div class="PatternChoose">-->
+                <!--                    <p>الگوی پاسخ</p>-->
+                <!--                    <select  id="pattern-select">-->
+                <!--                        <option value="" class="selectionOption text free">متن آزاد</option>-->
+                <!--                        <option value="" class="selectionOption date__shamsi jalali_date">تاریخ شمسی</option>-->
+                <!--                        <option value="" class="selectionOption date__miladi georgian_date">تاریخ میلادی</option>-->
+                <!--                        <option value="" class="selectionOption phone__number1 mobile_number">شماره موبایل</option>-->
+                <!--                        <option value="" class="selectionOption home__phone phone_number">شماره تلفن</option>-->
+                <!--                        <option value="" class="selectionOption number number_character">کاراکتر های عددی</option>-->
+                <!--                        <option value="" class="selectionOption persion persian_letters">حروف فارسی</option>-->
+                <!--                        <option value="" class="selectionOption english english_letters">حروف انگلیسی</option>-->
+                <!--                    </select>-->
+                <!--                </div>-->
+                <!--                <div class="AnswerAlphabetLimit">-->
+                <!--                    <p>محدودیت تعداد حروف پاسخ</p>-->
+                <!--                    <div class="LimitInput">-->
+                <!--                        <div class="minInput">-->
+                <!--                            <label for="Alphabetmin">حداقل</label>-->
+                <!--                            <input class="label-text-input" type="number" id="Alphabetmin">-->
+                <!--                        </div>-->
+                <!--                        <div class="maxInput">-->
+                <!--                            <label for="Alphabetmax">حداکثر</label>-->
+                <!--                            <input class="label-text-input" type="number" id="Alphabetmax">-->
+                <!--                        </div>-->
+
+
+                <!--                    </div>-->
+                <!--                </div>-->
+<!--                <div class="AnwValidation">-->
+<!--                    <div class="SampleAnw">-->
+<!--                        <label >نمونه پاسخ</label>-->
+<!--                        <input class="label-text-input" type="number" placeholder="021-37773637"/>-->
+<!--                    </div>-->
+<!--                                           <div class="Validator">-->
+<!--                                               <label >پیام اعتبار سنجی</label>-->
+<!--                                               <input class="label-text-input" type="number" placeholder="لطفا یک شماره تلفن معتبر وارد کنید">-->
+<!--                                           </div>-->
+<!--                </div>-->
+            </div>
+
+            <div class="fileUploader">
+                <div class="fileFormat">
+                    <input type="radio" name="lang" id="Picture" value="Picture" checked>
+                    <label for="Picture" class="picture__switcher active">عکس</label>
+
+                    <input type="radio" name="lang" id="Video" value="Video">
+                    <label for="Video" class="video__switcher">ویدیو</label>
+
+                </div>
+                <div class="fileInput">
+                    <div class="inputTitle">
+                        حداکثر حجم 3 مگابایت
+                    </div>
+
+                    <div class="inputUploader">
+                        <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+                        <label for="file">
+                            <i class="fa fa-upload"></i>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+<!--            <div class="AnswerNecessity ToggleOption">-->
+<!--                <div class="Switch-Container">-->
+<!--                    <p>پاسخ به سوال اجباری باشد</p>-->
+<!--                    <label class="Switch-toggle">-->
+<!--                        <input type="checkbox">-->
+<!--                        <span class="slider-button"></span>-->
+<!--                    </label>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--            <div class="QuestionNumber ToggleOption">-->
+<!--                <div class="Switch-Container">-->
+<!--                    <p>عدم نمایش شماره سوال</p>-->
+<!--                    <label class="Switch-toggle">-->
+<!--                        <input type="checkbox">-->
+<!--                        <span class="slider-button"></span>-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="ShareQuestion ToggleOption">
+                <div class="Switch-Container">
+                    <p>اشتراک گذاری لینک پرسشنامه</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="telegram ToggleOption">
+                <div class="Switch-Container">
+                    <p>تلگرام</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="instagram ToggleOption">
+                <div class="Switch-Container">
+                    <p>اینستاگرام</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="whatsapp ToggleOption">
+                <div class="Switch-Container">
+                    <p>واتس اپ</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="eitaa ToggleOption">
+                <div class="Switch-Container">
+                    <p>ایتا</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="sorush ToggleOption">
+                <div class="Switch-Container">
+                    <p>سروش</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="QuestionNumber ToggleOption">
+                <div class="Switch-Container">
+                    <p>استفاده به عنوان صفحه ی تشکر پیشفرض</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="SideFooter">
+            <a class="saveQuestion">
+                ذخیره
+            </a>
+            <button class="cancelQuestion">
+                انصراف
+            </button>
+        </div>
+    </aside>
+    <main class="block__main">
+        <!--             <div class="QuestionContainer">-->
+        <!--                <div class="QuestionTitle Greeting-Title">-->
+        <!--                    <p>سلام و عرض ادب خدمت همه ی همراهان کدینتولاین</p>-->
+        <!--                </div>-->
+        <!--                <div class="description_block">-->
+        <!--                   -->
+        <!--                </div>-->
+        <!--                <div class="QuestionStart">-->
+        <!--                   <button class="QuestionStartButton">-->
+        <!--                      شروع-->
+        <!--                   </button>-->
+        <!--                </div>-->
+        <!--             </div>-->
+<!--        <section class="justify__question">-->
+<!--            <div class="question__row">-->
+<!--                <span class="question__style">1</span>-->
+<!--                <span class="question__style">-</span>-->
+<!--                <span class="question__style questionText">امیرکبیر چند سال عمر کرد؟</span>-->
+<!--            </div>-->
+<!--            <div class="ansswer__row">-->
+<!--                <span class="ansswer__text">از نوشتن پاسخ اضافی پرهیز کنید</span>-->
+<!--            </div>-->
+<!--            <div class="textErea__container">-->
+<!--                <input type="text" class="action__input">-->
+<!--            </div>-->
+<!--        </section>-->
+        <div class="AssistiveButton">
+            <div class="AssistiveItems">
+                <button class="AddQuestion">
+                    <i class="fa fa-plus-circle"></i>
+                </button>
+                <button class="Setting">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <button class="Send">
+                    <i class='fa fa-paper-plane'></i>
+                </button>
+            </div>
+            <div class="AssistiveToggle">
+                <button class="AssistiveToggleButton"> <i class="fa fa-plus"></i> </button>
+            </div>
+
+        </div>
+    </main>
+
+</section>
+<div class="wrongEntry">
+    <span class="wrong__text"></span>
+</div>
+<script src="../Assets/Scripts/CommonScript.js" type="module"></script>
+<script src="../Assets/Scripts/ajax/thank.js" type="module"></script>
+</body>
+</html>

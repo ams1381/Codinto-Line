@@ -42,7 +42,7 @@ const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrd
                 default :
                         QuestionItemChildDiv.textContent = QuestionOrderNumber + 1;
                         QuestionItemChildDiv.classList.add("sup-label");
-            } 
+            }
         }
         if(i == 2)
         {
@@ -55,7 +55,7 @@ const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrd
                 copyButton.append(copyButtonIcon);
                 QuestionItemChildDiv.append(copyButton);
             }
-            
+
             let deleteButton = document.createElement('button')
             deleteButton.classList.add("DeleteButton");
             deleteButton.addEventListener('click',() => {
@@ -80,10 +80,10 @@ const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrd
     }
     QuestionsBoxContainer.append(QuestionItemContainer);
     $(QuestionItemContainer).fadeIn(200);
-    
- 
-        
-   
+
+
+
+
 }
 const QuestionItemCleaner = () => {
     const QuestionItems = document.querySelectorAll(".Questionitem");
@@ -96,19 +96,26 @@ const QuestionItemSetter = async () => {
     try
     {
         let QuestionsResponse = await getRequest(getQuestionsUrl + SelectedQuestionnaire.uuid + '/');
-        
+        console.log(QuestionsResponse.data);
         if(QuestionsResponse.data.welcome_page)
         {
             let WelcomePage = QuestionsResponse.data.welcome_page;
             QuestionItemGenerator('welcome-page',WelcomePage.title,WelcomePage.id)
         }
+         if(QuestionsResponse.data.thanks_page)
+         {
+            let ThankPage = QuestionsResponse.data.thanks_page;
+            QuestionItemGenerator('thank-page',ThankPage.title,ThankPage.id)
+         }
         if(QuestionsResponse.data.questions.length !== 0)
         {
             QuestionsResponse.data.questions.forEach((Question,index) => {
                 QuestionItemGenerator(Question.question.question_type,Question.question.title,Question.question.id,index);
             })
         }
-        else if(QuestionsResponse.data.questions.length === 0 && !QuestionsResponse.data.welcome_page)
+        else if(QuestionsResponse.data.questions.length === 0 && !QuestionsResponse.data.welcome_page &&
+            !QuestionsResponse.data.thanks_page
+            )
         {
             QuestionsBoxContainer.classList.remove("nested")
             QuestionsBoxContainer.classList.add('emptyActive')
@@ -136,9 +143,6 @@ const QuestionItemSetter = async () => {
         let loading = document.getElementById('loading-animation');
         loading.classList.add('hide');
     }
-    
-    
-    
 }
 QuestionItemSetter();
 
@@ -155,16 +159,29 @@ const QuestionDesignItemsHandler = (QuestionType) => {
         case 'range-question':
             window.open("/Pages/RangeAnswer.html","_Self");
             break;
-    }
+        case 'upload-question':
+            window.open("/Pages/uploadPage.html","_Self");
+            break;
+        case 'number-question':
+            window.open("/Pages/NumberPage.html","_Self");
+            break;
+        case 'link-question':
+            window.open("/Pages/Link.html","_Self");
+            break;
+        case 'thank-page':
+            window.open("/Pages/thanks.html","_Self");
+            break;
+
+}
 }
 const remove_folder_popup_handler = (QuestionType,QuestionId) => {
     remove_folder_popup.classList.add("active");
     nav_mask.classList.add("active");
 
-    
+
 }
 const DeleteQuestionItemHandler = async (QuestionInfo) => {
-    
+
     let deleteQuestionRes;
     let deleteQuestionHTMLItem = document.querySelector(`#Question${QuestionInfo.question_id}`);
     switch(QuestionInfo.question_type)
@@ -178,22 +195,22 @@ const DeleteQuestionItemHandler = async (QuestionInfo) => {
         case 'drop-down':
             deleteQuestionRes = await deleteRequest(delQuestionUrl + 'dropdown-questions/' + QuestionInfo.question_id + '/');
             break;
-        case 'group': 
+        case 'group':
             deleteQuestionRes = await deleteRequest(delQuestionUrl + 'question-groups/' + QuestionInfo.question_id + '/');
             break;
-        case 'integer_selective': 
+        case 'integer_selective':
             deleteQuestionRes = await deleteRequest(delQuestionUrl + 'integerselective-questions/' + QuestionInfo.question_id + '/');
             break;
-        case 'picture_field': 
+        case 'picture_field':
             deleteQuestionRes = await deleteRequest(delQuestionUrl + 'picture-questions/' + QuestionInfo.question_id + '/');
-            break;   
-        case 'email_field': 
+            break;
+        case 'email_field':
             deleteQuestionRes = await deleteRequest(delQuestionUrl + 'email-questions/' + QuestionInfo.question_id + '/');
             break;
-        case 'welcome-page': 
+        case 'welcome-page':
             deleteQuestionRes = await deleteRequest(delQuestionUrl + 'welcome-pages/' + QuestionInfo.question_id + '/');
             break;
-        case 'thank-page': 
+        case 'thank-page':
             deleteQuestionRes = await deleteRequest(delQuestionUrl + 'thanks-pages/' + QuestionInfo.question_id + '/');
             break;
         default:
@@ -212,7 +229,7 @@ const DeleteQuestionItemHandler = async (QuestionInfo) => {
 const folder_mask_close_panel = () => {
      if(remove_folder_popup.classList.contains("active"))
          remove_folder_popup.classList.remove("active");
-     nav_mask.classList.remove("active");  
+     nav_mask.classList.remove("active");
  }
 QuestionDesignItems.forEach((QuestionDesignItem) => {
     QuestionDesignItem.addEventListener('click',() => {
