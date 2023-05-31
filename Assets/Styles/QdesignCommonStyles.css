@@ -508,6 +508,12 @@
     padding: 5px;
     border-radius: 10px;
     cursor: pointer;
+    transition: 0.2s;
+}
+.anw-option-tools button:hover 
+{
+    color: var(--theme-white);
+    background-color: var(--brand-color);
 }
 .minInput input , .maxInput input , .right-part input ,
 .middle-Input input , .left-input input

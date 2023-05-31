@@ -3,7 +3,7 @@ import {baseUrl , postRequest} from "./ajaxRequsts.js";
 
 const folder = baseUrl + "/user-api/folders/"
 const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
-
+const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/textanswer-questions/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
@@ -24,7 +24,17 @@ const wrongAlert = document.querySelector(".wrongEntry")
 const pictureSwitcher = document.querySelector(".picture__switcher")
 const videoSwitcher = document.querySelector(".video__switcher")
 let options = null;
-
+if(ACTION_TYPE == 'Edit')
+{  
+   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+   titleInput.value = EditableQuestion.title;
+   textInput.value = EditableQuestion.description;
+   necessaryQuestion.checked = EditableQuestion.is_required;
+   minInput.value = EditableQuestion.min;
+   maxInput.value = EditableQuestion.max;
+   //buttonText.value = EditableQuestion.button_text
+   console.log(EditableQuestion)
+}
 // initial data------------------------------------
 options =  "free"
 sampleAnswer.value = null;

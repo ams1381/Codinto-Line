@@ -2,6 +2,7 @@
 import {baseUrl, getRequest, postRequest} from "./ajaxRequsts.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const folder = baseUrl + "/user-api/folders/"
+const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
 const reqUrl = baseUrl +`/question-api/questionnaires/${QuestionnaireUUID}/file-questions/`
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
@@ -21,7 +22,15 @@ const sizeInput = document.querySelector(".file__size__upload")
 
 
 // initial data------------------------------------
-
+if(ACTION_TYPE == 'Edit')
+{  
+   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+   titleInput.value = EditableQuestion.title;
+   textInput.value = EditableQuestion.description;
+   necessaryQuestion.checked = EditableQuestion.is_required;
+   sizeInput.value =  EditableQuestion.max_volume
+   console.log(EditableQuestion)
+}
 
 function showAlert(text){
     wrongAlert.style.opacity = "1";

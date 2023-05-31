@@ -4,6 +4,7 @@ const folder = baseUrl + "/user-api/folders/"
 const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 let reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/integerrange-questions/`;
+const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const titleInput = document.querySelector(".GTitle .TitleTextInput");
 const textInput = document.querySelector(".GDesc .TitleTextInput");
 const rightInput = document.querySelector(".right-Input .label-text-input")
@@ -22,6 +23,19 @@ rightInput.value = null;
 middleInput.value = null;
 leftInput.value = null;
 rangeInput.value = 0;
+if(ACTION_TYPE == 'Edit')
+{  
+   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+   titleInput.value = EditableQuestion.title;
+   textInput.value = EditableQuestion.description;
+   isRequired.checked = EditableQuestion.is_required;
+   showNumber.checked = !EditableQuestion.show_number;
+   rightInput.value = EditableQuestion.max_label;
+   middleInput.value = EditableQuestion.mid_label
+   leftInput.value = EditableQuestion.min_label
+
+   console.log(EditableQuestion)
+}
 // functions--------------------------------------
 function showAlert(text){
     wrongAlert.style.opacity = "1";

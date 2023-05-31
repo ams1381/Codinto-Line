@@ -2,9 +2,8 @@ import { getRequest , deleteRequest } from "./ajaxRequsts.js";
 import { baseUrl } from "./ajaxRequsts.js";
 
 const SelectedQuestionnaire = JSON.parse(localStorage.getItem("SelectedQuestionnaire"));
-console.log(SelectedQuestionnaire)
 const getQuestionsUrl = baseUrl + '/question-api/questionnaires/';
-const delQuestionUrl = baseUrl + `/question-api/questionnaires/${SelectedQuestionnaire.uuid}/`
+const delQuestionUrl = baseUrl + `/question-api/questionnaires/${SelectedQuestionnaire.uuid}/`;
 
 const QuestionnaireName = document.querySelector(".navbar-codinto-title");
 const QuestionDesignItems = document.querySelectorAll(".QuestionDesignItem");
@@ -12,13 +11,16 @@ const QuestionsBoxContainer = document.querySelector(".QuestionsBox");
 const remove_folder_confirm_btn = document.querySelector(".removeFolderPopUp .confirm-button");
 const remove_folder_popup = document.querySelector(".removeFolderPopUp");
 const folder_cancel_button = document.querySelectorAll(".cancel-button");
+const AssistiveButtons = document.querySelector('.AssistiveButton .AssistiveItems button');
+
+
 let deleteQuestionInfo;
 QuestionnaireName.textContent = SelectedQuestionnaire.name;
 
-const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrderNumber) => {
+const QuestionItemGenerator = (Question,QuestionOrderNumber) => {
     let QuestionItemContainer = document.createElement('div');
-    QuestionItemContainer.setAttribute("id","Question" + QuestionID,QuestionOrderNumber);
-    QuestionItemContainer.classList.add("Questionitem",QuestionType);
+    QuestionItemContainer.setAttribute("id","Question" + Question.id,QuestionOrderNumber);
+    QuestionItemContainer.classList.add("Questionitem",Question.question_type);
     $(QuestionItemContainer).hide(10);
     let QuestionItemChildrenClassNames = ['QuestionLabel','QuestionitemText','QuestionTools'];
     for(let i = 0;i <= 2; i++)
@@ -27,7 +29,7 @@ const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrd
        QuestionItemChildDiv.classList.add(QuestionItemChildrenClassNames[i]);
         if(i === 0)
         {
-            switch(QuestionType)
+            switch(Question.question_type)
             {
                 case 'welcome-page' :
                         let handshakeIcon = document.createElement('i');
@@ -46,7 +48,7 @@ const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrd
         }
         if(i == 2)
         {
-            if(QuestionType !== 'welcome-page' && QuestionType !== 'thank-page')
+            if(Question.question_type !== 'welcome-page' && Question.question_type !== 'thank-page')
             {
                 let copyButton = document.createElement('button');
                 copyButton.classList.add("EditButton");
@@ -61,8 +63,8 @@ const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrd
             deleteButton.addEventListener('click',() => {
                 remove_folder_popup_handler();
                 deleteQuestionInfo = {
-                     'question_type' : QuestionType,
-                     'question_id' : QuestionID,QuestionOrderNumber
+                     'question_type' : Question.question_type,
+                     'question_id' : Question.id,QuestionOrderNumber
                      }
             })
             let deleteButtonIcon = document.createElement("i");
@@ -73,7 +75,7 @@ const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrd
         if(i === 1)
         {  
             let QuestionTitleText = document.createElement('p');
-            QuestionTitleText.textContent = QuestionTitle;
+            QuestionTitleText.textContent = Question.title;
             QuestionItemChildDiv.append(QuestionTitleText);
         }
          QuestionItemContainer.append(QuestionItemChildDiv);
@@ -82,7 +84,11 @@ const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrd
     $(QuestionItemContainer).fadeIn(200);
 
 
-
+    QuestionItemContainer.addEventListener('click',() => {
+        localStorage.setItem("ACTION-TYPE",'Edit');
+        localStorage.setItem("QuestionData",JSON.stringify(Question));
+        QuestionDesignOpener(Question.question_type);
+    })
 
 }
 const QuestionItemCleaner = () => {
@@ -100,17 +106,21 @@ const QuestionItemSetter = async () => {
         if(QuestionsResponse.data.welcome_page)
         {
             let WelcomePage = QuestionsResponse.data.welcome_page;
-            QuestionItemGenerator('welcome-page',WelcomePage.title,WelcomePage.id)
+            WelcomePage.question_type = 'welcome-page';
+            QuestionItemGenerator(WelcomePage,WelcomePage.id);
         }
          if(QuestionsResponse.data.thanks_page)
          {
             let ThankPage = QuestionsResponse.data.thanks_page;
-            QuestionItemGenerator('thank-page',ThankPage.title,ThankPage.id)
+            ThankPage.question_type = 'thank-page'
+            QuestionItemGenerator(ThankPage,ThankPage.id);
+            
          }
         if(QuestionsResponse.data.questions.length !== 0)
         {
             QuestionsResponse.data.questions.forEach((Question,index) => {
-                QuestionItemGenerator(Question.question.question_type,Question.question.title,Question.question.id,index);
+                QuestionItemGenerator(Question.question,index);
+
             })
         }
         else if(QuestionsResponse.data.questions.length === 0 && !QuestionsResponse.data.welcome_page &&
@@ -144,35 +154,41 @@ const QuestionItemSetter = async () => {
         loading.classList.add('hide');
     }
 }
-QuestionItemSetter();
-
-const QuestionDesignItemsHandler = (QuestionType) => {
-    localStorage.setItem("QuestionnaireUUID",SelectedQuestionnaire.uuid)
+const QuestionDesignOpener = (QuestionType) =>
+{   
+    console.log(QuestionType)
     switch(QuestionType)
     {
         case 'welcome-page': 
             window.open("/Pages/Greetingdesign.html","_Self");
             break;
-        case 'text-with-anwser':
+        case 'text_answer':
             window.open("/Pages/QuestionWAnwser.html","_Self");
             break;
-        case 'range-question':
+        case 'integer_range':
             window.open("/Pages/RangeAnswer.html","_Self");
             break;
-        case 'upload-question':
+        case 'file':
             window.open("/Pages/uploadPage.html","_Self");
             break;
-        case 'number-question':
+        case 'number_answer':
             window.open("/Pages/NumberPage.html","_Self");
             break;
-        case 'link-question':
+        case 'link':
             window.open("/Pages/Link.html","_Self");
+            break;
+        case 'multiple-option':
+            window.open("/Pages/MultipleOption.html","_Self");
             break;
         case 'thank-page':
             window.open("/Pages/thanks.html","_Self");
             break;
-
+    }
 }
+const QuestionDesignItemsHandler = (QuestionType) => {
+    localStorage.setItem("QuestionnaireUUID",SelectedQuestionnaire.uuid)
+    localStorage.setItem("ACTION-TYPE",'Create');
+    QuestionDesignOpener(QuestionType);
 }
 const remove_folder_popup_handler = (QuestionType,QuestionId) => {
     remove_folder_popup.classList.add("active");
@@ -241,3 +257,4 @@ folder_cancel_button.forEach((item,index) => { item.addEventListener('click',fol
 remove_folder_confirm_btn.addEventListener('click',() => {
     DeleteQuestionItemHandler(deleteQuestionInfo)
 })
+QuestionItemSetter();

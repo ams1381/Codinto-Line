@@ -40,15 +40,15 @@ showValue(textInput , questionDescription)
 
 //event listener------------------------------------
 // create folder and questionnaire
-document.addEventListener("DOMContentLoaded" , (e)=>{
-    getRequest(folder).then((response)=>{
-        console.log(response.data);
-    })
-   getRequest(questionnairesUrl).then((response)=>{
-        console.log(response.data);
-    })
+// document.addEventListener("DOMContentLoaded" , (e)=>{
+//     getRequest(folder).then((response)=>{
+//         console.log(response.data);
+//     })
+//    getRequest(questionnairesUrl).then((response)=>{
+//         console.log(response.data);
+//     })
 
-})
+// })
 // upload file limitation
 pictureSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
