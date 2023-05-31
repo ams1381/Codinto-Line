@@ -24,12 +24,9 @@ saveBtn.addEventListener("click" , function (){
         "button_shape": selectedObject,
         "is_solid_button": true,
     }
-
     if (sendData.media === undefined){
         sendData.media = ""
     }
-
-
     if (textInput.value === ""){
         alert("Please fill the description")
     }
@@ -50,5 +47,3 @@ saveBtn.addEventListener("click" , function (){
         console.log(error);
     })
 })
-
-

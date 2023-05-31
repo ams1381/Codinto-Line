@@ -10,7 +10,7 @@ const search_Questionnaire_button = document.querySelector(".FolderSearch");
 const search_Questionnaire_container = document.querySelector(".search-box");
 const nav_search_container = document.querySelector(".navTitle");
 let addFormItem = document.querySelector(".form.AddForm")
-console.log(FormContainer)
+
 const QuestionnaireCleaner = () => {
     let QuestionnaireForms = document.querySelectorAll('.form');
     QuestionnaireForms.forEach((item) => {
@@ -38,8 +38,8 @@ const QuestionnaireSearchHandler = async (e) => {
     try
     {
         let searchRes = await getRequest(searchReq + e.target.value);
-        searchRes.data.forEach((SearchResultItem) => {
-            QuestionnaireCleaner();
+        QuestionnaireCleaner();
+        searchRes.data.forEach((SearchResultItem) => {  
             questionnaire_generator(SearchResultItem)
         })   
     }
@@ -48,9 +48,6 @@ const QuestionnaireSearchHandler = async (e) => {
         console.log(err)
     }
 }
-
-
-
 const search_button_handler = () => {
     nav_search_container.classList.toggle("search-active");
 
@@ -64,6 +61,7 @@ const search_button_handler = () => {
     else if(!search_Questionnaire_button.classList.contains("search-active"))
     {
         search_Questionnaire_button.classList.add("search-active");
+        search_Questionnaire_input.focus();
         QuestionnaireCleaner();
         search_Questionnaire_input.addEventListener('input',QuestionnaireSearchHandler);
     }

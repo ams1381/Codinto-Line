@@ -46,7 +46,7 @@ const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrd
         }
         if(i == 2)
         {
-            if(QuestionType !== 'welcome-page')
+            if(QuestionType !== 'welcome-page' && QuestionType !== 'thank-page')
             {
                 let copyButton = document.createElement('button');
                 copyButton.classList.add("EditButton");
@@ -55,6 +55,7 @@ const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrd
                 copyButton.append(copyButtonIcon);
                 QuestionItemChildDiv.append(copyButton);
             }
+            
             let deleteButton = document.createElement('button')
             deleteButton.classList.add("DeleteButton");
             deleteButton.addEventListener('click',() => {
@@ -83,6 +84,13 @@ const QuestionItemGenerator = (QuestionType,QuestionTitle,QuestionID,QuestionOrd
  
         
    
+}
+const QuestionItemCleaner = () => {
+    const QuestionItems = document.querySelectorAll(".Questionitem");
+    QuestionItems.forEach((QuestionItem) => {
+        $(QuestionItem).hide(10);
+        QuestionItem.remove();
+    })
 }
 const QuestionItemSetter = async () => {
     try
@@ -185,6 +193,9 @@ const DeleteQuestionItemHandler = async (QuestionInfo) => {
         case 'welcome-page': 
             deleteQuestionRes = await deleteRequest(delQuestionUrl + 'welcome-pages/' + QuestionInfo.question_id + '/');
             break;
+        case 'thank-page': 
+            deleteQuestionRes = await deleteRequest(delQuestionUrl + 'thanks-pages/' + QuestionInfo.question_id + '/');
+            break;
         default:
             deleteQuestionRes = await deleteRequest(delQuestionUrl + `${QuestionInfo.question_type}-questions/` + QuestionInfo.question_id + '/');
             break;
@@ -194,6 +205,7 @@ const DeleteQuestionItemHandler = async (QuestionInfo) => {
             $(deleteQuestionHTMLItem).hide(100);
             deleteQuestionHTMLItem.remove();
             folder_mask_close_panel();
+            QuestionItemCleaner()
             QuestionItemSetter();
         }
 }
