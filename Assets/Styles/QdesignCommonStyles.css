@@ -309,6 +309,7 @@
     color: var(--brand-color);
     display: flex;
     justify-content: flex-start;
+    padding-right: 10px;
 }
 .description_block
 {

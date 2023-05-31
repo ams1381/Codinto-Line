@@ -29,16 +29,7 @@
             </div>
             <div class="SideBody">
                <div class="GTitle">
-                   <div class="TitleSetter ToggleOption">
-                    <div class="Switch-Container">
-                        <p>سوال</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"</span>
-                    </label>
-                    </div>
-                   </div>
-                   <div class="TitleInput">
+                   <div class="TitleInput active">
                        <div class="TitleInputOptions  GOptions">
                            <label>
                                <input type="checkbox" name="" id="Tbolder">
@@ -54,21 +45,12 @@
                            </label>
                        </div>
                        <div class="TextField">
-                           <textarea class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
+                           <textarea id="title__input" class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
                        </div>
                    </div>
                </div>
                <div class="GDesc">
-                   <div class="DescSetter ToggleOption">
-                    <div class="Switch-Container">
-                        <p>توضیحات</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"</span>
-                    </label>
-                    </div>
-                   </div>
-                   <div class="DescInput">
+                   <div class="DescInput active">
                        <div class="TitleInputOptions  GOptions">
                            <label>
                                <input type="checkbox" name="" id="Tbolder">
@@ -84,7 +66,7 @@
                            </label>
                        </div>
                        <div class="TextField">
-                           <textarea class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
+                           <textarea id="desc_input" class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
                            <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
                        </div>
                    </div>
@@ -101,28 +83,34 @@
                         </label>      
                     </div>
                     <div class="anw-option-tools">
-                        <button class="aop-view">
+                        <button class="answer-option-view">
                             <i class="fa fa-eye"></i>
                         </button>
-                        <button class="aop-remove">
+                        <button class="answer-option-remove">
                             <i class="fa fa-trash"></i>
                         </button>
-                        <button class="aop-add">
+                        <button class="answer-option-add">
                             <i class="fa fa-plus-circle"></i>
-                        </button>
-                        <button class="aop-upload">
-                            <i class="fa fa-upload"></i>
                         </button>
                     </div>
                 </div>
-               </div>
-               <div class="UploadToggle ToggleOption">
-                <div class="Switch-Container">
-                    <p>فیلم یا عکس</p>
-                <label class="Switch-toggle">
-                    <input type="checkbox">
-                    <span class="slider-button"</span>
-                </label>
+                <div class="Answer-Option">
+                    <div class="anw-option-number">
+                        <label class="anw-option-label">
+                            2
+                        </label>      
+                    </div>
+                    <div class="anw-option-tools">
+                        <button class="answer-option-view">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                        <button class="answer-option-remove">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <button class="answer-option-add">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                    </div>
                 </div>
                </div>
                <div class="fileUploader">
@@ -208,15 +196,6 @@
                     </label>
                     </div>
                    </div>
-                   <div class="additional-option-etc ToggleOption">
-                    <div class="Switch-Container">
-                        <p>بقیه</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"</span>
-                    </label>
-                    </div>
-                   </div>
                </div>
                <div class="select-all-options ToggleOption">
                 <div class="Switch-Container">
@@ -288,6 +267,7 @@
         </main>
         
     </section>
+    <script src="../Assets/Scripts/ajax/MultipleOptionsAjax.js" type="module"></script>
    <script src="/Assets/Scripts/CommonScript.js"></script>
 </body>
 </html>
