@@ -187,7 +187,6 @@ const folder_rename_handler = async (FolderItemId) => {
 }
 const folder_remove_handler = async (FolderItemId , deletedFolderItem) => {
     let delUrl = folderUrl + FolderItemId + '/'
-    console.log(delUrl)
     let delRes = await deleteRequest(delUrl)
     if(delRes.status === 204)
     {

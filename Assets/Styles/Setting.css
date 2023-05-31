@@ -1,8 +1,11 @@
+html
+{
+    scroll-behavior: smooth;
+}
 body 
 {
     background-color: var(--theme-Page-Graybg);
 }
-
 .SettingContainer
 {
     margin: 1vw auto 0 auto;
@@ -20,7 +23,12 @@ body
     color: var(--brand-color);
     font-size: calc(0.80rem + 0.25vw);
 }
-.form-name input 
+.error_dialogue
+{
+    color: red;
+    display: none;
+}
+.form-name #form-name-input
 {
     font-family: 'IRANSans';
     font-size: calc(0.88rem + 0.25vw);
@@ -32,6 +40,15 @@ body
     height: 30px;
     padding: 2px 5px 0 0;
     outline: none;
+    transition: 0.2s;
+}
+#form-name-input:focus
+{
+    border: none;
+}
+#form-name-input.error_active 
+{
+    border: 2px solid red;
 }
 .form-lan , .form-name
 {
@@ -45,11 +62,11 @@ body
 {
     font-weight: 600;
 }
-.form-lan input[type=radio] , .datePicker input[type=radio] {
+.datePicker input[type=radio] {
     display: none; 
     margin: 10px;
 }
-.form-lan .options 
+/* .form-lan .options 
 {
     width: 73%;
     height: 33px;
@@ -69,14 +86,13 @@ body
     border-radius: 6px;
     text-align: center;
     cursor: pointer;
-}
-
+} */
+/* 
 .form-lan input[type=radio]:checked + label  { 
     background-color: white;
     height: 20px;
     line-height: 20px;
-}
-
+} */
 .form-date 
 {
     margin-top: 30px;
@@ -99,7 +115,7 @@ body
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
-    color: #d6d8e7;
+    color: var(--deActive-input-text-color);
     align-items: center;
     transition: 0.3s;
     pointer-events: none;
@@ -126,6 +142,10 @@ body
 {
     width: 0;
 }
+.datePicker input:disabled + label
+{
+    color: var(--deActive-input-text-color);
+}
 .MonthPicker
 {
     margin: 0 15px 0 15px;
@@ -144,9 +164,10 @@ body
     margin: 0 auto 0 auto;
     text-align: center;
     cursor: pointer;
-    display: block;
     margin-top: 5px;
+    padding: 3px 0 3px 0;
     display: flex;
+    transition: 0.2s;
 }
 .MonthPicker input[type=radio] + label 
 {

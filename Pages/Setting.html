@@ -22,11 +22,16 @@
      </header>
     <div class="SettingContainer">
         <form>
+            <div class="error_dialogue">
+                <i class="fa fa-warning"></i>
+                نام پرسشنامه نمیتواند خالی باشد
+
+            </div>
                 <div class="form-name">
                     <p>
-                        نام پرسشنامه
+                        نام پرسشنامه *
                     </p>
-                    <input type="text">
+                    <input type="text" id="form-name-input">
                 </div>
                 <div class="form-date date-start">
                         <div class="DateautoSet Switch-Container">
@@ -98,7 +103,7 @@
                         <label for="sm11">اسفند</label>
                     </div>
                     <div class="DayPicker">
-                        <input type="radio" name="sDay" id="sd1" value="md">
+                        <input type="radio" name="sDay" id="sd1" value="d1">
                         <label for="sd1">1</label>
 
                         <input type="radio" name="sDay" id="sd2" value="d2">
@@ -125,13 +130,13 @@
                         <input type="radio" name="sDay" id="sd9" value="d9">
                         <label for="sd9">9</label>
 
-                        <input type="radio" name="sDay" id="sd10" value=d10">
+                        <input type="radio" name="sDay" id="sd10" value="d10">
                         <label for="sd10">10</label>
 
-                        <input type="radio" name="sDay" id="sd11" value=d11">
+                        <input type="radio" name="sDay" id="sd11" value="d11">
                         <label for="sd11">11</label>
 
-                        <input type="radio" name="sDay" id="sd12" value=d12">
+                        <input type="radio" name="sDay" id="sd12" value="d12">
                         <label for="sd12">12</label>
 
                         <input type="radio" name="sDay" id="sd13" value="d13">
@@ -259,7 +264,7 @@
                         <label for="em11">اسفند</label>
                     </div>
                     <div class="DayPicker">
-                        <input type="radio" name="eDay" id="ed1" value="md">
+                        <input type="radio" name="eDay" id="ed1" value="d1">
                         <label for="ed1">1</label>
 
                         <input type="radio" name="eDay" id="ed2" value="d2">
@@ -286,13 +291,13 @@
                         <input type="radio" name="eDay" id="ed9" value="d9">
                         <label for="ed9">9</label>
 
-                        <input type="radio" name="eDay" id="ed10" value=d10">
+                        <input type="radio" name="eDay" id="ed10" value="d10">
                         <label for="ed10">10</label>
 
-                        <input type="radio" name="eDay" id="ed11" value=d11">
+                        <input type="radio" name="eDay" id="ed11" value="d11">
                         <label for="ed11">11</label>
 
-                        <input type="radio" name="eDay" id="ed12" value=d12">
+                        <input type="radio" name="eDay" id="ed12" value="d12">
                         <label for="ed12">12</label>
 
                         <input type="radio" name="eDay" id="ed13" value="d13">

@@ -1,3 +1,9 @@
+import { postRequest } from "./ajax/ajaxRequsts.js";
+import { baseUrl } from "./ajax/ajaxRequsts.js";
+
+const SelectedQuestionnaire = JSON.parse(localStorage.getItem("SelectedQuestionnaire"));
+const reorderQuestionsUrl = baseUrl + `/question-api/questionnaires/${SelectedQuestionnaire.uuid}/change-questions-placements/`;
+
 const nestedContainer = document.querySelectorAll('.nested');
 const nestedQuestionContainer = document.querySelectorAll(".nested-container");
 const sideContainer = document.querySelectorAll(".block__side");
@@ -79,7 +85,25 @@ const DashedNumberSorter = () => {
      }
     ) 
 }
-
+const ReorderQuestionsPoster = async () => {
+    let QuestionItems = document.querySelectorAll(".Questionitem");
+    var QuestionSupLabels = document.querySelectorAll(".sup-label");
+    let replacementPostObject = [];
+    
+    QuestionSupLabels.forEach((QuestionSupLabel) => {
+        replacementPostObject.push(
+            {
+            'question_id' : QuestionSupLabel.parentElement.getAttribute("id").split("Question")[1] ,
+            'new_placement' : QuestionSupLabel.textContent
+            }
+        )
+    })
+    replacementPostObject.pop();
+    let reorderRes =  await postRequest(reorderQuestionsUrl,replacementPostObject);
+    console.log(reorderRes.data)
+    
+}
 mainDrake.on('drop',MainDroppedHandler)
+mainDrake.on('drop',ReorderQuestionsPoster)
 InnerNestedContainer.on('drop',DashedNumberSorter)
 
