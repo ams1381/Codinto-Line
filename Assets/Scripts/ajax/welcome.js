@@ -1,4 +1,5 @@
 import {baseUrl , postRequest} from "./ajaxRequsts.js";
+
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/welcome-pages/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
@@ -23,12 +24,9 @@ saveBtn.addEventListener("click" , function (){
         "button_shape": selectedObject,
         "is_solid_button": true,
     }
-
     if (sendData.media === undefined){
         sendData.media = ""
     }
-
-
     if (textInput.value === ""){
         alert("Please fill the description")
     }
@@ -49,5 +47,3 @@ saveBtn.addEventListener("click" , function (){
         console.log(error);
     })
 })
-
-

@@ -1,3 +1,9 @@
+import { postRequest } from "./ajax/ajaxRequsts.js";
+import { baseUrl } from "./ajax/ajaxRequsts.js";
+
+const SelectedQuestionnaire = JSON.parse(localStorage.getItem("SelectedQuestionnaire"));
+const reorderQuestionsUrl = baseUrl + `/question-api/questionnaires/${SelectedQuestionnaire.uuid}/change-questions-placements/`;
+
 const nestedContainer = document.querySelectorAll('.nested');
 const nestedQuestionContainer = document.querySelectorAll(".nested-container");
 const sideContainer = document.querySelectorAll(".block__side");
@@ -10,18 +16,16 @@ const mainDrake = dragula(
          slideFactorX: 0,
          mirrorContainer: document.body,  
          moves: function (el, source, handle, sibling) {
+
             const draggedItem = el;
-            if(draggedItem.className.indexOf('GreetingPage') != -1 
+            if(draggedItem.className.indexOf('welcome-page') != -1 
             || draggedItem.className.indexOf('ThankPage') != -1 )
                 return false;
             return true; 
           },
           accepts: function (el, target, source, sibling) {
-            if(sibling)
-            {
-                if(sibling.className.indexOf('GreetingPage') != -1 )
-                return false;
-            }
+            if(el.nextElementSibling)
+               return  !(el.nextElementSibling.className.indexOf('welcome-page') != -1);
             return true; 
           },
           invalid: function (el, handle) {
@@ -59,7 +63,6 @@ const MainDroppedHandler = (el, target, source, sibling) => {
     })
        DashedNumberSorter();
 }
-
 const DashedNumberSorter = () => {
     
     var QuestionSubLabels = document.querySelectorAll(".sub-label");
@@ -82,7 +85,25 @@ const DashedNumberSorter = () => {
      }
     ) 
 }
-
+const ReorderQuestionsPoster = async () => {
+    let QuestionItems = document.querySelectorAll(".Questionitem");
+    var QuestionSupLabels = document.querySelectorAll(".sup-label");
+    let replacementPostObject = [];
+    
+    QuestionSupLabels.forEach((QuestionSupLabel) => {
+        replacementPostObject.push(
+            {
+            'question_id' : QuestionSupLabel.parentElement.getAttribute("id").split("Question")[1] ,
+            'new_placement' : QuestionSupLabel.textContent
+            }
+        )
+    })
+    replacementPostObject.pop();
+    let reorderRes =  await postRequest(reorderQuestionsUrl,replacementPostObject);
+    console.log(reorderRes.data)
+    
+}
 mainDrake.on('drop',MainDroppedHandler)
+mainDrake.on('drop',ReorderQuestionsPoster)
 InnerNestedContainer.on('drop',DashedNumberSorter)
 

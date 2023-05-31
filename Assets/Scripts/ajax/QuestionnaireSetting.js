@@ -1,7 +1,8 @@
 import {postRequest} from "./ajaxRequsts.js";
 import {baseUrl} from "./ajaxRequsts.js";
 
-const QuestionnaireNameInputs = document.querySelector(".form-name input");
+const QuestionnaireNameInputs = document.querySelector("#form-name-input");
+const ErrorDialogueBox = document.querySelector(".error_dialogue");
 const QuestionnaireTimerPicker = document.querySelector(".ResponeTiming .ResponePicker");
 const QuestionnaireTimerInputsH = document.querySelector(".ResponeTiming .ResponePicker .RhourPicker input");
 const QuestionnaireTimerInputsM = document.querySelector(".ResponeTiming .ResponePicker .RminutePicker input");
@@ -13,9 +14,47 @@ const QuestionnaireStartDatePicker = document.querySelector(".start-picker");
 const QuestionnaireEndDatePicker = document.querySelector(".end-picker");
 const QuestionnaireSaveBtn = document.querySelector('.FormFooter .save-Form');
 const QuestionnaireStartDateToggle = document.querySelector(".date-start .Switch-toggle .slider-button");
-
 const QuestionnaireEndDateToggle = document.querySelector(".date-end .Switch-toggle .slider-button");
+const QuestionnaireTimerToggleLabel = document.querySelector(".ResponeTiming .ResponseAutoSet .slider-button");
+const QuestionnaireTimerToggleInput = document.querySelector(".ResponeTiming .ResponseAutoSet input");
 
+const Form_Date_Updater = () => {
+    let currentDate = new Date();
+    let currentDateString = currentDate.toLocaleDateString();
+
+    currentDate = farvardin.gregorianToSolar(
+        parseInt(currentDateString.split("/")[2])
+        ,
+        parseInt(currentDateString.split("/")[0])
+        ,
+        parseInt(currentDateString.split("/")[1])
+        );
+    console.log(currentDate);
+    let YearInputs = document.querySelectorAll(".YearPicker input");
+    let MonthInputs = document.querySelectorAll(".MonthPicker input");
+    let DayInputs = document.querySelectorAll(".DayPicker input");
+    YearInputs.forEach((YearInput) => {
+        if(YearInput.value < currentDate[0])
+            YearInput.disabled  = true;
+    })
+    MonthInputs.forEach((MonthInput) => {
+        if(parseInt(MonthInput.value.split("m")[1]) < currentDate[1])
+            MonthInput.disabled = true;
+        MonthInput.addEventListener('click',() => {
+            if(MonthInput.value.split("m")[1] == currentDate[1])
+            {
+                DayInputs.forEach((DayInput) => {
+                    if(parseInt(DayInput.value.split("d")[1]) < currentDate[2])
+                        DayInput.disabled = true;
+                })
+            }
+            else
+            DayInputs.forEach((DayInput) => {
+                    DayInput.disabled = false;
+            })
+        })
+    })
+}
 const QuestionnairePostData = {
     pub_date : null,
     end_date : null,
@@ -24,7 +63,8 @@ const QuestionnairePostData = {
     show_question_in_pages : false ,
     folder : localStorage.getItem("SelectedFolderID")
 };
-const create_questionnaire = async () => {
+const create_questionnaire = async (e) => {
+    e.preventDefault();
     if (QuestionnairePostData.pub_date !== null)
     {
         let publish_date = QuestionnairePostData.pub_date;
@@ -37,18 +77,23 @@ const create_questionnaire = async () => {
         let GregorianDate = farvardin.solarToGregorian(parseInt(end_date.split("/")[0]) , parseInt(end_date.split("/")[1]) , parseInt(end_date.split("/")[2]));
         QuestionnairePostData.end_date = GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2];
     }
-    let create_questionnaire_res =  await postRequest(baseUrl + '/question-api/questionnaires/',QuestionnairePostData);
+    try 
+    {
+        let create_questionnaire_res =  await postRequest(baseUrl + '/question-api/questionnaires/',QuestionnairePostData);
+        window.open("/Pages/FormDesign.html","_self");
+        localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
+    }
+    catch(err)
+    {
+        $(ErrorDialogueBox).show(100);
+        QuestionnaireNameInputs.classList.add("error_active");
+        window.scrollTo(0,0)
+    }
 
-    window.open("/Pages/FormDesign.html","_self");
-    localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
+   
 }
-const QuestionnaireTimerToggleLabel = document.querySelector(".ResponeTiming .ResponseAutoSet .slider-button");
-const QuestionnaireTimerToggleInput = document.querySelector(".ResponeTiming .ResponseAutoSet input");
-let TimerSecond;
-let TimerMinute;
-let TimerHour;
-
 const nameSetter = (e) => {
+    QuestionnaireNameInputs.classList.remove("error_active");
     QuestionnairePostData.name = e.target.value;
 }
 const TimerSetter = (e) => {
@@ -175,3 +220,4 @@ QuestionnaireIsolator.addEventListener('click',() => {
 })
 
 QuestionnaireSaveBtn.addEventListener('click',create_questionnaire);
+Form_Date_Updater();

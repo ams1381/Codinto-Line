@@ -5,7 +5,7 @@
 
 .AddForm , .form
 {
-    margin: 20px 20px 0 0;
+    margin: 25px 20px 0 0;
     width: 33%;
     background: var(--theme-white);
     height: calc(9rem + 4vw);
@@ -360,6 +360,17 @@
     color: var(--brand-color);
     cursor: pointer;
     margin-top: 2px;
+}
+@media only screen and (max-width : 992px)
+{
+    .FormsManagement
+    {
+        flex-wrap: wrap;
+    }
+    .AddForm, .form
+    {
+        width: 45%;
+    }
 }
 @media only screen and (max-width : 768px)
 { 

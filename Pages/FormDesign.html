@@ -5,11 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>طـراحی پرسشنامه</title>
-
-    <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
-    <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
-    <link rel="stylesheet" href="../Assets/Styles/FormDesign.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/Assets/Styles/AssistiveButton.css">
     <link rel="stylesheet" type="text/css" href="/Assets/Styles/DefaultStyles.css">
     <link rel="stylesheet" type="text/css" href="/Assets/Styles/FormDesign.css">
@@ -29,7 +24,7 @@
                 <div class="navMenu">
                     <ul class="navItemlist">
                         <li class="navItem">
-                            <a href="">ایجاد پرسشنامه</a>
+                            <a href="">ایجاد سوال</a>
                             <i class="fa fa-plus-circle"></i>
                         </li>
                         <li class="navItem">
@@ -67,7 +62,7 @@
             </div>
             <div class="QuestionDesignItem text-with-anwser">
                 <p class="question-design-item-text">متنی با پاسخ</p>
-                <i class="fa-solid fa-text" aria-hidden="true"></i>
+                <i aria-hidden="true">T</i>
             </div>
             <div class="QuestionDesignItem question-group">
                 <p class="question-design-item-text">گروه سوال</p>
@@ -126,10 +121,10 @@
             </div>
         </aside>
         <main class="block__main">
-           <div class="QuestionsBox nested drop">
+           <div class="QuestionsBox nested">
             <div id="loading-animation">
                 <div class="spinner"></div>
-              </div>
+            </div>
            </div>
            <div class="AssistiveButton">
             <div class="AssistiveItems">
@@ -151,17 +146,30 @@
         </main>
      </section>
      <div class="screen-mask"></div>
+     <div class="removeFolderPopUp">
+        <div class="popUpHeader">
+            <div class="popup_deleteIcon">
+                <i class="fa fa-close"></i>
+            </div>
+            <div class="popup_headerText">
+                آیا مطمعن هستید؟
+            </div>
+        </div>
+        <div class="PopUpButtons">
+            <button class="confirm-button">
+                حذف
+            </button>
+            <button class="cancel-button">
+                انصراف
+            </button>
+        </div>
+    </div>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.js"></script>
      
-
-     <script src="../Assets/Scripts/NavigationHandler.js"></script>
-     <script src="../Assets/Scripts/DraggableItems.js"></script>
-     <script src="../Assets/Scripts/CommonScript.js"></script>
-
+     <script src="/Assets/Scripts/CommonScript.js"></script>
      <script src="/Assets//Scripts/ajax/FormDesignAjax.js" type="module"></script>
      <script src="/Assets/Scripts/NavigationHandler.js"></script>
-     <script src="/Assets/Scripts/DraggableItems.js"></script>
-     <script src="/Assets/Scripts/CommonScript.js"></script>
+     <script src="/Assets/Scripts/DraggableItems.js" type="module"></script>
 
 </body>
 </html>

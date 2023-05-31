@@ -16,11 +16,8 @@ const create_folder_name_input = document.querySelector("#create_folder_name");
 const rename_folder_input = document.querySelector("#rename_folder_name");
 const addFormButton = document.querySelector(".form.AddForm");
 const create_folder_popup = document.querySelector(".createFolderPopUp");
-const remove_folder_popup = document.querySelector(".removeFolderPopUp")
+const remove_folder_popup = document.querySelector(".removeFolderPopUp");
 const add_folder_button = document.querySelector(".AddFolder");
-const search_folder_button = document.querySelector(".FolderSearch");
-const search_folder_input = document.querySelector("#search-input");
-const search_folder_container = document.querySelector(".search-box");
 let remove_folder_button = document.querySelectorAll(".Folder .FolderRemove");
 let folder_items = document.querySelectorAll(".sideBody .Folder");
 let rename_folder_button = document.querySelectorAll(".FolderEdit");
@@ -139,11 +136,7 @@ const folder_mask_close_panel = () => {
         remove_folder_popup.classList.remove("active");
     nav_mask.classList.remove("active");  
 }
-const search_button_handler = () => {
-    nav_search_container.classList.toggle("search-active");
-    search_folder_button.classList.toggle("search-active");
-    search_folder_container.classList.toggle("search-active");
-}
+
 const setActive_folder = (folder_item,elements,questionnaires) => {
 
     SelectedFolderId = parseInt(folder_item.getAttribute('id'));
@@ -165,7 +158,6 @@ const setActive_folder = (folder_item,elements,questionnaires) => {
                 if(!item.classList.contains("AddForm"))
                     item.remove();
             })
-
             questionnaires.forEach((item) => {
                 questionnaire_generator(item)
             })
@@ -179,8 +171,6 @@ const setActive_folder = (folder_item,elements,questionnaires) => {
             })
         }
     }
-
-
   }
 const folder_rename_handler = async (FolderItemId) => {
     let RenameUrl = folderUrl + FolderItemId + '/';
@@ -197,7 +187,6 @@ const folder_rename_handler = async (FolderItemId) => {
 }
 const folder_remove_handler = async (FolderItemId , deletedFolderItem) => {
     let delUrl = folderUrl + FolderItemId + '/'
-    console.log(delUrl)
     let delRes = await deleteRequest(delUrl)
     if(delRes.status === 204)
     {
@@ -232,14 +221,11 @@ nav_mask.addEventListener("click" , folder_mask_close_panel);
 
 add_folder_button.addEventListener("click",create_folder_popup_handler);
 
-search_folder_button.addEventListener("click",search_button_handler)
-
 folder_cancel_button.forEach((item,index) => { item.addEventListener('click',folder_mask_close_panel) })
 
 rename_folder_button.forEach((item,index) => { item.addEventListener('click',rename_folder_popup_handler); })
 
 create_folder_confirm_btn.addEventListener('click',folder_creator_handler);
-
 
 Folders_Slide_toggle.addEventListener('click',() => {
     if(window.innerWidth < 768)
