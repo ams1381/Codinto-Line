@@ -18,7 +18,6 @@ let deleteQuestionInfo;
 QuestionnaireName.textContent = SelectedQuestionnaire.name;
 
 const QuestionItemGenerator = (Question,QuestionOrderNumber) => {
-    console.log(Question)
     let QuestionItemContainer = document.createElement('div');
     QuestionItemContainer.setAttribute("id","Question" + Question.id,QuestionOrderNumber);
     QuestionItemContainer.classList.add("Questionitem",Question.question_type);
@@ -104,7 +103,7 @@ const QuestionItemSetter = async () => {
     try
     {
         let QuestionsResponse = await getRequest(getQuestionsUrl + SelectedQuestionnaire.uuid + '/');
-        console.log(QuestionsResponse.data);
+        
         if(QuestionsResponse.data.welcome_page)
         {
             let WelcomePage = QuestionsResponse.data.welcome_page;
