@@ -1,9 +1,9 @@
 
 import {baseUrl, getRequest, postRequest} from "./ajaxRequsts.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
-const folder = baseUrl + "/user-api/folders/"
+// const folder = baseUrl + "/user-api/folders/"
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
-const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
+// const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
 const reqUrl = baseUrl +`/question-api/questionnaires/${QuestionnaireUUID}/file-questions/`
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
@@ -35,6 +35,7 @@ if(ACTION_TYPE == 'Edit')
 function showAlert(text){
     wrongAlert.style.opacity = "1";
     document.querySelector('.block__side').scrollTo(0,0)
+    window.scrollTo(0,0)
     let spanInput =  wrongAlert.childNodes[1]
     spanInput.innerText = `${text}`
     setTimeout(()=>{
@@ -49,59 +50,7 @@ function showValue(input , value){
 }
 showValue(titleInput , questionText)
 showValue(textInput , questionDescription)
-
-
-//event listener------------------------------------
-// create folder and questionnaire
-document.addEventListener("DOMContentLoaded" , (e)=>{
-    getRequest(folder).then((response)=>{
-        console.log(response.data);
-    })
-    getRequest(questionnairesUrl).then((response)=>{
-        console.log(response.data);
-    })
-
-})
-// upload file limitation
-pictureSwitcher.addEventListener("click" , (e)=>{
-    uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
-    if(videoSwitcher.classList.contains("active")){
-        videoSwitcher.classList.remove("active")
-        pictureSwitcher.classList.add("active")
-    }
-})
-videoSwitcher.addEventListener("click" , (e)=>{
-    uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
-    if(pictureSwitcher.classList.contains("active")){
-        pictureSwitcher.classList.remove("active")
-        videoSwitcher.classList.add("active")
-    }
-})
-KBSelector.addEventListener("click" , (e)=>{
-    if(MBSelector.classList.contains("active")){
-        MBSelector.classList.remove("active")
-        KBSelector.classList.add("active")
-    }
-})
-uploadInput.addEventListener("change" , (e)=>{
-    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
-})
-// add event listener to save button
-saveBtn.addEventListener("click", function(event) {
-console.log(sizeInput.value);
-    if(titleInput.value === "" && textInput.value === ""){
-        showAlert("عنوان و متن سوال را وارد کنید")
-    }else if(textInput.value === ""){
-        showAlert("متن سوال را وارد کنید")
-    }else if(titleInput.value === ""){
-        showAlert("عنوان سوال را وارد کنید")
-    }else if(sizeInput.value === null || sizeInput.value === undefined || sizeInput.value === ""){
-        showAlert("حجم فایل را وارد کنید")
-    }else{
-        console.log("ok");
-    }
-
-    // upload wrong error
+function uploadValidation(input){
     if(uploadInput.files[0] !== undefined){
         let uploadUrl = uploadInput.files[0].name.split(".")
         if(pictureSwitcher.classList.contains("active")){
@@ -155,6 +104,77 @@ console.log(sizeInput.value);
     }else {
         console.log("no file");
     }
+}
+function textStyle(input){
+    const textEditor = document.querySelector(".TitleInputOptions")
+    textEditor.addEventListener("click" , (e)=>{
+        switch (e.target.classList[1]){
+            case "fa-bold":
+                input.classList.toggle("bold")
+                break;
+            case "fa-italic":
+                input.classList.toggle("italic")
+                break;
+            case "fa-underline":
+                input.classList.toggle("underline")
+                break;
+        }
+    })
+}
+textStyle(titleInput)
+
+//event listener------------------------------------
+// create folder and questionnaire
+// document.addEventListener("DOMContentLoaded" , (e)=>{
+//     getRequest(folder).then((response)=>{
+//         console.log(response.data);
+//     })
+//     getRequest(questionnairesUrl).then((response)=>{
+//         console.log(response.data);
+//     })
+//
+// })
+// upload file limitation
+pictureSwitcher.addEventListener("click" , (e)=>{
+    uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+    if(videoSwitcher.classList.contains("active")){
+        videoSwitcher.classList.remove("active")
+        pictureSwitcher.classList.add("active")
+    }
+})
+videoSwitcher.addEventListener("click" , (e)=>{
+    uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
+    if(pictureSwitcher.classList.contains("active")){
+        pictureSwitcher.classList.remove("active")
+        videoSwitcher.classList.add("active")
+    }
+})
+KBSelector.addEventListener("click" , (e)=>{
+    if(MBSelector.classList.contains("active")){
+        MBSelector.classList.remove("active")
+        KBSelector.classList.add("active")
+    }
+})
+uploadInput.addEventListener("change" , (e)=>{
+    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
+})
+// add event listener to save button
+saveBtn.addEventListener("click", function(event) {
+console.log(sizeInput.value);
+    if(titleInput.value === "" && textInput.value === ""){
+        showAlert("عنوان و متن سوال را وارد کنید")
+    }else if(textInput.value === ""){
+        showAlert("متن سوال را وارد کنید")
+    }else if(titleInput.value === ""){
+        showAlert("عنوان سوال را وارد کنید")
+    }else if(sizeInput.value === null || sizeInput.value === undefined || sizeInput.value === ""){
+        showAlert("حجم فایل را وارد کنید")
+    }else{
+        console.log("ok");
+    }
+
+    // upload wrong error
+    uploadValidation(uploadInput)
     // kb and mb
 
     if(KBSelector.classList.contains("active")){

@@ -40,6 +40,7 @@ if(ACTION_TYPE == 'Edit')
 function showAlert(text){
     wrongAlert.style.opacity = "1";
     document.querySelector('.block__side').scrollTo(0,0)
+    window.scrollTo(0,0)
     let spanInput =  wrongAlert.childNodes[1]
     spanInput.innerText = `${text}`
     setTimeout(()=>{
@@ -105,6 +106,7 @@ saveBtn.addEventListener("click" , function (){
     }
     if(uploadInput.files[0] !== undefined) {
         let uploadUrl = uploadInput.files[0].name.split(".")
+        console.log(uploadUrl[1])
         if (pictureSwitcher.classList.contains("active")) {
             switch (uploadUrl[1]) {
                 case "jpg":
@@ -123,7 +125,7 @@ saveBtn.addEventListener("click" , function (){
                     showAlert("فرمت وارد شده پذیرفته نیست")
             }
         } else if (videoSwitcher.classList.contains("active")) {
-            switch (uploadUrl[1]) {
+            switch (uploadUrl[1] || uploadUrl[0]) {
                 case "mp4":
                     break;
                 case "mov":
