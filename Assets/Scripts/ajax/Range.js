@@ -1,7 +1,6 @@
 import {baseUrl , postRequest , getRequest} from "./ajaxRequsts.js";
-
-const folder = baseUrl + "/user-api/folders/"
-const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
+// const folder = baseUrl + "/user-api/folders/"
+// const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 let reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/integerrange-questions/`;
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
@@ -18,7 +17,8 @@ const rangeInput = document.querySelector(".rangeInput");
 const wrongAlert = document.querySelector(".wrongEntry")
 const questionText = document.querySelector(".questionText")
 const questionDescription = document.querySelector(".ansswer__text")
-const titleBoldIcon = document.querySelector(".GTitle .fa-bold")
+const pictureSwitcher = document.querySelector(".picture__switcher")
+const videoSwitcher = document.querySelector(".video__switcher")
 rightInput.value = null;
 middleInput.value = null;
 leftInput.value = null;
@@ -40,12 +40,19 @@ if(ACTION_TYPE == 'Edit')
 function showAlert(text){
     wrongAlert.style.opacity = "1";
     document.querySelector('.block__side').scrollTo(0,0)
+    window.scrollTo(0,0)
     let spanInput =  wrongAlert.childNodes[1]
     spanInput.innerText = `${text}`
     setTimeout(()=>{
         wrongAlert.style.opacity = "0";
     }, 3000);
 }
+function rangePreview(input){
+    input.addEventListener("input" , (e)=>{
+       document.querySelector(".range-label").innerText =  e.target.value
+    })
+}
+rangePreview(rangeInput)
 function showValue(input , value){
     input.addEventListener("input" , (e)=>{
         value.innerText = e.target.value
@@ -53,23 +60,43 @@ function showValue(input , value){
 }
 showValue(titleInput , questionText)
 showValue(textInput , questionDescription)
-document.addEventListener("DOMContentLoaded" , (e)=>{
-    // let sendData = {
-    //     name : "test",
-    // }
-    // let ques ={
-    //     name : "burak",
-    //     folder : 2,
-    // }
-    // postRequest(folder , sendData).then((response)=>{
-    //     console.log(response.data);
-    // })
-    // postRequest(questionnairesUrl , ques).then((response)=>{
-    //     console.log(response.data);
-    // })
 
+function textStyle(input){
+    const textEditor = document.querySelector(".TitleInputOptions")
+    textEditor.addEventListener("click" , (e)=>{
+        switch (e.target.classList[1]){
+            case "fa-bold":
+                input.classList.toggle("bold")
+                break;
+            case "fa-italic":
+                input.classList.toggle("italic")
+                break;
+            case "fa-underline":
+                input.classList.toggle("underline")
+                break;
+        }
+    })
+}
+textStyle(titleInput)
+pictureSwitcher.addEventListener("click" , (e)=>{
+    uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+    if(videoSwitcher.classList.contains("active")){
+        videoSwitcher.classList.remove("active")
+        pictureSwitcher.classList.add("active")
+    }
+})
+videoSwitcher.addEventListener("click" , (e)=>{
+    uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
+    if(pictureSwitcher.classList.contains("active")){
+        pictureSwitcher.classList.remove("active")
+        videoSwitcher.classList.add("active")
+    }
+})
+uploadInput.addEventListener("change" , (e)=>{
+    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
 })
 saveBtn.addEventListener("click" , function (){
+
     if(titleInput.value === "" && textInput.value === ""){
         showAlert("عنوان و متن سوال را وارد کنید")
     }else if(textInput.value === ""){
@@ -79,6 +106,7 @@ saveBtn.addEventListener("click" , function (){
     }
     if(uploadInput.files[0] !== undefined) {
         let uploadUrl = uploadInput.files[0].name.split(".")
+        console.log(uploadUrl[1])
         if (pictureSwitcher.classList.contains("active")) {
             switch (uploadUrl[1]) {
                 case "jpg":
@@ -97,7 +125,7 @@ saveBtn.addEventListener("click" , function (){
                     showAlert("فرمت وارد شده پذیرفته نیست")
             }
         } else if (videoSwitcher.classList.contains("active")) {
-            switch (uploadUrl[1]) {
+            switch (uploadUrl[1] || uploadUrl[0]) {
                 case "mp4":
                     break;
                 case "mov":

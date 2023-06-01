@@ -23,6 +23,7 @@ sampleAnswer.value = null;
 function showAlert(text){
     wrongAlert.style.opacity = "1";
     document.querySelector('.block__side').scrollTo(0,0)
+    window.scrollTo(0,0)
     let spanInput =  wrongAlert.childNodes[1]
     spanInput.innerText = `${text}`
     setTimeout(()=>{
@@ -36,43 +37,25 @@ function showValue(input , value){
 }
 showValue(titleInput , questionText)
 showValue(textInput , questionDescription)
-
-
-//event listener------------------------------------
-// create folder and questionnaire
-// document.addEventListener("DOMContentLoaded" , (e)=>{
-//     getRequest(folder).then((response)=>{
-//         console.log(response.data);
-//     })
-//    getRequest(questionnairesUrl).then((response)=>{
-//         console.log(response.data);
-//     })
-
-// })
-// upload file limitation
-pictureSwitcher.addEventListener("click" , (e)=>{
-    uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
-})
-videoSwitcher.addEventListener("click" , (e)=>{
-    uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
-    if(pictureSwitcher.classList.contains("active")){
-        pictureSwitcher.classList.remove("active")
-        videoSwitcher.classList.add("active")
-    }
-})
-// add event listener to save button
-saveBtn.addEventListener("click", function(event) {
-
-    if(titleInput.value === "" && textInput.value === ""){
-        showAlert("عنوان و متن سوال را وارد کنید")
-    }else if(textInput.value === ""){
-        showAlert("متن سوال را وارد کنید")
-    }else if(titleInput.value === ""){
-        showAlert("عنوان سوال را وارد کنید")
-    }
-    // upload wrong error
+function textStyle(input){
+    const textEditor = document.querySelector(".TitleInputOptions")
+    textEditor.addEventListener("click" , (e)=>{
+        switch (e.target.classList[1]){
+            case "fa-bold":
+                input.classList.toggle("bold")
+                break;
+            case "fa-italic":
+                input.classList.toggle("italic")
+                break;
+            case "fa-underline":
+                input.classList.toggle("underline")
+                break;
+        }
+    })
+}
+textStyle(titleInput)
+function uploadValidation(input){
     if(uploadInput.files[0] !== undefined){
-        // console.log(uploadInput.files[0].name.split("."));
         let uploadUrl = uploadInput.files[0].name.split(".")
         if(pictureSwitcher.classList.contains("active")){
             switch (uploadUrl[1]) {
@@ -118,14 +101,40 @@ saveBtn.addEventListener("click", function(event) {
                 case "WMV":
                     break;
                 default:
-                    return showAlert("فرمت وارد شده پذیرفته نیست")
+                    return  showAlert("فرمت وارد شده پذیرفته نیست")
 
             }
         }
     }else {
         console.log("no file");
     }
+}
+uploadInput.addEventListener("change" , (e)=>{
+    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
+})
 
+pictureSwitcher.addEventListener("click" , (e)=>{
+    uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+})
+videoSwitcher.addEventListener("click" , (e)=>{
+    uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
+    if(pictureSwitcher.classList.contains("active")){
+        pictureSwitcher.classList.remove("active")
+        videoSwitcher.classList.add("active")
+    }
+})
+// add event listener to save button
+saveBtn.addEventListener("click", function(event) {
+
+    if(titleInput.value === "" && textInput.value === ""){
+        showAlert("عنوان و متن سوال را وارد کنید")
+    }else if(textInput.value === ""){
+        showAlert("متن سوال را وارد کنید")
+    }else if(titleInput.value === ""){
+        showAlert("عنوان سوال را وارد کنید")
+    }
+    // upload wrong error
+    uploadValidation(uploadInput)
     let sendFile  = {
         question_type : "Link question",
         title: titleInput.value,
