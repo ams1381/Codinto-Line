@@ -1,8 +1,9 @@
 
 import {baseUrl, getRequest, postRequest} from "./ajaxRequsts.js";
-const folder = baseUrl + "/user-api/folders/"
-const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
-const reqUrl = baseUrl +"/question-api/questionnaires/e65a7256-72d0-49b5-b084-1fd61f0caf5a/textanswer-questions/"
+// const folder = baseUrl + "/user-api/folders/"
+const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+// const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
+const reqUrl = baseUrl +"/question-api/questionnaires/${QuestionnaireUUID}/link-questions/"
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
 const sampleAnswer = document.querySelector(".SampleAnw .label-text-input")
@@ -57,52 +58,40 @@ textStyle(titleInput)
 function uploadValidation(input){
     if(uploadInput.files[0] !== undefined){
         let uploadUrl = uploadInput.files[0].name.split(".")
+        console.log(uploadInput.files[0].size)
+        if(uploadInput.files[0].size > 3000000){
+            return showAlert("حجم فایل وارد شده بیش از 3 مگابایت است")
+        }
         if(pictureSwitcher.classList.contains("active")){
-            switch (uploadUrl[1]) {
-                case "jpg":
-                    break;
-                case "png":
-                    break;
-                case "jpeg":
-                    break;
-                case "JPG":
-                    break;
-                case "PNG":
-                    break;
-                case "JPEG":
-                    break;
-                default:
-                    showAlert("فرمت فایل وارد شده پذیرفته نیست")
+            const pictureTranslate = {
+                jpg : "jpg",
+                png : "png",
+                jpeg : "jpeg",
+                JPG : "JPG",
+                PNG : "PNG",
+                JPEG : "JPEG"
+            }
+            if(!pictureTranslate[uploadUrl[1]]){
+                return showAlert("فرمت وارد شده پذیرفته نیست")
             }
         }else if(videoSwitcher.classList.contains("active")){
-            switch (uploadUrl[1]) {
-                case "mp4":
-                    break;
-                case "mov":
-                    break;
-                case "m4v":
-                    break;
-                case "mkv":
-                    break;
-                case "flv":
-                    break;
-                case "wmv":
-                    break;
-                case "MP4":
-                    break;
-                case "MOV":
-                    break;
-                case "M4V":
-                    break;
-                case "MKV":
-                    break;
-                case "FLV":
-                    break;
-                case "WMV":
-                    break;
-                default:
-                    return  showAlert("فرمت وارد شده پذیرفته نیست")
-
+            //
+            const videoTranslate = {
+                mp4 : "mp4",
+                mov : "mov",
+                m4v : "m4v",
+                mkv : "mkv",
+                flv : "flv",
+                wmv : "wmv",
+                MP4 : "MP4",
+                MOV : "MOV",
+                M4V : "M4V",
+                MKV : "MKV",
+                FLV : "FLV",
+                WMV : "WMV"
+            }
+            if(!videoTranslate[uploadUrl[1]]){
+                return showAlert("فرمت وارد شده پذیرفته نیست")
             }
         }
     }else {
@@ -114,10 +103,14 @@ uploadInput.addEventListener("change" , (e)=>{
 })
 
 pictureSwitcher.addEventListener("click" , (e)=>{
-    uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+    // uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+    if(videoSwitcher.classList.contains("active")){
+        videoSwitcher.classList.remove("active")
+        pictureSwitcher.classList.add("active")
+    }
 })
 videoSwitcher.addEventListener("click" , (e)=>{
-    uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
+    // uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
     if(pictureSwitcher.classList.contains("active")){
         pictureSwitcher.classList.remove("active")
         videoSwitcher.classList.add("active")
