@@ -40,6 +40,7 @@ if(ACTION_TYPE == 'Edit')
 function showAlert(text){
     wrongAlert.style.opacity = "1";
     document.querySelector('.block__side').scrollTo(0,0)
+    window.scrollTo(0,0)
     let spanInput =  wrongAlert.childNodes[1]
     spanInput.innerText = `${text}`
     setTimeout(()=>{
@@ -47,14 +48,30 @@ function showAlert(text){
     }, 3000);
 }
 
-// function showValue(input , value){
-//     input.addEventListener("input" , (e)=>{
-//         value.innerText = e.target.value
-//     })
-// }
-// showValue(titleInput , questionText)
-// showValue(textInput , questionDescription)
-
+function showValue(input , value){
+    input.addEventListener("input" , (e)=>{
+        value.innerText = e.target.value
+    })
+}
+showValue(titleInput , questionText)
+showValue(textInput , questionDescription)
+function textStyle(input){
+    const textEditor = document.querySelector(".TitleInputOptions")
+    textEditor.addEventListener("click" , (e)=>{
+        switch (e.target.classList[1]){
+            case "fa-bold":
+                input.classList.toggle("bold")
+                break;
+            case "fa-italic":
+                input.classList.toggle("italic")
+                break;
+            case "fa-underline":
+                input.classList.toggle("underline")
+                break;
+        }
+    })
+}
+textStyle(titleInput)
 
 //event listener------------------------------------
 // create folder and questionnaire
@@ -70,6 +87,10 @@ function showAlert(text){
 // upload file limitation
 pictureSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+    if(videoSwitcher.classList.contains("active")){
+        videoSwitcher.classList.remove("active")
+        pictureSwitcher.classList.add("active")
+    }
 })
 videoSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
@@ -77,6 +98,9 @@ videoSwitcher.addEventListener("click" , (e)=>{
         pictureSwitcher.classList.remove("active")
         videoSwitcher.classList.add("active")
     }
+})
+uploadInput.addEventListener("change" , (e)=>{
+    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
 })
 
 // add event listener to save button

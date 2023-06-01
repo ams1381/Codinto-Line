@@ -41,6 +41,7 @@ sampleAnswer.value = null;
 function showAlert(text){
     wrongAlert.style.opacity = "1";
     document.querySelector('.block__side').scrollTo(0,0)
+    window.scrollTo(0,0)
     let spanInput =  wrongAlert.childNodes[1]
     spanInput.innerText = `${text}`
     setTimeout(()=>{
@@ -54,27 +55,26 @@ function showValue(input , value){
 }
 showValue(titleInput , questionText)
 showValue(textInput , questionDescription)
-
+function textStyle(input){
+    const textEditor = document.querySelector(".TitleInputOptions")
+    textEditor.addEventListener("click" , (e)=>{
+        switch (e.target.classList[1]){
+            case "fa-bold":
+                input.classList.toggle("bold")
+                break;
+            case "fa-italic":
+                input.classList.toggle("italic")
+                break;
+            case "fa-underline":
+                input.classList.toggle("underline")
+                break;
+        }
+    })
+}
+textStyle(titleInput)
 
 //event listener------------------------------------
 // create folder and questionnaire
-document.addEventListener("DOMContentLoaded" , (e)=>{
-    let sendData = {
-        name : "test",
-    }
-    let ques ={
-        name : "burak",
-        folder : 2,
-    }
-    postRequest(folder , sendData).then((response)=>{
-        console.log(response.data);
-    })
-    postRequest(questionnairesUrl , ques).then((response)=>{
-        console.log(response.data);
-    })
-
-})
-// upload file limitation
 pictureSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
 })
@@ -84,6 +84,9 @@ videoSwitcher.addEventListener("click" , (e)=>{
         pictureSwitcher.classList.remove("active")
         videoSwitcher.classList.add("active")
     }
+})
+uploadInput.addEventListener("change" , (e)=>{
+    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
 })
 document.addEventListener("DOMContentLoaded", function(event) {
     minVmax.style.display = "block";
