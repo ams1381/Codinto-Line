@@ -120,6 +120,7 @@ function textStyle(input){
     })
 }
 textStyle(titleInput)
+// add event listeners--------------------------------------
 pictureSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
     if(videoSwitcher.classList.contains("active")){
