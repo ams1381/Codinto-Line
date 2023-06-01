@@ -215,6 +215,7 @@
     background-color: var(--input-title-bg-color);
     color: var(--brand-color);
     pointer-events: all;
+    border-radius: 15px 15px 0 0;
 }
 .GOptions label
 {

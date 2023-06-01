@@ -11,13 +11,14 @@ const QuestionsBoxContainer = document.querySelector(".QuestionsBox");
 const remove_folder_confirm_btn = document.querySelector(".removeFolderPopUp .confirm-button");
 const remove_folder_popup = document.querySelector(".removeFolderPopUp");
 const folder_cancel_button = document.querySelectorAll(".cancel-button");
-const AssistiveButtons = document.querySelector('.AssistiveButton .AssistiveItems button');
+const AssistiveButtons = document.querySelectorAll('.AssistiveButton .AssistiveItems button');
 
 
 let deleteQuestionInfo;
 QuestionnaireName.textContent = SelectedQuestionnaire.name;
 
 const QuestionItemGenerator = (Question,QuestionOrderNumber) => {
+    console.log(Question)
     let QuestionItemContainer = document.createElement('div');
     QuestionItemContainer.setAttribute("id","Question" + Question.id,QuestionOrderNumber);
     QuestionItemContainer.classList.add("Questionitem",Question.question_type);
@@ -84,10 +85,11 @@ const QuestionItemGenerator = (Question,QuestionOrderNumber) => {
     $(QuestionItemContainer).fadeIn(200);
 
 
-    QuestionItemContainer.addEventListener('click',() => {
+    QuestionItemContainer.addEventListener('click',(e) => {
         localStorage.setItem("ACTION-TYPE",'Edit');
         localStorage.setItem("QuestionData",JSON.stringify(Question));
-        QuestionDesignOpener(Question.question_type);
+        if(e.target.classList[1] != 'fa-copy' && (e.target.classList[1] != 'fa-trash'))
+           QuestionDesignOpener(Question.question_type);
     })
 
 }
@@ -156,7 +158,6 @@ const QuestionItemSetter = async () => {
 }
 const QuestionDesignOpener = (QuestionType) =>
 {   
-    console.log(QuestionType)
     switch(QuestionType)
     {
         case 'welcome-page': 
@@ -258,3 +259,6 @@ remove_folder_confirm_btn.addEventListener('click',() => {
     DeleteQuestionItemHandler(deleteQuestionInfo)
 })
 QuestionItemSetter();
+AssistiveButtons[1].addEventListener('click',() => {
+    window.open("/Pages/Setting.html","_Self")
+})

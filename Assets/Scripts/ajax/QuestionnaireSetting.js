@@ -36,6 +36,27 @@ const Form_Date_Updater = () => {
     YearInputs.forEach((YearInput) => {
         if(YearInput.value < currentDate[0])
             YearInput.disabled  = true;
+        // YearInput.addEventListener('click',() => {
+        //     if(YearInput.value > currentDate[0])
+        //         DayInputs.forEach((DayInput) => {
+        //             DayInput.disabled = false;
+        //     })
+        //     if(YearInput.value == currentDate[0])
+        //     DayInputs.forEach((DayInput) => {
+        //         if(parseInt(DayInput.value.split("d")[1]) < currentDate[2])
+        //             DayInput.disabled = true;
+        //     })
+        // })
+    })
+    Form_Date_Month_Updater(currentDate);
+    Form_Date_Day_Updater(currentDate);
+}
+const Form_Date_Day_Updater = (currentDate) => {
+    let MonthInputs = document.querySelectorAll(".MonthPicker input");
+    let DayInputs = document.querySelectorAll(".DayPicker input");
+    let SelectedYear = document.querySelectorAll(".YearInput input").forEach((YearInput) => {
+        if(YearInput.checked = true)
+            return SelectedYear
     })
     MonthInputs.forEach((MonthInput) => {
         if(parseInt(MonthInput.value.split("m")[1]) < currentDate[1])
@@ -49,9 +70,37 @@ const Form_Date_Updater = () => {
                 })
             }
             else
-            DayInputs.forEach((DayInput) => {
-                    DayInput.disabled = false;
-            })
+                DayInputs.forEach((DayInput) => {
+                        DayInput.disabled = false;
+                })
+        })
+    })
+}
+const Form_Date_Month_Updater = (currentDate) =>
+{
+    let YearInputs = document.querySelectorAll(".YearPicker input");
+    let MonthInputs = document.querySelectorAll(".MonthPicker input");
+    let DayInputs = document.querySelectorAll(".DayPicker input");
+    YearInputs.forEach((YearInput) => {
+        if(YearInput.value < currentDate[0])
+            YearInput.disabled  = true;
+        YearInput.addEventListener('click',() => {
+            if(parseInt(YearInput.value) > currentDate[0])
+                {
+                    MonthInputs.forEach((MonthInput) => {
+                        MonthInput.disabled = false;
+                    })
+                    DayInputs.forEach((DayInput) => {
+                        DayInput.disabled = false;
+                    })
+                }
+            if(parseInt(YearInput.value) == currentDate[0])
+            {
+                MonthInputs.forEach((MonthInput) => {
+                    if(parseInt(MonthInput.value.split("m")[1]) < currentDate[1])
+                        MonthInput.disabled = true;
+                });
+            }
         })
     })
 }
@@ -218,6 +267,5 @@ QuestionnaireProgressBar.addEventListener('click',() => {
 QuestionnaireIsolator.addEventListener('click',() => {
     QuestionnairePostData.show_question_in_pages = !QuestionnaireIsolator.previousElementSibling.checked;
 })
-
 QuestionnaireSaveBtn.addEventListener('click',create_questionnaire);
 Form_Date_Updater();

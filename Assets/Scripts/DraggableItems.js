@@ -88,20 +88,20 @@ const DashedNumberSorter = () => {
 const ReorderQuestionsPoster = async () => {
     let QuestionItems = document.querySelectorAll(".Questionitem");
     var QuestionSupLabels = document.querySelectorAll(".sup-label");
-    let replacementPostObject = [];
+    let replacementPostObject = {
+       'placements' : []
+    } ;
     
     QuestionSupLabels.forEach((QuestionSupLabel) => {
-        replacementPostObject.push(
-            {
-            'question_id' : QuestionSupLabel.parentElement.getAttribute("id").split("Question")[1] ,
-            'new_placement' : QuestionSupLabel.textContent
+        replacementPostObject.placements.push(
+          {
+            'question_id' : parseInt(QuestionSupLabel.parentElement.getAttribute("id").split("Question")[1]) ,
+            'new_placement' : parseInt(QuestionSupLabel.textContent)
             }
         )
     })
-    replacementPostObject.pop();
+    replacementPostObject.placements.pop();
     let reorderRes =  await postRequest(reorderQuestionsUrl,replacementPostObject);
-    console.log(reorderRes.data)
-    
 }
 mainDrake.on('drop',MainDroppedHandler)
 mainDrake.on('drop',ReorderQuestionsPoster)
