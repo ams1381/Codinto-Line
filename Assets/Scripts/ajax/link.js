@@ -1,10 +1,11 @@
 
 import {baseUrl, getRequest, postRequest} from "./ajaxRequsts.js";
-// const folder = baseUrl + "/user-api/folders/"
+const folder = baseUrl + "/user-api/folders/"
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
-// const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
-const reqUrl = baseUrl +"/question-api/questionnaires/${QuestionnaireUUID}/link-questions/"
+const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
+const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/link-questions/`
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
+const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const textInput = document.querySelector(".GDesc .TitleTextInput")
 const sampleAnswer = document.querySelector(".SampleAnw .label-text-input")
 const uploadInput = document.querySelector(".box__file")
@@ -19,6 +20,19 @@ const videoSwitcher = document.querySelector(".video__switcher")
 let options = null;
 
 // initial data------------------------------------
+if(ACTION_TYPE == 'Edit')
+{
+   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+   titleInput.value = EditableQuestion.title;
+   textInput.value = EditableQuestion.description;
+   necessaryQuestion.checked = EditableQuestion.is_required;
+   QuestionNumber.checked = !EditableQuestion.show_number;
+//    rightInput.value = EditableQuestion.max_label;
+//    middleInput.value = EditableQuestion.mid_label
+//    leftInput.value = EditableQuestion.min_label
+
+   console.log(EditableQuestion)
+}
 options =  "free"
 sampleAnswer.value = null;
 function showAlert(text){
@@ -150,8 +164,7 @@ saveBtn.addEventListener("click", function(event) {
     // ajax request----------------------------------
     postRequest(reqUrl,formData)
         .then((response) => {
-            console.log(response.status);
-            window.open("/Pages/FormDesign.html","_Self");
+             window.open("/Pages/FormDesign.html","_Self");
         }).catch((error) => {
         console.log(error);
     })
