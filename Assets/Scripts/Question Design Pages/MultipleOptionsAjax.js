@@ -47,7 +47,69 @@ const postData = {
         { text : 'گزینه 2'}
     ]
 }
+const preview_answer_option_generator = (preview_option_number) => {
+    const preview_answer_option = `
+    <div class="multiple_answer_block-option">
+        <input type="radio" name="answer__option" id="answer-n${preview_option_number}">
+        <label class="answer_option-label" for="answer-n${preview_option_number}">گزینه ${preview_option_number}</label>
+    </div>
+    `
+    const parser = new DOMParser();
+    const parsed_preview_answer_option = parser.parseFromString((preview_answer_option),'text/html').firstChild.lastChild.firstChild;
+    $(parsed_preview_answer_option).hide(50);
+    preview_options_container.append(parsed_preview_answer_option);
+    $(parsed_preview_answer_option).show(100);
+}
+const preview_option_label_updater = (input_number,input_value) => {
+   let changed_label = document.getElementById(`answer-n${input_number + 1}`).nextElementSibling;
+   changed_label.textContent = input_value;
 
+   postData.options[input_number].text = input_value;
+}
+const preview_answer_option_hider = (view_button,option_number) => {
+    answer_options = document.querySelectorAll(".Answer-Option");
+    let preview_answer_options = document.querySelectorAll(".multiple_answer_block-option");
+    if(answer_options.length > 2)
+    {
+        if(!view_button.classList.contains("hidden-option"))
+        {
+            view_button.children[0].className = 'fa fa-eye-slash';
+            $(preview_answer_options[option_number]).hide()
+        }
+            
+        else 
+        {
+            view_button.children[0].className = 'fa fa-eye';
+            $(preview_answer_options[option_number]).show(50)
+        }
+           
+
+         view_button.classList.toggle("hidden-option");
+
+        
+    }
+        
+
+}
+const preview_answer_option_remover = () => {
+    let preview_answer_options = document.querySelectorAll(".multiple_answer_block-option");
+    if(preview_answer_options.length > 2)
+       preview_answer_options[preview_answer_options.length - 1].remove();
+}
+const preview_change_handler = (ACTION) => 
+{
+    switch(ACTION) 
+    {
+        case 'Title-change':
+            question_preview_title.textContent = Title_input.value;
+            postData.title = Title_input.value;
+            break;
+        case 'Desc-change':
+            question_preview_description.textContent = Description_input.value;
+            postData.question_text = Description_input.value;
+            break;
+    }
+}
 const answer_option_adder = () => {
     answer_options = document.querySelectorAll(".Answer-Option");
     let Last_answer_option = answer_options[answer_options.length - 1];
