@@ -19,7 +19,7 @@ const mainDrake = dragula(
 
             const draggedItem = el;
             if(draggedItem.className.indexOf('welcome-page') != -1 
-            || draggedItem.className.indexOf('ThankPage') != -1 )
+            || draggedItem.className.indexOf('thank-page') != -1 )
                 return false;
             return true; 
           },

@@ -1,6 +1,7 @@
-import { baseUrl, getRequest } from "./ajaxRequsts.js";
-import { folderUrl } from "./FoldersAjax.js";
-import { questionnaire_generator } from './QuestionnaireAjax.js'
+import { baseUrl } from "../ajax/ajaxRequsts.js";
+import { getRequest } from "../ajax/ajaxRequsts.js";
+import { folderUrl } from "./FoldersGetter.js";
+import { questionnaire_generator } from "./QuestionnaireAjax.js";
 const searchReq = baseUrl + '/question-api/search-questionnaires/?search=';
 const getQuestionnairesUrl = baseUrl + '/question-api/questionnaires/';
 
@@ -35,20 +36,21 @@ const QuestionnaireReloader = async () => {
       }
 }
 const QuestionnaireSearchHandler = async (e) => {
-    try
-    {
-        let searchRes = await getRequest(searchReq + e.target.value);
-        QuestionnaireCleaner();
-        searchRes.data.forEach((SearchResultItem) => {  
-            questionnaire_generator(SearchResultItem)
-        })   
-    }
-    catch(err)
-    {
-        console.log(err)
-    }
+    if(e.target.value)
+        try
+        {
+            let searchRes = await getRequest(searchReq + e.target.value);
+            QuestionnaireCleaner();
+            searchRes.data.forEach((SearchResultItem) => {  
+                questionnaire_generator(SearchResultItem)
+            })   
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
 }
-const search_button_handler = () => {
+export const search_button_handler = () => {
     nav_search_container.classList.toggle("search-active");
 
     if(search_Questionnaire_button.classList.contains("search-active"))
@@ -68,4 +70,3 @@ const search_button_handler = () => {
 
     search_Questionnaire_container.classList.toggle("search-active");
 }
-search_Questionnaire_button.addEventListener("click",search_button_handler)

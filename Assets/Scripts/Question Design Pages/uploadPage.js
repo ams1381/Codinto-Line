@@ -1,5 +1,5 @@
 
-import {baseUrl, getRequest, postRequest} from "./ajaxRequsts.js";
+import {baseUrl, getRequest, postRequest} from "../ajax/ajaxRequsts.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 // const folder = baseUrl + "/user-api/folders/"
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");

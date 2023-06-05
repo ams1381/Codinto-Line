@@ -1,32 +1,42 @@
-
-import {baseUrl , postRequest} from "./ajaxRequsts.js";
+import {baseUrl , postRequest , getRequest} from "../ajax/ajaxRequsts.js";
+// const folder = baseUrl + "/user-api/folders/"
+// const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
-const folder = baseUrl + "/user-api/folders/"
-const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
-const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/numberanswer-questions/`
-
-const titleInput = document.querySelector(".GTitle .TitleTextInput")
-const textInput = document.querySelector(".GDesc .TitleTextInput")
-const selection = document.querySelector("#pattern-select")
-const sampleAnswer = document.querySelector(".SampleAnw .label-text-input")
-const minVmax = document.querySelector(".AnswerAlphabetLimit")
-// const sampleAnswerBox = document.querySelector(".SampleAnw")
+let reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/integerrange-questions/`;
+const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
+const titleInput = document.querySelector(".GTitle .TitleTextInput");
+const textInput = document.querySelector(".GDesc .TitleTextInput");
+const rightInput = document.querySelector(".right-Input .label-text-input")
+const middleInput = document.querySelector(".middle-Input .label-text-input")
+const leftInput = document.querySelector(".left-Input .label-text-input")
 const uploadInput = document.querySelector(".box__file")
-const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle input")
-const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle input")
 const saveBtn = document.querySelector(".saveQuestion")
+const isRequired = document.querySelector(".AnswerNecessity input")
+const showNumber = document.querySelector(".QuestionNumber input")
+const rangeInput = document.querySelector(".rangeInput");
+const wrongAlert = document.querySelector(".wrongEntry")
 const questionText = document.querySelector(".questionText")
 const questionDescription = document.querySelector(".ansswer__text")
-const wrongAlert = document.querySelector(".wrongEntry")
 const pictureSwitcher = document.querySelector(".picture__switcher")
 const videoSwitcher = document.querySelector(".video__switcher")
-const min = document.querySelector(".minInput .label-text-input")
-const max = document.querySelector(".maxInput .label-text-input")
+rightInput.value = null;
+middleInput.value = null;
+leftInput.value = null;
+rangeInput.value = 0;
+if(ACTION_TYPE == 'Edit')
+{  
+   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+   titleInput.value = EditableQuestion.title;
+   textInput.value = EditableQuestion.description;
+   isRequired.checked = EditableQuestion.is_required;
+   showNumber.checked = !EditableQuestion.show_number;
+   rightInput.value = EditableQuestion.max_label;
+   middleInput.value = EditableQuestion.mid_label
+   leftInput.value = EditableQuestion.min_label
 
-
-// initial data------------------------------------
-
-
+   console.log(EditableQuestion)
+}
+// functions--------------------------------------
 function showAlert(text){
     wrongAlert.style.opacity = "1";
     document.querySelector('.block__side').scrollTo(0,0)
@@ -37,6 +47,12 @@ function showAlert(text){
         wrongAlert.style.opacity = "0";
     }, 3000);
 }
+function rangePreview(input){
+    input.addEventListener("input" , (e)=>{
+       document.querySelector(".range-label").innerText =  e.target.value
+    })
+}
+rangePreview(rangeInput)
 function showValue(input , value){
     input.addEventListener("input" , (e)=>{
         value.innerText = e.target.value
@@ -62,27 +78,12 @@ function textStyle(input){
     })
 }
 textStyle(titleInput)
-//event listener------------------------------------
-// create folder and questionnaire
-document.addEventListener("DOMContentLoaded" , (e)=>{
-    // let sendData = {
-    //     name : "test",
-    // }
-    // let ques ={
-    //     name : "burak",
-    //     folder : 2,
-    // }
-    // postRequest(folder , sendData).then((response)=>{
-    //     console.log(response.data);
-    // })
-    // postRequest(questionnairesUrl , ques).then((response)=>{
-    //     console.log(response.data);
-    // })
-
-})
-// upload file limitation
 pictureSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+    if(videoSwitcher.classList.contains("active")){
+        videoSwitcher.classList.remove("active")
+        pictureSwitcher.classList.add("active")
+    }
 })
 videoSwitcher.addEventListener("click" , (e)=>{
     uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
@@ -94,9 +95,7 @@ videoSwitcher.addEventListener("click" , (e)=>{
 uploadInput.addEventListener("change" , (e)=>{
     document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
 })
-
-// add event listener to save button
-saveBtn.addEventListener("click", function(event) {
+saveBtn.addEventListener("click" , function (){
 
     if(titleInput.value === "" && textInput.value === ""){
         showAlert("عنوان و متن سوال را وارد کنید")
@@ -105,9 +104,9 @@ saveBtn.addEventListener("click", function(event) {
     }else if(titleInput.value === ""){
         showAlert("عنوان سوال را وارد کنید")
     }
-    // upload wrong error
     if(uploadInput.files[0] !== undefined) {
         let uploadUrl = uploadInput.files[0].name.split(".")
+        console.log(uploadUrl[1])
         if (pictureSwitcher.classList.contains("active")) {
             switch (uploadUrl[1]) {
                 case "jpg":
@@ -123,10 +122,10 @@ saveBtn.addEventListener("click", function(event) {
                 case "JPEG":
                     break;
                 default:
-                    return showAlert("فرمت وارد شده پذیرفته نیست")
+                    showAlert("فرمت وارد شده پذیرفته نیست")
             }
         } else if (videoSwitcher.classList.contains("active")) {
-            switch (uploadUrl[1]) {
+            switch (uploadUrl[1] || uploadUrl[0]) {
                 case "mp4":
                     break;
                 case "mov":
@@ -157,30 +156,31 @@ saveBtn.addEventListener("click", function(event) {
             }
         }
     }
-    let sendFile  = {
-        question_type : "Number answer",
-        title: titleInput.value,
-        question_text: textInput.value,
-        placement: 7,
-        group: "",
-        is_required: necessaryQuestion.checked,
-        show_number: QuestionNumber.checked,
-        media: uploadInput.files[0],
-        min: min.value !== "" ? parseInt(min.value) : null,
-        max: max.value !== "" ? parseInt(max.value) : null,
-    };
+    let sendData = {
+       "question_type": "integer_range",
+       "title": titleInput.value,
+       "question_text": textInput.value,
+       "placement": 4,
+       "group": null,
+       "is_required": isRequired.checked,
+       "show_number": showNumber.checked,
+       "media": uploadInput.files[0],
+       "min": 0,
+       "max": rangeInput.value,
+       "min_label": rightInput.value,
+       "mid_label": middleInput.value,
+       "max_label": leftInput.value,
+   }
 
-    const formData = new FormData();
-    for (let key in sendFile){
-        if(sendFile[key] !== null && sendFile[key] !== undefined){
-            formData.append(key, sendFile[key]);
-        }
-    }
-    // ajax request----------------------------------
-    console.log(formData)
+   const formData = new FormData();
+   for (let key in sendData){
+       if(sendData[key] !== null && sendData[key] !== undefined){
+           formData.append(key, sendData[key]);
+       }
+   }
     postRequest(reqUrl,formData)
         .then((response) => {
-            console.log(response.status);
+            console.log(response.data);
             window.open("/Pages/FormDesign.html","_Self");
         }).catch((error) => {
         console.log(error);

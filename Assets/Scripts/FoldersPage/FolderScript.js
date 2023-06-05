@@ -1,9 +1,10 @@
-import {getRequest, patchRequest, postRequest} from "./ajax/ajaxRequsts.js";
-import {deleteRequest} from "./ajax/ajaxRequsts.js";
-import {folderLoader} from "./ajax/FoldersAjax.js";
-import {folderUrl} from './ajax/FoldersAjax.js'
-import {questionnaire_generator} from "./ajax/QuestionnaireAjax.js";
-
+import {postRequest} from "../ajax/ajaxRequsts.js";
+import {folderLoader} from "./FoldersGetter.js";
+import {folderUrl} from './FoldersGetter.js'
+import { folder_remove_handler } from "./FolderRemover.js";
+import {questionnaire_generator} from "./QuestionnaireAjax.js";
+import { folder_rename_handler } from "./FolderRenamer.js";
+import { search_button_handler } from "./SearchQuestionnaire.js";
 
 const SideBodyContainer= document.querySelector('.sideBody');
 const rename_folder_popup = document.querySelector(".renameFolderPopUp");
@@ -21,70 +22,46 @@ const add_folder_button = document.querySelector(".AddFolder");
 let remove_folder_button = document.querySelectorAll(".Folder .FolderRemove");
 let folder_items = document.querySelectorAll(".sideBody .Folder");
 let rename_folder_button = document.querySelectorAll(".FolderEdit");
-const Folders_Slide_toggle = document.querySelector('.folder_slide_toggle')
+const Folders_Slide_toggle = document.querySelector('.folder_slide_toggle');
+const search_Questionnaire_button = document.querySelector(".FolderSearch");
 const add_Questionnaire_button = document.querySelector(".form.AddForm")
-let folder_generator;
 let SelectedFolderId;
-export default folder_generator = (folderName, id , Questionnaires) => {
-
-    let FolderDiv = document.createElement('div');
-    let RenameButton = document.createElement('button');
-    let DeleteButton = document.createElement('button');
-    let FolderNameDiv = document.createElement('div');
-    let FolderNameDivP = document.createElement('p');
-    let FolderControlDiv = document.createElement('div');
-    let SubRenameButton = document.createElement('button');
-    let SubDeleteButton = document.createElement('button');
-    let RenameIcon = document.createElement('i');
-    let DeleteIcon = document.createElement('i');
-
-    FolderNameDivP.textContent = folderName;
-    FolderDiv.classList.add('Folder');
-
-    FolderControlDiv.classList.add('folder_control');
-    FolderNameDiv.classList.add('FolderName');
-
-    RenameButton.classList.add('FolderEdit','navButton');
-    DeleteButton.classList.add('FolderRemove','navButton');
-
-    RenameIcon.className = "fa fa-pencil";
-    DeleteIcon.className = "fa fa-trash-o";
-
-    let SubRenameIcon = document.createElement('i');
-    SubRenameIcon.className = 'fa fa-pencil';
-    let SubDeleteIcon = document.createElement('i');
-    SubDeleteIcon.className ='fa fa-trash-o';
-
-    SubRenameButton.classList.add('FolderEdit','navButton');
-    SubRenameButton.append(SubRenameIcon);
-    SubDeleteButton.classList.add('FolderRemove','navButton');
-    SubDeleteButton.append(SubDeleteIcon);
-
-    FolderControlDiv.append(SubRenameButton , SubDeleteButton);
-
-    RenameButton.append(RenameIcon);
-    DeleteButton.append(DeleteIcon);
-
-    FolderNameDiv.append(FolderNameDivP);
-
-    FolderDiv.append(RenameButton , FolderNameDiv , DeleteButton , FolderControlDiv);
-
-    FolderDiv.setAttribute('id',id)
-    FolderDiv.addEventListener('click',() => {
-        setActive_folder(FolderDiv,folder_items,Questionnaires);
+export const folder_generator = (folderName, id , Questionnaires) => {
+    const folder_element_item = `<div class="Folder" id="${id}" style="">
+        <button class="FolderEdit navButton">
+        <i class="fa fa-pencil"></i>
+        </button>
+        <div class="FolderName">
+        <p>${folderName}</p>
+        </div>
+        <button class="FolderRemove navButton">
+        <i class="fa fa-trash-o"></i>
+        </button>
+        <div class="folder_control">
+            <button class="FolderEdit navButton">
+            <i class="fa fa-pencil"></i></button>
+            <button class="FolderRemove navButton">
+            <i class="fa fa-trash-o"></i></button>
+        </div>
+    </div>`
+    
+    const parser = new DOMParser();
+    const parsed_folder_element_item = parser.parseFromString((folder_element_item),'text/html').firstChild.lastChild.lastChild;
+    SideBodyContainer.append(parsed_folder_element_item);
+    parsed_folder_element_item.addEventListener('click',() => {
+        setActive_folder(parsed_folder_element_item,folder_items,Questionnaires);
     })
     if(window.innerWidth < 768)
-        FolderDiv.style.display = 'none';
-    $(FolderDiv).hide(200);
-    SideBodyContainer.append(FolderDiv);
+        parsed_folder_element_item.style.display = 'none';
+    $(parsed_folder_element_item).hide(200);
 
-    $(FolderDiv).show(200);
+    $(parsed_folder_element_item).show(200);
 
     folder_items = document.querySelectorAll('.sideBody .Folder');
 
     if(folder_items.length == 1)
     {
-        folder_items[0].classList.add('Selected');
+       folder_items[0].classList.add('Selected');
         let QuestionnaireForms = document.querySelectorAll('.form');
                QuestionnaireForms.forEach((item) => {
                 if(!item.classList.contains("AddForm"))
@@ -99,16 +76,20 @@ export default folder_generator = (folderName, id , Questionnaires) => {
     remove_folder_button = document.querySelectorAll(".Folder .FolderRemove");
 
     remove_folder_button.forEach((item) => {
-        item.addEventListener("click",remove_folder_popup_handler);
+        item.addEventListener("click",() => {
+            folder_popup_handler(remove_folder_popup, null , null)
+        });
     })
     rename_folder_button.forEach((item,index) => {
-        item.addEventListener('click',rename_folder_popup_handler);
+        item.addEventListener('click', () => {
+            folder_popup_handler(rename_folder_popup,rename_folder_input,"rename")
+        });
     });
 
     EventListenerSetter(folder_items);
 
 };
-const folder_reloader = () => {
+export const folder_reloader = () => {
     folder_items.forEach((item,index) => {
         item.remove()
     })
@@ -138,7 +119,6 @@ const folder_mask_close_panel = () => {
 }
 
 const setActive_folder = (folder_item,elements,questionnaires) => {
-
     SelectedFolderId = parseInt(folder_item.getAttribute('id'));
     if(folder_item.classList.contains("Selected"))
         return;
@@ -147,11 +127,9 @@ const setActive_folder = (folder_item,elements,questionnaires) => {
     });
     folder_item.classList.add('Selected');
 
-    if(questionnaires === undefined)
+    if(!questionnaires)
         return;
-    else
-    {
-        if(questionnaires.length !== 0)
+        if(questionnaires.length)
         {
             let QuestionnaireForms = document.querySelectorAll('.form');
             QuestionnaireForms.forEach((item) => {
@@ -170,60 +148,27 @@ const setActive_folder = (folder_item,elements,questionnaires) => {
                     item.remove();
             })
         }
-    }
-  }
-const folder_rename_handler = async (FolderItemId) => {
-    let RenameUrl = folderUrl + FolderItemId + '/';
-    let renameRes = await patchRequest(RenameUrl,{ 'name' : rename_folder_input.value });
-
-    let folder_name = document.getElementById(`${FolderItemId}`).children[1].firstChild;
-
-    folder_name.textContent = rename_folder_input.value;
-    rename_folder_popup.classList.remove("active");
-    nav_mask.classList.remove("active");
-
-    folder_reloader();
-    await folderLoader();
 }
-const folder_remove_handler = async (FolderItemId , deletedFolderItem) => {
-    let delUrl = folderUrl + FolderItemId + '/'
-    let delRes = await deleteRequest(delUrl)
-    if(delRes.status === 204)
-    {
-        $(deletedFolderItem).hide('200',() => {
-            $(deletedFolderItem).remove();
-        })
-    }
-    folder_reloader();
-    await folderLoader();
-
-    folder_items = document.querySelectorAll('.sideBody .Folder');
-}
-const create_folder_popup_handler = () => {
-    create_folder_name_input.value = '';
-    create_folder_popup.classList.add("active");
-    nav_mask.classList.add("active");
-}
-const rename_folder_popup_handler = () => {
-    rename_folder_input.value = '';
-    rename_folder_popup.classList.add("active");
-    nav_mask.classList.add("active");
-}
-const remove_folder_popup_handler = () => {
-    remove_folder_popup.classList.add("active");
+const folder_popup_handler = (popup_element,popup_input,popup_type) => {
+    if(popup_type == 'rename' || popup_type == 'remove' && popup_input)
+        popup_input.value = '';
+    popup_element.classList.add("active");
     nav_mask.classList.add("active");
 }
 addFormButton.addEventListener('click',() => {
     window.open('Setting.html','_self')
 });
-
 nav_mask.addEventListener("click" , folder_mask_close_panel);
 
-add_folder_button.addEventListener("click",create_folder_popup_handler);
-
+add_folder_button.addEventListener("click",() => {
+    folder_popup_handler(create_folder_popup,create_folder_name_input,"create");
+});
 folder_cancel_button.forEach((item,index) => { item.addEventListener('click',folder_mask_close_panel) })
 
-rename_folder_button.forEach((item,index) => { item.addEventListener('click',rename_folder_popup_handler); })
+rename_folder_button.forEach((item,index) => { item.addEventListener('click',() => {
+    folder_popup_handler(rename_folder_popup,rename_folder_input,"rename");
+    });
+})
 
 create_folder_confirm_btn.addEventListener('click',folder_creator_handler);
 
@@ -273,3 +218,6 @@ add_Questionnaire_button.addEventListener('click',() => {
     localStorage.setItem("SETTING_ACTION_TYPE","Create");
     localStorage.setItem("SelectedFolderID",Selected_folder_id)
 })
+search_Questionnaire_button.addEventListener("click",search_button_handler)
+export default folder_generator;
+folderLoader();

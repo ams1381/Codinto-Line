@@ -1,4 +1,4 @@
-import {baseUrl , postRequest} from "./ajaxRequsts.js";
+import {baseUrl , postRequest} from "../ajax/ajaxRequsts";
 
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
