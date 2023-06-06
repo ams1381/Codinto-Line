@@ -1,6 +1,8 @@
-import {postRequest} from "./ajaxRequsts.js";
-import {baseUrl} from "./ajaxRequsts.js";
+import { postRequest , baseUrl } from '../ajax/ajaxRequsts.js';
+import { Questionnaire_PostData } from "../ajax/QuestionPostData.js";
+import { showAlert } from "./CommonActions.js";
 
+Questionnaire_PostData.folder = localStorage.getItem("SelectedFolderID");
 const QuestionnaireNameInputs = document.querySelector("#form-name-input");
 const ErrorDialogueBox = document.querySelector(".error_dialogue");
 const QuestionnaireTimerPicker = document.querySelector(".ResponeTiming .ResponePicker");
@@ -104,38 +106,29 @@ const Form_Date_Month_Updater = (currentDate) =>
         })
     })
 }
-const QuestionnairePostData = {
-    pub_date : null,
-    end_date : null,
-    timer : null,
-    progress_bar : false,
-    show_question_in_pages : false ,
-    folder : localStorage.getItem("SelectedFolderID")
-};
 const create_questionnaire = async (e) => {
     e.preventDefault();
-    if (QuestionnairePostData.pub_date !== null)
+    if (Questionnaire_PostData.pub_date !== null)
     {
-        let publish_date = QuestionnairePostData.pub_date;
+        let publish_date = Questionnaire_PostData.pub_date;
         let GregorianDate = farvardin.solarToGregorian(parseInt(publish_date.split("/")[0]) , parseInt(publish_date.split("/")[1]) , parseInt(publish_date.split("/")[2]));
-        QuestionnairePostData.pub_date = GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2];
+        Questionnaire_PostData.pub_date = GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2];
     }
-    if (QuestionnairePostData.end_date !== null)
+    if (Questionnaire_PostData.end_date !== null)
     {
-        let end_date = QuestionnairePostData.end_date;
+        let end_date = Questionnaire_PostData.end_date;
         let GregorianDate = farvardin.solarToGregorian(parseInt(end_date.split("/")[0]) , parseInt(end_date.split("/")[1]) , parseInt(end_date.split("/")[2]));
-        QuestionnairePostData.end_date = GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2];
+        Questionnaire_PostData.end_date = GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2];
     }
     try 
     {
-        let create_questionnaire_res =  await postRequest(baseUrl + '/question-api/questionnaires/',QuestionnairePostData);
+        let create_questionnaire_res =  await postRequest(baseUrl + '/question-api/questionnaires/',Questionnaire_PostData);
         window.open("/Pages/FormDesign.html","_self");
         localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
     }
     catch(err)
     {
-        $(ErrorDialogueBox).show(100);
-        QuestionnaireNameInputs.classList.add("error_active");
+        showAlert('نام پرسشنامه نمی تواند خالی باشد')
         window.scrollTo(0,0)
     }
 
@@ -143,7 +136,7 @@ const create_questionnaire = async (e) => {
 }
 const nameSetter = (e) => {
     QuestionnaireNameInputs.classList.remove("error_active");
-    QuestionnairePostData.name = e.target.value;
+    Questionnaire_PostData.name = e.target.value;
 }
 const TimerSetter = (e) => {
     switch(e.target.id)
@@ -159,7 +152,7 @@ const TimerSetter = (e) => {
             break;
     }
     
-    QuestionnairePostData.timer = 
+    Questionnaire_PostData.timer = 
     `${(TimerHour < 10) ? ('0' + TimerHour) : TimerHour}:` + 
     `${(TimerMinute < 10) ? ('0' + TimerMinute) : TimerMinute}:` + 
     `${(TimerSecond < 10) ? ('0' + TimerSecond) : TimerSecond}`;
@@ -181,7 +174,7 @@ const DateSetter = (e) => {
     StartYearItems.forEach((item,index) => {
         item.addEventListener('click',() => {
             StartYear = item.textContent;
-            QuestionnairePostData.pub_date = `${(StartYear < 10) ? ('0' + StartYear) : StartYear}/` + 
+            Questionnaire_PostData.pub_date = `${(StartYear < 10) ? ('0' + StartYear) : StartYear}/` + 
             `${(StartMonth < 10) ? ('0' + StartMonth) : StartMonth}/` + 
             `${(StartDay < 10) ? ('0' + StartDay) : StartDay}`;
         })
@@ -189,7 +182,7 @@ const DateSetter = (e) => {
     StartMonthItems.forEach((item,index) => {
         item.addEventListener('click',() => {
                 StartMonth = index;
-            QuestionnairePostData.pub_date = `${(StartYear < 10) ? ('0' + StartYear) : StartYear}/` + 
+            Questionnaire_PostData.pub_date = `${(StartYear < 10) ? ('0' + StartYear) : StartYear}/` + 
             `${(StartMonth < 10) ? ('0' + StartMonth) : StartMonth}/` + 
             `${(StartDay < 10) ? ('0' + StartDay) : StartDay}`;
         })
@@ -197,7 +190,7 @@ const DateSetter = (e) => {
     StartDayItems.forEach((item,index) => {
         item.addEventListener('click',() => {
             StartDay = item.textContent;
-            QuestionnairePostData.pub_date = `${(StartYear < 10) ? ('0' + StartYear) : StartYear}/` + 
+            Questionnaire_PostData.pub_date = `${(StartYear < 10) ? ('0' + StartYear) : StartYear}/` + 
             `${(StartMonth < 10) ? ('0' + StartMonth) : StartMonth}/` + 
             `${(StartDay < 10) ? ('0' + StartDay) : StartDay}`;
         })
@@ -206,7 +199,7 @@ const DateSetter = (e) => {
     endYearItems.forEach((item,index) => {
         item.addEventListener('click',() => {
             endYear = item.textContent;
-            QuestionnairePostData.end_date = `${(endYear < 10) ? ('0' + endYear) : endYear}/` + 
+            Questionnaire_PostData.end_date = `${(endYear < 10) ? ('0' + endYear) : endYear}/` + 
             `${(endMonth < 10) ? ('0' + endMonth) : endMonth}/` + 
             `${(endDay < 10) ? ('0' + endDay) : endDay}`;
         })
@@ -214,7 +207,7 @@ const DateSetter = (e) => {
     endMonthItems.forEach((item,index) => {
         item.addEventListener('click',() => {
                 endMonth = index;
-            QuestionnairePostData.end_date = `${(endYear < 10) ? ('0' + endYear) : endYear}/` + 
+            Questionnaire_PostData.end_date = `${(endYear < 10) ? ('0' + endYear) : endYear}/` + 
             `${(endMonth < 10) ? ('0' + endMonth) : endMonth}/` + 
             `${(endDay < 10) ? ('0' + endDay) : endDay}`;
         })
@@ -222,12 +215,11 @@ const DateSetter = (e) => {
     endDayItems.forEach((item,index) => {
         item.addEventListener('click',() => {
             endDay = item.textContent;
-            QuestionnairePostData.end_date = `${(endYear < 10) ? ('0' + endYear) : endYear}/` + 
+            Questionnaire_PostData.end_date = `${(endYear < 10) ? ('0' + endYear) : endYear}/` + 
             `${(endMonth < 10) ? ('0' + endMonth) : endMonth}/` + 
             `${(endDay < 10) ? ('0' + endDay) : endDay}`;
         })
     })
-    console.log(QuestionnairePostData)
 }
 QuestionnaireNameInputs.addEventListener('input',nameSetter);
 
@@ -243,7 +235,7 @@ QuestionnaireStartDateToggle.addEventListener('click',() => {
     }
     else
         QuestionnaireStartDatePicker.classList.remove('active')
-       QuestionnairePostData.pub_date = null;
+       Questionnaire_PostData.pub_date = null;
 })
 QuestionnaireEndDateToggle.addEventListener('click',() => {
     if(!QuestionnaireEndDateToggle.previousElementSibling.checked)
@@ -253,7 +245,7 @@ QuestionnaireEndDateToggle.addEventListener('click',() => {
     }
     else
         QuestionnaireEndDatePicker.classList.remove('active')
-       QuestionnairePostData.end_date = null;
+       Questionnaire_PostData.end_date = null;
 })
 QuestionnaireTimerToggleLabel.addEventListener('click',() => {
     if(!QuestionnaireTimerToggleInput.checked)
@@ -262,10 +254,10 @@ QuestionnaireTimerToggleLabel.addEventListener('click',() => {
         QuestionnaireTimerPicker.classList.remove("active");
 })
 QuestionnaireProgressBar.addEventListener('click',() => {
-    QuestionnairePostData.progress_bar = !QuestionnaireProgressBar.previousElementSibling.checked;
+    Questionnaire_PostData.progress_bar = !QuestionnaireProgressBar.previousElementSibling.checked;
 })
 QuestionnaireIsolator.addEventListener('click',() => {
-    QuestionnairePostData.show_question_in_pages = !QuestionnaireIsolator.previousElementSibling.checked;
+    Questionnaire_PostData.show_question_in_pages = !QuestionnaireIsolator.previousElementSibling.checked;
 })
 QuestionnaireSaveBtn.addEventListener('click',create_questionnaire);
 Form_Date_Updater();

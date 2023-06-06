@@ -327,7 +327,7 @@
 .form_edit button
 {
     position: relative;
-    font-size: calc(0.8rem + 0.5vw);
+    font-size: calc(0.7rem + 0.5vw);
 }
 .form_edit button:not(:last-child):after
 {

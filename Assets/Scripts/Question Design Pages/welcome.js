@@ -1,4 +1,4 @@
-import {baseUrl , postRequest} from "./ajaxRequsts.js";
+import {baseUrl , postRequest} from "../ajax/ajaxRequsts";
 
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
@@ -12,28 +12,9 @@ const shapeSelector = document.querySelectorAll(".ShapeOptions label")
 const saveBtn = document.querySelector(".saveQuestion")
 
 if(ACTION_TYPE == 'Edit')
-{  
-   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-   titleInput.value = EditableQuestion.title;
-   textInput.value = EditableQuestion.description;
-   buttonText.value = EditableQuestion.button_text
-   shapeSelector.forEach((shapeLabel) => {
-    if(EditableQuestion.is_solid_button)
-        if(shapeLabel.classList.contains(EditableQuestion.button_shape) && shapeLabel.classList.contains('bg-colored'))
-        {
-            shapeLabel.previousElementSibling.checked = true;
-            return
-        }
-            
-    else
-        if(shapeLabel.classList.contains(EditableQuestion.button_shape) && shapeLabel.classList.contains('bg-transp'))
-        {
-            shapeLabel.previousElementSibling.checked = true;
-            return;
-        }
-            
-})  
-    
+{
+    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+    question_info_loader(EditableQuestion)
 }
 let selectedObject = null
 shapeSelector.forEach((e)=>{

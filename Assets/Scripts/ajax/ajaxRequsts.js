@@ -23,6 +23,7 @@ async function postRequest(url,postData){
             'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE2NDg1NTk5LCJqdGkiOiJhNDZlZGMzOTg3MTE0ZDc0OTYzMDI2MWY2MTMxMzZlMSIsInVzZXJfaWQiOjF9.S4jJOFS7nMjhwb5q4fssHslS1H7W--a5ktAOZTikjzI`
 
         }
+        
     });
 }
 async function deleteRequest(url){
@@ -33,4 +34,29 @@ async function deleteRequest(url){
         }
     });
 }
+
+
 export  { getRequest ,  patchRequest ,  postRequest ,  deleteRequest , baseUrl}
+
+
+
+
+function response400(){
+
+}
+
+function response401(){
+
+}
+function response404(){
+
+}
+function response403(){
+
+}
+function response500(){
+
+}
+
+
+
