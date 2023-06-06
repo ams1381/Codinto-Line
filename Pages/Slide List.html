@@ -71,11 +71,68 @@
                        </div>
                        <div class="TextField">
                            <textarea id="desc_input" class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
-                           <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
                        </div>
                    </div>
                </div>
-
+               <div class="fileUploader">
+                <div class="fileFormat">
+                    <input type="radio" name="lang" id="Picture" value="Picture" checked>
+                    <label for="Picture">عکس</label>
+                    
+                    <input type="radio" name="lang" id="Video" value="Video">
+                    <label for="Video">ویدیو</label>
+    
+                </div>
+                <div class="fileInput">
+                    <div class="inputTitle">
+                        حداکثر حجم 3 مگابایت
+                    </div>
+                    <div class="inputUploader">
+                     <div class="image_or_video_box">
+                         <div class="cancel_uploaded_file">
+                             <button class="cancel_uploaded_file_button">
+                                 <i class="fa fa-close"></i>
+                             </button>
+                             
+                         </div>
+                         <div class="uploaded_file_info">
+                             <div class="uploaded_file_avatar">
+                                 <img class="uploaded_file_image" alt="">
+                             </div>
+                             <div class="uploaded_file_name">
+                                 <p></p>
+                             </div>
+                         </div>
+                     </div>
+                        <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+                        <label for="file" class="upload_file_label">
+                            <i class="fa fa-upload"></i>
+                            </label>
+                      </div>
+                      
+                </div>
+            </div>
+               <div class="multiple_choice ToggleOption">
+                <div class="Switch-Container">
+                    <p>سوال چند انتخابی باشد</p>
+                <label class="Switch-toggle">
+                    <input type="checkbox">
+                    <span class="slider-button"</span>
+                </label>
+                </div>
+               </div>
+               <div class="answer-number-selector">
+                <div class="LimitInput">
+                    <div class="minInput">
+                        <label for="Answermin">حداقل</label>
+                        <input class="label-text-input" type="number" id="Answermin" placeholder="0">
+                    </div>
+                    <div class="maxInput">
+                        <label for="Answermax">حداکثر</label>
+                        <input class="label-text-input" type="number" id="Answermax" placeholder="2">
+                    </div>
+                </div>
+               </div>
                <div class="Answer-Options">
                 <div class="anw-option-title">
                     گزینه ها
@@ -119,30 +176,6 @@
                     </div>
                 </div>
                </div>
-               <div class="fileUploader">
-                
-                   <div class="fileFormat">
-                       <input type="radio" name="lang" id="Picture" value="Picture" checked>
-                       <label for="Picture">عکس</label>
-                       
-                       <input type="radio" name="lang" id="Video" value="Video">
-                       <label for="Video">ویدیو</label>
-       
-                   </div>
-                   <div class="fileInput">
-                       <div class="inputTitle">
-                           حداکثر حجم 3 مگابایت
-                       </div>
-
-                       <div class="inputUploader">
-                           <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
-                           <label for="file">
-                               <i class="fa fa-upload"></i>
-                               </label>
-                         </div>
-                         
-                   </div>
-               </div>
                <div class="double-image-size ToggleOption">
                 <div class="Switch-Container">
                     <p>اندازه نمایش تصاویر دو برابر شود</p>
@@ -152,56 +185,6 @@
                 </label>
                 </div>
                    
-               </div>
-               <div class="multiple_choice ToggleOption">
-                <div class="Switch-Container">
-                    <p>سوال چند انتخابی باشد</p>
-                <label class="Switch-toggle">
-                    <input type="checkbox">
-                    <span class="slider-button"</span>
-                </label>
-                </div>
-               </div>
-               <div class="answer-number-selector">
-                <div class="LimitInput">
-                    <div class="minInput">
-                        <label for="Answermin">حداقل</label>
-                        <input class="label-text-input" type="number" id="Answermin" placeholder="0">
-                    </div>
-                    <div class="maxInput">
-                        <label for="Answermax">حداکثر</label>
-                        <input class="label-text-input" type="number" id="Answermax" placeholder="2">
-                    </div>
-                </div>
-               </div>
-               <div class="additional-options-toggle ToggleOption">
-                <div class="Switch-Container">
-                    <p>گزینه های اضافی</p>
-                <label class="Switch-toggle">
-                    <input type="checkbox">
-                    <span class="slider-button"</span>
-                </label>
-                </div>
-               </div>
-               <div class="additional_options ToggleOption">
-                  <div class="all_options ToggleOption">
-                    <div class="Switch-Container">
-                        <p>همه</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"</span>
-                    </label>
-                    </div>
-                   </div>
-                   <div class="nothing_selected ToggleOption">
-                    <div class="Switch-Container">
-                        <p>هیچکدام</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"</span>
-                    </label>
-                    </div>
-                   </div>
                </div>
                <div class="is_random_options ToggleOption">
                 <div class="Switch-Container">
@@ -221,15 +204,15 @@
                 </label>
                 </div>
                </div>
-               <div class="is_vertical ToggleOption">
+               <div class="is_alphabetic_order ToggleOption">
                 <div class="Switch-Container">
-                    <p>گزینه ها عمودی چیده شوند</p>
+                    <p>مرتب سازی بر اساس حروف الفبا</p>
                 <label class="Switch-toggle">
                     <input type="checkbox">
                     <span class="slider-button"</span>
                 </label>
                 </div>
-               </div>
+               </div> 
                <div class="is_required ToggleOption">
                 <div class="Switch-Container">
                     <p>پاسخ به سوال اجباری باشد</p>
@@ -253,23 +236,37 @@
             <div class="QuestionContainer">
                 <div class="Question-Title">
                     <label>2 :</label>
-                    <p>کدامیک جزء اقدامات امیرکبیر نیست؟  </p>
-                    
+                    <p>کدامیک جزء اقدامات امیرکبیر نیست؟  </p>      
                 </div>
                 <div class="description_block">
                     <p>بر اساس کتاب مطالعات اجتماعی</p>
                 </div>
+                <div class="preview_file_box">
+                    <img class="preview_image">
+                    <video class="preview_video" controls>
+                    </video>
+                </div>
                 <div class="answer_block">
-                  <div class="multiple_answer_block-options">
-                    <div class="multiple_answer_block-option">
-                        <input type="radio" class="answer_option_input" name="answer__option" id="answer-n1">
-                        <label class="answer_option-label" for="answer-n1">گزینه 1</label>
+                    <div class="answer_block_slider">
+                        <div class="slider_toggle">
+                            <button class="slider_toggle_button">
+                                <i class="	fa fa-angle-down"></i>
+                            </button>
+                        </div>
+                        <div class="selection">
+                            <div class="selection__box">
+                                  <span class="seletion__item" id="select_item_1">
+                                    <input class="select_item_input" type="radio" id="select_item_input_1">
+                                    <label for="select_item_input_1">گزینه 1</label>
+                                  </span>
+                                  <span class="seletion__item" id="select_item_2">
+                                    <input class="select_item_input" type="radio" id="select_item_input_2">
+                                    <label for="select_item_input_2">گزینه 1</label>
+                                  </span>
+                            </div>
+                     </div>
                     </div>
-                    <div class="multiple_answer_block-option">
-                        <input type="radio" class="answer_option_input" name="answer__option" id="answer-n2">
-                        <label class="answer_option-label" for="answer-n2">گزینه 2</label>
-                    </div>
-                  </div>
+                    
                 </div>
              </div>
              <div class="AssistiveButton">
@@ -292,7 +289,7 @@
         </main>
         
     </section>
-    <script src="../Assets/Scripts/Question Design Pages/MultipleOptionsAjax.js" type="module"></script>
+    <script src="../Assets/Scripts/Question Design Pages/SlideList.js" type="module"></script>
    <script src="/Assets/Scripts/CommonScript.js"></script>
 </body>
 </html>

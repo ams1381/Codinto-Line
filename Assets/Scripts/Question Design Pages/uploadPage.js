@@ -23,13 +23,9 @@ const sizeInput = document.querySelector(".file__size__upload")
 
 // initial data------------------------------------
 if(ACTION_TYPE == 'Edit')
-{  
-   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-   titleInput.value = EditableQuestion.title;
-   textInput.value = EditableQuestion.description;
-   necessaryQuestion.checked = EditableQuestion.is_required;
-   sizeInput.value =  EditableQuestion.max_volume
-   console.log(EditableQuestion)
+{
+    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+    question_info_loader(EditableQuestion)
 }
 
 function showAlert(text){

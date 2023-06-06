@@ -21,17 +21,9 @@ let options = null;
 
 // initial data------------------------------------
 if(ACTION_TYPE == 'Edit')
-{  
-   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-   titleInput.value = EditableQuestion.title;
-   textInput.value = EditableQuestion.description;
-   necessaryQuestion.checked = EditableQuestion.is_required;
-   QuestionNumber.checked = !EditableQuestion.show_number;
-//    rightInput.value = EditableQuestion.max_label;
-//    middleInput.value = EditableQuestion.mid_label
-//    leftInput.value = EditableQuestion.min_label
-
-   console.log(EditableQuestion)
+{
+    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+    question_info_loader(EditableQuestion)
 }
 options =  "free"
 sampleAnswer.value = null;

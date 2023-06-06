@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درجه بندی</title>
+    <link rel="stylesheet" href="../Assets/Styles/DefaultStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/QdesignCommonStyles.css">
+    <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
+    <link rel="stylesheet" href="../Assets/../Components/questionBox/rangeSelect.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Components/Degree Question/Degree Question Style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <section class="block__section" id="topPage">
+        <aside class="block__side">
+            <div class="SideHeader">
+               <div class="SideHeaderTitle">
+                   <h3 class="sidebar-codinto-title">کدینتو لاین</h3>
+               </div>
+               <div class="SideHeaderBody">
+                <button class="cancelDesign navButton">
+                    <a href="./FormDesign.html">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </button>
+                  <p class="quetion-type">درجه بندی</p>
+                   <button class="viewQuestion navButton">
+                      <i class="fa fa-eye"></i>
+                   </button>
+               </div>
+            </div>
+            <div class="SideBody">
+                <div class="GTitle">
+                    <div class="TitleInput active">
+                        <div class="TitleInputOptions  GOptions">
+                            <label>
+                                <input type="checkbox" name="" id="Tbolder">
+                                <i class="fa fa-bold"></i>
+                            </label>
+                            <label>
+                            <input type="checkbox" name="" id="TItalic">
+                            <i class="fa fa-italic"></i>
+                            </label>
+                            <label>
+                            <input type="checkbox" name="" id="TUnderline">
+                            <i class="fa fa-underline"></i>
+                            </label>
+                        </div>
+                        <div class="TextField">
+                            <textarea id="title__input" class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="GDesc">
+                    <div class="DescInput active">
+                        <div class="TitleInputOptions  GOptions">
+                            <label>
+                                <input type="checkbox" name="" id="Tbolder">
+                                <i class="fa fa-bold"></i>
+                            </label>
+                            <label>
+                            <input type="checkbox" name="" id="TItalic">
+                            <i class="fa fa-italic"></i>
+                            </label>
+                            <label>
+                            <input type="checkbox" name="" id="TUnderline">
+                            <i class="fa fa-underline"></i>
+                            </label>
+                        </div>
+                        <div class="TextField">
+                            <textarea id="desc_input" class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
+                            <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
+                        </div>
+                    </div>
+                </div>
+               <div class="range-container">
+                <div class="range-title">
+                    تنظیم درجه
+                   </div>
+                    <div class="range-setter">
+                        <div class="range-number">
+                            <label class="range-label">
+                                4
+                            </label>
+                        </div>
+                        <div class="range-input">
+                            <input type="range" step="1" id="degree_input" value="4" min="4" max="11" class="rangeInput" list="markers"/>
+                            <datalist id="markers">
+                                    <option value="4" ></option>
+                                    <option value="5" ></option>
+                                    <option value="6" ></option>
+                                    <option value="7" ></option>
+                                    <option value="8" ></option>
+                                    <option value="9" ></option>
+                                    <option value="10" ></option>
+                                    <option value="11" ></option>
+                              </datalist>
+                        </div>
+                    </div>
+               </div>
+               <div class="shape_selector">
+                <div class="shape_selector_title">
+                    شکل
+                </div>
+                <div class="shape_selector_options">
+                    <input type="radio" name="shape" id="star_shaped" value="star_shaped" checked>
+                    <label for="star_shaped"><i class="fa fa-star-o"></i></label>
+                    
+                    <input type="radio" name="shape" id="heart_shaped" value="heart_shaped">
+                    <label for="heart_shaped"><i class="fa fa-heart-o"></i></label>
+
+                    <input type="radio" name="shape" id="thumb_shaped" value="thumb_shaped">
+                    <label for="thumb_shaped"><i class="fa fa-thumbs-up"></i></label>
+
+                    <input type="radio" name="shape" id="check_shaped" value="check_shaped">
+                    <label for="check_shaped"><i class="fa fa-check-circle-o"></i></label>
+                </div>
+               </div>
+               <div class="fileUploader">
+                <div class="fileFormat">
+                    <input type="radio" name="lang" id="Picture" value="Picture" checked>
+                    <label for="Picture">عکس</label>
+                    
+                    <input type="radio" name="lang" id="Video" value="Video">
+                    <label for="Video">ویدیو</label>
+    
+                </div>
+                <div class="fileInput">
+                    <div class="inputTitle">
+                        حداکثر حجم 3 مگابایت
+                    </div>
+                    <div class="inputUploader">
+                     <div class="image_or_video_box">
+                         <div class="cancel_uploaded_file">
+                             <button class="cancel_uploaded_file_button">
+                                 <i class="fa fa-close"></i>
+                             </button>
+                             
+                         </div>
+                         <div class="uploaded_file_info">
+                             <div class="uploaded_file_avatar">
+                                 <img class="uploaded_file_image" alt="">
+                             </div>
+                             <div class="uploaded_file_name">
+                                 <p></p>
+                             </div>
+                         </div>
+                     </div>
+                        <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+                        <label for="file" class="upload_file_label">
+                            <i class="fa fa-upload"></i>
+                            </label>
+                      </div>
+                      
+                </div>
+            </div>
+              <div class="show_number ToggleOption">
+                <div class="Switch-Container">
+                    <p>عدم نمایش شماره سوال</p>
+                <label class="Switch-toggle">
+                    <input type="checkbox">
+                    <span class="slider-button"</span>
+                </label>
+                </div>
+               </div>
+                <div class="is_required ToggleOption">
+                    <div class="Switch-Container">
+                        <p>پاسخ به سوال اجباری باشد</p>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"</span>
+                    </label>
+                    </div>
+                   </div>
+            <div class="SideFooter">
+                <button class="saveQuestion">
+                     ذخیره
+                </button>
+                <button class="cancelQuestion">
+                    <a href="./FormDesign.html">انصراف</a>
+                </button>
+             </div>
+       </aside>
+        <main class="block__main">
+            <div class="QuestionContainer">
+                <div class="Question-Title">
+                    <label>2 :</label>
+                    <p>اقدامات امیر کبیر را به طور خلاصه توضیح دهید</p>
+                </div>
+                <div class="description_block">
+                    <p>نوشتن چهار مورد کفایت می کند</p>
+                </div>
+                <div class="preview_file_box">
+                    <img class="preview_image">
+                    <video class="preview_video" controls>
+                    </video>
+                </div>
+                <div class="answer_block">
+                  <div class="degree_answer_block-options">
+                    <div class="degree_answer_block-option">
+                        <input type="radio" name="answer__option" id="answer-n1">
+                        <label class="answer_option-label" for="answer-n1"><i class="fa fa-star-o"></i></label>
+                    </div>
+                    <div class="degree_answer_block-option">
+                        <input type="radio" name="answer__option" id="answer-n2">
+                        <label class="answer_option-label" for="answer-n2"><i class="fa fa-star-o"></i></label>
+                    </div>
+                    <div class="degree_answer_block-option">
+                        <input type="radio" name="answer__option" id="answer-n3">
+                        <label class="answer_option-label" for="answer-n3"><i class="fa fa-star-o"></i></label>
+                    </div>
+                    <div class="degree_answer_block-option">
+                        <input type="radio" name="answer__option" id="answer-n4">
+                        <label class="answer_option-label" for="answer-n4"><i class="fa fa-star-o"></i></label>
+                    </div>
+                  </div>
+                </div>
+             </div>
+             <div class="AssistiveButton">
+                <div class="AssistiveItems">
+                        <button class="AddQuestion">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                        <button class="Setting">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </button>
+                        <button class="Send">
+                            <i class='fa fa-paper-plane'></i>
+                        </button>
+                </div>
+                <div class="AssistiveToggle">
+                    <button class="AssistiveToggleButton"> <i class="fa fa-plus"></i> </button>
+                </div>
+                
+               </div>
+
+        </main>
+    </section>
+    <div class="wrongEntry">
+        <span class="wrong__text"></span>
+    </div>
+    <script src="../Assets/Scripts/CommonScript.js" type="module"></script>
+    <script src="../Assets/Scripts/Question Design Pages/Selective Degree.js" type="module"></script>
+</body>
+</html>

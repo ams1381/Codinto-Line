@@ -20,7 +20,7 @@ const telegram = document.querySelector(".telegram")
 const whatsapp = document.querySelector(".whatsapp")
 const instagram = document.querySelector(".instagram")
 const eitaa = document.querySelector(".eitaa")
-const sorush = document.querySelector(".sorush")
+const sorush = document.querySelector(".sorush");
 
 if(ACTION_TYPE == 'Edit')
 {  

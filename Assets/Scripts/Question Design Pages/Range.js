@@ -24,17 +24,9 @@ middleInput.value = null;
 leftInput.value = null;
 rangeInput.value = 0;
 if(ACTION_TYPE == 'Edit')
-{  
-   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-   titleInput.value = EditableQuestion.title;
-   textInput.value = EditableQuestion.description;
-   isRequired.checked = EditableQuestion.is_required;
-   showNumber.checked = !EditableQuestion.show_number;
-   rightInput.value = EditableQuestion.max_label;
-   middleInput.value = EditableQuestion.mid_label
-   leftInput.value = EditableQuestion.min_label
-
-   console.log(EditableQuestion)
+{
+    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+    question_info_loader(EditableQuestion)
 }
 // functions--------------------------------------
 function showAlert(text){

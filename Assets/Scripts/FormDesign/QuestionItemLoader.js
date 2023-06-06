@@ -61,8 +61,14 @@ export const QuestionDesignOpener = (QuestionType) =>
         case 'integer_range':
             window.open("/Pages/RangeAnswer.html","_Self");
             break;
+        case 'integer_selective':
+            window.open("/Pages/Selective Degree.html","_Self");
+            break;
         case 'file':
             window.open("/Pages/uploadPage.html","_Self");
+            break;
+        case 'drop_down':
+            window.open("/Pages/Slide List.html","_Self");
             break;
         case 'number_answer':
             window.open("/Pages/NumberPage.html","_Self");
@@ -70,7 +76,7 @@ export const QuestionDesignOpener = (QuestionType) =>
         case 'link':
             window.open("/Pages/Link.html","_Self");
             break;
-        case 'multiple-option':
+        case 'optional':
             window.open("/Pages/MultipleOption.html","_Self");
             break;
         case 'thank-page':

@@ -75,7 +75,6 @@
                        </div>
                    </div>
                </div>
-
                <div class="Answer-Options">
                 <div class="anw-option-title">
                     گزینه ها
@@ -120,7 +119,6 @@
                 </div>
                </div>
                <div class="fileUploader">
-                
                    <div class="fileFormat">
                        <input type="radio" name="lang" id="Picture" value="Picture" checked>
                        <label for="Picture">عکس</label>
@@ -133,10 +131,25 @@
                        <div class="inputTitle">
                            حداکثر حجم 3 مگابایت
                        </div>
-
                        <div class="inputUploader">
+                        <div class="image_or_video_box">
+                            <div class="cancel_uploaded_file">
+                                <button class="cancel_uploaded_file_button">
+                                    <i class="fa fa-close"></i>
+                                </button>
+                                
+                            </div>
+                            <div class="uploaded_file_info">
+                                <div class="uploaded_file_avatar">
+                                    <img class="uploaded_file_image" alt="">
+                                </div>
+                                <div class="uploaded_file_name">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
                            <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
-                           <label for="file">
+                           <label for="file" class="upload_file_label">
                                <i class="fa fa-upload"></i>
                                </label>
                          </div>
@@ -259,6 +272,11 @@
                 <div class="description_block">
                     <p>بر اساس کتاب مطالعات اجتماعی</p>
                 </div>
+                <div class="preview_file_box">
+                    <img class="preview_image">
+                    <video class="preview_video" controls>
+                    </video>
+                </div>
                 <div class="answer_block">
                   <div class="multiple_answer_block-options">
                     <div class="multiple_answer_block-option">
@@ -290,8 +308,10 @@
                 
                </div>
         </main>
-        
     </section>
+    <div class="wrongEntry">
+        <span class="wrong__text"></span>
+    </div>
     <script src="../Assets/Scripts/Question Design Pages/MultipleOptionsAjax.js" type="module"></script>
    <script src="/Assets/Scripts/CommonScript.js"></script>
 </body>

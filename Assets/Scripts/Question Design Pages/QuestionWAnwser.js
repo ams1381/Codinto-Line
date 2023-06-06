@@ -25,15 +25,9 @@ const pictureSwitcher = document.querySelector(".picture__switcher")
 const videoSwitcher = document.querySelector(".video__switcher")
 let options = null;
 if(ACTION_TYPE == 'Edit')
-{  
-   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-   titleInput.value = EditableQuestion.title;
-   textInput.value = EditableQuestion.description;
-   necessaryQuestion.checked = EditableQuestion.is_required;
-   minInput.value = EditableQuestion.min;
-   maxInput.value = EditableQuestion.max;
-   //buttonText.value = EditableQuestion.button_text
-   console.log(EditableQuestion)
+{
+    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+    question_info_loader(EditableQuestion)
 }
 // initial data------------------------------------
 options =  "free"
