@@ -1,8 +1,11 @@
 import { baseUrl , postRequest , patchRequest} from "../ajax/ajaxRequsts.js";
 import { multiple_option_postData } from "../ajax/QuestionPostData.js";
 import { slider_option_postData } from "../ajax/QuestionPostData.js";
+import { preview_alphabetically_sort , preview_default_order_setter , image_reSizer} from "./SlideList.js";
 
 const preview_container_main = document.querySelector(".preview_file_box");
+const is_alphabetic_toggle = document.querySelector('.is_alphabetic_order .Switch-Container .slider-button')
+const randomize_options_toggle = document.querySelector(".is_random_options .Switch-Container .slider-button");
 const preview_image_main = document.querySelector(".preview_file_box .preview_image");
 const preview_video_main = document.querySelector(".preview_file_box .preview_video");
 const preview_image_side = document.querySelector(".inputUploader .uploaded_file_image");
@@ -21,6 +24,7 @@ const Description_input = document.getElementById("desc_input");
 const preview_answer_options_container = document.querySelector(".multiple_answer_block-options")
 const question_preview_number = document.querySelector(".QuestionContainer .Question-Title label")
 let answer_options = document.querySelectorAll(".Answer-Option");
+
 const file_input_container = document.querySelector(".inputUploader");
 
 export const  showAlert = (text) => 
@@ -53,7 +57,6 @@ export const preview_answer_option_remover = (Option_Type) => {
 }
 export const preview_answer_option_generator = (preview_option_number,Option_Type) => 
 {
-  //  console.log(Option_Type)
     let preview_answer_option;
     let container_to_append;
     switch(Option_Type)
@@ -69,7 +72,7 @@ export const preview_answer_option_generator = (preview_option_number,Option_Typ
             break;
         case 'SliderOption':
             preview_answer_option = `
-            <span class="seletion__item" id="select_item_${preview_option_number}">
+            <span class="selection__item" id="select_item_${preview_option_number}">
                 <input class="select_item_input" type="radio" id="select_item_input_${preview_option_number}">
                 <label for="select_item_input_${preview_option_number}">گزینه ${preview_option_number}</label>
             </span>
@@ -122,11 +125,8 @@ export const preview_answer_option_hider = (view_button,option_number,Option_Typ
             view_button.children[0].className = 'fa fa-eye';
             $(preview_answer_options[option_number]).show(50)
         }
-           
-
          view_button.classList.toggle("hidden-option");
-    }
-   
+    } 
 }
 export const answer_option_adder = (Option_Type) => {
     answer_options = document.querySelectorAll(".Answer-Option");
@@ -235,6 +235,13 @@ export const toggle_handler = (toggle_element,toggle_button,PostData) => {
             case 'show_number': 
                 $(question_preview_number).hide(100);
                 break;
+            case 'is_random_options':
+                is_alphabetic_toggle.previousElementSibling.checked = false;
+                break;
+            case 'is_alphabetic_order':
+                randomize_options_toggle.previousElementSibling.checked = false;
+                preview_alphabetically_sort();
+                break;
         }   
     }
     else 
@@ -258,9 +265,11 @@ export const toggle_handler = (toggle_element,toggle_button,PostData) => {
             case 'show_number': 
                 $(question_preview_number).show(100);
                 break;
+            case 'is_alphabetic_order':
+                preview_default_order_setter();
+                break;
         }
         PostData[`${toggle_element.classList[0]}`] = false;
-        
     }
 }
 export const file_upload_handler = (FileType,FileInput) =>
@@ -370,7 +379,7 @@ export const question_creator =  async (ACTION_TYPE,QuestionID,QuestionPostType,
                 break;
         }
        
-        if(createRes.status == 201)
+        if(createRes.status == 201 || createRes.status == 200)
          {
              window.open("/Pages/FormDesign.html","_Self");
          }
