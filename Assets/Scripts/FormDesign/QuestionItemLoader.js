@@ -74,10 +74,16 @@ export const QuestionDesignOpener = (QuestionType) =>
             window.open("/Pages/NumberPage.html","_Self");
             break;
         case 'link':
-            window.open("/Pages/Link.html","_Self");
+            window.open("/Pages/link.html","_Self");
             break;
         case 'optional':
             window.open("/Pages/MultipleOption.html","_Self");
+            break;
+        case 'email_field':
+            window.open("/Pages/email.html","_Self");
+            break;
+        case 'group':
+            window.open("/Pages/groupQuestion.html","_Self");
             break;
         case 'thank-page':
             window.open("/Pages/thanks.html","_Self");

@@ -362,6 +362,10 @@
 {
     color: var(--brand-color);
 }
+.multiple_answer_block-option input:checked + .answer_option-label{
+    background-color: var(--brand-color);
+    color: white;
+}
 
 .QuestionStart
 {
@@ -494,19 +498,34 @@
 .Answer-Option .anw-option-number
 {
     width: 50%;
-    color: var(--brand-color);
-    background-color: var(--text-input-bg-color);
+    /*color: var(--brand-color);*/
+    /*background-color: var(--text-input-bg-color);*/
     display: flex;
     align-items: center;
-    border-radius: 10px;
+    position: relative;
+    /*border-radius: 10px;*/
+}
+.question__option__text{
+    width: 100%;
+    text-align: center;
+    background: var(--text-input-bg-color);
+    border-radius: 0.5rem;
+    /*cursor: pointer;*/
+    color: var(--brand-color);
+    outline: none;
+    border: none;
+    height: 70%;
+    font-size: 0.8rem;
 }
 .anw-option-label
 {
     background-color: var(--input-title-bg-color);
-    width: 10%;
+    width: 12%;
     text-align: center;
     border-radius: 10px;
     padding: 4px;
+    position: absolute;
+    right: 0.1rem;
 }
 .anw-option-input
 {
@@ -878,4 +897,47 @@ input[type=range]::-webkit-slider-thumb {
     font-size: 1rem;
     color: var(--brand-color);
      margin-right: 0.2rem;
+}
+.answer__priority{
+    display: none;
+}
+
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+}
+
+#columns {
+    list-style-type: none;
+}
+
+.column {
+    width: 162px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    text-align: center;
+    cursor: move;
+}
+.column header {
+    height: 20px;
+    width: 150px;
+    color: black;
+    background-color: #ccc;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 10px;
+    border: 2px solid #666666;
+}
+
+.column.dragElem {
+    opacity: 0.4;
+}
+.column.over {
+//border: 2px dashed #000;
+    border-top: 2px solid blue;
 }

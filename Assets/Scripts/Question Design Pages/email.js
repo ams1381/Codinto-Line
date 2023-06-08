@@ -1,47 +1,43 @@
+
 import {baseUrl , postRequest} from "../ajax/ajaxRequsts.js";
-import {preview_change_handler} from "./CommonActions.js";
-import { number_question_postData} from "../ajax/QuestionPostData.js";
+import { showAlert , preview_change_handler} from "./CommonActions.js";
+// import {  } from "./CommonActions.js";
+import {email_question_PostData} from "../ajax/QuestionPostData.js";
+// const folder = baseUrl + "/user-api/folders/"
+// const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
+const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
-const folder = baseUrl + "/user-api/folders/";
-const questionnairesUrl = baseUrl + "/question-api/questionnaires/";
-const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/numberanswer-questions/`;
-
-const titleInput = document.querySelector(".GTitle .TitleTextInput");
-const textInput = document.querySelector(".GDesc .TitleTextInput");
-const selection = document.querySelector("#pattern-select");
-const sampleAnswer = document.querySelector(".SampleAnw .label-text-input");
-const minVmax = document.querySelector(".AnswerAlphabetLimit");
-// const sampleAnswerBox = document.querySelector(".SampleAnw")
-const uploadInput = document.querySelector(".box__file");
-const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle input");
-const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle input");
-const saveBtn = document.querySelector(".saveQuestion");
-const questionText = document.querySelector(".questionText");
-const questionDescription = document.querySelector(".ansswer__text");
-const wrongAlert = document.querySelector(".wrongEntry");
-const pictureSwitcher = document.querySelector(".picture__switcher");
-const videoSwitcher = document.querySelector(".video__switcher");
-const min = document.querySelector(".minInput .label-text-input");
-const max = document.querySelector(".maxInput .label-text-input");
-
-// initial data------------------------------------
-
-
-function showAlert(text){
-    wrongAlert.style.opacity = "1";
-    document.querySelector('.block__side').scrollTo(0,0)
-    window.scrollTo(0,0)
-    let spanInput =  wrongAlert.childNodes[1]
-    spanInput.innerText = `${text}`
-    setTimeout(()=>
-    {
-        wrongAlert.style.opacity = "0";
-    }, 3000);
+const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/email-questions/`;
+const titleInput = document.querySelector(".GTitle .TitleTextInput")
+const textInput = document.querySelector(".GDesc .TitleTextInput")
+const uploadInput = document.querySelector(".box__file")
+const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle input")
+const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle input")
+const saveBtn = document.querySelector(".saveQuestion")
+const questionText = document.querySelector(".questionText")
+const questionDescription = document.querySelector(".ansswer__text")
+const wrongAlert = document.querySelector(".wrongEntry")
+const pictureSwitcher = document.querySelector(".picture__switcher")
+const videoSwitcher = document.querySelector(".video__switcher")
+const guidance = document.querySelector(".SampleAnw input")
+console.log(guidance)
+let options = null;
+if(ACTION_TYPE == 'Edit')
+{
+    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+    titleInput.value = EditableQuestion.title;
+    textInput.value = EditableQuestion.description;
+    necessaryQuestion.checked = EditableQuestion.is_required;
+    minInput.value = EditableQuestion.min;
+    maxInput.value = EditableQuestion.max;
+    //buttonText.value = EditableQuestion.button_text
+    console.log(EditableQuestion)
 }
+// initial data------------------------------------
+options =  "free"
 
-titleInput.addEventListener('input',() => {preview_change_handler('Title-change',number_question_postData)})
-textInput.addEventListener('input',() => {preview_change_handler('Desc-change',number_question_postData)})
-
+titleInput.addEventListener('input',() => {preview_change_handler('Title-change',email_question_PostData)})
+textInput.addEventListener('input',() => {preview_change_handler('Desc-change',email_question_PostData)})
 function textStyle(input){
     const textEditor = document.querySelector(".TitleInputOptions")
     textEditor.addEventListener("click" , (e)=>{
@@ -103,26 +99,23 @@ function uploadValidation(input){
     }
 }
 //event listener------------------------------------
-// create folder and questionnaire
-
-// upload file limitation
-pictureSwitcher.addEventListener("click" , (e)=>{
-    uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
-    if(videoSwitcher.classList.contains("active")){
-        videoSwitcher.classList.remove("active")
-        pictureSwitcher.classList.add("active")
-    }
-})
-videoSwitcher.addEventListener("click" , (e)=>{
-    uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
-    if(pictureSwitcher.classList.contains("active")){
-        pictureSwitcher.classList.remove("active")
-        videoSwitcher.classList.add("active")
-    }
-})
-uploadInput.addEventListener("change" , (e)=>{
-    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
-})
+// pictureSwitcher.addEventListener("click" , (e)=>{
+//     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+//     if(videoSwitcher.classList.contains("active")){
+//         videoSwitcher.classList.remove("active")
+//         pictureSwitcher.classList.add("active")
+//     }
+// })
+// videoSwitcher.addEventListener("click" , (e)=>{
+//     uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
+//     if(pictureSwitcher.classList.contains("active")){
+//         pictureSwitcher.classList.remove("active")
+//         videoSwitcher.classList.add("active")
+//     }
+// })
+// uploadInput.addEventListener("change" , (e)=>{
+//     document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
+// })
 
 // add event listener to save button
 saveBtn.addEventListener("click", function(event) {
@@ -137,16 +130,14 @@ saveBtn.addEventListener("click", function(event) {
     // upload wrong error
     uploadValidation(uploadInput)
     let sendFile  = {
-        question_type : "Number answer",
+        question_type : "Email",
         title: titleInput.value,
         question_text: textInput.value,
-        placement: 7,
+        placement: 2,
         group: "",
         is_required: necessaryQuestion.checked,
         show_number: QuestionNumber.checked,
         media: uploadInput.files[0],
-        min: min.value !== "" ? parseInt(min.value) : null,
-        max: max.value !== "" ? parseInt(max.value) : null,
     };
 
     const formData = new FormData();
@@ -156,7 +147,6 @@ saveBtn.addEventListener("click", function(event) {
         }
     }
     // ajax request----------------------------------
-    console.log(formData)
     postRequest(reqUrl,formData)
         .then((response) => {
             console.log(response.status);

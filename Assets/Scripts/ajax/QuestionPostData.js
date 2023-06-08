@@ -110,6 +110,16 @@ export const selective_degree_postData  = {
     shape : null,
     max : 4
 };
+export const group_question_postData = {
+        title : null,
+        description : null,
+        media : null,
+        button_text : null,
+        button_shape : 'round',
+        is_solid_button : true,
+        is_required : false,
+        show_number : false,
+}
 export const Questionnaire_PostData = {
     pub_date : null,
     end_date : null,
@@ -119,3 +129,60 @@ export const Questionnaire_PostData = {
     folder : null
     
 };
+export const number_question_PostData = {
+    question_type : "Number answer",
+    title: null,
+    question_text: null,
+    placement: 7,
+    group: "",
+    is_required: false,
+    show_number: false,
+    media: null,
+    min: null,
+    max: null,
+}
+export const priority_question_PostData = {
+    question_type : "Link question",
+    title: null,
+    question_text: null,
+    placement: 12,
+    group: "",
+    is_required: false,
+    show_number: false,
+    media: null,
+    answer_template: null,
+    pattern: 'free',
+}
+export const email_question_PostData = {
+    question_type : "Email",
+    title: null,
+    question_text: null,
+    placement: 2,
+    group: "",
+    is_required: false,
+    show_number: false,
+    media: null
+}
+export const link_question_PostData = {
+        question_type : "Link question",
+        title: null,
+        question_text: null,
+        placement: 12,
+        group: "",
+        is_required: false,
+        show_number: false,
+        media: null,
+        answer_template: null,
+        pattern: 'free',
+}
+export const file_question_PostData = {
+        question_type : "File",
+        title: null,
+        question_text: null,
+        placement: 3,
+        group: "",
+        is_required: false,
+        show_number: false,
+        media: null,
+        max_volume : 2,
+}

@@ -43,7 +43,8 @@ body{
     align-items: center;
     justify-content: flex-start;
     column-gap: 0.1rem;
-    width: 100%;
+    width: 90%;
+    margin: 0.8rem auto 0 auto;
 }
 .ansswer__row{
     display: flex;
