@@ -1,6 +1,9 @@
 import {baseUrl , postRequest , getRequest} from "../ajax/ajaxRequsts.js";
+import {priority_question_PostData, range_question_postData} from "../ajax/QuestionPostData.js";
+import {file_upload_handler, preview_change_handler, question_creator, toggle_handler} from "./CommonActions.js";
 // const folder = baseUrl + "/user-api/folders/"
 // const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
+import { showAlert } from "./CommonActions.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 let reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/integerrange-questions/`;
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
@@ -29,29 +32,15 @@ if(ACTION_TYPE == 'Edit')
     question_info_loader(EditableQuestion)
 }
 // functions--------------------------------------
-function showAlert(text){
-    wrongAlert.style.opacity = "1";
-    document.querySelector('.block__side').scrollTo(0,0)
-    window.scrollTo(0,0)
-    let spanInput =  wrongAlert.childNodes[1]
-    spanInput.innerText = `${text}`
-    setTimeout(()=>{
-        wrongAlert.style.opacity = "0";
-    }, 3000);
-}
+
 function rangePreview(input){
     input.addEventListener("input" , (e)=>{
        document.querySelector(".range-label").innerText =  e.target.value
     })
 }
 rangePreview(rangeInput)
-function showValue(input , value){
-    input.addEventListener("input" , (e)=>{
-        value.innerText = e.target.value
-    })
-}
-showValue(titleInput , questionText)
-showValue(textInput , questionDescription)
+titleInput.addEventListener('input',() => {preview_change_handler('Title-change',range_question_postData)})
+textInput.addEventListener('input',() => {preview_change_handler('Desc-change',range_question_postData)})
 
 function textStyle(input){
     const textEditor = document.querySelector(".TitleInputOptions")
@@ -70,111 +59,74 @@ function textStyle(input){
     })
 }
 textStyle(titleInput)
-pictureSwitcher.addEventListener("click" , (e)=>{
-    uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
-    if(videoSwitcher.classList.contains("active")){
-        videoSwitcher.classList.remove("active")
-        pictureSwitcher.classList.add("active")
-    }
-})
-videoSwitcher.addEventListener("click" , (e)=>{
-    uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
-    if(pictureSwitcher.classList.contains("active")){
-        pictureSwitcher.classList.remove("active")
-        videoSwitcher.classList.add("active")
-    }
-})
+function rangeChange(input){
+    input.addEventListener("input" , (e)=>{
+        let rangeContainer = document.querySelector(".range__select");
+        rangeContainer.innerHTML = ""
+        for(let i = 0 ; i < e.target.value ; i++){
+            let rangeItem = document.createElement("span")
+            rangeItem.classList.add("range__number")
+            rangeItem.innerText = i + 1
+            rangeContainer.appendChild(rangeItem)
+        }
+
+    })
+}
+rangeChange(rangeInput)
+// add event listeners--------------------------------------
+// pictureSwitcher.addEventListener("click" , (e)=>{
+//     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
+//     if(videoSwitcher.classList.contains("active")){
+//         videoSwitcher.classList.remove("active")
+//         pictureSwitcher.classList.add("active")
+//     }
+// })
+// videoSwitcher.addEventListener("click" , (e)=>{
+//     uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
+//     if(pictureSwitcher.classList.contains("active")){
+//         pictureSwitcher.classList.remove("active")
+//         videoSwitcher.classList.add("active")
+//     }
+// })
 uploadInput.addEventListener("change" , (e)=>{
     document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
 })
-saveBtn.addEventListener("click" , function (){
+saveBtn.addEventListener("click" , async function (event){
 
-    if(titleInput.value === "" && textInput.value === ""){
-        showAlert("عنوان و متن سوال را وارد کنید")
-    }else if(textInput.value === ""){
-        showAlert("متن سوال را وارد کنید")
-    }else if(titleInput.value === ""){
-        showAlert("عنوان سوال را وارد کنید")
-    }
-    if(uploadInput.files[0] !== undefined) {
-        let uploadUrl = uploadInput.files[0].name.split(".")
-        console.log(uploadUrl[1])
-        if (pictureSwitcher.classList.contains("active")) {
-            switch (uploadUrl[1]) {
-                case "jpg":
-                    break;
-                case "png":
-                    break;
-                case "jpeg":
-                    break;
-                case "JPG":
-                    break;
-                case "PNG":
-                    break;
-                case "JPEG":
-                    break;
-                default:
-                    showAlert("فرمت وارد شده پذیرفته نیست")
-            }
-        } else if (videoSwitcher.classList.contains("active")) {
-            switch (uploadUrl[1] || uploadUrl[0]) {
-                case "mp4":
-                    break;
-                case "mov":
-                    break;
-                case "m4v":
-                    break;
-                case "mkv":
-                    break;
-                case "flv":
-                    break;
-                case "wmv":
-                    break;
-                case "MP4":
-                    break;
-                case "MOV":
-                    break;
-                case "M4V":
-                    break;
-                case "MKV":
-                    break;
-                case "FLV":
-                    break;
-                case "WMV":
-                    break;
-                default:
-                    return showAlert("فرمت وارد شده پذیرفته نیست")
 
-            }
-        }
-    }
-    let sendData = {
-       "question_type": "integer_range",
-       "title": titleInput.value,
-       "question_text": textInput.value,
-       "placement": 4,
-       "group": null,
-       "is_required": isRequired.checked,
-       "show_number": showNumber.checked,
-       "media": uploadInput.files[0],
-       "min": 0,
-       "max": rangeInput.value,
-       "min_label": rightInput.value,
-       "mid_label": middleInput.value,
-       "max_label": leftInput.value,
-   }
 
-   const formData = new FormData();
-   for (let key in sendData){
-       if(sendData[key] !== null && sendData[key] !== undefined){
-           formData.append(key, sendData[key]);
-       }
-   }
-    postRequest(reqUrl,formData)
-        .then((response) => {
-            console.log(response.data);
-            window.open("/Pages/FormDesign.html","_Self");
-        }).catch((error) => {
-        console.log(error);
+   // const formData = new FormData();
+   // for (let key in sendData){
+   //     if(sendData[key] !== null && sendData[key] !== undefined){
+   //         formData.append(key, sendData[key]);
+   //     }
+   // }
+   //  postRequest(reqUrl,formData)
+   //      .then((response) => {
+   //          console.log(response.data);
+   //          window.open("/Pages/FormDesign.html","_Self");
+   //      }).catch((error) => {
+   //      console.log(error);
+   //  })
+    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+    if(EditableQuestion)
+        await question_creator(ACTION_TYPE,EditableQuestion.id,'link-questions',QuestionnaireUUID,range_question_postData);
+    else
+        await question_creator(ACTION_TYPE,null,'link-questions',QuestionnaireUUID,range_question_postData);
+})
+necessaryQuestion.addEventListener('click',() => {
+    toggle_handler(necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,range_question_postData);
+})
+QuestionNumber.addEventListener('click',() => {
+    toggle_handler(QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,range_question_postData);
+})
+file_input.addEventListener('input',() => {
+    let selected_file_type;
+    document.querySelectorAll(".fileFormat input").forEach((item) => {
+        if(item.checked)
+            selected_file_type = item.getAttribute("id")
     })
+    if(file_input.files)
+        range_question_postData = file_input.files[0].name;
+    file_upload_handler(selected_file_type,file_input);
 })
