@@ -1,45 +1,52 @@
-import {baseUrl, getRequest, postRequest} from "../ajax/ajaxRequsts.js";
-import { link_question_PostData } from "../ajax/QuestionPostData.js";
+import {baseUrl , postRequest} from "../ajax/ajaxRequsts.js";
+import { showAlert } from "./CommonActions.js";
 import { preview_change_handler } from "./CommonActions.js";
-const folder = baseUrl + "/user-api/folders/"
+
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
-const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
-const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/link-questions/`
-const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
+const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/welcome-pages/`;
+const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
-const sampleAnswer = document.querySelector(".SampleAnw .label-text-input")
 const uploadInput = document.querySelector(".box__file")
-const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle input")
-const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle input")
+const buttonText = document.querySelector(".ButtonTextInput")
+const shapeSelector = document.querySelectorAll(".ShapeOptions label")
 const saveBtn = document.querySelector(".saveQuestion")
 const questionText = document.querySelector(".questionText")
 const questionDescription = document.querySelector(".ansswer__text")
 const wrongAlert = document.querySelector(".wrongEntry")
 const pictureSwitcher = document.querySelector(".picture__switcher")
 const videoSwitcher = document.querySelector(".video__switcher")
-let options = null;
+const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle input")
+const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle input")
 
-// initial data------------------------------------
 if(ACTION_TYPE == 'Edit')
 {
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-    question_info_loader(EditableQuestion)
+    titleInput.value = EditableQuestion.title;
+    textInput.value = EditableQuestion.description;
+    buttonText.value = EditableQuestion.button_text
+    shapeSelector.forEach((shapeLabel) => {
+        if(EditableQuestion.is_solid_button)
+            if(shapeLabel.classList.contains(EditableQuestion.button_shape) && shapeLabel.classList.contains('bg-colored'))
+            {
+                shapeLabel.previousElementSibling.checked = true;
+                return
+            }
+
+            else
+            if(shapeLabel.classList.contains(EditableQuestion.button_shape) && shapeLabel.classList.contains('bg-transp'))
+            {
+                shapeLabel.previousElementSibling.checked = true;
+                return;
+            }
+
+    })
+
 }
-options =  "free"
-sampleAnswer.value = null;
-function showAlert(text){
-    wrongAlert.style.opacity = "1";
-    document.querySelector('.block__side').scrollTo(0,0)
-    window.scrollTo(0,0)
-    let spanInput =  wrongAlert.childNodes[1]
-    spanInput.innerText = `${text}`
-    setTimeout(()=>{
-        wrongAlert.style.opacity = "0";
-    }, 3000);
-}
-titleInput.addEventListener('input',() => {preview_change_handler('Title-change',link_question_PostData)})
-textInput.addEventListener('input',() => {preview_change_handler('Desc-change',link_question_PostData)})
+// functions
+
+titleInput.addEventListener('click',preview_change_handler('Title-change',multiple_option_postData))
+textInput.addEventListener('click',preview_change_handler('Desc-change',multiple_option_postData))
 function textStyle(input){
     const textEditor = document.querySelector(".TitleInputOptions")
     textEditor.addEventListener("click" , (e)=>{
@@ -118,9 +125,13 @@ videoSwitcher.addEventListener("click" , (e)=>{
         videoSwitcher.classList.add("active")
     }
 })
-// add event listener to save button
-saveBtn.addEventListener("click", function(event) {
-
+let selectedObject = null
+shapeSelector.forEach((e)=>{
+    e.addEventListener("click" , ()=>{
+        selectedObject = e.classList[1]
+    })
+})
+saveBtn.addEventListener("click" , function (){
     if(titleInput.value === "" && textInput.value === ""){
         showAlert("عنوان و متن سوال را وارد کنید")
     }else if(textInput.value === ""){
@@ -130,29 +141,26 @@ saveBtn.addEventListener("click", function(event) {
     }
     // upload wrong error
     uploadValidation(uploadInput)
-    let sendFile  = {
-        question_type : "Link question",
-        title: titleInput.value,
-        question_text: textInput.value,
-        placement: 12,
-        group: "",
-        is_required: necessaryQuestion.checked,
-        show_number: QuestionNumber.checked,
-        media: uploadInput.files[0],
-        answer_template: null,
-        pattern: options,
-    };
-
+    let sendData = {
+        "title": titleInput.value,
+        "description": textInput.value,
+        "media": uploadInput.files[0],
+        "button_text": buttonText.value,
+        "button_shape": selectedObject,
+        "is_solid_button": true,
+        "is_required": necessaryQuestion.checked,
+        "show_number": QuestionNumber.checked,
+    }
     const formData = new FormData();
-    for (let key in sendFile){
-        if(sendFile[key] !== null && sendFile[key] !== undefined){
-            formData.append(key, sendFile[key]);
+    for (let key in sendData){
+        if(sendData[key] !== null){
+            formData.append(key, sendData[key]);
         }
     }
-    // ajax request----------------------------------
     postRequest(reqUrl,formData)
         .then((response) => {
-             window.open("/Pages/FormDesign.html","_Self");
+            console.log(response.data);
+            // window.open("/Pages/FormDesign.html","_Self");
         }).catch((error) => {
         console.log(error);
     })

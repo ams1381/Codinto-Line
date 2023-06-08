@@ -57,7 +57,7 @@ const Form_Date_Day_Updater = (currentDate) => {
     let MonthInputs = document.querySelectorAll(".MonthPicker input");
     let DayInputs = document.querySelectorAll(".DayPicker input");
     let SelectedYear = document.querySelectorAll(".YearInput input").forEach((YearInput) => {
-        if(YearInput.checked = true)
+        if(YearInput.checked == true)
             return SelectedYear
     })
     MonthInputs.forEach((MonthInput) => {
