@@ -1,4 +1,3 @@
-
 import {baseUrl, getRequest, postRequest} from "../ajax/ajaxRequsts.js";
 const folder = baseUrl + "/user-api/folders/"
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
