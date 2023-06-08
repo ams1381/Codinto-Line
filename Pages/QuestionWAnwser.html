@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="../Assets/Styles/QdesignCommonStyles.css">
     <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
     <link rel="stylesheet" href="../Components/questionBox/questionBox.css">
-    <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
+<!--    <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />-->
+<!--    <script type="text/javascript" src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
@@ -35,66 +36,49 @@
                    </div>
             </div>
             <div class="SideBody">
-               <div class="GTitle">
-                   <div class="TitleSetter ToggleOption">
-                    <div class="Switch-Container">
-                        <p>عنوان</p>
-<!--                    <label class="Switch-toggle">-->
-<!--                        <input type="checkbox">-->
-<!--                        <span class="slider-button"></span>-->
-<!--                    </label>-->
+                <div class="GTitle">
+                    <div class="TitleInput active">
+                        <div class="TitleInputOptions  GOptions">
+                            <label>
+                                <input type="checkbox" name="" id="Tbolder">
+                                <i class="fa fa-bold"></i>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="" id="TItalic">
+                                <i class="fa fa-italic"></i>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="" id="TUnderline">
+                                <i class="fa fa-underline"></i>
+                            </label>
+                        </div>
+                        <div class="TextField">
+                            <textarea id="title__input" class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
+                        </div>
                     </div>
-                   </div>
-                   <div class="TitleInput active">
-                       <div class="TitleInputOptions  GOptions">
-                           <label>
-                               <input type="checkbox" name="" id="Tbolder">
-                               <i class="fa fa-bold"></i>
-                           </label>
-                           <label>
-                           <input type="checkbox" name="" id="TItalic">
-                           <i class="fa fa-italic"></i>
-                           </label>
-                           <label>
-                           <input type="checkbox" name="" id="TUnderline">
-                           <i class="fa fa-underline"></i>
-                           </label>
-                       </div>
-                       <div class="TextField">
-                           <textarea class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
-                       </div>
-                   </div>
-               </div>
-               <div class="GDesc">
-                   <div class="DescSetter ToggleOption">
-                    <div class="Switch-Container">
-                        <p>توضیحات</p>
-<!--                    <label class="Switch-toggle">-->
-<!--                        <input type="checkbox">-->
-<!--                        <span class="slider-button"></span>-->
-<!--                    </label>-->
+                </div>
+                <div class="GDesc">
+                    <div class="DescInput active">
+                        <div class="TitleInputOptions  GOptions">
+                            <label>
+                                <input type="checkbox" name="" id="Tbolder">
+                                <i class="fa fa-bold"></i>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="" id="TItalic">
+                                <i class="fa fa-italic"></i>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="" id="TUnderline">
+                                <i class="fa fa-underline"></i>
+                            </label>
+                        </div>
+                        <div class="TextField">
+                            <textarea id="desc_input" class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
+                            <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
+                        </div>
                     </div>
-                   </div>
-                   <div class="DescInput active">
-                       <div class="TitleInputOptions  GOptions">
-                           <label>
-                               <input type="checkbox" name="" id="Desbolder">
-                               <i class="fa fa-bold"></i>
-                           </label>
-                           <label>
-                           <input type="checkbox" name="" id="DesItalic">
-                           <i class="fa fa-italic"></i>
-                           </label>
-                           <label>
-                           <input type="checkbox" name="" id="DesUnderline">
-                           <i class="fa fa-underline"></i>
-                           </label>
-                       </div>
-                       <div class="TextField">
-                           <textarea class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
-                       </div>
-                   </div>
-               </div>
+                </div>
                <div class="AnswerPattern">
                    <div class="PatternChoose">
                        <p>الگوی پاسخ</p>
@@ -135,49 +119,63 @@
 <!--                       </div>-->
                    </div>
                </div>
-               
-               <div class="fileUploader">
-                   <div class="fileFormat">
-                       <input type="radio" name="lang" id="Picture" value="Picture" checked>
-                       <label for="Picture" class="picture__switcher active">عکس</label>
-                       
-                       <input type="radio" name="lang" id="Video" value="Video">
-                       <label for="Video" class="video__switcher">ویدیو</label>
-       
-                   </div>
-                   <div class="fileInput">
-                       <div class="inputTitle">
-                           حداکثر حجم 3 مگابایت
-                       </div>
 
-                       <div class="inputUploader">
-                           <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
-                           <label for="file">
-                               <i class="fa fa-upload"></i>
-                               </label>
-                         </div>
-                   </div>
-                   <span class="upload__link"></span>
-               </div>
-               <div class="AnswerNecessity ToggleOption">
-                <div class="Switch-Container">
-                    <p>پاسخ به سوال اجباری باشد</p>
-                <label class="Switch-toggle">
-                    <input type="checkbox">
-                    <span class="slider-button"></span>
-                </label>
+                <div class="fileUploader">
+                    <div class="fileFormat">
+                        <input type="radio" name="lang" id="Picture" value="Picture" checked>
+                        <label for="Picture">عکس</label>
+
+                        <input type="radio" name="lang" id="Video" value="Video">
+                        <label for="Video">ویدیو</label>
+
+                    </div>
+                    <div class="fileInput">
+                        <div class="inputTitle">
+                            حداکثر حجم 3 مگابایت
+                        </div>
+                        <div class="inputUploader">
+                            <div class="image_or_video_box">
+                                <div class="cancel_uploaded_file">
+                                    <button class="cancel_uploaded_file_button">
+                                        <i class="fa fa-close"></i>
+                                    </button>
+
+                                </div>
+                                <div class="uploaded_file_info">
+                                    <div class="uploaded_file_avatar">
+                                        <img class="uploaded_file_image" alt="">
+                                    </div>
+                                    <div class="uploaded_file_name">
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+                            <label for="file" class="upload_file_label">
+                                <i class="fa fa-upload"></i>
+                            </label>
+                        </div>
+
+                    </div>
                 </div>
-                   
-               </div>
-               <div class="QuestionNumber ToggleOption">
-                <div class="Switch-Container">
-                    <p>عدم نمایش شماره سوال</p>
-                <label class="Switch-toggle">
-                    <input type="checkbox">
-                    <span class="slider-button"></span>
-                </label>
+                <div class="is_required ToggleOption">
+                    <div class="Switch-Container">
+                        <p>پاسخ به سوال اجباری باشد</p>
+                        <label class="Switch-toggle">
+                            <input type="checkbox">
+                            <span class="slider-button"</span>
+                        </label>
+                    </div>
                 </div>
-               </div>
+                <div class="show_number ToggleOption">
+                    <div class="Switch-Container">
+                        <p>عدم نمایش شماره سوال</p>
+                        <label class="Switch-toggle">
+                            <input type="checkbox">
+                            <span class="slider-button"</span>
+                        </label>
+                    </div>
+                </div>
             </div>
             <div class="SideFooter">
                 <a class="saveQuestion">
@@ -189,32 +187,24 @@
              </div>
        </aside>
         <main class="block__main">
-<!--             <div class="QuestionContainer">-->
-<!--                <div class="QuestionTitle Greeting-Title">-->
-<!--                    <p>سلام و عرض ادب خدمت همه ی همراهان کدینتولاین</p>-->
-<!--                </div>-->
-<!--                <div class="description_block">-->
-<!--                   -->
-<!--                </div>-->
-<!--                <div class="QuestionStart">-->
-<!--                   <button class="QuestionStartButton">-->
-<!--                      شروع-->
-<!--                   </button>-->
-<!--                </div>-->
-<!--             </div>-->
-            <section class="justify__question">
-                <div class="question__row">
-                    <span class="question__style">1</span>
-                    <span class="question__style">-</span>
-                    <span class="question__style questionText">اقدامات امیر کبیر را بنویسید</span>
+            <div class="QuestionContainer">
+                <div class="Question-Title">
+                    <label>2 :</label>
+                    <p>کدامیک جزء اقدامات امیرکبیر نیست؟  </p>
+
                 </div>
-                <div class="ansswer__row">
-                    <span class="ansswer__text">پاسخ به صورت متن باشد</span>
+                <div class="description_block">
+                    <p>از نوشتن پاسخ اضافی پرهیز کنید</p>
+                </div>
+                <div class="preview_file_box">
+                    <img class="preview_image">
+                    <video class="preview_video" controls>
+                    </video>
                 </div>
                 <div class="textErea__container">
                     <textarea class="entry__input" id="w3review" name="w3review" rows="7" cols="50" placeholder="لطفا پاسخ خود را وارد کنید"></textarea>
                 </div>
-            </section>
+            </div>
              <div class="AssistiveButton">
                 <div class="AssistiveItems">
                         <button class="AddQuestion">

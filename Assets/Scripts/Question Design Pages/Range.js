@@ -1,6 +1,6 @@
 import {baseUrl , postRequest , getRequest} from "../ajax/ajaxRequsts.js";
-import { range_question_postData } from "../ajax/QuestionPostData.js";
-import { preview_change_handler } from "./CommonActions.js";
+import {priority_question_PostData, range_question_postData} from "../ajax/QuestionPostData.js";
+import {file_upload_handler, preview_change_handler, question_creator, toggle_handler} from "./CommonActions.js";
 // const folder = baseUrl + "/user-api/folders/"
 // const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
 import { showAlert } from "./CommonActions.js";
@@ -41,49 +41,7 @@ function rangePreview(input){
 rangePreview(rangeInput)
 titleInput.addEventListener('input',() => {preview_change_handler('Title-change',range_question_postData)})
 textInput.addEventListener('input',() => {preview_change_handler('Desc-change',range_question_postData)})
-function uploadValidation(input){
-    if(uploadInput.files[0] !== undefined){
-        let uploadUrl = uploadInput.files[0].name.split(".")
-        console.log(uploadInput.files[0].size)
-        if(uploadInput.files[0].size > 3000000){
-            return showAlert("حجم فایل وارد شده بیش از 3 مگابایت است")
-        }
-        if(pictureSwitcher.classList.contains("active")){
-            const pictureTranslate = {
-                jpg : "jpg",
-                png : "png",
-                jpeg : "jpeg",
-                JPG : "JPG",
-                PNG : "PNG",
-                JPEG : "JPEG"
-            }
-            if(!pictureTranslate[uploadUrl[1]]){
-                return showAlert("فرمت وارد شده پذیرفته نیست")
-            }
-        }else if(videoSwitcher.classList.contains("active")){
-            //
-            const videoTranslate = {
-                mp4 : "mp4",
-                mov : "mov",
-                m4v : "m4v",
-                mkv : "mkv",
-                flv : "flv",
-                wmv : "wmv",
-                MP4 : "MP4",
-                MOV : "MOV",
-                M4V : "M4V",
-                MKV : "MKV",
-                FLV : "FLV",
-                WMV : "WMV"
-            }
-            if(!videoTranslate[uploadUrl[1]]){
-                return showAlert("فرمت وارد شده پذیرفته نیست")
-            }
-        }
-    }else {
-        console.log("no file");
-    }
-}
+
 function textStyle(input){
     const textEditor = document.querySelector(".TitleInputOptions")
     textEditor.addEventListener("click" , (e)=>{
@@ -133,43 +91,42 @@ rangeChange(rangeInput)
 uploadInput.addEventListener("change" , (e)=>{
     document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
 })
-saveBtn.addEventListener("click" , function (){
+saveBtn.addEventListener("click" , async function (event){
 
-    if(titleInput.value === "" && textInput.value === ""){
-        showAlert("عنوان و متن سوال را وارد کنید")
-    }else if(textInput.value === ""){
-        showAlert("متن سوال را وارد کنید")
-    }else if(titleInput.value === ""){
-        showAlert("عنوان سوال را وارد کنید")
-    }
-    uploadValidation(uploadInput)
-    let sendData = {
-       "question_type": "integer_range",
-       "title": titleInput.value,
-       "question_text": textInput.value,
-       "placement": 4,
-       "group": null,
-       "is_required": isRequired.checked,
-       "show_number": showNumber.checked,
-       "media": uploadInput.files[0],
-       "min": 0,
-       "max": rangeInput.value,
-       "min_label": rightInput.value,
-       "mid_label": middleInput.value,
-       "max_label": leftInput.value,
-   }
 
-   const formData = new FormData();
-   for (let key in sendData){
-       if(sendData[key] !== null && sendData[key] !== undefined){
-           formData.append(key, sendData[key]);
-       }
-   }
-    postRequest(reqUrl,formData)
-        .then((response) => {
-            console.log(response.data);
-            window.open("/Pages/FormDesign.html","_Self");
-        }).catch((error) => {
-        console.log(error);
+
+   // const formData = new FormData();
+   // for (let key in sendData){
+   //     if(sendData[key] !== null && sendData[key] !== undefined){
+   //         formData.append(key, sendData[key]);
+   //     }
+   // }
+   //  postRequest(reqUrl,formData)
+   //      .then((response) => {
+   //          console.log(response.data);
+   //          window.open("/Pages/FormDesign.html","_Self");
+   //      }).catch((error) => {
+   //      console.log(error);
+   //  })
+    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+    if(EditableQuestion)
+        await question_creator(ACTION_TYPE,EditableQuestion.id,'link-questions',QuestionnaireUUID,range_question_postData);
+    else
+        await question_creator(ACTION_TYPE,null,'link-questions',QuestionnaireUUID,range_question_postData);
+})
+necessaryQuestion.addEventListener('click',() => {
+    toggle_handler(necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,range_question_postData);
+})
+QuestionNumber.addEventListener('click',() => {
+    toggle_handler(QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,range_question_postData);
+})
+file_input.addEventListener('input',() => {
+    let selected_file_type;
+    document.querySelectorAll(".fileFormat input").forEach((item) => {
+        if(item.checked)
+            selected_file_type = item.getAttribute("id")
     })
+    if(file_input.files)
+        range_question_postData = file_input.files[0].name;
+    file_upload_handler(selected_file_type,file_input);
 })

@@ -1,8 +1,8 @@
 
 import {baseUrl, getRequest, postRequest} from "../ajax/ajaxRequsts.js";
-import { showAlert } from "./CommonActions.js";
+import {file_upload_handler, question_creator, showAlert, toggle_handler} from "./CommonActions.js";
 import { preview_change_handler } from "./CommonActions.js";
-
+import {group_question_postData, link_question_PostData, priority_question_PostData} from "../ajax/QuestionPostData.js";
 const folder = baseUrl + "/user-api/folders/"
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
@@ -114,8 +114,8 @@ if(ACTION_TYPE == 'Edit')
 // answer_block
 options =  "free"
 
-titleInput.addEventListener('click',preview_change_handler('Title-change',multiple_option_postData))
-textInput.addEventListener('click',preview_change_handler('Desc-change',multiple_option_postData))
+titleInput.addEventListener('click',preview_change_handler('Title-change',priority_question_PostData))
+textInput.addEventListener('click',preview_change_handler('Desc-change',priority_question_PostData))
 function textStyle(input){
     const textEditor = document.querySelector(".TitleInputOptions")
     textEditor.addEventListener("click" , (e)=>{
@@ -133,103 +133,89 @@ function textStyle(input){
     })
 }
 textStyle(titleInput)
-function uploadValidation(input){
-    if(uploadInput.files[0] !== undefined){
-        let uploadUrl = uploadInput.files[0].name.split(".")
-        console.log(uploadInput.files[0].size)
-        if(uploadInput.files[0].size > 3000000){
-            return showAlert("حجم فایل وارد شده بیش از 3 مگابایت است")
-        }
-        if(pictureSwitcher.classList.contains("active")){
-            const pictureTranslate = {
-                jpg : "jpg",
-                png : "png",
-                jpeg : "jpeg",
-                JPG : "JPG",
-                PNG : "PNG",
-                JPEG : "JPEG"
-            }
-            if(!pictureTranslate[uploadUrl[1]]){
-                return showAlert("فرمت وارد شده پذیرفته نیست")
-            }
-        }else if(videoSwitcher.classList.contains("active")){
-            //
-            const videoTranslate = {
-                mp4 : "mp4",
-                mov : "mov",
-                m4v : "m4v",
-                mkv : "mkv",
-                flv : "flv",
-                wmv : "wmv",
-                MP4 : "MP4",
-                MOV : "MOV",
-                M4V : "M4V",
-                MKV : "MKV",
-                FLV : "FLV",
-                WMV : "WMV"
-            }
-            if(!videoTranslate[uploadUrl[1]]){
-                return showAlert("فرمت وارد شده پذیرفته نیست")
-            }
-        }
-    }else {
-        console.log("no file");
-    }
-}
-uploadInput.addEventListener("change" , (e)=>{
-    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
-})
+// function uploadValidation(input){
+//     if(uploadInput.files[0] !== undefined){
+//         let uploadUrl = uploadInput.files[0].name.split(".")
+//         console.log(uploadInput.files[0].size)
+//         if(uploadInput.files[0].size > 3000000){
+//             return showAlert("حجم فایل وارد شده بیش از 3 مگابایت است")
+//         }
+//         if(pictureSwitcher.classList.contains("active")){
+//             const pictureTranslate = {
+//                 jpg : "jpg",
+//                 png : "png",
+//                 jpeg : "jpeg",
+//                 JPG : "JPG",
+//                 PNG : "PNG",
+//                 JPEG : "JPEG"
+//             }
+//             if(!pictureTranslate[uploadUrl[1]]){
+//                 return showAlert("فرمت وارد شده پذیرفته نیست")
+//             }
+//         }else if(videoSwitcher.classList.contains("active")){
+//             //
+//             const videoTranslate = {
+//                 mp4 : "mp4",
+//                 mov : "mov",
+//                 m4v : "m4v",
+//                 mkv : "mkv",
+//                 flv : "flv",
+//                 wmv : "wmv",
+//                 MP4 : "MP4",
+//                 MOV : "MOV",
+//                 M4V : "M4V",
+//                 MKV : "MKV",
+//                 FLV : "FLV",
+//                 WMV : "WMV"
+//             }
+//             if(!videoTranslate[uploadUrl[1]]){
+//                 return showAlert("فرمت وارد شده پذیرفته نیست")
+//             }
+//         }
+//     }else {
+//         console.log("no file");
+//     }
+// }
+// uploadInput.addEventListener("change" , (e)=>{
+//     document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
+// })
 
-pictureSwitcher.addEventListener("click" , (e)=>{
-    // uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
-    if(videoSwitcher.classList.contains("active")){
-        videoSwitcher.classList.remove("active")
-        pictureSwitcher.classList.add("active")
-    }
-})
-videoSwitcher.addEventListener("click" , (e)=>{
-    // uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
-    if(pictureSwitcher.classList.contains("active")){
-        pictureSwitcher.classList.remove("active")
-        videoSwitcher.classList.add("active")
-    }
-})
 // add event listener to save button
-saveBtn.addEventListener("click", function(event) {
+saveBtn.addEventListener("click", async function (event) {
 
-    if(titleInput.value === "" && textInput.value === ""){
-        showAlert("عنوان و متن سوال را وارد کنید")
-    }else if(textInput.value === ""){
-        showAlert("متن سوال را وارد کنید")
-    }else if(titleInput.value === ""){
-        showAlert("عنوان سوال را وارد کنید")
-    }
-    // upload wrong error
-    uploadValidation(uploadInput)
-    let sendFile  = {
-        question_type : "Link question",
-        title: titleInput.value,
-        question_text: textInput.value,
-        placement: 12,
-        group: "",
-        is_required: necessaryQuestion.checked,
-        show_number: QuestionNumber.checked,
-        media: uploadInput.files[0],
-        answer_template: null,
-        pattern: options,
-    };
 
-    const formData = new FormData();
-    for (let key in sendFile){
-        if(sendFile[key] !== null && sendFile[key] !== undefined){
-            formData.append(key, sendFile[key]);
-        }
-    }
-    // ajax request----------------------------------
-    postRequest(reqUrl,formData)
-        .then((response) => {
-            window.open("/Pages/FormDesign.html","_Self");
-        }).catch((error) => {
-        console.log(error);
+    // const formData = new FormData();
+    // for (let key in sendFile){
+    //     if(sendFile[key] !== null && sendFile[key] !== undefined){
+    //         formData.append(key, sendFile[key]);
+    //     }
+    // }
+    // // ajax request----------------------------------
+    // postRequest(reqUrl,formData)
+    //     .then((response) => {
+    //         window.open("/Pages/FormDesign.html","_Self");
+    //     }).catch((error) => {
+    //     console.log(error);
+    // })
+    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+    if(EditableQuestion)
+        await question_creator(ACTION_TYPE,EditableQuestion.id,'link-questions',QuestionnaireUUID,priority_question_PostData);
+    else
+        await question_creator(ACTION_TYPE,null,'link-questions',QuestionnaireUUID,priority_question_PostData);
+})
+necessaryQuestion.addEventListener('click',() => {
+    toggle_handler(necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,priority_question_PostData);
+})
+QuestionNumber.addEventListener('click',() => {
+    toggle_handler(QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,priority_question_PostData);
+})
+file_input.addEventListener('input',() => {
+    let selected_file_type;
+    document.querySelectorAll(".fileFormat input").forEach((item) => {
+        if(item.checked)
+            selected_file_type = item.getAttribute("id")
     })
+    if(file_input.files)
+        priority_question_PostData = file_input.files[0].name;
+    file_upload_handler(selected_file_type,file_input);
 })

@@ -1,4 +1,4 @@
-export const multiple_option_postData = {
+export let multiple_option_postData = {
     title : null,
     question_text : null,
     is_required : false,
@@ -17,7 +17,7 @@ export const multiple_option_postData = {
         { text : 'گزینه 2'}
     ]
 }
-export const slider_option_postData = {
+export let slider_option_postData = {
     title : null,
     question_text : null,
     is_required : false,
@@ -35,7 +35,7 @@ export const slider_option_postData = {
         { text : 'گزینه 2'}
     ]
 }
-export const range_question_postData = {
+export let range_question_postData = {
     title : null,
     question_text : null,
     question_type :  null,
@@ -50,7 +50,7 @@ export const range_question_postData = {
     mid_label : null,
     max_label : null,
 }
-export const text_question_with_answer_postData  = {
+export let text_question_with_answer_postData  = {
     
     title : null,
     question_text : null,
@@ -65,7 +65,7 @@ export const text_question_with_answer_postData  = {
     min : 0,
     max : null,
 };
-export const welcome_page_postData = {
+export let welcome_page_postData = {
     title : null,
     description : null,
     media : null,
@@ -73,7 +73,7 @@ export const welcome_page_postData = {
     button_shape : 'round',
     is_solid_button : true,
 }
-export const thank_page_postData  = {
+export let thank_page_postData  = {
     title : null,
     question_text : null,
     placement: 3,
@@ -86,7 +86,7 @@ export const thank_page_postData  = {
     sorush:  false,
     media: null,
 };
-export const number_question_postData  = {
+export let number_question_postData  = {
     title : null,
     question_text : null,
     question_type : "Number answer",
@@ -98,7 +98,7 @@ export const number_question_postData  = {
     min : 0,
     max : null,
 };
-export const selective_degree_postData  = {
+export let selective_degree_postData  = {
     title : null,
     question_text : null,
     question_type : "Number answer",
@@ -110,7 +110,7 @@ export const selective_degree_postData  = {
     shape : null,
     max : 4
 };
-export const group_question_postData = {
+export let group_question_postData = {
         title : null,
         description : null,
         media : null,
@@ -120,7 +120,7 @@ export const group_question_postData = {
         is_required : false,
         show_number : false,
 }
-export const Questionnaire_PostData = {
+export let Questionnaire_PostData = {
     pub_date : null,
     end_date : null,
     timer : null,
@@ -129,7 +129,7 @@ export const Questionnaire_PostData = {
     folder : null
     
 };
-export const number_question_PostData = {
+export let number_question_PostData = {
     question_type : "Number answer",
     title: null,
     question_text: null,
@@ -141,7 +141,7 @@ export const number_question_PostData = {
     min: null,
     max: null,
 }
-export const priority_question_PostData = {
+export let priority_question_PostData = {
     question_type : "Link question",
     title: null,
     question_text: null,
@@ -153,7 +153,7 @@ export const priority_question_PostData = {
     answer_template: null,
     pattern: 'free',
 }
-export const email_question_PostData = {
+export let email_question_PostData = {
     question_type : "Email",
     title: null,
     question_text: null,
@@ -163,7 +163,7 @@ export const email_question_PostData = {
     show_number: false,
     media: null
 }
-export const link_question_PostData = {
+export let link_question_PostData = {
         question_type : "Link question",
         title: null,
         question_text: null,
@@ -175,7 +175,7 @@ export const link_question_PostData = {
         answer_template: null,
         pattern: 'free',
 }
-export const file_question_PostData = {
+export let file_question_PostData = {
         question_type : "File",
         title: null,
         question_text: null,
