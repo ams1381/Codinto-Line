@@ -1,7 +1,7 @@
 import { baseUrl , postRequest , patchRequest} from "../ajax/ajaxRequsts.js";
 import { multiple_option_postData } from "../ajax/QuestionPostData.js";
 import { slider_option_postData } from "../ajax/QuestionPostData.js";
-import { preview_alphabetically_sort , preview_default_order_setter , image_reSizer} from "./SlideList.js";
+import { preview_alphabetically_sort , preview_default_order_setter } from "./SlideList.js";
 
 const preview_container_main = document.querySelector(".preview_file_box");
 const is_alphabetic_toggle = document.querySelector('.is_alphabetic_order .Switch-Container .slider-button')
