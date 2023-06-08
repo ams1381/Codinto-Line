@@ -91,7 +91,6 @@ answer_option_view_buttons.forEach((answer_option_view_button,index) => {
         preview_answer_option_hider(answer_option_view_button,index,"MultipleOption");
     })
 })
-
 randomize_options_toggle.addEventListener('click',() => {
     toggle_handler(randomize_options_toggle.parentElement.parentElement.parentElement,randomize_options_toggle,multiple_option_postData);
 })
