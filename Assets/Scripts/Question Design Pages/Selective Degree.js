@@ -2,7 +2,8 @@ import {
     preview_change_handler
     , question_creator
     , toggle_handler
-    , file_upload_handler
+    , file_upload_handler,
+    preview_question_toggle
  } from './CommonActions.js'
 import { question_info_loader } from './QuestionInfoLoader.js';
 import { selective_degree_postData } from '../ajax/QuestionPostData.js';
@@ -19,6 +20,9 @@ const preview_degree_container = document.querySelector('.degree_answer_block-op
 let preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i');
 let preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option')
 const degree_shape_labels = document.querySelectorAll(".shape_selector_options label");
+const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion");
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
+
 let shape_icon_className = 'fa fa-star-o';
 const save_question_btn = document.querySelector('.SideFooter .saveQuestion');
 if(ACTION_TYPE == 'Edit')
@@ -105,3 +109,5 @@ show_number_toggle.addEventListener('click',() => {
 required_toggle.addEventListener('click',() => {
     toggle_handler(required_toggle.parentElement.parentElement.parentElement,required_toggle,selective_degree_postData);
 })
+view_question_button.addEventListener('click',preview_question_toggle);
+back_to_design_button.addEventListener('click',preview_question_toggle)

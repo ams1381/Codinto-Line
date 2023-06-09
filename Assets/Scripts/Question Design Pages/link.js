@@ -3,6 +3,7 @@ import {link_question_PostData, multiple_option_postData} from "../ajax/Question
 import {
     file_upload_handler,
     preview_change_handler,
+    preview_question_toggle,
     question_creator,
     showAlert,
     toggle_handler
@@ -20,11 +21,9 @@ const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .s
 const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button")
 const saveBtn = document.querySelector(".saveQuestion")
 const file_input = document.querySelector("#file.box__file")
-const questionText = document.querySelector(".questionText")
-const questionDescription = document.querySelector(".ansswer__text")
-const wrongAlert = document.querySelector(".wrongEntry")
-const pictureSwitcher = document.querySelector(".picture__switcher")
-const videoSwitcher = document.querySelector(".video__switcher")
+const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
+
 let options = null;
 
 // initial data------------------------------------
@@ -41,21 +40,6 @@ textInput.addEventListener('input',() => {preview_change_handler('Desc-change',l
 
 // add event listener to save button
 saveBtn.addEventListener("click", async function(event) {
-
-
-    // const formData = new FormData();
-    // for (let key in sendFile){
-    //     if(sendFile[key] !== null && sendFile[key] !== undefined){
-    //         formData.append(key, sendFile[key]);
-    //     }
-    // }
-    // // ajax request----------------------------------
-    // postRequest(reqUrl,formData)
-    //     .then((response) => {
-    //          window.open("/Pages/FormDesign.html","_Self");
-    //     }).catch((error) => {
-    //     console.log(error);
-    // })
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
     if(EditableQuestion)
         await question_creator(ACTION_TYPE,EditableQuestion.id,'link-questions',QuestionnaireUUID,link_question_PostData);
@@ -78,3 +62,5 @@ file_input.addEventListener('input',() => {
         link_question_PostData.media = file_input.files[0].name;
     file_upload_handler(selected_file_type,file_input);
 })
+view_question_button.addEventListener('click',preview_question_toggle);
+back_to_design_button.addEventListener('click',preview_question_toggle)

@@ -32,63 +32,45 @@
             </div>
         </div>
         <div class="SideBody">
-            <div class="GTitle active">
-                <div class="TitleSetter ToggleOption">
-                    <div class="Switch-Container">
-                        <p>عنوان</p>
-                        <!--                     <label class="Switch-toggle">-->
-                        <!--                         <input type="checkbox">-->
-                        <!--                         <span class="slider-button"></span>-->
-                        <!--                     </label>-->
-                    </div>
-                </div>
+            <div class="GTitle">
                 <div class="TitleInput active">
                     <div class="TitleInputOptions  GOptions">
                         <label>
-                            <input type="checkbox" name="" id="Textbolder5">
+                            <input type="checkbox" name="" id="Tbolder">
                             <i class="fa fa-bold"></i>
                         </label>
                         <label>
-                            <input type="checkbox" name="" id="TextItalic6">
+                            <input type="checkbox" name="" id="TItalic">
                             <i class="fa fa-italic"></i>
                         </label>
                         <label>
-                            <input type="checkbox" name="" id="TextUnderline8">
+                            <input type="checkbox" name="" id="TUnderline">
                             <i class="fa fa-underline"></i>
                         </label>
                     </div>
                     <div class="TextField">
-                        <textarea class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
+                        <textarea id="title__input" class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
                     </div>
                 </div>
             </div>
             <div class="GDesc">
-                <div class="DescSetter ToggleOption">
-                    <div class="Switch-Container">
-                        <p>توضیحات</p>
-                        <!--                    <label class="Switch-toggle">-->
-                        <!--                        <input type="checkbox">-->
-                        <!--                        <span class="slider-button"</span>-->
-                        <!--                    </label>-->
-                    </div>
-                </div>
-                <div class="DescInput  active">
+                <div class="DescInput active">
                     <div class="TitleInputOptions  GOptions">
                         <label>
-                            <input type="checkbox" name="" id="Textbolder">
+                            <input type="checkbox" name="" id="Tbolder">
                             <i class="fa fa-bold"></i>
                         </label>
                         <label>
-                            <input type="checkbox" name="" id="TextItalic">
+                            <input type="checkbox" name="" id="TItalic">
                             <i class="fa fa-italic"></i>
                         </label>
                         <label>
-                            <input type="checkbox" name="" id="TextUnderline">
+                            <input type="checkbox" name="" id="TUnderline">
                             <i class="fa fa-underline"></i>
                         </label>
                     </div>
                     <div class="TextField">
-                        <textarea class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
+                        <textarea id="desc_input" class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
                         <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
                     </div>
                 </div>
@@ -167,20 +149,6 @@
                     </div>
                 </div>
                 <div class="TitleInput active">
-                    <div class="TitleInputOptions  GOptions">
-                        <label>
-                            <input type="checkbox" name="" id="Textbolder3">
-                            <i class="fa fa-bold"></i>
-                        </label>
-                        <label>
-                            <input type="checkbox" name="" id="TextItalic2">
-                            <i class="fa fa-italic"></i>
-                        </label>
-                        <label>
-                            <input type="checkbox" name="" id="TextUnderline1">
-                            <i class="fa fa-underline"></i>
-                        </label>
-                    </div>
                     <div class="ShapeOptions">
                         <input  type="radio" name="shape" id="sh1">
                         <label class="bg-colored sharp" for="sh1"></label>
@@ -232,32 +200,29 @@
         </div>
     </aside>
     <main class="block__main">
-<!--        <div class="QuestionContainer">-->
-<!--            <div class="QuestionTitle Greeting-Title">-->
-<!--                <p>سلام و عرض ادب خدمت همه ی همراهان کدینتولاین</p>-->
-<!--            </div>-->
-<!--            <div class="description_block">-->
+        <div class="block__main_navbar">
+            <button class="back_to_design_button">
+                <i class="fa fa-angle-right"></i>
+            </button>
+        </div>
+        <div class="QuestionContainer">
+            <div class="Question-Title">
+                <label>2 :</label>
+                <p>کدامیک جزء اقدامات امیرکبیر نیست؟  </p>
 
-<!--            </div>-->
-<!--            <div class="QuestionStart">-->
-<!--                <button class="QuestionStartButton">-->
-<!--                    شروع-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </div>-->
-        <section class="justify__question">
-            <div class="question__row">
-                <span class="question__style">1</span>
-                <span class="question__style">-</span>
-                <span class="question__style questionText">امیرکبیر چند سال عمر کرد؟</span>
+            </div>
+            <div class="description_block">
+                <p>بر اساس کتاب مطالعات اجتماعی</p>
+            </div>
+            <div class="preview_file_box">
+                <img class="preview_image">
+                <video class="preview_video" controls>
+                </video>
             </div>
             <div class="ansswer__row">
                 <span class="ansswer__text">از نوشتن جواب اضافی پرهیز کنید</span>
             </div>
-<!--            <div class="textErea__container">-->
-<!--                <input type="text" class="action__input">-->
-<!--            </div>-->
-        </section>
+        </div>
         <div class="AssistiveButton">
             <div class="AssistiveItems">
                 <button class="AddQuestion">

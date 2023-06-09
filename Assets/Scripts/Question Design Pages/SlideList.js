@@ -6,12 +6,12 @@ import {preview_answer_option_hider
     , preview_option_label_updater
     , question_creator
     , toggle_handler
-    , file_upload_handler
+    , file_upload_handler,
+    preview_question_toggle
  } from './CommonActions.js'
 import { slider_option_postData } from "../ajax/QuestionPostData.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE")
-let Answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
 const randomize_options_toggle = document.querySelector(".is_random_options .Switch-Container .slider-button");
 const show_number_toggle = document.querySelector(".show_number .Switch-Container .slider-button")
 const required_toggle = document.querySelector('.is_required .Switch-Container .slider-button');
@@ -23,7 +23,15 @@ const Title_input = document.getElementById("title__input");
 const Description_input = document.getElementById("desc_input");
 const answer_option_view_buttons = document.querySelectorAll(".answer-option-view");
 const save_question_btn = document.querySelector('.SideFooter .saveQuestion');
+const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion");
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
 
+let Answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
+if(ACTION_TYPE == 'Edit')
+{
+    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+    question_info_loader(EditableQuestion)
+}
 save_question_btn.addEventListener('click',async () => {
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
     await question_creator(ACTION_TYPE,EditableQuestion.id,'dropdown-questions',QuestionnaireUUID,slider_option_postData)
@@ -74,3 +82,5 @@ required_toggle.addEventListener('click',() => {
 Title_input.addEventListener('input',() => {preview_change_handler('Title-change',slider_option_postData)});
 Description_input.addEventListener('input',() => {preview_change_handler('Desc-change',slider_option_postData)});
 
+view_question_button.addEventListener('click',preview_question_toggle);
+back_to_design_button.addEventListener('click',preview_question_toggle)

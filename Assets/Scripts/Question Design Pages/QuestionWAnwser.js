@@ -1,14 +1,10 @@
 
-import { baseUrl, postRequest } from "../ajax/ajaxRequsts.js";
-import {file_upload_handler, question_creator, showAlert, toggle_handler} from "./CommonActions.js";
+import {file_upload_handler, question_creator, toggle_handler , preview_question_toggle} from "./CommonActions.js";
 import { preview_change_handler } from "../Question Design Pages/CommonActions.js";
 import {link_question_PostData, text_question_with_answer_postData} from "../ajax/QuestionPostData.js";
 
-const folder = baseUrl + "/user-api/folders/"
-const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
-const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/textanswer-questions/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
 const selection = document.querySelector("#pattern-select")
@@ -17,16 +13,12 @@ const maxInput = document.querySelector(".maxInput .label-text-input")
 const sampleAnswer = document.querySelector(".SampleAnw .label-text-input")
 const minVmax = document.querySelector(".AnswerAlphabetLimit")
 const sampleAnswerBox = document.querySelector(".SampleAnw")
-const uploadInput = document.querySelector(".box__file")
 const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .slider-button")
 const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button")
 const file_input = document.querySelector("#file.box__file")
 const saveBtn = document.querySelector(".saveQuestion")
-const questionText = document.querySelector(".questionText")
-const questionDescription = document.querySelector(".ansswer__text")
-const wrongAlert = document.querySelector(".wrongEntry")
-const pictureSwitcher = document.querySelector(".picture__switcher")
-const videoSwitcher = document.querySelector(".video__switcher")
+const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
 let options = null;
 if (ACTION_TYPE == 'Edit') {
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
@@ -178,50 +170,11 @@ selection.addEventListener("change", function (event) {
 });
 // add event listener to save button
 saveBtn.addEventListener("click",async function (event) {
-
-    // if (titleInput.value === "" && textInput.value === "") {
-    //     showAlert("عنوان و متن سوال را وارد کنید")
-    // } else if (textInput.value === "") {
-    //     showAlert("متن سوال را وارد کنید")
-    // } else if (titleInput.value === "") {
-    //     showAlert("عنوان سوال را وارد کنید")
-    // }
-    // // upload wrong error
-    // uploadValidation(uploadInput)
-    // let sendFile = {
-    //     question_type: "text_answer",
-    //     title: titleInput.value,
-    //     question_text: textInput.value,
-    //     placement: 12,
-    //     group: "",
-    //     is_required: necessaryQuestion.checked,
-    //     show_number: QuestionNumber.checked,
-    //     media: uploadInput.files[0],
-    //     answer_template: null,
-    //     pattern: options,
-    //     min: minInput.value !== "" ? parseInt(minInput.value) : null,
-    //     max: maxInput.value !== "" ? parseInt(maxInput.value) : null,
-    // };
-    //
-    // const formData = new FormData();
-    // for (let key in sendFile) {
-    //     if (sendFile[key] !== null && sendFile[key] !== undefined) {
-    //         formData.append(key, sendFile[key]);
-    //     }
-    // }
-    // // ajax request----------------------------------
-    // postRequest(reqUrl, formData)
-    //     .then((response) => {
-    //         console.log(response.status);
-    //         window.open("/Pages/FormDesign.html", "_Self");
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     })
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
     if(EditableQuestion)
-        await question_creator(ACTION_TYPE,EditableQuestion.id,'link-questions',QuestionnaireUUID,text_question_with_answer_postData);
+        await question_creator(ACTION_TYPE,EditableQuestion.id,'/textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);
     else
-        await question_creator(ACTION_TYPE,null,'link-questions',QuestionnaireUUID,text_question_with_answer_postData);
+        await question_creator(ACTION_TYPE,null,'/textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);
 })
 necessaryQuestion.addEventListener('click',() => {
     toggle_handler(necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,link_question_PostData);
@@ -239,3 +192,5 @@ file_input.addEventListener('input',() => {
         text_question_with_answer_postData.media = file_input.files[0].name;
     file_upload_handler(selected_file_type,file_input);
 })
+view_question_button.addEventListener('click',preview_question_toggle);
+back_to_design_button.addEventListener('click',preview_question_toggle)

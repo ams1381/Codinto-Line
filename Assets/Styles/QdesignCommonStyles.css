@@ -303,17 +303,18 @@
 }
 .Question-Title , .Greeting-Title
 {
-    height: 50px;
     line-height: 50px;
-    width: 100%;
+    width: calc(14.4em + 17vw);
 }
-.Greeting-Title
+.Greeting .Greeting-Title
 {
     border-radius: 15px 15px 0 0;
     background: var(--brand-color);
+    display: flex;
+    justify-content: center;
     color: white;
     text-align: center;
-    font-size: 15px;
+    font-size: 1rem;
 }
 .Question-Title
 {
@@ -371,17 +372,39 @@
 {
     display: flex;
     justify-content: center;
+    margin-top: 1rem;
 }
 .QuestionStartButton
 {
-    padding: 8px;
-    background: #3F52E3;
-    width: 22%;
-    border: none;
-    color: white;
-    border-radius: 40px;
+    padding: 10px 25px 10px 25px;
+    background: var(--brand-color);
+    transition: 0.3s;
     font-family: 'IRANSANS';
     cursor: pointer;
+}
+.QuestionStartButton.solid 
+{
+    background: var(--brand-color);
+    color: var(--theme-white);
+    border: none;
+}
+.QuestionStartButton.empty 
+{
+    background: var(--theme-white);
+    color: var(--brand-color);
+    border: 2px solid var(--brand-color);
+}
+.QuestionStartButton.oval 
+{
+    border-radius: 40px;
+}
+.QuestionStartButton.round 
+{
+    border-radius: 10px;
+}
+.QuestionStartButton.sharp 
+{
+    border-radius: 0;
 }
 .AnswerPattern
 {
@@ -524,8 +547,6 @@
     text-align: center;
     border-radius: 10px;
     padding: 4px;
-    position: absolute;
-    right: 0.1rem;
 }
 .anw-option-input
 {
@@ -831,6 +852,11 @@ input[type=range]::-webkit-slider-thumb {
     {
        justify-content: center;
     }
+    .block__main.preview_active
+    {
+        width: 100%;
+        display: flex;
+    }  
 }
 @media only  screen and (max-width : 768px)
 {
@@ -937,7 +963,7 @@ input[type=range]::-webkit-slider-thumb {
 .column.dragElem {
     opacity: 0.4;
 }
-.column.over {
-//border: 2px dashed #000;
+.column.over {  
+    border: 2px dashed #000;
     border-top: 2px solid blue;
 }

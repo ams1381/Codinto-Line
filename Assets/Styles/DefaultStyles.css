@@ -67,7 +67,6 @@
     height: 100%;
     overflow-y: scroll;
 }
-
 .block__main {
     width: 70%;
     position : relative;
@@ -82,7 +81,30 @@
 .block__side::-webkit-scrollbar {
     width: 0;
 }
-
+/* .block__side.preview_active 
+{
+    left: 1002%;
+    position: absolute;
+} */
+.block__main .block__main_navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: none;
+}
+.block__main .back_to_design_button {
+    margin: 1rem;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--brand-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.block__main.preview_active .block__main_navbar 
+{
+    display: block;
+}
 .navButton {
     background: none;
     border: none;

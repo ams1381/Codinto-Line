@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
     <link rel="stylesheet" href="../Components/questionBox/rowInput.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
@@ -97,19 +98,6 @@
                     </div>
                 </div>
             </div>
-<!--            <div class="AnswerPattern">-->
-
-<!--                <div class="AnwValidation">-->
-<!--                    <div class="SampleAnw">-->
-<!--                        <label >نمونه پاسخ</label>-->
-<!--                        <input class="label-text-input" type="text" placeholder="021-37773637"/>-->
-<!--                    </div>-->
-<!--                                           <div class="Validator">-->
-<!--                                               <label >پیام اعتبار سنجی</label>-->
-<!--                                               <input class="label-text-input" type="number" placeholder="لطفا یک شماره تلفن معتبر وارد کنید">-->
-<!--                                           </div>-->
-<!--                </div>-->
-<!--            </div>-->
             <div class="Answer-Options">
                 <div class="anw-option-title">
                     گزینه ها
@@ -184,54 +172,69 @@
             <div class="fileUploader">
                 <div class="fileFormat">
                     <input type="radio" name="lang" id="Picture" value="Picture" checked>
-                    <label for="Picture" class="picture__switcher active">عکس</label>
-
+                    <label for="Picture">عکس</label>
+                    
                     <input type="radio" name="lang" id="Video" value="Video">
-                    <label for="Video" class="video__switcher">ویدیو</label>
-
+                    <label for="Video">ویدیو</label>
+    
                 </div>
                 <div class="fileInput">
                     <div class="inputTitle">
                         حداکثر حجم 3 مگابایت
                     </div>
-
                     <div class="inputUploader">
+                     <div class="image_or_video_box">
+                         <div class="cancel_uploaded_file">
+                             <button class="cancel_uploaded_file_button">
+                                 <i class="fa fa-close"></i>
+                             </button>
+                             
+                         </div>
+                         <div class="uploaded_file_info">
+                             <div class="uploaded_file_avatar">
+                                 <img class="uploaded_file_image" alt="">
+                             </div>
+                             <div class="uploaded_file_name">
+                                 <p></p>
+                             </div>
+                         </div>
+                     </div>
                         <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
-                        <label for="file">
+                        <label for="file" class="upload_file_label">
                             <i class="fa fa-upload"></i>
-                        </label>
-                    </div>
+                            </label>
+                      </div>
+                      
                 </div>
-                <span class="upload__link"></span>
             </div>
-            <div class="AnswerNecessity ToggleOption">
+            <div class="is_required ToggleOption">
                 <div class="Switch-Container">
                     <p>پاسخ به سوال اجباری باشد</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"></span>
-                    </label>
+                <label class="Switch-toggle">
+                    <input type="checkbox">
+                    <span class="slider-button"</span>
+                </label>
                 </div>
-
-            </div>
-            <div class="randomize ToggleOption">
+                </div>
+            <div class="is_random_options ToggleOption">
                 <div class="Switch-Container">
-                    <p>تصادفی سازی ترتیب گزینه ها</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"></span>
-                    </label>
+                    <p>تصادفی سازی گزینه ها</p>
+                <label class="Switch-toggle">
+                    <input type="checkbox">
+                    <span class="slider-button"</span>
+                </label>
                 </div>
             </div>
-            <div class="QuestionNumber ToggleOption">
+            <div class="show_number ToggleOption">
                 <div class="Switch-Container">
                     <p>عدم نمایش شماره سوال</p>
-                    <label class="Switch-toggle">
-                        <input type="checkbox">
-                        <span class="slider-button"></span>
-                    </label>
+                <label class="Switch-toggle">
+                    <input type="checkbox">
+                    <span class="slider-button"</span>
+                </label>
                 </div>
             </div>
+            
         </div>
         <div class="SideFooter">
             <a class="saveQuestion">
@@ -243,24 +246,21 @@
         </div>
     </aside>
     <main class="block__main">
-        <!--             <div class="QuestionContainer">-->
-        <!--                <div class="QuestionTitle Greeting-Title">-->
-        <!--                    <p>سلام و عرض ادب خدمت همه ی همراهان کدینتولاین</p>-->
-        <!--                </div>-->
-        <!--                <div class="description_block">-->
-        <!--                   -->
-        <!--                </div>-->
-        <!--                <div class="QuestionStart">-->
-        <!--                   <button class="QuestionStartButton">-->
-        <!--                      شروع-->
-        <!--                   </button>-->
-        <!--                </div>-->
-        <!--             </div>-->
+        <div class="block__main_navbar">
+            <button class="back_to_design_button">
+                <i class="fa fa-angle-right"></i>
+            </button>
+        </div>
         <div class="QuestionContainer">
             <div class="Question-Title">
                 <label>2 :</label>
                 <p>کدامیک جزء اقدامات امیرکبیر نیست؟  </p>
 
+            </div>
+            <div class="preview_file_box">
+                <img class="preview_image">
+                <video class="preview_video" controls>
+                </video>
             </div>
             <div class="description_block">
                 <p>بر اساس کتاب مطالعات اجتماعی</p>

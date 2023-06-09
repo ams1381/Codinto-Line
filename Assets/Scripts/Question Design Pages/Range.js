@@ -1,11 +1,6 @@
-import {baseUrl , postRequest , getRequest} from "../ajax/ajaxRequsts.js";
-import {priority_question_PostData, range_question_postData} from "../ajax/QuestionPostData.js";
+import { range_question_postData} from "../ajax/QuestionPostData.js";
 import {file_upload_handler, preview_change_handler, question_creator, toggle_handler} from "./CommonActions.js";
-// const folder = baseUrl + "/user-api/folders/"
-// const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
-import { showAlert } from "./CommonActions.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
-let reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/integerrange-questions/`;
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const titleInput = document.querySelector(".GTitle .TitleTextInput");
 const textInput = document.querySelector(".GDesc .TitleTextInput");
@@ -73,46 +68,15 @@ function rangeChange(input){
     })
 }
 rangeChange(rangeInput)
-// add event listeners--------------------------------------
-// pictureSwitcher.addEventListener("click" , (e)=>{
-//     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
-//     if(videoSwitcher.classList.contains("active")){
-//         videoSwitcher.classList.remove("active")
-//         pictureSwitcher.classList.add("active")
-//     }
-// })
-// videoSwitcher.addEventListener("click" , (e)=>{
-//     uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
-//     if(pictureSwitcher.classList.contains("active")){
-//         pictureSwitcher.classList.remove("active")
-//         videoSwitcher.classList.add("active")
-//     }
-// })
 uploadInput.addEventListener("change" , (e)=>{
     document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
 })
 saveBtn.addEventListener("click" , async function (event){
-
-
-
-   // const formData = new FormData();
-   // for (let key in sendData){
-   //     if(sendData[key] !== null && sendData[key] !== undefined){
-   //         formData.append(key, sendData[key]);
-   //     }
-   // }
-   //  postRequest(reqUrl,formData)
-   //      .then((response) => {
-   //          console.log(response.data);
-   //          window.open("/Pages/FormDesign.html","_Self");
-   //      }).catch((error) => {
-   //      console.log(error);
-   //  })
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
     if(EditableQuestion)
-        await question_creator(ACTION_TYPE,EditableQuestion.id,'link-questions',QuestionnaireUUID,range_question_postData);
+        await question_creator(ACTION_TYPE,EditableQuestion.id,'integerrange-questions',QuestionnaireUUID,range_question_postData);
     else
-        await question_creator(ACTION_TYPE,null,'link-questions',QuestionnaireUUID,range_question_postData);
+        await question_creator(ACTION_TYPE,null,'integerrange-questions',QuestionnaireUUID,range_question_postData);
 })
 necessaryQuestion.addEventListener('click',() => {
     toggle_handler(necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,range_question_postData);

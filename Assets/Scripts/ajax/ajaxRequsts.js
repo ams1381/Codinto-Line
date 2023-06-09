@@ -1,4 +1,4 @@
-let baseUrl = 'http://codinto-line-flash.web97.ir';
+let baseUrl = 'http://codinto-line.codinguy.ir';
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE2NDg1NTk5LCJqdGkiOiJhNDZlZGMzOTg3MTE0ZDc0OTYzMDI2MWY2MTMxMzZlMSIsInVzZXJfaWQiOjF9.S4jJOFS7nMjhwb5q4fssHslS1H7W--a5ktAOZTikjzI"
 async function getRequest(url){
         return axios.get(url, {
