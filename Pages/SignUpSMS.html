@@ -7,6 +7,7 @@
     <title>ثبت نام -- پیامک</title>
     <link rel="stylesheet" href="/Assets/Styles/DefaultStyles.css">
     <link rel="stylesheet" href="/Assets/Styles/LoginStyle.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <section class="parent__container">
@@ -26,10 +27,14 @@
                         <input type="number" id="sn-4" class="SMS_number_input">
                         <input type="number" id="sn-5" class="SMS_number_input">
                     </div>
-                    <input type="submit" class="Login__btn" value="تایید" />
+                    <input type="submit" id="sms_confirm_button" class="Login__btn" value="تایید" />
                 </form>
             </div>
         </div>
     </section>
+    <div class="wrongEntry">
+        <span class="wrong__text"></span>
+    </div>
+    <script src="../Assets/Scripts/Login&Sign/SmsPage.js" type="module"></script>
 </body>
 </html>

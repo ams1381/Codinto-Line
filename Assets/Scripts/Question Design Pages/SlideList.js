@@ -12,7 +12,6 @@ import {preview_answer_option_hider
 import { slider_option_postData } from "../ajax/QuestionPostData.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE")
-let Answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
 const randomize_options_toggle = document.querySelector(".is_random_options .Switch-Container .slider-button");
 const show_number_toggle = document.querySelector(".show_number .Switch-Container .slider-button")
 const required_toggle = document.querySelector('.is_required .Switch-Container .slider-button');
@@ -37,7 +36,7 @@ save_question_btn.addEventListener('click',async () => {
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
     await question_creator(ACTION_TYPE,EditableQuestion.id,'dropdown-questions',QuestionnaireUUID,slider_option_postData)
 })
-export const preview_alphabetically_sort = () => {
+const preview_alphabetically_sort = () => {
     let preview_select_items =  document.querySelectorAll(".selection__box  .selection__item");
 
     let sorted_select_items = Array.from(preview_select_items).sort((a, b) => a.lastElementChild.textContent.localeCompare(b.lastElementChild.textContent));
@@ -53,7 +52,7 @@ export const preview_alphabetically_sort = () => {
     })
     console.log(slider_option_postData)
 }
-export const preview_default_order_setter = () => {
+const preview_default_order_setter = () => {
    let preview_select_items =  document.querySelectorAll(".selection__box  .selection__item");
 
 //    Array.from(preview_select_items).sort((a, b) => a.id.localeCompare(b.id))
@@ -109,6 +108,8 @@ required_toggle.addEventListener('click',() => {
 })
 is_alphabetic_toggle.addEventListener('click',() => {
     toggle_handler(is_alphabetic_toggle.parentElement.parentElement.parentElement,is_alphabetic_toggle,slider_option_postData);
+    
+    preview_alphabetically_sort();
 })
 Title_input.addEventListener('input',() => {preview_change_handler('Title-change',slider_option_postData)});
 Description_input.addEventListener('input',() => {preview_change_handler('Desc-change',slider_option_postData)});

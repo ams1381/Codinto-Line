@@ -1,7 +1,6 @@
 import { baseUrl , postRequest , patchRequest} from "../ajax/ajaxRequsts.js";
 import { multiple_option_postData } from "../ajax/QuestionPostData.js";
 import { slider_option_postData } from "../ajax/QuestionPostData.js";
-import { preview_alphabetically_sort , preview_default_order_setter } from "./SlideList.js";
 
 const block_main = document.querySelector('.block__main');
 const block_side = document.querySelector('.block__side');
@@ -33,7 +32,8 @@ const file_input_container = document.querySelector(".inputUploader");
 export const  showAlert = (text) => 
 {
     wrongAlert.style.opacity = "1";
-    document.querySelector('.block__side').scrollTo(0,0)
+    if(document.querySelector('.block__side'))
+       document.querySelector('.block__side').scrollTo(0,0)
     window.scrollTo(0,0)
     let spanInput =  wrongAlert.childNodes[1]
     spanInput.innerText = `${text}`
@@ -285,10 +285,6 @@ export const toggle_handler = (toggle_element,toggle_button,PostData) => {
             case 'is_random_options':
                 is_alphabetic_toggle.previousElementSibling.checked = false;
                 break;
-            case 'is_alphabetic_order':
-                randomize_options_toggle.previousElementSibling.checked = false;
-                preview_alphabetically_sort();
-                break;
         }   
     }
     else 
@@ -311,9 +307,6 @@ export const toggle_handler = (toggle_element,toggle_button,PostData) => {
                 break;
             case 'show_number': 
                 $(question_preview_number).show(100);
-                break;
-            case 'is_alphabetic_order':
-                preview_default_order_setter();
                 break;
         }
         PostData[`${toggle_element.classList[0]}`] = false;
