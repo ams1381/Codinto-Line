@@ -3,6 +3,9 @@ import { multiple_option_postData } from "../ajax/QuestionPostData.js";
 import { slider_option_postData } from "../ajax/QuestionPostData.js";
 import { preview_alphabetically_sort , preview_default_order_setter } from "./SlideList.js";
 
+const block_main = document.querySelector('.block__main');
+const block_side = document.querySelector('.block__side');
+
 const preview_container_main = document.querySelector(".preview_file_box");
 const is_alphabetic_toggle = document.querySelector('.is_alphabetic_order .Switch-Container .slider-button')
 const randomize_options_toggle = document.querySelector(".is_random_options .Switch-Container .slider-button");
@@ -38,6 +41,50 @@ export const  showAlert = (text) =>
     {
         wrongAlert.style.opacity = "0";
     }, 3000);
+}
+export const text_style_setter = (Style,preview_text,input) => {
+    console.log([...input.classList].includes("bold"))
+    switch(Style)
+    {
+        case 'fa fa-bold':
+            input.classList.toggle('bold')
+            if(![...input.classList].includes('bold'))
+                preview_text.classList.remove('bold')
+            else   
+                preview_text.classList.add('bold')
+            break;
+        case 'fa fa-italic':
+            input.classList.toggle('italic')
+            if(![...input.classList].includes('italic'))
+                preview_text.classList.remove('italic')
+            else   
+                preview_text.classList.add('italic')
+            break;
+        case 'fa fa-underline':
+            input.classList.toggle('underline')
+            if(![...input.classList].includes('underline'))
+                preview_text.classList.remove('underline')
+            else   
+                preview_text.classList.add('underline')
+            break;
+    }
+}
+export const preview_question_toggle = () => {
+    if(block_main.classList.contains('preview_active'))
+    {
+        block_main.classList.remove('preview_active');
+        block_side.classList.remove('preview_active');
+        $(block_main).hide(80);
+        $(block_side).show(120);
+    }
+    else
+    {
+        block_main.classList.add('preview_active');
+        block_side.classList.add('preview_active');
+        $(block_main).show(80);
+        $(block_side).hide(120);
+    }
+    
 }
 export const preview_answer_option_remover = (Option_Type) => {
     let preview_answer_options;

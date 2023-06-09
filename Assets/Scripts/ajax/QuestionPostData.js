@@ -65,6 +65,20 @@ export let text_question_with_answer_postData  = {
     min : 0,
     max : null,
 };
+export let text_question_with_out_answer_postData = {
+    title : null,
+    question_text : null,
+    placement: 12,
+    question_type : "text_answer",
+    group: null,
+    show_number : false,
+    media : null,
+    is_required : false,
+    show_number : false,
+    button_text : null,
+    button_shape : 'round',
+    is_solid_button : true,
+}
 export let welcome_page_postData = {
     title : null,
     description : null,

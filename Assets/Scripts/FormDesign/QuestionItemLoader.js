@@ -85,6 +85,9 @@ export const QuestionDesignOpener = (QuestionType) =>
         case 'group':
             window.open("/Pages/groupQuestion.html","_Self");
             break;
+        case 'Sort':
+            window.open("/Pages/Priority.html","_Self");
+            break;
         case 'thank-page':
             window.open("/Pages/thanks.html","_Self");
             break;

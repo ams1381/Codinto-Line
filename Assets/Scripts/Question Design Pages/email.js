@@ -5,7 +5,8 @@ import {
     preview_change_handler,
     file_upload_handler,
     toggle_handler,
-    question_creator
+    question_creator,
+    preview_question_toggle
 } from "./CommonActions.js";
 import {email_question_PostData, link_question_PostData, multiple_option_postData} from "../ajax/QuestionPostData.js";
 // const folder = baseUrl + "/user-api/folders/"
@@ -26,6 +27,9 @@ const wrongAlert = document.querySelector(".wrongEntry")
 const pictureSwitcher = document.querySelector(".picture__switcher")
 const videoSwitcher = document.querySelector(".video__switcher")
 const guidance = document.querySelector(".SampleAnw input")
+const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
+
 console.log(guidance)
 let options = null;
 // if(ACTION_TYPE == 'Edit')
@@ -44,24 +48,7 @@ options =  "free"
 
 titleInput.addEventListener('input',() => {preview_change_handler('Title-change',email_question_PostData)})
 textInput.addEventListener('input',() => {preview_change_handler('Desc-change',email_question_PostData)})
-function textStyle(input){
-    const textEditor = document.querySelector(".TitleInputOptions")
-    textEditor.addEventListener("click" , (e)=>{
-        switch (e.target.classList[1]){
-            case "fa-bold":
-                input.classList.toggle("bold")
-                break;
-            case "fa-italic":
-                input.classList.toggle("italic")
-                break;
-            case "fa-underline":
-                input.classList.toggle("underline")
-                break;
-        }
-    })
-}
-textStyle(titleInput)
-// function uploadValidation(input){
+
 //     if(uploadInput.files[0] !== undefined){
 //         let uploadUrl = uploadInput.files[0].name.split(".")
 //         console.log(uploadInput.files[0].size)
@@ -125,41 +112,6 @@ textStyle(titleInput)
 
 // add event listener to save button
 saveBtn.addEventListener("click", async function(event) {
-
-    // if(titleInput.value === "" && textInput.value === ""){
-    //     showAlert("عنوان و متن سوال را وارد کنید")
-    // }else if(textInput.value === ""){
-    //     showAlert("متن سوال را وارد کنید")
-    // }else if(titleInput.value === ""){
-    //     showAlert("عنوان سوال را وارد کنید")
-    // }
-    // upload wrong error
-    // uploadValidation(uploadInput)
-    // let sendFile  = {
-    //     question_type : "Email",
-    //     title: titleInput.value,
-    //     question_text: textInput.value,
-    //     placement: 2,
-    //     group: "",
-    //     is_required: necessaryQuestion.checked,
-    //     show_number: QuestionNumber.checked,
-    //     media: uploadInput.files[0],
-    // };
-
-    // const formData = new FormData();
-    // for (let key in sendFile){
-    //     if(sendFile[key] !== null && sendFile[key] !== undefined){
-    //         formData.append(key, sendFile[key]);
-    //     }
-    // }
-    // ajax request----------------------------------
-    // postRequest(reqUrl,formData)
-    //     .then((response) => {
-    //         console.log(response.status);
-    //         window.open("/Pages/FormDesign.html","_Self");
-    //     }).catch((error) => {
-    //     console.log(error);
-    // })
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
     if(EditableQuestion)
         await question_creator(ACTION_TYPE,EditableQuestion.id,'email-questions',QuestionnaireUUID,email_question_PostData);
@@ -183,3 +135,5 @@ file_input.addEventListener('input',() => {
     file_upload_handler(selected_file_type,file_input);
 })
 
+view_question_button.addEventListener('click',preview_question_toggle);
+back_to_design_button.addEventListener('click',preview_question_toggle)
