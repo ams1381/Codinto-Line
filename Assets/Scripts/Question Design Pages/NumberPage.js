@@ -35,7 +35,7 @@ uploadInput.addEventListener("change" , (e)=>{
 })
 saveBtn.addEventListener("click", async function (event) {
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-    if(EditableQuestion)
+    if(EditableQuestion && ACTION_TYPE == 'Edit')
         await question_creator(ACTION_TYPE,EditableQuestion.id,'numberanswer-questions',QuestionnaireUUID,number_question_postData);
     else
         await question_creator(ACTION_TYPE,null,'numberanswer-questions',QuestionnaireUUID,number_question_postData);

@@ -23,7 +23,7 @@ const QuestionnaireReloader = async () => {
     let FoldersRes = await getRequest(folderUrl);
     let SelectedForm = document.querySelector(".Selected.Folder");
     let ResDataArray = FoldersRes.data;
-      if(ResDataArray.length != 0)
+      if(ResDataArray && ResDataArray.length)
       {
         ResDataArray.forEach((item) => {
             if(item.id == SelectedForm.getAttribute("id"))
@@ -41,9 +41,10 @@ const QuestionnaireSearchHandler = async (e) => {
         {
             let searchRes = await getRequest(searchReq + e.target.value);
             QuestionnaireCleaner();
-            searchRes.data.forEach((SearchResultItem) => {  
-                questionnaire_generator(SearchResultItem)
-            })   
+            if(searchRes)
+                searchRes.forEach((SearchResultItem) => {  
+                    questionnaire_generator(SearchResultItem)
+                })   
         }
         catch(err)
         {

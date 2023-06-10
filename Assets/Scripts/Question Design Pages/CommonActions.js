@@ -404,10 +404,13 @@ const file_format_checked = (FileType,FormatToCheck) => {
         }
 }
 export const question_creator =  async (ACTION_TYPE,QuestionID,QuestionPostType,QuestionnaireUUID,DataForPost) => {
-    if(!DataForPost.title || !DataForPost.question_text)
-        showAlert('عنوان و متن سوال را وارد کنید.')
-    else
+    // console.log(ACTION_TYPE,QuestionID,QuestionPostType,QuestionnaireUUID,DataForPost)
+    // console.log(ACTION_TYPE)
+    if(!DataForPost.title && !DataForPost.question_text)
     {
+        showAlert('عنوان و متن سوال را وارد کنید.')
+        return
+    }
         let createRes;
         switch(ACTION_TYPE)
         {
@@ -418,11 +421,9 @@ export const question_creator =  async (ACTION_TYPE,QuestionID,QuestionPostType,
                 createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}`,DataForPost);
                 break;
         }
-       
-        if(createRes.status == 201 || createRes.status == 200)
-         {
-             window.open("/Pages/FormDesign.html","_Self");
-         }
-    }
-    
+        console.log(createRes)
+        // if((createRes.status == 201 || createRes.status == 200))
+        //  {
+        //      window.open("/Pages/FormDesign.html","_Self");
+        //  }
 }

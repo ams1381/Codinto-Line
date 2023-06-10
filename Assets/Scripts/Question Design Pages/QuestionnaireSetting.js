@@ -31,7 +31,6 @@ const Form_Date_Updater = () => {
         ,
         parseInt(currentDateString.split("/")[1])
         );
-    console.log(currentDate);
     let YearInputs = document.querySelectorAll(".YearPicker input");
     let MonthInputs = document.querySelectorAll(".MonthPicker input");
     let DayInputs = document.querySelectorAll(".DayPicker input");
@@ -108,6 +107,7 @@ const Form_Date_Month_Updater = (currentDate) =>
 }
 const create_questionnaire = async (e) => {
     e.preventDefault();
+    console.log('test')
     if (Questionnaire_PostData.pub_date !== null)
     {
         let publish_date = Questionnaire_PostData.pub_date;
@@ -124,7 +124,7 @@ const create_questionnaire = async (e) => {
     {
         let create_questionnaire_res =  await postRequest(baseUrl + '/question-api/questionnaires/',Questionnaire_PostData);
         window.open("/Pages/FormDesign.html","_self");
-        localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
+        localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res));
     }
     catch(err)
     {

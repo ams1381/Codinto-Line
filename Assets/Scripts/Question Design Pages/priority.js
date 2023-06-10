@@ -120,10 +120,10 @@ textStyle(titleInput)
 // add event listener to save button
 saveBtn.addEventListener("click", async function (event) {
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-    if(EditableQuestion)
-        await question_creator(ACTION_TYPE,EditableQuestion.id,'link-questions',QuestionnaireUUID,priority_question_PostData);
+    if(EditableQuestion && ACTION_TYPE == 'Edit')
+        await question_creator(ACTION_TYPE,EditableQuestion.id,'sort-questions',QuestionnaireUUID,priority_question_PostData);
     else
-        await question_creator(ACTION_TYPE,null,'link-questions',QuestionnaireUUID,priority_question_PostData);
+        await question_creator(ACTION_TYPE,null,'sort-questions',QuestionnaireUUID,priority_question_PostData);
 })
 necessaryQuestion.addEventListener('click',() => {
     toggle_handler(necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,priority_question_PostData);

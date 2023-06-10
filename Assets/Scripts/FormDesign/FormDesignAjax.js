@@ -27,48 +27,52 @@ export const QuestionItemCleaner = () => {
     })
 }
 const QuestionItemSetter = async () => {
+    console.log( SelectedQuestionnaire.uuid)
         let QuestionsResponse = await getRequest(getQuestionsUrl + SelectedQuestionnaire.uuid + '/');
+        if(QuestionsResponse)
+        {
+            if(QuestionsResponse.welcome_page)
+            {
+                let WelcomePage = QuestionsResponse.welcome_page;
+                WelcomePage.question_type = 'welcome-page';
+                QuestionItemGenerator(WelcomePage,WelcomePage.id);
+            }
+             if(QuestionsResponse.thanks_page)
+             {
+                let ThankPage = QuestionsResponse.thanks_page;
+                ThankPage.question_type = 'thank-page'
+                QuestionItemGenerator(ThankPage,ThankPage.id);
+                
+             }
+            if(QuestionsResponse.questions.length !== 0)
+            {
+                QuestionsResponse.questions.forEach((Question,index) => {
+                    QuestionItemGenerator(Question.question,index);
+    
+                })
+            }
+            else if(QuestionsResponse.questions.length === 0 && !QuestionsResponse.welcome_page &&
+                !QuestionsResponse.thanks_page
+                )
+            {
+                QuestionsBoxContainer.classList.remove("nested")
+                QuestionsBoxContainer.classList.add('emptyActive')
+                let emptyListContainer = document.createElement('div');
+                emptyListContainer.classList.add('emptyListContainer');
+    
+                let emptyListIcon = document.createElement('i');
+                emptyListIcon.className = "fa fa-folder";
+                emptyListIcon.classList.add('emptyListIcon')
+    
+                QuestionsBoxContainer.append(emptyListIcon)
+                let emptyListMessage = document.createElement('p');
+                emptyListMessage.textContent = 'سوالی جهت نمایش وجود ندارد';
+                emptyListContainer.append(emptyListMessage)
+    
+                QuestionsBoxContainer.append(emptyListContainer);
+            }
+        }
         
-        if(QuestionsResponse.data.welcome_page)
-        {
-            let WelcomePage = QuestionsResponse.data.welcome_page;
-            WelcomePage.question_type = 'welcome-page';
-            QuestionItemGenerator(WelcomePage,WelcomePage.id);
-        }
-         if(QuestionsResponse.data.thanks_page)
-         {
-            let ThankPage = QuestionsResponse.data.thanks_page;
-            ThankPage.question_type = 'thank-page'
-            QuestionItemGenerator(ThankPage,ThankPage.id);
-            
-         }
-        if(QuestionsResponse.data.questions.length !== 0)
-        {
-            QuestionsResponse.data.questions.forEach((Question,index) => {
-                QuestionItemGenerator(Question.question,index);
-
-            })
-        }
-        else if(QuestionsResponse.data.questions.length === 0 && !QuestionsResponse.data.welcome_page &&
-            !QuestionsResponse.data.thanks_page
-            )
-        {
-            QuestionsBoxContainer.classList.remove("nested")
-            QuestionsBoxContainer.classList.add('emptyActive')
-            let emptyListContainer = document.createElement('div');
-            emptyListContainer.classList.add('emptyListContainer');
-
-            let emptyListIcon = document.createElement('i');
-            emptyListIcon.className = "fa fa-folder";
-            emptyListIcon.classList.add('emptyListIcon')
-
-            QuestionsBoxContainer.append(emptyListIcon)
-            let emptyListMessage = document.createElement('p');
-            emptyListMessage.textContent = 'سوالی جهت نمایش وجود ندارد';
-            emptyListContainer.append(emptyListMessage)
-
-            QuestionsBoxContainer.append(emptyListContainer);
-        }
         let loading = document.getElementById('loading-animation');
         loading.classList.add('hide');
 }

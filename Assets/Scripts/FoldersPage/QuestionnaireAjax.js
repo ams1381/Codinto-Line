@@ -51,7 +51,7 @@ const questionnaire_remove_handler = async (questionnaireUUID,questionnaireID) =
     let delRes = await deleteRequest(DeleteUrl + questionnaireUUID + '/');
 
     let deleted_questionnaire = document.getElementById(`Questionnaire${questionnaireID}`);
-    if(delRes.status === 204)
+    if(delRes == 204)
     {
         $(deleted_questionnaire).hide(200,() => {
             deleted_questionnaire.remove();

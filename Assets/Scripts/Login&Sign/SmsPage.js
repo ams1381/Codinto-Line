@@ -1,4 +1,4 @@
-import { postRequest , baseUrl } from '../ajax/ajaxRequsts.js';
+import { postRequest , baseUrl , TokenInitializer} from '../ajax/ajaxRequsts.js';
 import { showAlert } from '../Question Design Pages/CommonActions.js'
 
 const login_sms_confirm_button = document.getElementById('sms_confirm_button');
@@ -13,10 +13,10 @@ const sent_sms_handler = async (e) => {
     sms_code = sms_code.split('').reverse().join('');
     try
     {
-        let smsrES =await postRequest(baseUrl + '/user-api/auth/verify-otp/',{ 'token' : sms_code })
-        
-     //   window.open("/Pages/Folders.html","_Self");
-        console.log(smsrES)
+        let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/',{ 'token' : sms_code })
+        console.log(accessToken)
+        // TokenInitializer(accessToken)
+        // window.open("/Pages/Folders.html","_Self");
     }
     catch(err)
     {

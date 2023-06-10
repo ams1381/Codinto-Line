@@ -67,9 +67,10 @@ export const folder_generator = (folderName, id , Questionnaires) => {
                 if(!item.classList.contains("AddForm"))
                     item.remove();
             })
-        Questionnaires.forEach((Questionnaire) => {
-            questionnaire_generator(Questionnaire)
-        })  
+        if(Questionnaires)
+            Questionnaires.forEach((Questionnaire) => {
+                questionnaire_generator(Questionnaire)
+            })  
     }
 
     rename_folder_button = document.querySelectorAll('.FolderEdit');

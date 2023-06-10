@@ -171,7 +171,7 @@ selection.addEventListener("change", function (event) {
 // add event listener to save button
 saveBtn.addEventListener("click",async function (event) {
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-    if(EditableQuestion)
+    if(EditableQuestion && ACTION_TYPE == 'Edit')
         await question_creator(ACTION_TYPE,EditableQuestion.id,'/textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);
     else
         await question_creator(ACTION_TYPE,null,'/textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);

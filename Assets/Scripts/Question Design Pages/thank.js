@@ -145,10 +145,10 @@ saveBtn.addEventListener("click", async function (event) {
     //     console.log(error);
     // })
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-    if(EditableQuestion)
-        await question_creator(ACTION_TYPE,EditableQuestion.id,'link-questions',QuestionnaireUUID,thank_page_postData);
+    if(EditableQuestion && ACTION_TYPE == 'Edit')
+        await question_creator(ACTION_TYPE,EditableQuestion.id,'thanks-pages',QuestionnaireUUID,thank_page_postData);
     else
-        await question_creator(ACTION_TYPE,null,'link-questions',QuestionnaireUUID,thank_page_postData);
+        await question_creator(ACTION_TYPE,null,'thanks-pages',QuestionnaireUUID,thank_page_postData);
 })
 necessaryQuestion.addEventListener('click',() => {
     toggle_handler(necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,thank_page_postData);

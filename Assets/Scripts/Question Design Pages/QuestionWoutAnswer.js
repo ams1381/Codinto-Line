@@ -51,7 +51,7 @@ button_shape_items.forEach((button_shape_item)=>{
 saveBtn.addEventListener("click" , async function (event){
 
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-    if(EditableQuestion)
+    if(EditableQuestion && ACTION_TYPE == 'Edit')
         await question_creator(ACTION_TYPE,EditableQuestion.id,'noanswer-questions',QuestionnaireUUID,text_question_with_out_answer_postData);
     else
         await question_creator(ACTION_TYPE,null,'noanswer-questions',QuestionnaireUUID,text_question_with_out_answer_postData);

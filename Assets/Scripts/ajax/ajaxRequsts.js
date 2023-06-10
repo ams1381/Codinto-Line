@@ -1,7 +1,8 @@
+import { showAlert } from "../Question Design Pages/CommonActions.js";
 let baseUrl = 'http://codinto-line.codinguy.ir';
-let token;
+let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE2NDg1NTk5LCJqdGkiOiJhNDZlZGMzOTg3MTE0ZDc0OTYzMDI2MWY2MTMxMzZlMSIsInVzZXJfaWQiOjF9.S4jJOFS7nMjhwb5q4fssHslS1H7W--a5ktAOZTikjzI"
 // 
-function TokenInitializer(InitToken) {
+const TokenInitializer = (InitToken) => {
     token = InitToken
 }
 const getRequest = async (url) => {
@@ -17,9 +18,8 @@ const getRequest = async (url) => {
     {
        await errorHandler(error.response.status,error,url)
     }
-  };
-  
-  const patchRequest = async (url, patchData) => {
+};
+const patchRequest = async (url, patchData) => {
     try {
       const response = await axios.patch(url, patchData, {
         headers: {
@@ -31,11 +31,11 @@ const getRequest = async (url) => {
     } 
     catch (error) 
     {
-       await errorHandler(error.response.status,error)
+       await errorHandler(error.response,error.status,error,url)
     }
   };
   
-  const postRequest = async (url, postData) => {
+const postRequest = async (url, postData) => {
     try {
       const response = await axios.post(url, postData, {
         headers: {
@@ -47,17 +47,18 @@ const getRequest = async (url) => {
     } 
     catch (error) 
     {
-       await errorHandler(error.response.status,error,url)
+       await errorHandler(error.response,error.status,error,url)
     }
   };
   
-  const deleteRequest = async (url) => {
+const deleteRequest = async (url) => {
     try {
       const response = await axios.delete(url, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
+      return response.status;
     }
     catch (error) 
     {
@@ -75,7 +76,7 @@ async function renewToken() {
       return error;
     }
   }
-export  { getRequest ,  patchRequest ,  postRequest ,  deleteRequest , baseUrl , renewToken , TokenInitializer}
+
 async function errorHandler(errorCode,error,url)
 {
     switch(errorCode)
@@ -115,9 +116,9 @@ async function er401handler(error,url)
 }
 function er404handler(error) 
 {
-   
-      
+    showAlert("یافت نشد")
 }
+export  { getRequest ,  patchRequest ,  postRequest ,  deleteRequest , baseUrl , renewToken , TokenInitializer}
 // async function getRequest(url){
 //         return axios.get(url, {
 //             headers: {

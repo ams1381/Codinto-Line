@@ -58,7 +58,7 @@ const DeleteQuestionItemHandler = async (QuestionInfo) => {
             deleteQuestionRes = await deleteRequest(delQuestionUrl + `${QuestionInfo.question_type}-questions/` + QuestionInfo.question_id + '/');
             break;
     }
-    if(deleteQuestionRes.status == 204)
+    if(deleteQuestionRes == 204)
         {
             $(deleteQuestionHTMLItem).hide(100);
             deleteQuestionHTMLItem.remove();

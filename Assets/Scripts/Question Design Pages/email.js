@@ -113,7 +113,7 @@ textInput.addEventListener('input',() => {preview_change_handler('Desc-change',e
 // add event listener to save button
 saveBtn.addEventListener("click", async function(event) {
     let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-    if(EditableQuestion)
+    if(EditableQuestion && ACTION_TYPE == 'Edit')
         await question_creator(ACTION_TYPE,EditableQuestion.id,'email-questions',QuestionnaireUUID,email_question_PostData);
     else
         await question_creator(ACTION_TYPE,null,'email-questions',QuestionnaireUUID,email_question_PostData);

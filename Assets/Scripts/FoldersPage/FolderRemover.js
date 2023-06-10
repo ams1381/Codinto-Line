@@ -5,7 +5,7 @@ import { folderLoader } from './FoldersGetter.js';
 export const folder_remove_handler = async (FolderItemId , deletedFolderItem) => {
     let delUrl = folderUrl + FolderItemId + '/'
     let delRes = await deleteRequest(delUrl)
-    if(delRes.status === 204)
+    if(delRes == 204)
     {
         $(deletedFolderItem).hide('200',() => {
             $(deletedFolderItem).remove();
