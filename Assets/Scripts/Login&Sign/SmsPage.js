@@ -14,13 +14,24 @@ const sent_sms_handler = async (e) => {
     try
     {
         let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/',{ 'token' : sms_code })
-        console.log(accessToken)
-        // TokenInitializer(accessToken)
-        // window.open("/Pages/Folders.html","_Self");
+        TokenInitializer(accessToken)
+        window.open("/Pages/Folders.html","_Self");
     }
     catch(err)
     {
         showAlert('کد وارد شده نا معتبر است')
     }
 }
+sms_inputs.forEach((sms_input,index) => 
+{
+    sms_input.addEventListener("input", function() {
+        this.value = this.value.replace(/\D/g, "");
+
+        if (this.value.length > 1) {
+          this.value = this.value.slice(0,1);
+        }
+        if(sms_inputs[index - 1])
+            sms_inputs[index - 1].focus();
+      });
+})
 login_sms_confirm_button.addEventListener('click',sent_sms_handler)

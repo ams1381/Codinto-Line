@@ -99,7 +99,7 @@ const folder_creator_handler = async () => {
 
     create_folder_popup.classList.remove("active");
     nav_mask.classList.remove("active");
-    await postRequest(folderUrl,{'name' : create_folder_name_input.value});
+    await postRequest(folderUrl,{name : create_folder_name_input.value});
     if(!folder_items[folder_items.length - 1])
         folder_generator(create_folder_name_input.value,1)
     else

@@ -94,6 +94,7 @@ body{
     border: 1px solid var(--brand-color);
     height: 70px;
     border-radius: 10px;
+    pointer-events: none;
 }
 .uploadIcon{
     font-size: 40px !important;

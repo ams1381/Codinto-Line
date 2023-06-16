@@ -1,6 +1,5 @@
 import { deleteRequest } from "../ajax/ajaxRequsts.js";
-import { delQuestionUrl } from "./FormDesignAjax.js";
-import QuestionItemSetter from "./FormDesignAjax.js"
+import { delQuestionUrl , QuestionItemSetter } from "./FormDesignAjax.js";
 import { QuestionItemCleaner } from "./FormDesignAjax.js";
 import { folder_mask_close_panel } from "./FormDesignAjax.js";
 const remove_folder_popup = document.querySelector(".removeFolderPopUp");

@@ -13,8 +13,8 @@ export let multiple_option_postData = {
     nothing_selected : false,
     is_vertical : false,
     options : [
-        { text : 'گزینه 1' },
-        { text : 'گزینه 2'}
+        { 'text' : 'abc' },
+        { 'text' : 'abd'}
     ]
 }
 export let slider_option_postData = {
@@ -31,8 +31,8 @@ export let slider_option_postData = {
     nothing_selected : false,
     is_vertical : false,
     options : [
-        { text : 'گزینه 1' },
-        { text : 'گزینه 2'}
+        { 'text' : 'abc' },
+        { 'text' : 'abd'}
     ]
 }
 export let range_question_postData = {
@@ -89,10 +89,10 @@ export let welcome_page_postData = {
 }
 export let thank_page_postData  = {
     title : null,
-    question_text : null,
+    description : null,
     placement: 3,
     group: "",
-    share_link: null,
+    share_link: false,
     instagram: false,
     telegram: false,
     whatsapp: false,
@@ -126,7 +126,7 @@ export let selective_degree_postData  = {
 };
 export let group_question_postData = {
         title : null,
-        description : null,
+        question_text : null,
         media : null,
         button_text : null,
         button_shape : 'round',
@@ -168,17 +168,14 @@ export let priority_question_PostData = {
     pattern: 'free',
 }
 export let email_question_PostData = {
-    question_type : "Email",
     title: null,
     question_text: null,
     placement: 2,
-    group: "",
     is_required: false,
     show_number: false,
     media: null
 }
 export let link_question_PostData = {
-        question_type : "Link question",
         title: null,
         question_text: null,
         placement: 12,
@@ -186,11 +183,8 @@ export let link_question_PostData = {
         is_required: false,
         show_number: false,
         media: null,
-        answer_template: null,
-        pattern: 'free',
 }
 export let file_question_PostData = {
-        question_type : "File",
         title: null,
         question_text: null,
         placement: 3,

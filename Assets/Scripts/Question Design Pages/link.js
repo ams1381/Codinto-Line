@@ -1,5 +1,5 @@
-import {baseUrl, getRequest, postRequest} from "../ajax/ajaxRequsts.js";
-import {link_question_PostData, multiple_option_postData} from "../ajax/QuestionPostData.js";
+import {question_info_loader} from './QuestionInfoLoader.js'
+import {link_question_PostData} from "../ajax/QuestionPostData.js";
 import {
     file_upload_handler,
     preview_change_handler,
@@ -8,10 +8,8 @@ import {
     showAlert,
     toggle_handler
 } from "./CommonActions.js";
-const folder = baseUrl + "/user-api/folders/"
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
-const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
-const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/link-questions/`
+let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const textInput = document.querySelector(".GDesc .TitleTextInput")
@@ -29,28 +27,31 @@ let options = null;
 // initial data------------------------------------
 if(ACTION_TYPE == 'Edit')
 {
-    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+     
     question_info_loader(EditableQuestion)
 }
 options =  "free"
 sampleAnswer.value = null;
 
-titleInput.addEventListener('input',() => {preview_change_handler('Title-change',link_question_PostData)})
-textInput.addEventListener('input',() => {preview_change_handler('Desc-change',link_question_PostData)})
+ 
+titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',link_question_PostData)})
+textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',link_question_PostData)})
 
 // add event listener to save button
 saveBtn.addEventListener("click", async function(event) {
-    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+     
     if(EditableQuestion && ACTION_TYPE == 'Edit')
-        await question_creator(ACTION_TYPE,EditableQuestion.id,'link-questions',QuestionnaireUUID,link_question_PostData);
+        await question_creator(ACTION_TYPE,EditableQuestion,'link-questions',QuestionnaireUUID,link_question_PostData);
     else
         await question_creator(ACTION_TYPE,null,'link-questions',QuestionnaireUUID,link_question_PostData);
 })
 necessaryQuestion.addEventListener('click',() => {
-    toggle_handler(necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,link_question_PostData);
+  
+toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,link_question_PostData);
 })
 QuestionNumber.addEventListener('click',() => {
-    toggle_handler(QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,link_question_PostData);
+  
+toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,link_question_PostData);
 })
 file_input.addEventListener('input',() => {
     let selected_file_type;
@@ -59,8 +60,9 @@ file_input.addEventListener('input',() => {
             selected_file_type = item.getAttribute("id")
     })
     if(file_input.files)
-        link_question_PostData.media = file_input.files[0].name;
-    file_upload_handler(selected_file_type,file_input);
+ 
+        link_question_PostData.media = file_input.files[0];
+    file_upload_handler(selected_file_type,file_input,EditableQuestion,link_question_PostData);
 })
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)

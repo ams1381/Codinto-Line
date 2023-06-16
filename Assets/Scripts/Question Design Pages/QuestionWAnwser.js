@@ -2,9 +2,10 @@
 import {file_upload_handler, question_creator, toggle_handler , preview_question_toggle} from "./CommonActions.js";
 import { preview_change_handler } from "../Question Design Pages/CommonActions.js";
 import {link_question_PostData, text_question_with_answer_postData} from "../ajax/QuestionPostData.js";
-
+import {question_info_loader} from './QuestionInfoLoader.js'
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
 const selection = document.querySelector("#pattern-select")
@@ -21,13 +22,14 @@ const view_question_button = document.querySelector(".SideHeaderBody .viewQuesti
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
 let options = null;
 if (ACTION_TYPE == 'Edit') {
-    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+     
     question_info_loader(EditableQuestion)
 }
 // initial data------------------------------------
 options = "free"
 sampleAnswer.value = null;
 
+ 
 titleInput.addEventListener('input', () => { preview_change_handler('Title-change', text_question_with_answer_postData) })
 textInput.addEventListener('input', () => { preview_change_handler('Desc-change', text_question_with_answer_postData) })
 function textStyle(input) {
@@ -170,17 +172,19 @@ selection.addEventListener("change", function (event) {
 });
 // add event listener to save button
 saveBtn.addEventListener("click",async function (event) {
-    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+     
     if(EditableQuestion && ACTION_TYPE == 'Edit')
-        await question_creator(ACTION_TYPE,EditableQuestion.id,'/textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);
+        await question_creator(ACTION_TYPE,EditableQuestion,'/textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);
     else
         await question_creator(ACTION_TYPE,null,'/textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);
 })
 necessaryQuestion.addEventListener('click',() => {
-    toggle_handler(necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,link_question_PostData);
+  
+toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,link_question_PostData);
 })
 QuestionNumber.addEventListener('click',() => {
-    toggle_handler(QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,text_question_with_answer_postData);
+  
+toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,text_question_with_answer_postData);
 })
 file_input.addEventListener('input',() => {
     let selected_file_type;
@@ -189,8 +193,9 @@ file_input.addEventListener('input',() => {
             selected_file_type = item.getAttribute("id")
     })
     if(file_input.files)
-        text_question_with_answer_postData.media = file_input.files[0].name;
-    file_upload_handler(selected_file_type,file_input);
+ 
+        text_question_with_answer_postData.media = file_input.files[0];
+    file_upload_handler(selected_file_type,file_input,EditableQuestion,text_question_with_answer_postData);
 })
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)

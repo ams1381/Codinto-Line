@@ -11,7 +11,9 @@ import { preview_answer_option_generator
         preview_question_toggle
      } from './CommonActions.js'
 import { multiple_option_postData } from "../ajax/QuestionPostData.js";
+import { question_info_loader } from './QuestionInfoLoader.js'
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 
 const Title_input = document.getElementById("title__input");
 const Description_input = document.getElementById("desc_input");
@@ -40,13 +42,13 @@ const save_question_btn = document.querySelector('.SideFooter .saveQuestion')
 let answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
 if(ACTION_TYPE == 'Edit')
 {
-    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+     
     question_info_loader(EditableQuestion)
 }
 
 save_question_btn.addEventListener('click', async () => {
-    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-   await question_creator(ACTION_TYPE,EditableQuestion.id,'optional-questions',QuestionnaireUUID,multiple_option_postData);
+     
+   await question_creator(ACTION_TYPE,EditableQuestion,'optional-questions',QuestionnaireUUID,multiple_option_postData);
 })
 answer_number_selector_inputs.forEach((answer_number_selector_input) => {
     answer_number_selector_input.addEventListener('input',() => {
@@ -73,7 +75,8 @@ answer_option_buttons.forEach((answer_option_button) => {
         })
 })
 multiple_answer_toggle.addEventListener('click',() => {
-    toggle_handler(multiple_answer_selector,multiple_answer_toggle,multiple_option_postData)
+  
+  toggle_handler(EditableQuestion,multiple_answer_selector,multiple_answer_toggle,multiple_option_postData)
 })
 file_input.addEventListener('input',() => {
     let selected_file_type;
@@ -81,12 +84,25 @@ file_input.addEventListener('input',() => {
          if(item.checked)
             selected_file_type = item.getAttribute("id")
     })
+    
+//    {
+//       let reader = new FileReader();
+//       reader.onloadend = function() {
+//           let encodedFile = reader.result;
+//        };
+//     reader.readAsDataURL(file_input.files[0]);
+//    }
+    // let my_form = document.querySelector(".inputUploader form")
+    // let FoarmData = new FormData(my_form);
     if(file_input.files)
-        multiple_option_postData.media = file_input.files[0].name;
-  file_upload_handler(selected_file_type,file_input);
+        multiple_option_postData.media = file_input.files[0];
+      //  console.log(encodeURIComponent(file_input.files[0]))
+ 
+  file_upload_handler(selected_file_type,file_input,EditableQuestion,multiple_option_postData);
 })
 additional_options_toggle.addEventListener("click",() => {
-    toggle_handler(additional_options_selector,additional_options_toggle,multiple_option_postData)
+  
+toggle_handler(EditableQuestion,additional_options_selector,additional_options_toggle,multiple_option_postData)
 
 })
 answer_option_view_buttons.forEach((answer_option_view_button,index) => {
@@ -95,22 +111,28 @@ answer_option_view_buttons.forEach((answer_option_view_button,index) => {
     })
 })
 randomize_options_toggle.addEventListener('click',() => {
-    toggle_handler(randomize_options_toggle.parentElement.parentElement.parentElement,randomize_options_toggle,multiple_option_postData);
+  
+toggle_handler(EditableQuestion,randomize_options_toggle.parentElement.parentElement.parentElement,randomize_options_toggle,multiple_option_postData);
 })
 vertical_order_toggle.addEventListener('click',() => {
-    toggle_handler(vertical_order_toggle.parentElement.parentElement.parentElement,vertical_order_toggle,multiple_option_postData);
+  
+toggle_handler(EditableQuestion,vertical_order_toggle.parentElement.parentElement.parentElement,vertical_order_toggle,multiple_option_postData);
 })
 all_options_toggle.addEventListener('click',() => {
-    toggle_handler(all_options_toggle.parentElement.parentElement.parentElement,all_options_toggle,multiple_option_postData);
+  
+toggle_handler(EditableQuestion,all_options_toggle.parentElement.parentElement.parentElement,all_options_toggle,multiple_option_postData);
 })
 no_options_toggle.addEventListener('click',() => {
-    toggle_handler(no_options_toggle.parentElement.parentElement.parentElement,no_options_toggle,multiple_option_postData);
+  
+toggle_handler(EditableQuestion,no_options_toggle.parentElement.parentElement.parentElement,no_options_toggle,multiple_option_postData);
 })
 show_number_toggle.addEventListener('click',() => {
-    toggle_handler(show_number_toggle.parentElement.parentElement.parentElement,show_number_toggle,multiple_option_postData);
+  
+toggle_handler(EditableQuestion,show_number_toggle.parentElement.parentElement.parentElement,show_number_toggle,multiple_option_postData);
 })
 required_toggle.addEventListener('click',() => {
-    toggle_handler(required_toggle.parentElement.parentElement.parentElement,required_toggle,multiple_option_postData);
+  
+toggle_handler(EditableQuestion,required_toggle.parentElement.parentElement.parentElement,required_toggle,multiple_option_postData);
 })
 multiple_answer_select_inputs.forEach((multiple_answer_select_input) => {
     multiple_answer_select_input.addEventListener('input',() => {
@@ -120,7 +142,8 @@ multiple_answer_select_inputs.forEach((multiple_answer_select_input) => {
             multiple_option_postData.max_selected_options = multiple_answer_select_input.value;    
 })
 })
-Title_input.addEventListener('input',() => {preview_change_handler('Title-change',multiple_option_postData)});
-Description_input.addEventListener('input',() => {preview_change_handler('Desc-change',multiple_option_postData)});
+ 
+Title_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',multiple_option_postData)});
+Description_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',multiple_option_postData)});
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)

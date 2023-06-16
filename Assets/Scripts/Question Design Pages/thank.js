@@ -1,113 +1,53 @@
-
-import {baseUrl, getRequest, postRequest} from "../ajax/ajaxRequsts.js";
 import {
     file_upload_handler,
     question_creator,
-    showAlert,
     toggle_handler
 } from "../Question Design Pages/CommonActions.js";
-import { preview_change_handler } from "../Question Design Pages/CommonActions.js";
-import {priority_question_PostData, range_question_postData, thank_page_postData} from "../ajax/QuestionPostData.js";
+import { preview_change_handler , preview_question_toggle } from "../Question Design Pages/CommonActions.js";
+import {thank_page_postData} from "../ajax/QuestionPostData.js";
+import { question_info_loader } from "./QuestionInfoLoader.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
-// const folder = baseUrl + "/user-api/folders/"
-// const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
-const reqUrl = baseUrl +`/question-api/questionnaires/${QuestionnaireUUID}/thanks-pages/`
+let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
-const uploadInput = document.querySelector(".box__file")
+const file_input = document.querySelector("#file.box__file")
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const saveBtn = document.querySelector(".saveQuestion")
-const questionText = document.querySelector(".questionText")
-const questionDescription = document.querySelector(".ansswer__text")
-const wrongAlert = document.querySelector(".wrongEntry")
-const pictureSwitcher = document.querySelector(".picture__switcher")
-const videoSwitcher = document.querySelector(".video__switcher")
-const shareQuestion = document.querySelector(".ShareQuestion")
-const telegram = document.querySelector(".telegram")
-const whatsapp = document.querySelector(".whatsapp")
-const instagram = document.querySelector(".instagram")
-const eitaa = document.querySelector(".eitaa")
-const sorush = document.querySelector(".sorush");
+const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button");
+const telegram = document.querySelector(".telegram .Switch-toggle .slider-button")
+const whatsapp = document.querySelector(".whatsapp .Switch-toggle .slider-button")
+const instagram = document.querySelector(".instagram .Switch-toggle .slider-button")
+const eitaa = document.querySelector(".eitaa .Switch-toggle .slider-button")
+const sorush = document.querySelector(".sorush .Switch-toggle .slider-button");
+const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion");
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
 
 if(ACTION_TYPE == 'Edit')
 {  
-   let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-   titleInput.value = EditableQuestion.title;
-   textInput.value = EditableQuestion.description;
-   console.log(EditableQuestion)
-   telegram.checked = EditableQuestion.telegram;
-   sorush.checked = EditableQuestion.sorush;
-   whatsapp.checked = EditableQuestion.whatsapp;
-   eitaa.checked = EditableQuestion.eitaa;
-   instagram.checked = EditableQuestion.instagram;
-
+   question_info_loader(EditableQuestion)
 }
-
 // initial data------------------------------------
+titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',thank_page_postData)})
+textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',thank_page_postData)})
 
-titleInput.addEventListener('click',preview_change_handler('Title-change',thank_page_postData))
-textInput.addEventListener('click',preview_change_handler('Desc-change',thank_page_postData))
-// function uploadValidation(input){
-//     if(uploadInput.files[0] !== undefined){
-//         let uploadUrl = uploadInput.files[0].name.split(".")
-//         console.log(uploadInput.files[0].size)
-//         if(uploadInput.files[0].size > 3000000){
-//             return showAlert("حجم فایل وارد شده بیش از 3 مگابایت است")
+// function textStyle(input){
+//     const textEditor = document.querySelector(".TitleInputOptions")
+//     textEditor.addEventListener("click" , (e)=>{
+//         switch (e.target.classList[1]){
+//             case "fa-bold":
+//                 input.classList.toggle("bold")
+//                 break;
+//             case "fa-italic":
+//                 input.classList.toggle("italic")
+//                 break;
+//             case "fa-underline":
+//                 input.classList.toggle("underline")
+//                 break;
 //         }
-//         if(pictureSwitcher.classList.contains("active")){
-//             const pictureTranslate = {
-//                 jpg : "jpg",
-//                 png : "png",
-//                 jpeg : "jpeg",
-//                 JPG : "JPG",
-//                 PNG : "PNG",
-//                 JPEG : "JPEG"
-//             }
-//             if(!pictureTranslate[uploadUrl[1]]){
-//                 return showAlert("فرمت وارد شده پذیرفته نیست")
-//             }
-//         }else if(videoSwitcher.classList.contains("active")){
-//             //
-//             const videoTranslate = {
-//                 mp4 : "mp4",
-//                 mov : "mov",
-//                 m4v : "m4v",
-//                 mkv : "mkv",
-//                 flv : "flv",
-//                 wmv : "wmv",
-//                 MP4 : "MP4",
-//                 MOV : "MOV",
-//                 M4V : "M4V",
-//                 MKV : "MKV",
-//                 FLV : "FLV",
-//                 WMV : "WMV"
-//             }
-//             if(!videoTranslate[uploadUrl[1]]){
-//                 return showAlert("فرمت وارد شده پذیرفته نیست")
-//             }
-//         }
-//     }else {
-//         console.log("no file");
-//     }
+//     })
 // }
-function textStyle(input){
-    const textEditor = document.querySelector(".TitleInputOptions")
-    textEditor.addEventListener("click" , (e)=>{
-        switch (e.target.classList[1]){
-            case "fa-bold":
-                input.classList.toggle("bold")
-                break;
-            case "fa-italic":
-                input.classList.toggle("italic")
-                break;
-            case "fa-underline":
-                input.classList.toggle("underline")
-                break;
-        }
-    })
-}
-textStyle(titleInput)
+// textStyle(titleInput)
 
 //event listener------------------------------------
 // create folder and questionnaire
@@ -125,36 +65,28 @@ textStyle(titleInput)
 
 // add event listener to save button
 saveBtn.addEventListener("click", async function (event) {
-
-
-
-    // const formData = new FormData();
-    // for (let key in sendFile){
-    //     if(sendFile[key] !== null && sendFile[key] !== undefined){
-    //         formData.append(key, sendFile[key]);
-    //     }
-    // }
-    // ajax request----------------------------------
-    // postRequest(reqUrl,formData)
-    //     .then((response) => {
-    //         console.log(response.status);
-    //         if (response.status === 201){
-    //             window.open("/Pages/FormDesign.html","_Self");
-    //         }
-    //     }).catch((error) => {
-    //     console.log(error);
-    // })
-    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
     if(EditableQuestion && ACTION_TYPE == 'Edit')
-        await question_creator(ACTION_TYPE,EditableQuestion.id,'thanks-pages',QuestionnaireUUID,thank_page_postData);
+        await question_creator(ACTION_TYPE,EditableQuestion,'thanks-pages',QuestionnaireUUID,thank_page_postData);
     else
         await question_creator(ACTION_TYPE,null,'thanks-pages',QuestionnaireUUID,thank_page_postData);
 })
-necessaryQuestion.addEventListener('click',() => {
-    toggle_handler(necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,thank_page_postData);
+QuestionNumber.addEventListener('click',() => { 
+toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,thank_page_postData);
 })
-QuestionNumber.addEventListener('click',() => {
-    toggle_handler(QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,thank_page_postData);
+telegram.addEventListener('click',() => {
+    toggle_handler(EditableQuestion,telegram.parentElement.parentElement.parentElement,telegram,thank_page_postData);
+})
+instagram.addEventListener('click',() => {
+    toggle_handler(EditableQuestion,instagram.parentElement.parentElement.parentElement,instagram,thank_page_postData);
+})
+eitaa.addEventListener('click',() => {
+    toggle_handler(EditableQuestion,eitaa.parentElement.parentElement.parentElement,eitaa,thank_page_postData);
+})
+whatsapp.addEventListener('click',() => {
+    toggle_handler(EditableQuestion,whatsapp.parentElement.parentElement.parentElement,whatsapp,thank_page_postData);
+})
+sorush.addEventListener('click',() => {
+    toggle_handler(EditableQuestion,sorush.parentElement.parentElement.parentElement,sorush,thank_page_postData);
 })
 file_input.addEventListener('input',() => {
     let selected_file_type;
@@ -163,6 +95,9 @@ file_input.addEventListener('input',() => {
             selected_file_type = item.getAttribute("id")
     })
     if(file_input.files)
-        thank_page_postData = file_input.files[0].name;
-    file_upload_handler(selected_file_type,file_input);
+ 
+        thank_page_postData.media = file_input.files[0];
+    file_upload_handler(selected_file_type,file_input,EditableQuestion);
 })
+view_question_button.addEventListener('click',preview_question_toggle);
+back_to_design_button.addEventListener('click',preview_question_toggle)

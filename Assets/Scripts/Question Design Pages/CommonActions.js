@@ -18,7 +18,7 @@ const question_preview_description = document.querySelector('.QuestionContainer 
 const preview_options_container = document.querySelector(".multiple_answer_block-options");
 const preview_slider_container = document.querySelector(".selection__box");
 const answer_options_container = document.querySelector(".Answer-Options");
-const wrongAlert = document.querySelector(".wrongEntry")
+const wrongAlert = document.querySelector(".wrongEntry");
 const Title_input = document.getElementById("title__input");
 const all_options_toggle = document.querySelector(".all_options .Switch-Container .slider-button");
 const no_options_toggle = document.querySelector(".nothing_selected .Switch-Container .slider-button");
@@ -43,7 +43,6 @@ export const  showAlert = (text) =>
     }, 3000);
 }
 export const text_style_setter = (Style,preview_text,input) => {
-    console.log([...input.classList].includes("bold"))
     switch(Style)
     {
         case 'fa fa-bold':
@@ -133,17 +132,29 @@ export const preview_answer_option_generator = (preview_option_number,Option_Typ
     container_to_append.append(parsed_preview_answer_option);
     $(parsed_preview_answer_option).show(100);
 }
-export const preview_change_handler = (ACTION,PostData) => 
+export const preview_change_handler = (EditableQuestion,ACTION,PostData) => 
 {
     switch(ACTION) 
     {
         case 'Title-change':
             question_preview_title.textContent = Title_input.value;
             PostData.title = Title_input.value;
+            if(EditableQuestion)  
+                EditableQuestion.title = Title_input.value;
             break;
         case 'Desc-change':
             question_preview_description.textContent = Description_input.value;
-            PostData.title = Description_input.value;
+            if(PostData.description !== undefined) 
+                PostData.description = Description_input.value;
+            else
+              PostData.question_text = Description_input.value;
+            if(EditableQuestion)
+            {
+                if(EditableQuestion.question_text) 
+                  EditableQuestion.question_text = Description_input.value;
+                else
+                  EditableQuestion.description = Description_input.value;
+            }
             break;
     }
 }
@@ -228,12 +239,12 @@ export const answer_option_adder = (Option_Type) => {
     {
         case 'MultipleOption':
             multiple_option_postData.options.push(
-                { text : `${last_answer_option_number + 1} گزینه` }
+                { text : 'test' }
             )
             break;
         case 'SliderOption':
             slider_option_postData.options.push(
-                { text : `${last_answer_option_number + 1} گزینه` }
+                { text : 'test' }
             )
             break;
     }
@@ -256,19 +267,21 @@ export const preview_option_label_updater = (input_number,input_value,Option_Typ
     {
         case 'MultipleOption' :
             changed_label = document.getElementById(`answer-n${input_number + 1}`).nextElementSibling;
-            multiple_option_postData.options[input_number].text = input_value;
+            multiple_option_postData.options[input_number]['text'] = input_value.toString();;
             break;
         case 'SliderOption' :
             changed_label = document.querySelector(`#select_item_${input_number + 1} label`);
-            slider_option_postData.options[input_number].text = input_value;
+            slider_option_postData.options[input_number]['text'] = input_value.toString();
     }
     changed_label.textContent = input_value;
     
  }
-export const toggle_handler = (toggle_element,toggle_button,PostData) => {
+export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,PostData) => {
     if(!toggle_button.previousElementSibling.checked)
     {
             PostData[`${toggle_element.classList[0]}`] = true;
+            if(EditableQuestion)
+              EditableQuestion[`${toggle_element.classList[0]}`] = true;
         if(toggle_element)
             toggle_element.classList.add("active");
         switch(toggle_element.classList[0])
@@ -310,9 +323,11 @@ export const toggle_handler = (toggle_element,toggle_button,PostData) => {
                 break;
         }
         PostData[`${toggle_element.classList[0]}`] = false;
+        if(EditableQuestion)
+            EditableQuestion[`${toggle_element.classList[0]}`] = false;
     }
 }
-export const file_upload_handler = (FileType,FileInput) =>
+export const file_upload_handler = (FileType,FileInput,EditableQuestion,PostData) =>
 {
     let uploaded_file_format = FileInput.files[0].name.split(".")[FileInput.files[0].name.split(".").length - 1];
     
@@ -325,33 +340,38 @@ export const file_upload_handler = (FileType,FileInput) =>
     }
     else
     {
-        switch(FileType)
-        {
-            case 'Picture' :
-                preview_container_main.classList.add('preview_image_active')
-                file_input_container.classList.add("uploaded");
-                preview_image_main.src = URL.createObjectURL(FileInput.files[0]);
-                preview_image_side.src = URL.createObjectURL(FileInput.files[0]);
-                preview_file_name_side.textContent = FileInput.files[0].name;
-                preview_video_main.src = ''
-                break;
-            case 'Video':
-                preview_image_main.src = '';
-                preview_container_main.classList.add("preview_video_active");
-                file_input_container.classList.add("uploaded");
-                preview_video_main.src = URL.createObjectURL(FileInput.files[0]);
-                preview_file_name_side.textContent = FileInput.files[0].name;
-                break;         
-        }
+        file_src_setter(URL.createObjectURL(FileInput.files[0]),FileInput.files[0].name,FileType);
         preview_image_cancel_button.addEventListener('click',() => {
             file_input_container.classList.remove("uploaded");
             preview_container_main.classList.remove("preview_image_active","preview_video_active");
-            preview_image_main.src = URL.createObjectURL(FileInput.files[0]);
             if(FileType.files)
                 FileType.files.length = 0;
             preview_image_main.src = '';
             preview_video_main.src = ''
+            EditableQuestion.media = null;
+            PostData.media = null;
         })
+
+    }
+}
+export const file_src_setter = (Src,FileName,FileType) => {
+    preview_file_name_side.textContent = FileName;
+    file_input_container.classList.add("uploaded");
+
+    switch(FileType)
+    {
+        case 'Picture' :  
+            preview_container_main.classList.add('preview_image_active')
+            preview_image_main.src = Src;
+            preview_image_side.src = Src;  
+            preview_video_main.src = ''
+            break;
+        case 'Video':
+            preview_image_main.src = '';
+            preview_container_main.classList.add("preview_video_active");
+            preview_video_main.src = Src;
+            preview_file_name_side.textContent = FileName;
+            break;         
     }
 }
 const file_format_checked = (FileType,FormatToCheck) => {
@@ -403,27 +423,53 @@ const file_format_checked = (FileType,FormatToCheck) => {
                 return ("فرمت وارد شده پذیرفته نیست")
         }
 }
+const form_data_convertor =  (obj,formData,namespace) => {
+    formData = formData || new FormData();
+    namespace = namespace || '';
+  
+    for (var property in obj) {
+      if (obj.hasOwnProperty(property)) {
+        var formKey = namespace ? namespace + '[' + property + ']' : property;
+        if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+            form_data_convertor(obj[property], formData, formKey);
+        } else {
+          formData.append(formKey, obj[property] !== null ? obj[property] : 'null');
+        }
+      }
+    }
+  
+    return formData;
+}
 export const question_creator =  async (ACTION_TYPE,QuestionID,QuestionPostType,QuestionnaireUUID,DataForPost) => {
-    // console.log(ACTION_TYPE,QuestionID,QuestionPostType,QuestionnaireUUID,DataForPost)
-    // console.log(ACTION_TYPE)
-    if(!DataForPost.title && !DataForPost.question_text)
+    if(!DataForPost.title && !DataForPost.question_text && ACTION_TYPE == 'Create')
     {
         showAlert('عنوان و متن سوال را وارد کنید.')
-        return
+      //  return
     }
+    console.log(DataForPost)
         let createRes;
-        switch(ACTION_TYPE)
+        try 
         {
-            case 'Edit':
-                createRes = await patchRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/QuestionID`,DataForPost);
-                break;
-            case 'Create':
-                createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}`,DataForPost);
-                break;
+            switch(ACTION_TYPE)
+            {
+                case 'Edit':
+                    // for(var item in QuestionID)
+                    //     form_data.append(item,[...QuestionID[item]]);
+                    createRes = await patchRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/${QuestionID.id}/`,form_data_convertor(DataForPost));
+                    break;
+                case 'Create':
+                    // for(var item in DataForPost)
+                    //     form_data.append(item,DataForPost[item]);
+                    createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`,DataForPost);
+                    break;
+            }
         }
-        console.log(createRes)
-        // if((createRes.status == 201 || createRes.status == 200))
-        //  {
-        //      window.open("/Pages/FormDesign.html","_Self");
-        //  }
+        catch(err)
+        {
+            console.log(err)
+        }
+        if((createRes.status == 201 || createRes.status == 200))
+         {
+             window.open("/Pages/FormDesign.html","_Self");
+         }
 }

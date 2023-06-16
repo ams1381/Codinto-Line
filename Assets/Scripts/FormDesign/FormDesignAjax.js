@@ -26,7 +26,7 @@ export const QuestionItemCleaner = () => {
         QuestionItem.remove();
     })
 }
-const QuestionItemSetter = async () => {
+export const QuestionItemSetter = async () => {
     console.log( SelectedQuestionnaire.uuid)
         let QuestionsResponse = await getRequest(getQuestionsUrl + SelectedQuestionnaire.uuid + '/');
         if(QuestionsResponse)

@@ -84,8 +84,8 @@ body{
     font-weight: 100;
     color: var(--brand-color);
 }
-.range__select{
-    width: 80%;
+.range__select_items{
+    width: 90%;
     background-color: var(--input-title-bg-color);
     height: 40px;
     border-radius: 10px;
@@ -93,7 +93,27 @@ body{
     align-items: center;
     justify-content: space-between;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    padding:0 0.5rem;
+    padding: 0 0.4rem 0 0.4rem;
+    margin: 1rem 10px 0 0;
+    flex-direction: row-reverse;
+}
+.range__select_labels {
+    width: 90%;
+    padding: 0 0.4rem 0 0.4rem;
+    margin-right: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.6rem 0 0.6rem;
+}
+.range__select_right_label, .range__select_left_label, .range__select_middle_label {
+    height: 100%;
+    background: var(--input-title-bg-color);
+    border-radius: 5px;
+    width: 20%;
+    margin-top: 1rem;
+    word-wrap: break-word;
+    color: var(--brand-color);
+    line-height: 1.6rem;
 }
 .range__number{
     color: var(--brand-color);
@@ -104,12 +124,11 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 25px;
+    width: 80%;
     height: 30px;
+    margin: 0 0.2rem 0 0.2rem;
 }
 .range__active{
-    width: 25px;
-    height: 30px;
     background-color: var(--theme-white);
     border-radius: 8px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;

@@ -11,6 +11,7 @@ const button_text_input = document.querySelector('.GEntryButton .ButtonTextInput
 const button_shape_items = document.querySelectorAll(".ShapeOptions label")
 const preview_button = document.querySelector(".QuestionStart .QuestionStartButton")
 
+ 
 titleInput.addEventListener('input', () => { preview_change_handler('Title-change', text_question_with_out_answer_postData) })
 textInput.addEventListener('input', () => { preview_change_handler('Desc-change', text_question_with_out_answer_postData) })
 
@@ -21,8 +22,9 @@ file_input.addEventListener('input',() => {
             selected_file_type = item.getAttribute("id")
     })
     if(file_input.files)
-        text_question_with_out_answer_postData.media = file_input.files[0].name;
-    file_upload_handler(selected_file_type,file_input);
+ 
+        text_question_with_out_answer_postData.media = file_input.files[0];
+    file_upload_handler(selected_file_type,file_input,EditableQuestion,text_question_with_out_answer_postData);
 })
 const preview_button_shape_handler = (Shape,IsSolid) => {
     if(IsSolid)
@@ -50,9 +52,9 @@ button_shape_items.forEach((button_shape_item)=>{
 })
 saveBtn.addEventListener("click" , async function (event){
 
-    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+     
     if(EditableQuestion && ACTION_TYPE == 'Edit')
-        await question_creator(ACTION_TYPE,EditableQuestion.id,'noanswer-questions',QuestionnaireUUID,text_question_with_out_answer_postData);
+        await question_creator(ACTION_TYPE,EditableQuestion,'noanswer-questions',QuestionnaireUUID,text_question_with_out_answer_postData);
     else
         await question_creator(ACTION_TYPE,null,'noanswer-questions',QuestionnaireUUID,text_question_with_out_answer_postData);
 })

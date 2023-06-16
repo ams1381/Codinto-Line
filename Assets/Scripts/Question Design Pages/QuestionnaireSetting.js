@@ -139,6 +139,7 @@ const nameSetter = (e) => {
     Questionnaire_PostData.name = e.target.value;
 }
 const TimerSetter = (e) => {
+    let TimerHour , TimerMinute , TimerSecond;
     switch(e.target.id)
     {
         case 'RhourInput':

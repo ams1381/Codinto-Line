@@ -472,13 +472,13 @@
 {
     border-radius: 10px;
     padding: 5px;
-    width: 40%;
+    width: 70%;
     color: var(--brand-color);
-    font-size: 20px;
     outline: none;
     margin-right: 20px;
     border: 1px solid var(--brand-color);
     transition: border 0.3s;
+    font-size: calc(0.8rem + 0.4vw);
 }
 .answer-number-selector .label-text-input
 {
@@ -583,8 +583,7 @@
     color: var(--theme-white);
     background-color: var(--brand-color);
 }
-.minInput input , .maxInput input , .right-part input ,
-.middle-Input input , .left-input input
+.minInput input , .maxInput input , .right-part input  , .left-input input
 {
     width: 30%;
 }

@@ -8,46 +8,32 @@ import {
     question_creator,
     preview_question_toggle
 } from "./CommonActions.js";
-import {email_question_PostData, link_question_PostData, multiple_option_postData} from "../ajax/QuestionPostData.js";
-// const folder = baseUrl + "/user-api/folders/"
-// const questionnairesUrl = baseUrl + "/question-api/questionnaires/"
+import {email_question_PostData, } from "../ajax/QuestionPostData.js";
+import { question_info_loader } from "./QuestionInfoLoader.js";
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/email-questions/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
-const uploadInput = document.querySelector(".box__file")
 const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .slider-button")
 const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button")
 const file_input = document.querySelector("#file.box__file")
 const saveBtn = document.querySelector(".saveQuestion")
-const questionText = document.querySelector(".questionText")
-const questionDescription = document.querySelector(".ansswer__text")
-const wrongAlert = document.querySelector(".wrongEntry")
-const pictureSwitcher = document.querySelector(".picture__switcher")
-const videoSwitcher = document.querySelector(".video__switcher")
-const guidance = document.querySelector(".SampleAnw input")
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
-
-console.log(guidance)
 let options = null;
-// if(ACTION_TYPE == 'Edit')
-// {
-//     // let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-//     // titleInput.value = EditableQuestion.title;
-//     // textInput.value = EditableQuestion.description;
-//     // necessaryQuestion.checked = EditableQuestion.is_required;
-//     // minInput.value = EditableQuestion.min;
-//     // maxInput.value = EditableQuestion.max;
-//     // //buttonText.value = EditableQuestion.button_text
-//     // console.log(EditableQuestion)
-// }
+if(ACTION_TYPE == 'Edit')
+{
+      
+     question_info_loader(EditableQuestion)
+}
 // initial data------------------------------------
 options =  "free"
 
-titleInput.addEventListener('input',() => {preview_change_handler('Title-change',email_question_PostData)})
-textInput.addEventListener('input',() => {preview_change_handler('Desc-change',email_question_PostData)})
+ 
+titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',email_question_PostData)})
+textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',email_question_PostData)})
 
 //     if(uploadInput.files[0] !== undefined){
 //         let uploadUrl = uploadInput.files[0].name.split(".")
@@ -112,17 +98,19 @@ textInput.addEventListener('input',() => {preview_change_handler('Desc-change',e
 
 // add event listener to save button
 saveBtn.addEventListener("click", async function(event) {
-    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+     
     if(EditableQuestion && ACTION_TYPE == 'Edit')
-        await question_creator(ACTION_TYPE,EditableQuestion.id,'email-questions',QuestionnaireUUID,email_question_PostData);
+        await question_creator(ACTION_TYPE,EditableQuestion,'email-questions',QuestionnaireUUID,email_question_PostData);
     else
         await question_creator(ACTION_TYPE,null,'email-questions',QuestionnaireUUID,email_question_PostData);
 })
 necessaryQuestion.addEventListener('click',() => {
-    toggle_handler(necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,email_question_PostData);
+  
+toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,email_question_PostData);
 })
 QuestionNumber.addEventListener('click',() => {
-    toggle_handler(QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,email_question_PostData);
+  
+toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,email_question_PostData);
 })
 file_input.addEventListener('input',() => {
     let selected_file_type;
@@ -131,8 +119,9 @@ file_input.addEventListener('input',() => {
             selected_file_type = item.getAttribute("id")
     })
     if(file_input.files)
-        email_question_PostData.media = file_input.files[0].name;
-    file_upload_handler(selected_file_type,file_input);
+ 
+        email_question_PostData.media = file_input.files[0];
+    file_upload_handler(selected_file_type,file_input,EditableQuestion,email_question_PostData);
 })
 
 view_question_button.addEventListener('click',preview_question_toggle);

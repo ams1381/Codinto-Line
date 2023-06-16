@@ -8,6 +8,7 @@ import {
 import { question_info_loader } from './QuestionInfoLoader.js';
 import { selective_degree_postData } from '../ajax/QuestionPostData.js';
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE")
 const Title_input = document.getElementById("title__input");
 const Description_input = document.getElementById("desc_input");
@@ -27,7 +28,7 @@ let shape_icon_className = 'fa fa-star-o';
 const save_question_btn = document.querySelector('.SideFooter .saveQuestion');
 if(ACTION_TYPE == 'Edit')
 {
-    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+     
     question_info_loader(EditableQuestion)
 }
 const preview_degree_handler = (degree) => {
@@ -83,7 +84,7 @@ degree_shape_labels.forEach((degree_shape_label) => {
     })
 })
 save_question_btn.addEventListener('click',async () => {
-    let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+     
     await question_creator(ACTION_TYPE,EditableQuestion.id,'integerselective-questions',QuestionnaireUUID,selective_degree_postData)
 })
 degree_input.addEventListener('input',() => {
@@ -96,18 +97,21 @@ file_input.addEventListener('input',() => {
             selected_file_type = item.getAttribute("id")
     })
     if(file_input.files)
-      selective_degree_postData.media = file_input.files[0].name;
-  file_upload_handler(selected_file_type,file_input);
+ 
+      selective_degree_postData.media = file_input.files[0];
+  file_upload_handler(selected_file_type,file_input,EditableQuestion,selective_degree_postData);
 })
-
-Title_input.addEventListener('input',() => {preview_change_handler('Title-change',selective_degree_postData)});
-Description_input.addEventListener('input',() => {preview_change_handler('Desc-change',selective_degree_postData)});
+ 
+Title_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',selective_degree_postData)});
+Description_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',selective_degree_postData)});
 
 show_number_toggle.addEventListener('click',() => {
-    toggle_handler(show_number_toggle.parentElement.parentElement.parentElement,show_number_toggle,selective_degree_postData);
+  
+toggle_handler(EditableQuestion,show_number_toggle.parentElement.parentElement.parentElement,show_number_toggle,selective_degree_postData);
 })
 required_toggle.addEventListener('click',() => {
-    toggle_handler(required_toggle.parentElement.parentElement.parentElement,required_toggle,selective_degree_postData);
+  
+toggle_handler(EditableQuestion,required_toggle.parentElement.parentElement.parentElement,required_toggle,selective_degree_postData);
 })
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)

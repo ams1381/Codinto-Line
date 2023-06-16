@@ -24,6 +24,7 @@
     --selected-date-bg-color: #3f52e335;
     --screen-mask-bg-color: #00000087;
     --theme-Codinto: #161D6F;
+    --share-bg : #F6F7FF;
     --theme-radius-size: 15px;
 }
 * {
@@ -115,15 +116,16 @@
     align-items: center;
 }
 
-.navToggleButton,
-.viewFormQuestions {
+.navToggleButton {
     display: none;
 }
-
-.navToggleButton {
+.back__button , .navToggleButton {
     margin-right: 15px;
 }
-
+.back__button a
+{
+    color: var(--brand-color);
+}
 .viewFormQuestions {
     margin-left: 15px;
 }

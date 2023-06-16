@@ -1,5 +1,4 @@
 const rangeSelect = document.querySelector('.range__select');
-console.log(rangeSelect);
 rangeSelect.addEventListener('click', (e) => {
     // console.log(e.target.classList.value);
     if (e.target.classList.value === 'range__number') {

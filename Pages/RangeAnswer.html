@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../Assets/Styles/AssistiveButton.css">
     <link rel="stylesheet" href="../Assets/../Components/questionBox/rangeSelect.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
@@ -55,7 +56,7 @@
                 </div>
                 <div class="GDesc">
                     <div class="DescInput active">
-                        <div class="TitleInputOptions  GOptions">
+                        <div class="DescInputOptions  GOptions">
                             <label>
                                 <input type="checkbox" name="" id="Tbolder">
                                 <i class="fa fa-bold"></i>
@@ -82,12 +83,12 @@
                     <div class="range-setter">
                         <div class="range-number">
                             <label class="range-label">
-                                4
+                                3
                             </label>
                         </div>
                         <div class="range-input">
 <!--                            list="range-markers"-->
-                            <input type="range" step="1" value="4" min="4" max="11" class="rangeInput" list="markers"/>
+                            <input type="range" step="1" value="3" min="3" max="11" class="rangeInput" list="markers"/>
                             <datalist id="markers">
                                     <option value="4" >
                                     <option value="5" >
@@ -137,56 +138,55 @@
                     
                     <input type="radio" name="lang" id="Video" value="Video">
                     <label for="Video">ویدیو</label>
-
+    
                 </div>
                 <div class="fileInput">
                     <div class="inputTitle">
                         حداکثر حجم 3 مگابایت
                     </div>
                     <div class="inputUploader">
-                    <div class="image_or_video_box">
-                        <div class="cancel_uploaded_file">
-                            <button class="cancel_uploaded_file_button">
-                                <i class="fa fa-close"></i>
-                            </button>
-                            
-                        </div>
-                        <div class="uploaded_file_info">
-                            <div class="uploaded_file_avatar">
-                                <img class="uploaded_file_image" alt="">
-                            </div>
-                            <div class="uploaded_file_name">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
+                     <div class="image_or_video_box">
+                         <div class="cancel_uploaded_file">
+                             <button class="cancel_uploaded_file_button">
+                                 <i class="fa fa-close"></i>
+                             </button>
+                             
+                         </div>
+                         <div class="uploaded_file_info">
+                             <div class="uploaded_file_avatar">
+                                 <img class="uploaded_file_image" alt="">
+                             </div>
+                             <div class="uploaded_file_name">
+                                 <p></p>
+                             </div>
+                         </div>
+                     </div>
                         <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
                         <label for="file" class="upload_file_label">
                             <i class="fa fa-upload"></i>
                             </label>
-                    </div>
-                    
+                      </div>
+                      
                 </div>
             </div>
-                <div class="AnswerNecessity ToggleOption">
+            <div class="show_number ToggleOption">
+                <div class="Switch-Container">
+                    <p>عدم نمایش شماره سوال</p>
+                <label class="Switch-toggle">
+                    <input type="checkbox">
+                    <span class="slider-button"</span>
+                </label>
+                </div>
+               </div>
+                <div class="is_required ToggleOption">
                     <div class="Switch-Container">
                         <p>پاسخ به سوال اجباری باشد</p>
-                        <label class="Switch-toggle">
-                            <input type="checkbox">
-                            <span class="slider-button"></span>
-                        </label>
+                    <label class="Switch-toggle">
+                        <input type="checkbox">
+                        <span class="slider-button"</span>
+                    </label>
                     </div>
-
-            </div>
-                <div class="QuestionNumber ToggleOption">
-                    <div class="Switch-Container">
-                        <p>عدم نمایش شماره سوال</p>
-                        <label class="Switch-toggle">
-                            <input type="checkbox">
-                            <span class="slider-button"></span>
-                        </label>
-                    </div>
-                </div>
+                   </div>
             <div class="SideFooter">
                 <button class="saveQuestion">
                      ذخیره
@@ -215,14 +215,27 @@
                     <video class="preview_video" controls>
                     </video>
                 </div>
+                
                 <div class="range__select">
-                    <span class="range__number">1</span>
-                    <span class="range__number">2</span>
-                    <span class="range__number">3</span>
-                    <span class="range__number">4</span>
-                    <span class="range__number">5</span>
-                    <span class="range__number">6</span>
+                    <div class="range__select_items">
+                        <span class="range__number">1</span>
+                        <span class="range__number">2</span>
+                        <span class="range__number">3</span>
+                    </div>
+                    <div class="range__select_labels">
+                        <div class="range__select_right_label">
+                            <p></p>
+                        </div>
+                        <div class="range__select_middle_label">
+                            <p></p>
+                        </div>
+                        <div class="range__select_left_label">
+                            <p></p>
+                        </div>
+                    </div>
+                    
                 </div>
+                
              </div>
              <div class="AssistiveButton">
                 <div class="AssistiveItems">

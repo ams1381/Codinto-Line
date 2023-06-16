@@ -15,6 +15,6 @@ const mask_close_panel = () => {
 }
 
 
-nav_menu_toggle.addEventListener("click" , menu_toggle_handler);
+//nav_menu_toggle.addEventListener("click" , menu_toggle_handler);
 nav_mask.addEventListener("click" , mask_close_panel);
 

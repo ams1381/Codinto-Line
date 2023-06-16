@@ -26,8 +26,7 @@ const patchRequest = async (url, patchData) => {
           Authorization: `Bearer ${token}`
         }
       });
-  
-      return response.data;
+      return response;
     } 
     catch (error) 
     {
@@ -35,21 +34,22 @@ const patchRequest = async (url, patchData) => {
     }
   };
   
-const postRequest = async (url, postData) => {
-    try {
-      const response = await axios.post(url, postData, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+// const postRequest = async (url, postData) => {
+//     try {
+//       const response = await axios.post(url, postData, {
+//         headers: {
+//           'Content-Type': 'multipart/form-data',
+//           Authorization: `Bearer ${token}`
+//         }
+//       });
   
-      return response.data;
-    } 
-    catch (error) 
-    {
-       await errorHandler(error.response,error.status,error,url)
-    }
-  };
+//       return response;
+//     } 
+//     catch (error) 
+//     {
+//        await errorHandler(error.response,error.status,error,url)
+//     }
+//   };
   
 const deleteRequest = async (url) => {
     try {
@@ -77,7 +77,7 @@ async function renewToken() {
     }
   }
 
-async function errorHandler(errorCode,error,url)
+async function errorHandler(errorRes,errorCode,error,url)
 {
     switch(errorCode)
     {
@@ -94,7 +94,7 @@ async function errorHandler(errorCode,error,url)
 }
 function er400handler(error) 
 {
-    
+    console.log(error)
 }
 async function er401handler(error,url) 
 {
@@ -135,16 +135,16 @@ export  { getRequest ,  patchRequest ,  postRequest ,  deleteRequest , baseUrl ,
 //     });
 // }
 
-// async function postRequest(url,postData){
-//     return axios.post(url, postData , {
-//         headers: {
+async function postRequest(url,postData){
+    return axios.post(url, postData , {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`
 
-//             'Authorization': `Bearer ${token}`
-
-//         }
+        }
         
-//     });
-// }
+    });
+}
 // async function deleteRequest(url){
 //     return axios.delete(url, {
 //         headers: {
