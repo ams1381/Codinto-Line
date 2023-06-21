@@ -74,27 +74,11 @@ function rangeChange(input){
 }
 rangeChange(rangeInput)
 // add event listeners--------------------------------------
-// pictureSwitcher.addEventListener("click" , (e)=>{
-//     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
-//     if(videoSwitcher.classList.contains("active")){
-//         videoSwitcher.classList.remove("active")
-//         pictureSwitcher.classList.add("active")
-//     }
-// })
-// videoSwitcher.addEventListener("click" , (e)=>{
-//     uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
-//     if(pictureSwitcher.classList.contains("active")){
-//         pictureSwitcher.classList.remove("active")
-//         videoSwitcher.classList.add("active")
-//     }
-// })
+
 uploadInput.addEventListener("change" , (e)=>{
     document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
 })
 saveBtn.addEventListener("click" , async function (event){
-
-
-
    // const formData = new FormData();
    // for (let key in sendData){
    //     if(sendData[key] !== null && sendData[key] !== undefined){

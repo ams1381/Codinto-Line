@@ -1,0 +1,16 @@
+.container{
+    padding-top: 2rem;
+    width: 100%;
+    margin: 0 auto;
+    height:auto;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    row-gap: 20px;
+    padding-bottom: 4rem;
+
+}
+.QuestionContainer{
+    margin-top: 2rem;
+}
