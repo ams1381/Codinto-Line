@@ -14,7 +14,7 @@ const sent_sms_handler = async (e) => {
     try
     {
         let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/',{ 'token' : sms_code })
-        TokenInitializer(accessToken)
+        TokenInitializer(accessToken.data.access)
         window.open("/Pages/Folders.html","_Self");
     }
     catch(err)
