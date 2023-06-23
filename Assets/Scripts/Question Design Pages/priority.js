@@ -1,4 +1,4 @@
-import {file_upload_handler, question_creator, toggle_handler} from "./CommonActions.js";
+import {file_upload_handler, preview_question_toggle, question_creator, toggle_handler} from "./CommonActions.js";
 import { preview_change_handler } from "./CommonActions.js";
 import {priority_question_PostData} from "../ajax/QuestionPostData.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
@@ -11,6 +11,8 @@ const file_input = document.querySelector("#file.box__file");
 const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .slider-button")
 const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button")
 const saveBtn = document.querySelector(".saveQuestion")
+const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
 let options = null;
 
 // initial data------------------------------------
@@ -146,3 +148,5 @@ file_input.addEventListener('input',() => {
         priority_question_PostData.media = file_input.files[0];
     file_upload_handler(selected_file_type,file_input,EditableQuestion,priority_question_PostData);
 })
+view_question_button.addEventListener('click',preview_question_toggle);
+back_to_design_button.addEventListener('click',preview_question_toggle)

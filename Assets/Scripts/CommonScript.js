@@ -5,13 +5,13 @@ const DesTextInputToggle = document.querySelector('.GDesc .Switch-Container .Swi
 const Switch_toggle_input = document.querySelectorAll('.Switch-Container .Switch-toggle input');
 const TextEditorContainers = document.querySelectorAll('.GOptions');
 
-const AssistiveItemsHandler = () => {
-    AssistiveItems.classList.toggle('active');
+// const AssistiveItemsHandler = () => {
+//     AssistiveItems.classList.toggle('active');
 
-    AssistiveToggleButtonIcon.classList.toggle('active');
-}
+//     AssistiveToggleButtonIcon.classList.toggle('active');
+// }
 
-AssistiveToggleButton.addEventListener('click', AssistiveItemsHandler);
+// AssistiveToggleButton.addEventListener('click', AssistiveItemsHandler);
 
 // if(Switch_toggle_input) {
 //

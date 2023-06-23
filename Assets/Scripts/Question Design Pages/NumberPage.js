@@ -33,9 +33,6 @@ answer_number_selector_inputs.forEach((answer_number_selector_input) => {
             number_question_postData.max_selected_options = answer_number_selector_input.value; 
     })
 })
-uploadInput.addEventListener("change" , (e)=>{
-    document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
-})
 saveBtn.addEventListener("click", async function (event) {
      
     if(EditableQuestion && ACTION_TYPE == 'Edit')
@@ -63,4 +60,4 @@ file_input.addEventListener('input',() => {
     file_upload_handler(selected_file_type,file_input,EditableQuestion,number_question_postData);
 })
 view_question_button.addEventListener('click',preview_question_toggle);
-back_to_design_button.addEventListener('click',preview_question_toggle)
+back_to_design_button.addEventListener('click',preview_question_toggle);

@@ -1,12 +1,13 @@
 .AssistiveButton
 {
     position: absolute;
-    top: 50%;
+    /* top: 50%; */
     left: 20px;
-    transform: translate(0,-50%);
-    display: flex;
+    /* transform: translate(0,-50%); */
+    display: none;
     align-items: center;
 }
+
 .AssistiveButton .AssistiveToggle
 {
     width: 80px;
@@ -78,15 +79,13 @@
 {
     .AssistiveButton
     {
-        transform: translate(-47%,220%);
-        left: 47%;
         flex-direction: column;
     }
-    .AssistiveButton .AssistiveItems {
+    /* .AssistiveButton .AssistiveItems {
         height: 48px;
         width: 0;
         flex-direction: row;
-    }
+    } */
     .AssistiveItems.active
     {
         opacity: 1;
@@ -97,10 +96,11 @@
         margin-top: 0.8rem;
     }
 }
-@media only screen and (max-width : 576px)
+@media only screen and (max-width : 770px)
 {
     .AssistiveButton
     {
-        display: none;
+        bottom: 0;
+        display: flex;
     }
 }

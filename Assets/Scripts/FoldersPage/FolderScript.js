@@ -9,13 +9,11 @@ import { search_button_handler } from "./SearchQuestionnaire.js";
 const SideBodyContainer= document.querySelector('.sideBody');
 const rename_folder_popup = document.querySelector(".renameFolderPopUp");
 const folder_cancel_button = document.querySelectorAll(".cancel-button");
-const add_form_item = document.querySelector(".form.AddForm");
 const create_folder_confirm_btn = document.querySelector(".createFolderPopUp .confirm-button");
 const rename_folder_confirm_btn = document.querySelector(".renameFolderPopUp .confirm-button");
 const remove_folder_confirm_btn = document.querySelector(".removeFolderPopUp .confirm-button");
 const create_folder_name_input = document.querySelector("#create_folder_name");
 const rename_folder_input = document.querySelector("#rename_folder_name");
-const addFormButton = document.querySelector(".form.AddForm");
 const create_folder_popup = document.querySelector(".createFolderPopUp");
 const remove_folder_popup = document.querySelector(".removeFolderPopUp");
 const add_folder_button = document.querySelector(".AddFolder");
@@ -156,9 +154,6 @@ const folder_popup_handler = (popup_element,popup_input,popup_type) => {
     popup_element.classList.add("active");
     nav_mask.classList.add("active");
 }
-addFormButton.addEventListener('click',() => {
-    window.open('Setting.html','_self')
-});
 nav_mask.addEventListener("click" , folder_mask_close_panel);
 
 add_folder_button.addEventListener("click",() => {
@@ -170,7 +165,6 @@ rename_folder_button.forEach((item,index) => { item.addEventListener('click',() 
     folder_popup_handler(rename_folder_popup,rename_folder_input,"rename");
     });
 })
-
 create_folder_confirm_btn.addEventListener('click',folder_creator_handler);
 
 Folders_Slide_toggle.addEventListener('click',() => {
@@ -215,9 +209,11 @@ remove_folder_confirm_btn.addEventListener('click',() => {
 })
 add_Questionnaire_button.addEventListener('click',() => {
     let Selected_folder_id = document.querySelector(".Folder.Selected").getAttribute("id");
-    window.open("Setting.html","_self")
     localStorage.setItem("SETTING_ACTION_TYPE","Create");
     localStorage.setItem("SelectedFolderID",Selected_folder_id)
+    localStorage.removeItem('QuestionnaireToEdit');
+    window.open("Setting.html","_self")
+    
 })
 search_Questionnaire_button.addEventListener("click",search_button_handler)
 export default folder_generator;

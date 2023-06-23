@@ -1,4 +1,4 @@
-import {file_upload_handler, preview_change_handler, question_creator, toggle_handler , showAlert} from "./CommonActions.js";
+import {file_upload_handler, preview_change_handler, question_creator, toggle_handler , showAlert, preview_question_toggle} from "./CommonActions.js";
 import {welcome_page_postData} from "../ajax/QuestionPostData.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
@@ -11,6 +11,8 @@ const file_input = document.querySelector("#file.box__file");
 const button_shape_items = document.querySelectorAll(".ShapeOptions label")
 const saveBtn = document.querySelector(".saveQuestion");
 const preview_button = document.querySelector(".QuestionStart .QuestionStartButton")
+const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
 
 if(ACTION_TYPE == 'Edit')
 {    
@@ -69,3 +71,5 @@ file_input.addEventListener('input',() => {
         welcome_page_postData.media = file_input.files[0];
     file_upload_handler(selected_file_type,file_input,EditableQuestion,welcome_page_postData);
 })
+view_question_button.addEventListener('click',preview_question_toggle);
+back_to_design_button.addEventListener('click',preview_question_toggle)

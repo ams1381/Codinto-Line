@@ -58,6 +58,9 @@ export const QuestionDesignOpener = (QuestionType) =>
         case 'text_answer':
             window.open("/Pages/QuestionWAnwser.html","_Self");
             break;
+        case 'no_answer':
+            window.open("/Pages/QuestionWOutAnwser.html","_Self");
+            break;
         case 'integer_range':
             window.open("/Pages/RangeAnswer.html","_Self");
             break;

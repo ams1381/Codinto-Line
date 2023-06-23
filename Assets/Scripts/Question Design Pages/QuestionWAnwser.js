@@ -1,7 +1,6 @@
-
 import {file_upload_handler, question_creator, toggle_handler , preview_question_toggle} from "./CommonActions.js";
 import { preview_change_handler } from "../Question Design Pages/CommonActions.js";
-import {link_question_PostData, text_question_with_answer_postData} from "../ajax/QuestionPostData.js";
+import {text_question_with_answer_postData} from "../ajax/QuestionPostData.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
@@ -30,8 +29,8 @@ options = "free"
 sampleAnswer.value = null;
 
  
-titleInput.addEventListener('input', () => { preview_change_handler('Title-change', text_question_with_answer_postData) })
-textInput.addEventListener('input', () => { preview_change_handler('Desc-change', text_question_with_answer_postData) })
+titleInput.addEventListener('input', () => { preview_change_handler(EditableQuestion,'Title-change', text_question_with_answer_postData) })
+textInput.addEventListener('input', () => { preview_change_handler(EditableQuestion,'Desc-change', text_question_with_answer_postData) })
 function textStyle(input) {
     const textEditor = document.querySelector(".TitleInputOptions")
     textEditor.addEventListener("click", (e) => {
@@ -122,7 +121,9 @@ selection.addEventListener("change", function (event) {
         case "text":
             minVmax.style.display = "block";
             sampleAnswerBox.style.display = "none";
-            options = selectedOption.classList[2]
+            options = selectedOption.classList[2];
+            text_question_with_answer_postData.pattern = 'free'
+            
             break;
         case "date__shamsi":
             minVmax.style.display = "none";
@@ -130,6 +131,7 @@ selection.addEventListener("change", function (event) {
             options = selectedOption.classList[2]
             minInput.value = "";
             maxInput.value = "";
+            text_question_with_answer_postData.pattern = 'jalali_date'
             break;
         case "date__miladi":
             minVmax.style.display = "none";
@@ -137,6 +139,7 @@ selection.addEventListener("change", function (event) {
             options = selectedOption.classList[2]
             minInput.value = "";
             maxInput.value = "";
+            text_question_with_answer_postData.pattern = 'georgian_date'
             break;
         case "phone__number1":
             minVmax.style.display = "none";
@@ -144,6 +147,7 @@ selection.addEventListener("change", function (event) {
             options = selectedOption.classList[2];
             minInput.value = "";
             maxInput.value = "";
+            text_question_with_answer_postData.pattern = 'mobile_number'
             break;
         case "home__phone":
             minVmax.style.display = "none";
@@ -151,21 +155,25 @@ selection.addEventListener("change", function (event) {
             options = selectedOption.classList[2];
             minInput.value = "";
             maxInput.value = "";
+            text_question_with_answer_postData.pattern = 'phone_number'
             break;
         case "number":
             minVmax.style.display = "block"
             sampleAnswerBox.style.display = "block";
             options = selectedOption.classList[2]
+            text_question_with_answer_postData.pattern = 'number_character';
             break;
         case "persion":
             minVmax.style.display = "block"
             sampleAnswerBox.style.display = "block";
             options = selectedOption.classList[2]
+            text_question_with_answer_postData.pattern = 'persian_letters';
             break;
         case "english":
             minVmax.style.display = "block"
             sampleAnswerBox.style.display = "block";
             options = selectedOption.classList[2]
+            text_question_with_answer_postData.pattern = 'english_letters';
             break;
     }
     console.log(options)
@@ -180,7 +188,7 @@ saveBtn.addEventListener("click",async function (event) {
 })
 necessaryQuestion.addEventListener('click',() => {
   
-toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,link_question_PostData);
+toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,text_question_with_out_answer_postData);
 })
 QuestionNumber.addEventListener('click',() => {
   

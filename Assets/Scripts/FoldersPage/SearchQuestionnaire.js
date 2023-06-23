@@ -15,9 +15,12 @@ let addFormItem = document.querySelector(".form.AddForm")
 const QuestionnaireCleaner = () => {
     let QuestionnaireForms = document.querySelectorAll('.form');
     QuestionnaireForms.forEach((item) => {
-            $(item).hide()
-            item.remove();
-    })
+    if(!item.classList.contains("AddForm"))
+    {
+        $(item).hide()
+        item.remove();
+    }        
+ })
 }
 const QuestionnaireReloader = async () => {
     let FoldersRes = await getRequest(folderUrl);

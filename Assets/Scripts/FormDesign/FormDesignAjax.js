@@ -7,8 +7,11 @@ import { QuestionDesignOpener } from "./QuestionItemLoader.js";
 
 const SelectedQuestionnaire = JSON.parse(localStorage.getItem("SelectedQuestionnaire"));
 const getQuestionsUrl = baseUrl + '/question-api/questionnaires/';
+const block_side = document.querySelector('.block__side')
+const block_main = document.querySelector('.block__main')
 export const delQuestionUrl = baseUrl + `/question-api/questionnaires/${SelectedQuestionnaire.uuid}/`;
-
+const AssistiveToggleButton = document.querySelector(".AssistiveToggleButton");
+const close_side_panel_button = document.querySelector('.close_side_penel');
 const QuestionnaireName = document.querySelector(".navbar-codinto-title");
 const QuestionDesignItems = document.querySelectorAll(".QuestionDesignItem");
 const QuestionsBoxContainer = document.querySelector(".QuestionsBox");
@@ -16,7 +19,7 @@ const remove_folder_confirm_btn = document.querySelector(".removeFolderPopUp .co
 const remove_folder_popup = document.querySelector(".removeFolderPopUp");
 const folder_cancel_button = document.querySelectorAll(".cancel-button");
 const AssistiveButtons = document.querySelectorAll('.AssistiveButton .AssistiveItems button');
-
+console.log(SelectedQuestionnaire)
 QuestionnaireName.textContent = SelectedQuestionnaire.name;
 
 export const QuestionItemCleaner = () => {
@@ -103,3 +106,21 @@ AssistiveButtons[1].addEventListener('click',() => {
 });
 QuestionItemSetter();
 export default { QuestionItemSetter , QuestionDesignItemsHandler};
+
+window.addEventListener('resize',() => {
+    if(window.innerWidth > 770)
+    {
+        block_side.classList.remove('add_question_active');
+        $(block_main).show(120);
+    }
+        
+})
+
+AssistiveToggleButton.addEventListener('click',() => {
+    block_side.classList.add('add_question_active');
+    $(block_main).hide(120);
+})
+close_side_panel_button.addEventListener('click',() => {
+    block_side.classList.remove('add_question_active');
+    $(block_main).show(120);
+})

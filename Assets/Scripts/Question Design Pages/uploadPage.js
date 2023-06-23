@@ -90,6 +90,6 @@ file_input.addEventListener('input',() => {
     })
     if(file_input.files)
  
-        file_question_PostData.media = file_input.files[0].name;
+        file_question_PostData.media = file_input.files[0];
     file_upload_handler(selected_file_type,file_input,EditableQuestion,file_question_PostData);
 })

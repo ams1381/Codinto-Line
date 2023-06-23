@@ -1,9 +1,13 @@
 import { text_question_with_out_answer_postData } from "../ajax/QuestionPostData.js"
-import { preview_question_toggle , preview_change_handler , file_upload_handler } from "./CommonActions.js";
+import { preview_question_toggle , preview_change_handler , file_upload_handler, question_creator } from "./CommonActions.js";
+import { question_info_loader } from "./QuestionInfoLoader.js";
 
 const titleInput = document.querySelector(".GTitle .TitleTextInput");
 const textInput = document.querySelector(".GDesc .TitleTextInput");
 const saveBtn = document.querySelector(".saveQuestion")
+let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
+const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const file_input = document.querySelector("#file.box__file");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
@@ -11,9 +15,13 @@ const button_text_input = document.querySelector('.GEntryButton .ButtonTextInput
 const button_shape_items = document.querySelectorAll(".ShapeOptions label")
 const preview_button = document.querySelector(".QuestionStart .QuestionStartButton")
 
- 
-titleInput.addEventListener('input', () => { preview_change_handler('Title-change', text_question_with_out_answer_postData) })
-textInput.addEventListener('input', () => { preview_change_handler('Desc-change', text_question_with_out_answer_postData) })
+if(ACTION_TYPE == 'Edit')
+{
+     
+    question_info_loader(EditableQuestion)
+}
+titleInput.addEventListener('input', () => { preview_change_handler(EditableQuestion,'Title-change', text_question_with_out_answer_postData) })
+textInput.addEventListener('input', () => { preview_change_handler(EditableQuestion,'Desc-change', text_question_with_out_answer_postData) })
 
 file_input.addEventListener('input',() => {
     let selected_file_type;
@@ -37,6 +45,7 @@ const preview_button_shape_handler = (Shape,IsSolid) => {
 }
 const preview_button_text_handler = (ButtonText) => {
     preview_button.textContent = ButtonText;
+    text_question_with_out_answer_postData.button_text = ButtonText;
 }
 button_text_input.addEventListener('input',(e) => {
     preview_button_text_handler(e.target.value)
@@ -51,8 +60,6 @@ button_shape_items.forEach((button_shape_item)=>{
     
 })
 saveBtn.addEventListener("click" , async function (event){
-
-     
     if(EditableQuestion && ACTION_TYPE == 'Edit')
         await question_creator(ACTION_TYPE,EditableQuestion,'noanswer-questions',QuestionnaireUUID,text_question_with_out_answer_postData);
     else

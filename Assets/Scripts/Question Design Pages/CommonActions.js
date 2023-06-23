@@ -83,7 +83,15 @@ export const preview_question_toggle = () => {
         $(block_main).show(80);
         $(block_side).hide(120);
     }
-    
+    window.addEventListener('resize',() => {
+        if(window.innerWidth > 770)
+        {
+            block_main.classList.remove('preview_active');
+            block_side.classList.remove('preview_active');
+            $(block_side).show(120);
+        }
+        
+    })
 }
 export const preview_answer_option_remover = (Option_Type) => {
     let preview_answer_options;
@@ -444,7 +452,7 @@ export const question_creator =  async (ACTION_TYPE,QuestionID,QuestionPostType,
     if(!DataForPost.title && !DataForPost.question_text && ACTION_TYPE == 'Create')
     {
         showAlert('عنوان و متن سوال را وارد کنید.')
-      //  return
+        return
     }
     console.log(DataForPost)
         let createRes;
