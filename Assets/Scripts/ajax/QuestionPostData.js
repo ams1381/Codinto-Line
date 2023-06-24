@@ -13,8 +13,8 @@ export let multiple_option_postData = {
     nothing_selected : false,
     is_vertical : false,
     options : [
-        { 'text' : 'abc' },
-        { 'text' : 'abd'}
+        { 'text' : 'abc', },
+        { 'text' : 'abd',}
     ]
 }
 export let slider_option_postData = {

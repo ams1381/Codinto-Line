@@ -1,4 +1,4 @@
-import { postRequest , baseUrl, patchRequest } from '../ajax/ajaxRequsts.js';
+import { postRequest , baseUrl, patchRequest , getRequest} from '../ajax/ajaxRequsts.js';
 import { Questionnaire_PostData } from "../ajax/QuestionPostData.js";
 import { showAlert } from "../Question Design Pages/CommonActions.js";
 import { QuestionnaireInfoSetter } from './QustionnariesInfoLoader.js';
@@ -31,11 +31,8 @@ let StartDayInputs = document.querySelectorAll(".start-picker .DayPicker input")
 let endYearInputs = document.querySelectorAll(".end-picker .YearPicker input");
 let endMonthInputs = document.querySelectorAll(".end-picker .MonthPicker input");
 let endDayInputs = document.querySelectorAll(".end-picker .DayPicker input");
+let LoadedQuestionnaire;
 
-if(QuestionnaireToEdit)
-{
-   await QuestionnaireInfoSetter(QuestionnaireToEdit.uuid);
-}
 const Form_Date_Updater = (YearInputs,MonthInputs,DayInputs) => {
     let currentDate = new Date();
     let currentDateString = currentDate.toLocaleDateString();
@@ -107,22 +104,34 @@ const Form_Date_Month_Updater = (currentDate,YearInputs,MonthInputs,DayInputs) =
         })
     })
 }
+const compareDates = (date1, date2) => new Date(date1) - new Date(date2);
+const form_date_convertor_to_Gregorian = (Date) => {
+    let GregorianDate = farvardin.solarToGregorian(parseInt(Date.split("/")[0]) , parseInt(Date.split("/")[1]) , parseInt(Date.split("/")[2]));
+    return (GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2]);
+}
 const create_questionnaire = async (e) => {
     e.preventDefault();
-    console.log(Questionnaire_PostData)
     try 
     {
-        if (Questionnaire_PostData.pub_date !== null)
+        if(LoadedQuestionnaire)
         {
-            let publish_date = Questionnaire_PostData.pub_date;
-            let GregorianDate = farvardin.solarToGregorian(parseInt(publish_date.split("/")[0]) , parseInt(publish_date.split("/")[1]) , parseInt(publish_date.split("/")[2]));
-            Questionnaire_PostData.pub_date = GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2];
+            if(LoadedQuestionnaire.end_date)
+              LoadedQuestionnaire.end_date = form_date_convertor_to_Gregorian(LoadedQuestionnaire.end_date)
         }
-        if (Questionnaire_PostData.end_date !== null)
+        else
         {
-            let end_date = Questionnaire_PostData.end_date;
-            let GregorianDate = farvardin.solarToGregorian(parseInt(end_date.split("/")[0]) , parseInt(end_date.split("/")[1]) , parseInt(end_date.split("/")[2]));
-            Questionnaire_PostData.end_date = GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2];
+            if(Questionnaire_PostData.pub_date)
+                Questionnaire_PostData.pub_date = form_date_convertor_to_Gregorian(Questionnaire_PostData.pub_date);
+            if(Questionnaire_PostData.end_date)
+                Questionnaire_PostData.end_date = form_date_convertor_to_Gregorian(Questionnaire_PostData.end_date);
+
+            if(Questionnaire_PostData.pub_date && Questionnaire_PostData.end_date)
+                if(compareDates(Questionnaire_PostData.pub_date,Questionnaire_PostData.end_date) <= 0)
+                {
+                    showAlert('تاریخ را به درستی وارد کنید');
+                    return;
+                }
+                    
         }
     }
     catch(err)
@@ -130,20 +139,20 @@ const create_questionnaire = async (e) => {
         showAlert('تاریخ را به درستی وارد کنید');
         return;
     }
-   
+    
         let create_questionnaire_res;
-        if(QuestionnaireToEdit)
+        if(LoadedQuestionnaire)
         {
-            await patchRequest(baseUrl + '/question-api/questionnaires/' + QuestionnaireToEdit.uuid + '/',QuestionnaireToEdit);
-            localStorage.setItem("SelectedQuestionnaire",JSON.stringify(QuestionnaireToEdit));
+            await patchRequest(baseUrl + '/question-api/questionnaires/' + QuestionnaireToEdit.uuid + '/',LoadedQuestionnaire);
+            localStorage.setItem("SelectedQuestionnaire",JSON.stringify(LoadedQuestionnaire));
         }
         else
         {
             await postRequest(baseUrl + '/question-api/questionnaires/',Questionnaire_PostData); 
             localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res));
         }
-
-        window.open("/Pages/FormDesign.html","_self");
+        
+      window.open("/Pages/FormDesign.html","_self");
         
         
 }
@@ -176,7 +185,7 @@ const Timer_Setter = (TimerHour,TimerMinute,TimerSecond) => {
     `${(TimerMinute < 10) ? ('0' + TimerMinute) : TimerMinute}:` + 
     `${(TimerSecond < 10) ? ('0' + TimerSecond) : TimerSecond}`;
 }
-const DateSetter = (e) => {
+export const DateSetter = (e) => {
     if(QuestionnaireToEdit)
     {
         date_eventListener_setter(StartYearItems,StartMonthItems,StartDayItems,QuestionnaireToEdit,'start')
@@ -191,18 +200,24 @@ const DateSetter = (e) => {
 const date_eventListener_setter = (YearLabels,MonthLabels,DayLabels,postData,date_type) => {
     let Year,Month,Day , Questionnaire_date;
     YearLabels.forEach((item,index) => {
+        if(item.previousElementSibling.checked)
+            Year = item.textContent;
         item.addEventListener('click',() => {
             Year = parseInt(item.textContent);
             post_data_date_setter(Year,Month,Day,postData,date_type)
         })
     })
     MonthLabels.forEach((item,index) => {
+        if(item.previousElementSibling.checked)
+            Month = item.textContent;
         item.addEventListener('click',() => {
             Month = index;
             post_data_date_setter(Year,Month,Day,postData,date_type)
         })
     })
     DayLabels.forEach((item,index) => {
+        if(item.previousElementSibling.checked)
+            Day = item.textContent;
         item.addEventListener('click',() => {
             Day = item.textContent;
             post_data_date_setter(Year,Month,Day,postData,date_type);
@@ -210,7 +225,6 @@ const date_eventListener_setter = (YearLabels,MonthLabels,DayLabels,postData,dat
     })
 }
 const post_data_date_setter = (Year,Month,Day,postData,date_type) => {
-
     let  Questionnaire_date = `${Year}/` + 
     `${(Month < 10) ? ('0' + Month) : Month}/` + 
     `${(Day < 10) ? ('0' + Day) : Day}`;
@@ -219,17 +233,21 @@ const post_data_date_setter = (Year,Month,Day,postData,date_type) => {
     {
         case 'start':
             Form_Date_Updater(StartYearInputs,StartMonthInputs,StartDayInputs);
-            postData.pub_date = Questionnaire_date;
+            if(QuestionnaireToEdit)
+                LoadedQuestionnaire.pub_date = Questionnaire_date;
+            else 
+                postData.pub_date = Questionnaire_date;
             break;
         case 'end':
             Form_Date_Updater(endYearInputs,endMonthInputs,endDayInputs);
-            postData.end_date = Questionnaire_date;
+            if(LoadedQuestionnaire)
+                LoadedQuestionnaire.end_date = Questionnaire_date;
+            else
+                postData.end_date = Questionnaire_date;
             break;
     }
 }
-
 QuestionnaireNameInputs.addEventListener('input',nameSetter);
-
 QuestionnaireStartDateToggle.addEventListener('click',() => {
     if(!QuestionnaireStartDateToggle.previousElementSibling.checked)
     {
@@ -266,3 +284,8 @@ QuestionnaireSaveBtn.addEventListener('click',create_questionnaire);
 Timer_EventListener_Setter()
 Form_Date_Updater(StartYearInputs,StartMonthInputs,StartDayInputs);
 Form_Date_Updater(endYearInputs,endMonthInputs,endDayInputs);
+if(QuestionnaireToEdit)
+{
+    await QuestionnaireInfoSetter(QuestionnaireToEdit.uuid)
+    LoadedQuestionnaire =  await getRequest(baseUrl + '/question-api/questionnaires/' + QuestionnaireToEdit.uuid + '/')
+}

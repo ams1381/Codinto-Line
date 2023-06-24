@@ -113,7 +113,7 @@ export const question_info_loader = (Question) => {
             if(item.checked)
                 selected_file_type = item.getAttribute("id")
         })
-        file_src_setter(baseUrl + Question.media,file_name,selected_file_type)
+        file_src_setter(baseUrl + Question.media,file_name,selected_file_type,Question)
     }
 
     //Toggles Loader :

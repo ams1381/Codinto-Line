@@ -1,4 +1,5 @@
 import { baseUrl , getRequest } from "../ajax/ajaxRequsts.js"
+import  { DateSetter}  from "./QuestionnaireSetting.js";
 
 const QuestionnaireNameInputs = document.querySelector("#form-name-input");
 const QuestionnaireStartDateToggle = document.querySelector(".date-start .Switch-toggle input");
@@ -36,12 +37,14 @@ export const QuestionnaireInfoSetter = async (QuestionnaireUUID) => {
         QuestionnaireStartDateToggle.checked = true;
         QuestionnaireStartDatePicker.classList.add('active');
         date_setter(StartYearItems,StartMonthItems,StartDayItems,date_transformer(QuestionnaireRes.pub_date));
+        DateSetter();
     }
     if(QuestionnaireRes.end_date)
     {
         QuestionnaireEndDateToggle.checked = true;
         QuestionnaireEndDatePicker.classList.add('active');
         date_setter(endYearItems,endMonthItems,endDayItems,date_transformer(QuestionnaireRes.end_date));
+        DateSetter();
     }
     if(QuestionnaireRes.timer)
     {

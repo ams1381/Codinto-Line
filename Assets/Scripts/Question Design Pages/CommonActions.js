@@ -247,12 +247,12 @@ export const answer_option_adder = (Option_Type) => {
     {
         case 'MultipleOption':
             multiple_option_postData.options.push(
-                { text : 'test' }
+                { text : last_answer_option_number + 1 }
             )
             break;
         case 'SliderOption':
             slider_option_postData.options.push(
-                { text : 'test' }
+                { text : last_answer_option_number + 1 }
             )
             break;
     }
@@ -342,13 +342,11 @@ export const file_upload_handler = (FileType,FileInput,EditableQuestion,PostData
     if(file_format_checked(FileType,uploaded_file_format))
     {
         showAlert(file_format_checked(FileType,uploaded_file_format));
-        if(FileType.files)
-             FileType.files.length = 0;
         return
     }
     else
     {
-        file_src_setter(URL.createObjectURL(FileInput.files[0]),FileInput.files[0].name,FileType);
+        file_src_setter(URL.createObjectURL(FileInput.files[0]),FileInput.files[0].name,FileType,EditableQuestion);
         preview_image_cancel_button.addEventListener('click',() => {
             file_input_container.classList.remove("uploaded");
             preview_container_main.classList.remove("preview_image_active","preview_video_active");
@@ -356,16 +354,15 @@ export const file_upload_handler = (FileType,FileInput,EditableQuestion,PostData
                 FileType.files.length = 0;
             preview_image_main.src = '';
             preview_video_main.src = ''
-            EditableQuestion.media = null;
-            PostData.media = null;
+            PostData.media = 'null';
         })
 
     }
 }
-export const file_src_setter = (Src,FileName,FileType) => {
+export const file_src_setter = (Src,FileName,FileType,EditableQuestion) => {
     preview_file_name_side.textContent = FileName;
     file_input_container.classList.add("uploaded");
-
+    
     switch(FileType)
     {
         case 'Picture' :  
@@ -381,6 +378,18 @@ export const file_src_setter = (Src,FileName,FileType) => {
             preview_file_name_side.textContent = FileName;
             break;         
     }
+    preview_image_cancel_button.addEventListener('click',() => {
+        file_input_container.classList.remove("uploaded");
+        preview_container_main.classList.remove("preview_image_active","preview_video_active");
+        if(FileType.files)
+            FileType.files.length = 0;
+        preview_image_main.src = '';
+        preview_video_main.src = ''
+        if(EditableQuestion)
+            EditableQuestion.media = null;
+            
+            
+    })
 }
 const file_format_checked = (FileType,FormatToCheck) => {
     if(FileType == 'Picture')
@@ -448,27 +457,23 @@ const form_data_convertor =  (obj,formData,namespace) => {
   
     return formData;
 }
-export const question_creator =  async (ACTION_TYPE,QuestionID,QuestionPostType,QuestionnaireUUID,DataForPost) => {
+export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,QuestionnaireUUID,DataForPost) => {
     if(!DataForPost.title && !DataForPost.question_text && ACTION_TYPE == 'Create')
     {
         showAlert('عنوان و متن سوال را وارد کنید.')
         return
     }
-    console.log(DataForPost)
+    console.log([...form_data_convertor(Question)])
         let createRes;
         try 
         {
             switch(ACTION_TYPE)
             {
                 case 'Edit':
-                    // for(var item in QuestionID)
-                    //     form_data.append(item,[...QuestionID[item]]);
-                    createRes = await patchRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/${QuestionID.id}/`,form_data_convertor(DataForPost));
+                    createRes = await patchRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/${Question.id}/`,form_data_convertor(DataForPost));
                     break;
                 case 'Create':
-                    // for(var item in DataForPost)
-                    //     form_data.append(item,DataForPost[item]);
-                    createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`,DataForPost);
+                    createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`, form_data_convertor(DataForPost));
                     break;
             }
         }
