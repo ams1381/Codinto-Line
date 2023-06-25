@@ -9,12 +9,16 @@
     <link rel="stylesheet" href="resultTable.css">
     <link rel="stylesheet" href="../../Assets/Styles/DefaultStyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
 </head>
 <body>
 <div class="container">
     <div class="null">
 
-    <table class="blueTable">
+    <table class="blueTable" id="myTable">
         <thead>
         <tr>
             <th>head1</th>
@@ -51,7 +55,11 @@
         </tbody>
         </tr>
     </table>
+<!--        <button onclick="exportTableToExcel('myTable', 'exported_table')">Export to Excel</button>-->
+        <button id="exportButton">Export to Excel</button>
     </div>
 </div>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+<script src="table.js"></script>
 </body>
 </html>
