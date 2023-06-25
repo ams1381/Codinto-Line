@@ -29,6 +29,9 @@ table.blueTable {
 /*    border-right: 2px solid#EFEFEF;*/
 /*    border-left: 2px solid #EFEFEF;*/
 /*}*/
+th{
+    border-radius: 5px 5px 5px 5px;
+}
 
 table.blueTable td, table.blueTable th {
     padding: 3px 2px;
