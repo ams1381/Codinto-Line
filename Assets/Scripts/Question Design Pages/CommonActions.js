@@ -336,12 +336,10 @@ export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,Pos
     }
 }
 export const file_upload_handler = (FileType,FileInput,EditableQuestion,PostData) =>
-{
-    let uploaded_file_format = FileInput.files[0].name.split(".")[FileInput.files[0].name.split(".").length - 1];
-    
-    if(file_format_checked(FileType,uploaded_file_format))
+{   
+    if(detectFileFormat(FileInput.files[0].name) == 'UNKNOWN' || detectFileFormat(FileInput.files[0].name) != FileType)
     {
-        showAlert(file_format_checked(FileType,uploaded_file_format));
+        showAlert('فرمت فایل پذیرفته نیست');
         return
     }
     else
@@ -391,55 +389,66 @@ export const file_src_setter = (Src,FileName,FileType,EditableQuestion) => {
             
     })
 }
-const file_format_checked = (FileType,FormatToCheck) => {
-    if(FileType == 'Picture')
-        switch (FormatToCheck) 
-        {
-            case "jpg":
-                break;
-            case "png":
-                break;
-            case "jpeg":
-                break;
-            case "JPG":
-                break;
-            case "PNG":
-                break;
-            case "JPEG":
-                break;
-            default:
-                return("فرمت فایل وارد شده پذیرفته نیست");
-        }
-    else if(FileType == 'Video')
-        switch (FormatToCheck) {
-            case "mp4":
-                break;
-            case "mov":
-                break;
-            case "m4v":
-                break;
-            case "mkv":
-                break;
-            case "flv":
-                break;
-            case "wmv":
-                break;
-            case "MP4":
-                break;
-            case "MOV":
-                break;
-            case "M4V":
-                break;
-            case "MKV":
-                break;
-            case "FLV":
-                break;
-            case "WMV":
-                break;
-            default:
-                return ("فرمت وارد شده پذیرفته نیست")
-        }
-}
+// const file_format_checked = (FileType,FormatToCheck) => {
+//     if(FileType == 'Picture')
+//         switch (FormatToCheck) 
+//         {
+//             case "jpg":
+//                 break;
+//             case "png":
+//                 break;
+//             case "jpeg":
+//                 break;
+//             case "JPG":
+//                 break;
+//             case "PNG":
+//                 break;
+//             case "JPEG":
+//                 break;
+//             default:
+//                 return("فرمت فایل وارد شده پذیرفته نیست");
+//         }
+//     else if(FileType == 'Video')
+//         switch (FormatToCheck) {
+//             case "mp4":
+//                 break;
+//             case "mov":
+//                 break;
+//             case "m4v":
+//                 break;
+//             case "mkv":
+//                 break;
+//             case "flv":
+//                 break;
+//             case "wmv":
+//                 break;
+//             case "MP4":
+//                 break;
+//             case "MOV":
+//                 break;
+//             case "M4V":
+//                 break;
+//             case "MKV":
+//                 break;
+//             case "FLV":
+//                 break;
+//             case "WMV":
+//                 break;
+//             default:
+//                 return ("فرمت وارد شده پذیرفته نیست")
+//         }
+// }
+export const detectFileFormat = (fileName) => {
+    if(!fileName)
+     return
+    let pictureFormats = ['jpg', 'jpeg', 'png', 'gif'];
+    let videoFormats = ['mp4', 'avi', 'mkv', 'mov', 'flv', 'wmv'];
+    
+    let fileFormat = fileName.split(".")[fileName.split(".").length - 1];
+    
+    return pictureFormats.includes(fileFormat) ? 'PICTURE' :
+           videoFormats.includes(fileFormat) ? 'VIDEO' : 'UNKNOWN';
+  }
 const form_data_convertor =  (obj,formData,namespace) => {
     formData = formData || new FormData();
     namespace = namespace || '';

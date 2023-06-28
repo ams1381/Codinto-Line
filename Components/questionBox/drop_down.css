@@ -1,0 +1,69 @@
+.QuestionContainer
+{
+    width: calc(17rem + 17vw);
+    background: var(--theme-white);
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px var(--folder-shadow-color);
+    font-family: IRANSans;
+    padding: 0 10px 20px 0;
+}
+.Question-Title , .Greeting-Title
+{
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+}
+.Question-Title
+{
+    color: var(--brand-color);
+    text-align: right;
+    display: flex;
+    justify-content: flex-start;
+}
+.description_block
+{
+    padding: 10px;
+    color: var(--brand-color);
+    text-align: right;
+}
+
+.answer_block_slider 
+{
+    border: 2px solid var(--brand-color);
+    border-radius: 10px;
+    width: 92%;
+    margin: 0.8rem auto;
+}
+.answer_block .selection .selection__box
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+.selection__box .selection__item
+{
+    margin-top: 0.9rem;
+    cursor: pointer;
+    color: var(--brand-color);
+    width: 92%;
+    text-align: center;
+    padding: 7px 0 7px 0;
+    height: 70%;
+    transition: 0.2s;
+}
+.selection__box .selection__item label 
+{
+    cursor: pointer;
+}
+.selection__box .selection__item:hover
+{
+    background-color: var(--input-title-bg-color);
+}
+.selection__item .select_item_input
+{
+    opacity: 0;
+    visibility: hidden;
+}

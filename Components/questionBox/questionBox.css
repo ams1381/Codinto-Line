@@ -38,7 +38,8 @@ body{
     justify-content: flex-start;
     column-gap: 0.1rem;
 }
-.textErea__container{
+.textArea__container , .number_answer_box_container
+{
     display: flex;
     align-items: center;
     justify-content: flex-start;
