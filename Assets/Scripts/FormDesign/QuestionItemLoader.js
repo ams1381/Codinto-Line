@@ -122,9 +122,11 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
     $(parsed_question_element_item).fadeIn(200);
 
     const delete_question_button = document.querySelector(`#Question${Question.id} .QuestionTools .DeleteButton`);
+
     remove_eventListener_setter(delete_question_button,Question.question_type,Question.id)
 
     parsed_question_element_item.addEventListener('click',(e) => {
+
         localStorage.setItem("ACTION-TYPE",'Edit');
         localStorage.setItem("QuestionData",JSON.stringify(Question));
         if(e.target.classList[1] != 'fa-copy' && (e.target.classList[1] != 'fa-trash'))

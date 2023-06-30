@@ -114,6 +114,7 @@ body{
     word-wrap: break-word;
     color: var(--brand-color);
     line-height: 1.6rem;
+    text-align: center;
 }
 .range__number{
     color: var(--brand-color);
@@ -127,6 +128,11 @@ body{
     width: 80%;
     height: 30px;
     margin: 0 0.2rem 0 0.2rem;
+    transition: 0.2s;
+}
+.range__number input 
+{
+    display: none;
 }
 .range__active{
     background-color: var(--theme-white);

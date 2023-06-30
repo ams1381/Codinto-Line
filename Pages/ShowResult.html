@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشاهده نتایج</title>
+    <link rel="stylesheet" type="text/css" href="/Assets/Styles/DefaultStyles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../Assets/Styles/ShowResult.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <header class="block__header">
+        <nav>
+            <button class="back__button navButton">
+                <a href="./Folders.html">
+                    <i class="fa fa-arrow-right"></i>
+                </a>
+            </button>
+                <h3 class="navbar-codinto-title">
+                   کدینتو لاین
+                </h3>
+        </nav>
+     </header>
+     <div class="container">
+        <table class="resultTable" id="myTable">
+            <thead>
+            <tr id="result_table_head_row">
+            </tr>
+            </thead>
+            <tbody id="result_table_body">
+            </tbody>
+            
+        </table>
+            <button id="exportButton">Export to Excel</button>
+    </div>
+    <script src="../Assets/Scripts/ShowResult.js" type="module"></script>
+</body>
+</html>

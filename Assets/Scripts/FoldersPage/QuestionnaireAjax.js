@@ -34,6 +34,7 @@ export const questionnaire_generator = (Questionnaire) => {
     let form_edit_preview_button = document.querySelector(`#Questionnaire${Questionnaire.id} .form_preview`);
     let form_edit_delete_button = document.querySelector(`#Questionnaire${Questionnaire.id} .form_delete`);
     let form_setting_edit_button = document.querySelector(`#Questionnaire${Questionnaire.id} .form_setting_edit`);
+    let form_show_result_button = document.querySelector(`#Questionnaire${Questionnaire.id} .form_show_answer`)
 
         questionnaire.addEventListener('click',(e) => {
             if(e.target.className != 'fa fa-sliders' && e.target.className != 'fa fa-close' && !(e.target instanceof HTMLButtonElement))
@@ -46,7 +47,7 @@ export const questionnaire_generator = (Questionnaire) => {
             questionnaire_remove_handler(Questionnaire.uuid,Questionnaire.id)
         })
         form_edit_preview_button.addEventListener('click',(e) => {
-           window.open("/Pages/AnswerPage.html","_self");
+           window.open("/Pages/AnswerPage.html");
             localStorage.setItem("questionnaire_for_preview",JSON.stringify(Questionnaire));
         })
         form_edit_cancel_button.addEventListener("click",() => {
@@ -58,6 +59,10 @@ export const questionnaire_generator = (Questionnaire) => {
         form_setting_edit_button.addEventListener('click',() => {
             localStorage.setItem('QuestionnaireToEdit',JSON.stringify(Questionnaire));
             window.open('Setting.html',"_Self");
+        })
+        form_show_result_button.addEventListener('click',() => {
+            window.open("/Pages/ShowResult.html","_Self");
+            localStorage.setItem('QuestionnaireToShowResult',JSON.stringify(Questionnaire));
         })
 }
 const questionnaire_remove_handler = async (questionnaireUUID,questionnaireID) => {

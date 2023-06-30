@@ -1,6 +1,7 @@
 import { range_question_postData} from "../ajax/QuestionPostData.js";
 import {file_upload_handler, preview_change_handler, preview_question_toggle, question_creator, toggle_handler} from "./CommonActions.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
+import { range_item_eventListener_setter } from "../../../Components/questionBox/rangeSelect.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
@@ -16,7 +17,7 @@ const preview_middle_label = document.querySelector(".range__select_labels .rang
 const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .slider-button")
 const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button");
 const saveBtn = document.querySelector(".saveQuestion")
-const rangeInput = document.querySelector(".rangeInput");
+const rangeInput = document.querySelector(".range-input input");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
 // rightInput.value = null;
@@ -24,10 +25,7 @@ const back_to_design_button = document.querySelector(".block__main .block__main_
 // leftInput.value = null;
 // rangeInput.value = 0;
 // range_question_postData.min = 3;
-if(ACTION_TYPE == 'Edit')
-{
-    question_info_loader(EditableQuestion)
-}
+
 // functions--------------------------------------
 
 function rangePreview(input){
@@ -80,20 +78,31 @@ middleInput.addEventListener('input',() => {
 // }
 // textStyle(titleInput)
 function rangeChange(input){
-    input.addEventListener("input" , (e)=>{
-        let rangeContainer = document.querySelector(".range__select_items");
-        rangeContainer.innerHTML = ""
-        for(let i = 0 ; i < e.target.value ; i++){
-            let rangeItem = document.createElement("span")
-            rangeItem.classList.add("range__number")
-            rangeItem.innerText = i + 1
-            rangeContainer.appendChild(rangeItem)
-        }
+    if(input)
+    input.addEventListener("input" , (e)=>
+    {
+        range_item_generator(rangeInput.value)
         if(document.querySelectorAll('.range__select_items .range__number').length % 2 == 0)
             preview_middle_label.parentElement.style.display = 'none';
         else    
             preview_middle_label.parentElement.style.display = 'block';
     })
+}
+const range_item_generator = (number_to_generate) => {
+    let rangeContainer = document.querySelector(".range__select_items");
+    rangeContainer.innerHTML = ""
+    for(let i = 0 ; i < number_to_generate ; i++){
+        let range_item_html = `
+        <span class="range__number">
+            <input type="radio"  name="range_item_input" class="range_input" id="range_input_n${i + 1}">
+            <label for="range_input_n${i +1}">${i +1}</label>
+        </span>
+        `
+        let parser = new DOMParser();
+        let parsed_range_item = parser.parseFromString(range_item_html,'text/html').firstChild.lastChild.firstChild;
+        rangeContainer.append(parsed_range_item);
+        range_item_eventListener_setter(document.querySelectorAll(".range__number"))
+    }
 }
 rangeChange(rangeInput)
 file_input.addEventListener('input',() => {
@@ -123,3 +132,8 @@ toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.paren
 })
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)
+range_item_eventListener_setter(document.querySelectorAll(".range__number"))
+if(ACTION_TYPE == 'Edit')
+{
+    question_info_loader(EditableQuestion)
+}

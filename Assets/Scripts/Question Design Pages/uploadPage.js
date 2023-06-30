@@ -3,7 +3,8 @@ import {
     preview_change_handler,
     question_creator,
     toggle_handler , 
-    text_style_setter
+    text_style_setter,
+    preview_question_toggle
 } from "../Question Design Pages/CommonActions.js";
 import {file_question_PostData} from "../ajax/QuestionPostData.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
@@ -22,16 +23,15 @@ const preview_desc_container = document.querySelector('.description_block');
 const saveBtn = document.querySelector(".saveQuestion")
 const KBSelector = document.querySelector(".KB__switcher")
 const sizeInput = document.querySelector(".file__size__upload")
-
+const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
 
 // initial data------------------------------------
 if(ACTION_TYPE == 'Edit')
 {
-     
     question_info_loader(EditableQuestion)
 }
 
- 
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',file_question_PostData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',file_question_PostData)})
 
@@ -93,3 +93,5 @@ file_input.addEventListener('input',() => {
         file_question_PostData.media = file_input.files[0];
     file_upload_handler(selected_file_type,file_input,EditableQuestion,file_question_PostData);
 })
+view_question_button.addEventListener('click',preview_question_toggle);
+back_to_design_button.addEventListener('click',preview_question_toggle)

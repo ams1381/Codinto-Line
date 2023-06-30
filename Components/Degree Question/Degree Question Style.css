@@ -5,7 +5,6 @@
     border-radius: 20px;
     box-shadow: 3px 3px 10px var(--folder-shadow-color);
     font-family: IRANSans;
-    padding: 0 10px 20px 0;
 }
 .Question-Title , .Greeting-Title
 {

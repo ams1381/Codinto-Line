@@ -18,6 +18,7 @@ const QuestionsBoxContainer = document.querySelector(".QuestionsBox");
 const remove_folder_confirm_btn = document.querySelector(".removeFolderPopUp .confirm-button");
 const remove_folder_popup = document.querySelector(".removeFolderPopUp");
 const folder_cancel_button = document.querySelectorAll(".cancel-button");
+const questionnaire_preview_button = document.querySelector('.viewFormQuestions');
 const AssistiveButtons = document.querySelectorAll('.AssistiveButton .AssistiveItems button');
 console.log(SelectedQuestionnaire)
 QuestionnaireName.textContent = SelectedQuestionnaire.name;
@@ -123,4 +124,8 @@ AssistiveToggleButton.addEventListener('click',() => {
 close_side_panel_button.addEventListener('click',() => {
     block_side.classList.remove('add_question_active');
     $(block_main).show(120);
+})
+questionnaire_preview_button.addEventListener('click',() => {
+    window.open("/Pages/AnswerPage.html");
+    localStorage.setItem("questionnaire_for_preview",JSON.stringify(SelectedQuestionnaire));
 })

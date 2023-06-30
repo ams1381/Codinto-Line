@@ -31,6 +31,7 @@ let StartDayInputs = document.querySelectorAll(".start-picker .DayPicker input")
 let endYearInputs = document.querySelectorAll(".end-picker .YearPicker input");
 let endMonthInputs = document.querySelectorAll(".end-picker .MonthPicker input");
 let endDayInputs = document.querySelectorAll(".end-picker .DayPicker input");
+let dateChanged = false;
 let LoadedQuestionnaire;
 
 const Form_Date_Updater = (YearInputs,MonthInputs,DayInputs) => {
@@ -110,10 +111,11 @@ const form_date_convertor_to_Gregorian = (Date) => {
     return (GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2]);
 }
 const create_questionnaire = async (e) => {
+    
     e.preventDefault();
-    try 
+    try
     {
-        if(LoadedQuestionnaire)
+        if(LoadedQuestionnaire && dateChanged)
         {
             if(LoadedQuestionnaire.end_date)
               LoadedQuestionnaire.end_date = form_date_convertor_to_Gregorian(LoadedQuestionnaire.end_date)
@@ -180,10 +182,13 @@ const Timer_EventListener_Setter = () => {
     
 }
 const Timer_Setter = (TimerHour,TimerMinute,TimerSecond) => {
-    Questionnaire_PostData.timer = 
-    `${(TimerHour < 10) ? ('0' + TimerHour) : TimerHour}:` + 
+    let questionnaire_timer = `${(TimerHour < 10) ? ('0' + TimerHour) : TimerHour}:` + 
     `${(TimerMinute < 10) ? ('0' + TimerMinute) : TimerMinute}:` + 
     `${(TimerSecond < 10) ? ('0' + TimerSecond) : TimerSecond}`;
+    if(LoadedQuestionnaire)
+        LoadedQuestionnaire.timer = questionnaire_timer;
+    else
+        Questionnaire_PostData.timer = questionnaire_timer;
 }
 export const DateSetter = (e) => {
     if(QuestionnaireToEdit)
@@ -225,6 +230,7 @@ const date_eventListener_setter = (YearLabels,MonthLabels,DayLabels,postData,dat
     })
 }
 const post_data_date_setter = (Year,Month,Day,postData,date_type) => {
+    dateChanged = true;
     let  Questionnaire_date = `${Year}/` + 
     `${(Month < 10) ? ('0' + Month) : Month}/` + 
     `${(Day < 10) ? ('0' + Day) : Day}`;
@@ -275,10 +281,16 @@ QuestionnaireTimerToggleLabel.addEventListener('click',() => {
         QuestionnaireTimerPicker.classList.remove("active");
 })
 QuestionnaireProgressBar.addEventListener('click',() => {
-    Questionnaire_PostData.progress_bar = !QuestionnaireProgressBar.previousElementSibling.checked;
+    if(LoadedQuestionnaire)
+        LoadedQuestionnaire.progress_bar = !QuestionnaireProgressBar.previousElementSibling.checked;
+    else
+        Questionnaire_PostData.progress_bar = !QuestionnaireProgressBar.previousElementSibling.checked;
 })
 QuestionnaireIsolator.addEventListener('click',() => {
-    Questionnaire_PostData.show_question_in_pages = !QuestionnaireIsolator.previousElementSibling.checked;
+    if(LoadedQuestionnaire)
+        LoadedQuestionnaire.show_question_in_pages = !QuestionnaireIsolator.previousElementSibling.checked;
+    else
+        Questionnaire_PostData.show_question_in_pages = !QuestionnaireIsolator.previousElementSibling.checked;
 })
 QuestionnaireSaveBtn.addEventListener('click',create_questionnaire);
 Timer_EventListener_Setter()

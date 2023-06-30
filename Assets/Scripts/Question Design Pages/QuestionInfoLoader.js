@@ -1,6 +1,6 @@
 import { baseUrl } from "../ajax/ajaxRequsts.js";
 import { file_upload_handler , file_src_setter} from "./CommonActions.js";
-
+import { range_item_eventListener_setter } from "../../../Components/questionBox/rangeSelect.js";
 const show_number_toggle = document.querySelector(".show_number .Switch-Container input")
 const required_toggle = document.querySelector('.is_required .Switch-Container input');
 const multiple_answer_toggle = document.querySelector(".multiple_choice .Switch-toggle input");
@@ -13,23 +13,32 @@ const leftInput = document.querySelector(".left-Input .label-text-input")
 const multiple_answer_min_input = document.querySelector('.minInput #Answermin');
 const randomize_options_toggle = document.querySelector(".is_random_options .Switch-Container input");
 const file_input = document.querySelector("#file.box__file");
+const range_number_label = document.querySelector(".range-label");
+const preview_degree_container = document.querySelector('.degree_answer_block-options');
+const range_input_selector = document.querySelector(".range-input input")
 const multiple_answer_max_input = document.querySelector('.maxInput #Answermax');
 const question_preview_description = document.querySelector('.QuestionContainer .description_block p');
 const preview_button = document.querySelector(".QuestionStart .QuestionStartButton")
 const preview_answer_options_container = document.querySelector(".multiple_answer_block-options")
-const button_shape_items = document.querySelectorAll(".ShapeOptions label")
+const button_shape_items = document.querySelectorAll(".ShapeOptions label");
+let preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i');
 const question_preview_title = document.querySelector(".QuestionContainer .Question-Title p");
 const button_text_input = document.querySelector('.GEntryButton .ButtonTextInput');
+const minInput = document.querySelector(".minInput .label-text-input")
+const maxInput = document.querySelector(".maxInput .label-text-input")
 const multiple_answer_select_inputs = document.querySelectorAll(".LimitInput input")
 const degree_label = document.querySelector('.range-label');
 const question_preview_number = document.querySelector(".QuestionContainer .Question-Title label")
 const all_options_toggle = document.querySelector(".all_options .Switch-Container input");
 const telegram_toggle = document.querySelector(".telegram .Switch-toggle input")
 const whatsapp_toggle = document.querySelector(".whatsapp .Switch-toggle input")
+let preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option');
 const instagram_toggle = document.querySelector(".instagram .Switch-toggle input")
 const eitaa_toggle = document.querySelector(".eitaa .Switch-toggle input");
 const selective_degree_shapes = document.querySelectorAll('.shape_selector_options label');
 const seletive_degree_number = document.querySelector(".range-number .range-label")
+const answer_limit_container = document.querySelector(".AnswerAlphabetLimit");
+const sampleAnswerBox = document.querySelector(".SampleAnw")
 const sorush_toggle = document.querySelector(".sorush .Switch-toggle input");
 const preview_left_label = document.querySelector(".range__select_labels .range__select_left_label p");
 const preview_right_label = document.querySelector(".range__select_labels .range__select_right_label p");
@@ -55,6 +64,28 @@ export const question_info_loader = (Question) => {
     // Description_input.value = Question.description 
     if(Question.shape)
     {
+        range_number_label.textContent = Question.max;
+        range_input_selector.value = Question.max;
+        let shapeClassName;
+        switch(Question.shape)
+        {
+            case 'S':
+                document.querySelector('#star_shaped').checked = true;
+                    shapeClassName = 'fa fa-star-o';
+                break;
+            case 'L':
+                document.querySelector('#thumb_shaped').checked = true;
+                    shapeClassName = 'fa fa-thumbs-up';
+                break;
+            case 'H':
+                document.querySelector('#heart_shaped').checked = true;
+                    shapeClassName = 'fa fa-heart-o';
+                break;
+        }
+        preview_degree_shapes.forEach((preview_degree_shape) => {
+                    preview_degree_shape.className = shapeClassName;
+                })
+        preview_degree_handler(Question,Question.max,shapeClassName);
         selective_degree_shapes.forEach((selective_degree_shape) => {
             if(selective_degree_shape.classList.contains(Question.shape))
                 selective_degree_shape.previousElementSibling.checked = true;
@@ -95,9 +126,25 @@ export const question_info_loader = (Question) => {
             preview_button.className = 'QuestionStartButton ' + 'solid ' + Question.button_shape;
        else
             preview_button.className = 'QuestionStartButton ' + 'empty ' + Question.button_shape;
-      
     }
 
+    if(Question.max_label)
+        preview_right_label.textContent = Question.max_label;
+    if(Question.mid_label)
+        preview_middle_label.textContent = Question.mid_label;
+    if(Question.min_label)
+        preview_left_label.textContent = Question.min_label;
+    
+    if(Question.question_type = 'integer_range' && Question.max && !Question.shape)
+    {
+        if(range_number_label)
+        {
+            range_number_label.textContent = Question.max;
+            range_input_selector.value = Question.max;
+            range_item_generator(Question.max)
+        }
+        
+    }
     if(Question.max_selected_options)
     {
         multiple_answer_min_input.value = Question.max_selected_options;
@@ -115,7 +162,59 @@ export const question_info_loader = (Question) => {
         })
         file_src_setter(baseUrl + Question.media,file_name,selected_file_type,Question)
     }
-
+    if(Question.pattern)
+    {
+        switch(Question.pattern) {
+            case "text":
+                answer_limit_container.style.display = "block";
+                sampleAnswerBox.style.display = "none";
+                document.querySelector(".selectionOption.text.free").selected = true;
+                break;
+            case "jalali_date":
+                $(answer_limit_container).hide(40);
+                $(sampleAnswerBox).show(40)
+                document.querySelector(".selectionOption.date__shamsi.jalali_date").selected = true;
+                minInput.value = "";
+                maxInput.value = "";
+                break;
+            case "georgian_date":
+                $(answer_limit_container).hide(40);
+                $(sampleAnswerBox).show(40)
+                document.querySelector(".selectionOption.date__miladi.georgian_date").selected = true;
+                minInput.value = "";
+                maxInput.value = "";
+                break;
+            case "mobile_number":
+                $(answer_limit_container).hide(40);
+                $(sampleAnswerBox).show(40)
+                document.querySelector(".selectionOption.phone__number.mobile_number").selected = true;;
+                minInput.value = "";
+                maxInput.value = "";
+                break;
+            case "phone_number":
+                $(answer_limit_container).hide(40);
+                $(sampleAnswerBox).show(40)
+                document.querySelector(".selectionOption.home__phone.phone_number").selected = true;
+                minInput.value = "";
+                maxInput.value = "";
+                break;
+            case "number_character":
+                answer_limit_container.style.display = "block"
+                $(sampleAnswerBox).show(40)
+                document.querySelector(".selectionOption.number.number_character").selected = true;
+                break;
+            case "persian_letters":
+                answer_limit_container.style.display = "block"
+                $(sampleAnswerBox).show(40)
+                document.querySelector(".selectionOption.persian.persian_letters").selected = true;
+                break;
+            case "english_letters":
+                answer_limit_container.style.display = "block"
+                $(sampleAnswerBox).show(40)
+                document.querySelector(".selectionOption.english.english_letters").selected = true;
+                break;
+        }
+    }
     //Toggles Loader :
     if(Question.is_required)
     {
@@ -147,4 +246,42 @@ export const question_info_loader = (Question) => {
     if(Question.instagram)
         instagram_toggle.checked = Question.instagram;
     
+}
+const range_item_generator = (number_to_generate) => {
+    let rangeContainer = document.querySelector(".range__select_items");
+    rangeContainer.innerHTML = ""
+    for(let i = 0 ; i < number_to_generate ; i++){
+        let range_item_html = `
+        <span class="range__number">
+            <input type="radio"  name="range_item_input" class="range_input" id="range_input_n${i + 1}">
+            <label for="range_input_n${i +1}">${i +1}</label>
+        </span>
+        `
+        let parser = new DOMParser();
+        let parsed_range_item = parser.parseFromString(range_item_html,'text/html').firstChild.lastChild.firstChild;
+        rangeContainer.append(parsed_range_item);
+        range_item_eventListener_setter(document.querySelectorAll(".range__number"))
+    }
+}
+const preview_degree_handler = (Question,degree,shape_icon_className) => {
+    degree_label.textContent = degree ;
+    preview_degree_items.forEach((preview_degree_item) => {
+        preview_degree_item.remove();
+    })
+    for(let i = 0;i < degree; i++)
+    {
+        const degree_element = `
+        <div class="degree_answer_block-option">
+            <input type="radio" name="answer__option" id="answer-n${i}">
+            <label class="answer_option-label" for="answer-n${i}"><i class="${shape_icon_className}"></i></label>
+        </div>`
+        const parser = new DOMParser();
+        const parsed_degree_element = parser.parseFromString((degree_element),'text/html').firstChild.lastChild.firstChild;
+        $(parsed_degree_element).hide();
+        preview_degree_container.append(parsed_degree_element);
+        $(parsed_degree_element).show(50);
+    }
+     preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option');
+     preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i');
+
 }

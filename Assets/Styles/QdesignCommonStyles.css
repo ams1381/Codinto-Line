@@ -315,6 +315,7 @@
     color: white;
     text-align: center;
     font-size: 1rem;
+    width: 100%;
 }
 .Question-Title
 {
@@ -736,7 +737,6 @@ input[type=range]::-webkit-slider-thumb {
     text-align: center;
     padding: 7px 0 7px 0;
     height: 70%;
-    transition: 0.2s;
 }
 .selection__box .selection__item label 
 {
@@ -777,7 +777,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 .preview_image , .preview_video
 {
-    max-width: 20rem;
+    width: calc(15rem + 7vw);
     padding-top: 0.75rem;
     margin-right: 1rem;
     border-radius: 0.6rem;

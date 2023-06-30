@@ -69,7 +69,6 @@ export let text_question_with_out_answer_postData = {
     title : null,
     question_text : null,
     placement: 12,
-    question_type : "text_answer",
     group: null,
     show_number : false,
     media : null,
@@ -115,7 +114,7 @@ export let number_question_postData  = {
 export let selective_degree_postData  = {
     title : null,
     question_text : null,
-    question_type : "Number answer",
+    question_type : "Selective Degree",
     placement: 7,
     group: null,
     is_required : false,

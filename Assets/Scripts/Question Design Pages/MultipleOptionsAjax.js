@@ -30,7 +30,7 @@ const required_toggle = document.querySelector('.is_required .Switch-Container .
 const multiple_answer_select_inputs = document.querySelectorAll(".LimitInput input")
 const additional_options_selector = document.querySelector(".additional_options");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
-const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
 
 
 const answer_option_inputs = document.querySelectorAll(".anw-option-input");

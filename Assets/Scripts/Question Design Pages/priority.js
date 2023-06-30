@@ -1,5 +1,15 @@
-import {file_upload_handler, preview_question_toggle, question_creator, toggle_handler} from "./CommonActions.js";
-import { preview_change_handler } from "./CommonActions.js";
+import { preview_answer_option_generator 
+    , preview_option_label_updater 
+    , preview_answer_option_hider
+    , preview_answer_option_remover
+    , preview_change_handler
+    , answer_option_adder
+    , answer_option_remover
+    , question_creator
+    , toggle_handler 
+    , file_upload_handler,
+    preview_question_toggle
+ } from './CommonActions.js'
 import {priority_question_PostData} from "../ajax/QuestionPostData.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
@@ -11,8 +21,11 @@ const file_input = document.querySelector("#file.box__file");
 const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .slider-button")
 const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button")
 const saveBtn = document.querySelector(".saveQuestion")
+const answer_option_inputs = document.querySelectorAll(".anw-option-input");
+const answer_option_view_buttons = document.querySelectorAll(".answer-option-view");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
+let answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
 let options = null;
 
 // initial data------------------------------------
@@ -99,8 +112,27 @@ if(ACTION_TYPE == 'Edit')
 // [].forEach.call(cols, addDnDHandlers);
 // answer_block
 options =  "free"
-
- 
+answer_option_inputs.forEach((answer_option_input,index) => {
+    answer_option_input.addEventListener('input',(e) => {
+        preview_option_label_updater(index,e.target.value,"MultipleOption")
+    })
+})
+answer_option_buttons.forEach((answer_option_button) => {
+    if(answer_option_button.classList.contains('answer-option-add'))
+        answer_option_button.addEventListener('click',() => {
+            answer_option_adder("MultipleOption");
+        })
+    if(answer_option_button.classList.contains('answer-option-remove'))
+        answer_option_button.addEventListener('click',() => {
+            answer_option_remover();
+            preview_answer_option_remover("MultipleOption");
+        })
+})
+answer_option_view_buttons.forEach((answer_option_view_button,index) => {
+    answer_option_view_button.addEventListener('click',() => {
+        preview_answer_option_hider(answer_option_view_button,index,"MultipleOption");
+    })
+})
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',priority_question_PostData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',priority_question_PostData)})
 function textStyle(input){

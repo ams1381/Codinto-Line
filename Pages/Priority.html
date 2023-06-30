@@ -34,23 +34,10 @@
         </div>
         <div class="SideBody">
             <div class="GTitle">
-                <div class="TitleSetter ToggleOption">
-                    <div class="Switch-Container">
-                        <p>عنوان</p>
-                        <!--                    <label class="Switch-toggle">-->
-                        <!--                        <input type="checkbox">-->
-                        <!--                        <span class="slider-button"></span>-->
-                        <!--                    </label>-->
-                    </div>
-                </div>
                 <div class="TitleInput active">
                     <div class="TitleInputOptions  GOptions">
-                        <!--                           <label>-->
-                        <!--                               <input type="checkbox" name="" id="Tbolder">-->
-                        <!--                               <i class="fa fa-bold"></i>-->
-                        <!--                           </label>-->
                         <label>
-                            <input type="checkbox" name="" id="Desbolder1">
+                            <input type="checkbox" name="" id="Tbolder">
                             <i class="fa fa-bold"></i>
                         </label>
                         <label>
@@ -61,43 +48,34 @@
                             <input type="checkbox" name="" id="TUnderline">
                             <i class="fa fa-underline"></i>
                         </label>
-
                     </div>
                     <div class="TextField">
-                        <textarea class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
+                        <textarea id="title__input" class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
                     </div>
                 </div>
             </div>
             <div class="GDesc">
-                <div class="DescSetter ToggleOption">
-                    <div class="Switch-Container">
-                        <p>توضیحات</p>
-                        <!--                    <label class="Switch-toggle">-->
-                        <!--                        <input type="checkbox">-->
-                        <!--                        <span class="slider-button"></span>-->
-                        <!--                    </label>-->
-                    </div>
-                </div>
                 <div class="DescInput active">
                     <div class="DescInputOptions  GOptions">
                         <label>
-                            <input type="checkbox" name="" id="Desbolder">
+                            <input type="checkbox" name="" id="Tbolder">
                             <i class="fa fa-bold"></i>
                         </label>
                         <label>
-                            <input type="checkbox" name="" id="DesItalic">
+                            <input type="checkbox" name="" id="TItalic">
                             <i class="fa fa-italic"></i>
                         </label>
                         <label>
-                            <input type="checkbox" name="" id="DesUnderline">
+                            <input type="checkbox" name="" id="TUnderline">
                             <i class="fa fa-underline"></i>
                         </label>
                     </div>
                     <div class="TextField">
-                        <textarea class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
+                        <textarea id="desc_input" class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
+                        <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
                     </div>
                 </div>
-            </div>
+            </div>  
             <div class="Answer-Options">
                 <div class="anw-option-title">
                     گزینه ها
@@ -281,7 +259,7 @@
 <div class="wrongEntry">
     <span class="wrong__text"></span>
 </div>
-<script src="../Assets/Scripts/CommonScript.js" type="module"></script>
+ 
 <script src="../Assets/Scripts/Question%20Design%20Pages/priority.js" type="module"></script>
 </body>
 </html>

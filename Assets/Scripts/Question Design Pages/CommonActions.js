@@ -389,55 +389,6 @@ export const file_src_setter = (Src,FileName,FileType,EditableQuestion) => {
             
     })
 }
-// const file_format_checked = (FileType,FormatToCheck) => {
-//     if(FileType == 'Picture')
-//         switch (FormatToCheck) 
-//         {
-//             case "jpg":
-//                 break;
-//             case "png":
-//                 break;
-//             case "jpeg":
-//                 break;
-//             case "JPG":
-//                 break;
-//             case "PNG":
-//                 break;
-//             case "JPEG":
-//                 break;
-//             default:
-//                 return("فرمت فایل وارد شده پذیرفته نیست");
-//         }
-//     else if(FileType == 'Video')
-//         switch (FormatToCheck) {
-//             case "mp4":
-//                 break;
-//             case "mov":
-//                 break;
-//             case "m4v":
-//                 break;
-//             case "mkv":
-//                 break;
-//             case "flv":
-//                 break;
-//             case "wmv":
-//                 break;
-//             case "MP4":
-//                 break;
-//             case "MOV":
-//                 break;
-//             case "M4V":
-//                 break;
-//             case "MKV":
-//                 break;
-//             case "FLV":
-//                 break;
-//             case "WMV":
-//                 break;
-//             default:
-//                 return ("فرمت وارد شده پذیرفته نیست")
-//         }
-// }
 export const detectFileFormat = (fileName) => {
     if(!fileName)
      return
@@ -446,10 +397,10 @@ export const detectFileFormat = (fileName) => {
     
     let fileFormat = fileName.split(".")[fileName.split(".").length - 1];
     
-    return pictureFormats.includes(fileFormat) ? 'PICTURE' :
-           videoFormats.includes(fileFormat) ? 'VIDEO' : 'UNKNOWN';
+    return pictureFormats.includes(fileFormat) ? 'Picture' :
+           videoFormats.includes(fileFormat) ? 'Video' : 'UNKNOWN';
   }
-const form_data_convertor =  (obj,formData,namespace) => {
+export const form_data_convertor =  (obj,formData,namespace) => {
     formData = formData || new FormData();
     namespace = namespace || '';
   
@@ -472,7 +423,6 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
         showAlert('عنوان و متن سوال را وارد کنید.')
         return
     }
-    console.log([...form_data_convertor(Question)])
         let createRes;
         try 
         {

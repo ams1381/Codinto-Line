@@ -1,0 +1,140 @@
+.container{
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.resultTable {
+
+    width: 100%;
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 4px 0px;
+    table-layout: fixed;
+    font-family: IRANSans;
+}
+
+.resultTable #result_table_body
+{
+    color: var(--brand-color);
+}
+.resultTable tbody td {
+    font-size: 0.8rem;
+    padding: 0.45rem 0 0.45rem 0;
+}
+.resultTable #result_table_body tr:nth-child(even) {
+    background: #EFEFEF;
+}
+.resultTable thead {
+    background: var(--brand-color) ;
+}
+.resultTable thead th {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--theme-white);
+    text-align: center;
+    padding: 0.4rem 0 0.4rem 0;
+    border-radius: 0;
+}
+
+#exportButton {
+    background: none;
+    border: 2px solid var(--brand-color);
+    width: 15%;
+    border-radius: 10px;
+    font-family: 'IRANSANS';
+    color: var(--brand-color);
+    padding: 5px 0 5px 0;
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+@media screen and (max-width: 600px) {
+    .container
+    {
+        position: unset;
+        margin: 1.2rem auto;
+        transform: none;
+    }
+    #exportButton {
+        width: 100%;
+    }
+  .resultTable {
+    border: 0;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .resultTable caption {
+    font-size: 1.3em;
+  }
+  .resultTable tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+  }
+  
+  table th,
+  table td {
+    padding: .625em;
+    text-align: center;
+  }
+  
+  table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .resultTable thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  .resultTable tbody tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  .resultTable tbody td {
+    display: flex;
+    font-size: .8em;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    text-align: right;
+    border-bottom: 1px solid;
+  }
+  
+  .resultTable tbody td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    background: var(--brand-color);
+    text-transform: uppercase;
+  }
+  
+  .resultTable tbody td:last-child {
+    border-bottom: 0;
+  }
+}
+
+

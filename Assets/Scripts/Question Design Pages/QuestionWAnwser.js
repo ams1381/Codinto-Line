@@ -12,7 +12,7 @@ const minInput = document.querySelector(".minInput .label-text-input")
 const maxInput = document.querySelector(".maxInput .label-text-input")
 const sampleAnswer = document.querySelector(".SampleAnw .label-text-input")
 const minVmax = document.querySelector(".AnswerAlphabetLimit")
-const sampleAnswerBox = document.querySelector(".SampleAnw")
+const sampleAnswerBox = document.querySelector(".SampleAnw");
 const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .slider-button")
 const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button")
 const file_input = document.querySelector("#file.box__file")
@@ -111,67 +111,70 @@ textStyle(titleInput)
 //     document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
 // })
 document.addEventListener("DOMContentLoaded", function (event) {
-    minVmax.style.display = "block";
-    sampleAnswerBox.style.display = "none";
+    if(ACTION_TYPE != 'Edit')
+    {
+        $(minVmax).show(50)
+        $(sampleAnswerBox).hide(80)
+    }
 })
 selection.addEventListener("change", function (event) {
     let selectedOption = event.target.options[event.target.selectedIndex];
     let classList = selectedOption.classList;
     switch (classList[1]) {
         case "text":
-            minVmax.style.display = "block";
-            sampleAnswerBox.style.display = "none";
+            $(minVmax).show(50)
+            $(sampleAnswerBox).hide(80)
             options = selectedOption.classList[2];
             text_question_with_answer_postData.pattern = 'free'
             
             break;
         case "date__shamsi":
-            minVmax.style.display = "none";
-            sampleAnswerBox.style.display = "block";
+            $(minVmax).hide(80)
+            $(sampleAnswerBox).show(100);
             options = selectedOption.classList[2]
             minInput.value = "";
             maxInput.value = "";
             text_question_with_answer_postData.pattern = 'jalali_date'
             break;
         case "date__miladi":
-            minVmax.style.display = "none";
-            sampleAnswerBox.style.display = "block";
+            $(minVmax).hide(80)
+            $(sampleAnswerBox).show(100);
             options = selectedOption.classList[2]
             minInput.value = "";
             maxInput.value = "";
             text_question_with_answer_postData.pattern = 'georgian_date'
             break;
-        case "phone__number1":
-            minVmax.style.display = "none";
-            sampleAnswerBox.style.display = "block";
+        case "phone__number":
+            $(minVmax).hide(80)
+            $(sampleAnswerBox).show(100);
             options = selectedOption.classList[2];
             minInput.value = "";
             maxInput.value = "";
             text_question_with_answer_postData.pattern = 'mobile_number'
             break;
         case "home__phone":
-            minVmax.style.display = "none";
-            sampleAnswerBox.style.display = "block";
+            $(minVmax).hide(80)
+            $(sampleAnswerBox).show(100);
             options = selectedOption.classList[2];
             minInput.value = "";
             maxInput.value = "";
             text_question_with_answer_postData.pattern = 'phone_number'
             break;
         case "number":
-            minVmax.style.display = "block"
-            sampleAnswerBox.style.display = "block";
+            $(minVmax).show(100)
+            $(sampleAnswerBox).hide(100);
             options = selectedOption.classList[2]
             text_question_with_answer_postData.pattern = 'number_character';
             break;
-        case "persion":
-            minVmax.style.display = "block"
-            sampleAnswerBox.style.display = "block";
+        case "persian":
+            $(minVmax).show(100)
+            $(sampleAnswerBox).hide(100);
             options = selectedOption.classList[2]
             text_question_with_answer_postData.pattern = 'persian_letters';
             break;
         case "english":
-            minVmax.style.display = "block"
-            sampleAnswerBox.style.display = "block";
+            $(minVmax).show(100)
+            $(sampleAnswerBox).hide(100);
             options = selectedOption.classList[2]
             text_question_with_answer_postData.pattern = 'english_letters';
             break;
@@ -182,13 +185,13 @@ selection.addEventListener("change", function (event) {
 saveBtn.addEventListener("click",async function (event) {
      
     if(EditableQuestion && ACTION_TYPE == 'Edit')
-        await question_creator(ACTION_TYPE,EditableQuestion,'/textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);
+        await question_creator(ACTION_TYPE,EditableQuestion,'textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);
     else
-        await question_creator(ACTION_TYPE,null,'/textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);
+        await question_creator(ACTION_TYPE,null,'textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);
 })
 necessaryQuestion.addEventListener('click',() => {
   
-toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,text_question_with_out_answer_postData);
+toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,text_question_with_answer_postData);
 })
 QuestionNumber.addEventListener('click',() => {
   

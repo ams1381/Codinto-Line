@@ -1,9 +1,15 @@
-const rangeSelect = document.querySelector('.range__select');
-rangeSelect.addEventListener('click', (e) => {
-    // console.log(e.target.classList.value);
-    if (e.target.classList.value === 'range__number') {
-        e.target.classList.add('range__active');
-    }else if(e.target.classList.contains('range__active')){
-        e.target.classList.remove('range__active');
+export const range_item_eventListener_setter = (range_select_options) => {
+    range_select_options.forEach((range_select_option) => {
+        range_select_option.addEventListener('click', () => {
+            setActive_range_item(range_select_option,range_select_options)
+        })
+    });
+    const setActive_range_item = (slide_option,slide_options) => {
+        if(slide_option.classList.contains("range__active"))
+            return;
+            range_select_options.forEach((item) => {
+            item.classList.remove('range__active');
+        })
+        slide_option.classList.add("range__active")
     }
-});
+}

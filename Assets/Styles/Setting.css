@@ -235,6 +235,10 @@ body
     text-align: center;
     color: var(--deActive-input-text-color);
 }
+.ResponePicker > div input::-webkit-inner-spin-button,::-webkit-outer-spin-button 
+{
+    -webkit-appearance: none;
+}
 .ResponePicker.active > div input 
 {
     color: var(--theme-Codinto);

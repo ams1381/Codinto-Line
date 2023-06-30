@@ -9,7 +9,7 @@ import { question_info_loader } from './QuestionInfoLoader.js';
 import { selective_degree_postData } from '../ajax/QuestionPostData.js';
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-const ACTION_TYPE = localStorage.getItem("ACTION-TYPE")
+const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const Title_input = document.getElementById("title__input");
 const Description_input = document.getElementById("desc_input");
 const show_number_toggle = document.querySelector(".show_number .Switch-Container .slider-button")
@@ -19,7 +19,7 @@ const degree_input = document.getElementById('degree_input');
 const degree_label = document.querySelector('.range-label');
 const preview_degree_container = document.querySelector('.degree_answer_block-options');
 let preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i');
-let preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option')
+let preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option');
 const degree_shape_labels = document.querySelectorAll(".shape_selector_options label");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion");
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
@@ -52,25 +52,28 @@ const preview_degree_handler = (degree) => {
      preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option');
      preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i');
 
-     selective_degree_postData.max = degree;
+     if(EditableQuestion && ACTION_TYPE == 'Edit')
+        EditableQuestion.max = degree;
+    else
+        selective_degree_postData.max = degree;
 }
-const preview_degree_shape_handler = (selected_shape) => {
+const preview_degree_shape_handler = (selected_shape,DataForPost) => {
     switch(selected_shape)
     {
         case 'star_shaped':
             shape_icon_className = 'fa fa-star-o';
-            selective_degree_postData.shape = 'S';
+            DataForPost.shape = 'S';
             break;
         case 'heart_shaped':
             shape_icon_className = 'fa fa-heart-o';
-            selective_degree_postData.shape = 'H';
+            DataForPost.shape = 'H';
             break;
         case 'check_shaped':
             shape_icon_className = 'fa fa-check-circle-o'
             break;
         case 'thumb_shaped':
             shape_icon_className = 'fa fa-thumbs-up'
-            selective_degree_postData.shape = 'L';
+            DataForPost.shape = 'L';
             break;
     }
     preview_degree_shapes.forEach((preview_degree_shape) => {
@@ -80,12 +83,14 @@ const preview_degree_shape_handler = (selected_shape) => {
 degree_shape_labels.forEach((degree_shape_label) => {
     degree_shape_label.addEventListener('click',() => {
         let selected_shape =  degree_shape_label.previousElementSibling.value;
-        preview_degree_shape_handler(selected_shape);
+        if(EditableQuestion  && ACTION_TYPE == 'Edit')
+            preview_degree_shape_handler(selected_shape,EditableQuestion);
+        else
+            preview_degree_shape_handler(selected_shape,selective_degree_postData);
     })
 })
 save_question_btn.addEventListener('click',async () => {
-     
-    await question_creator(ACTION_TYPE,EditableQuestion.id,'integerselective-questions',QuestionnaireUUID,selective_degree_postData)
+    await question_creator(ACTION_TYPE,EditableQuestion,'integerselective-questions',QuestionnaireUUID,selective_degree_postData)
 })
 degree_input.addEventListener('input',() => {
     preview_degree_handler(degree_input.value);

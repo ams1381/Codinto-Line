@@ -139,7 +139,7 @@ export  { getRequest ,  patchRequest ,  postRequest ,  deleteRequest , baseUrl ,
 async function postRequest(url,postData){
     return axios.post(url, postData , {
         headers: {
-            'Content-Type': 'multipart/form-data',
+            // 'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${token}`
 
         }
