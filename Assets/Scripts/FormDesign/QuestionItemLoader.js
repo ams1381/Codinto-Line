@@ -122,9 +122,14 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
     $(parsed_question_element_item).fadeIn(200);
 
     const delete_question_button = document.querySelector(`#Question${Question.id} .QuestionTools .DeleteButton`);
+    const copy_question_button = document.querySelector(`#Question${Question.id} .QuestionTools .EditButton`);
 
-    remove_eventListener_setter(delete_question_button,Question.question_type,Question.id)
-
+    remove_eventListener_setter(delete_question_button,Question.question_type,Question.id);
+    if(copy_question_button)
+        copy_question_button.addEventListener('click',() => {
+            localStorage.setItem("ACTION-TYPE","Copy")
+            QuestionDesignOpener(Question.question_type);
+        })
     parsed_question_element_item.addEventListener('click',(e) => {
 
         localStorage.setItem("ACTION-TYPE",'Edit');

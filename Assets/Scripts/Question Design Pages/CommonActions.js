@@ -403,17 +403,37 @@ export const detectFileFormat = (fileName) => {
 export const form_data_convertor =  (obj,formData,namespace) => {
     formData = formData || new FormData();
     namespace = namespace || '';
-  
-    for (var property in obj) {
-      if (obj.hasOwnProperty(property)) {
-        var formKey = namespace ? namespace + '[' + property + ']' : property;
-        if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
-            form_data_convertor(obj[property], formData, formKey);
-        } else {
-          formData.append(formKey, obj[property] !== null ? obj[property] : 'null');
+    console.log(obj, namespace)
+
+    for(var property in obj){
+        console.log(property, obj[property])
+        if(Array.isArray(obj[property])){
+            obj[property].map((item,i)=> {
+                formData.append(`${property}[${i}]text`, item.text !== null ? item.text : 'null')
+            })
+            // for(var key in ){
+                
+            // }
+        }else {
+            if(obj[property] !== null){
+                formData.append(property, obj[property] !== null ? obj[property] : 'null')
+            }
+            
         }
-      }
+        
     }
+    // for (var property in obj) {
+    //   if (obj.hasOwnProperty(property)) {
+    //     var formKey = namespace ? namespace + '[' + property + ']' : property;
+        
+    //     if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+    //         form_data_convertor(obj[property], formData, formKey);
+    //         formData.append(formKey, obj[property] !== null ? obj[property] : 'null');
+    //     } else {
+    //       formData.append(formKey, obj[property] !== null ? obj[property] : 'null');
+    //     }
+    //   }
+    // }
   
     return formData;
 }
@@ -423,6 +443,8 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
         showAlert('عنوان و متن سوال را وارد کنید.')
         return
     }
+    console.log([...form_data_convertor(DataForPost)])
+    console.log(DataForPost)
         let createRes;
         try 
         {
@@ -432,6 +454,9 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
                     createRes = await patchRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/${Question.id}/`,form_data_convertor(DataForPost));
                     break;
                 case 'Create':
+                    createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`, form_data_convertor(DataForPost));
+                    break;
+                case 'Copy':
                     createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`, form_data_convertor(DataForPost));
                     break;
             }
