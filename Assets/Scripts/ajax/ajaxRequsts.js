@@ -1,16 +1,16 @@
 import { showAlert } from "../Question Design Pages/CommonActions.js";
 let baseUrl = 'http://codinto-line.codinguy.ir';
-let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE2NDg1NTk5LCJqdGkiOiJhNDZlZGMzOTg3MTE0ZDc0OTYzMDI2MWY2MTMxMzZlMSIsInVzZXJfaWQiOjF9.S4jJOFS7nMjhwb5q4fssHslS1H7W--a5ktAOZTikjzI"
-// 
-const TokenInitializer = (InitToken) => {
-    token = InitToken;
-    console.log(InitToken)
-}
-const getRequest = async (url) => {
+var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE2NDg1NTk5LCJqdGkiOiJhNDZlZGMzOTg3MTE0ZDc0OTYzMDI2MWY2MTMxMzZlMSIsInVzZXJfaWQiOjF9.S4jJOFS7nMjhwb5q4fssHslS1H7W--a5ktAOZTikjzI";
+let accessToken;
+
+const getRequest = async (url) => 
+  {
+    accessToken = localStorage.getItem("ACCESS_TOKEN");
+    console.log(accessToken)
     try {
       const response = await axios.get(url, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${accessToken}`
         }
       });
       return response.data;
@@ -21,10 +21,11 @@ const getRequest = async (url) => {
     }
 };
 const patchRequest = async (url, patchData) => {
+  accessToken = localStorage.getItem("ACCESS_TOKEN");
     try {
       const response = await axios.patch(url, patchData, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${accessToken}`
         }
       });
       return response;
@@ -35,28 +36,36 @@ const patchRequest = async (url, patchData) => {
     }
   };
   
-// const postRequest = async (url, postData) => {
-//     try {
-//       const response = await axios.post(url, postData, {
-//         headers: {
-//           'Content-Type': 'multipart/form-data',
-//           Authorization: `Bearer ${token}`
-//         }
-//       });
-  
-//       return response;
-//     } 
-//     catch (error) 
-//     {
-//        await errorHandler(error.response,error.status,error,url)
-//     }
-//   };
+const postRequest = async (url, postData) => {
+  console.log(accessToken)
+  if(accessToken)
+    token = accessToken;
+  else
+    token = accessToken = localStorage.getItem("ACCESS_TOKEN");
+    try {
+      const response = await axios.post(url, postData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if(response.data.access)
+      {
+        token = response.data.access;
+      }
+      return response;
+    } 
+    catch (error) 
+    {
+       await errorHandler(error.response,error.status,error,url)
+    }
+  };
   
 const deleteRequest = async (url) => {
     try {
       const response = await axios.delete(url, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${accessToken}`
         }
       });
       return response.status;
@@ -70,7 +79,9 @@ async function renewToken() {
     try {
       const response = await axios.post(`${baseUrl}/user-api/auth/refresh-token`, {
       });
-      token= response.data.access;
+      localStorage.removeItem("ACCESS_TOKEN")
+      localStorage.setItem("ACCESS_TOKEN",response.data.access)
+      accessToken = response.data.access;
     } 
     catch (error) 
     {
@@ -95,7 +106,7 @@ async function errorHandler(errorRes,errorCode,error,url)
 }
 function er400handler(error) 
 {
-    console.log(error)
+    console.log('400 er ' + error)
 }
 async function er401handler(error,url) 
 {
@@ -119,7 +130,7 @@ function er404handler(error)
 {
     showAlert("یافت نشد")
 }
-export  { getRequest ,  patchRequest ,  postRequest ,  deleteRequest , baseUrl , renewToken , TokenInitializer}
+export  { getRequest ,  patchRequest ,  postRequest ,  deleteRequest , baseUrl , renewToken }
 // async function getRequest(url){
 //         return axios.get(url, {
 //             headers: {
@@ -136,17 +147,17 @@ export  { getRequest ,  patchRequest ,  postRequest ,  deleteRequest , baseUrl ,
 //     });
 // }
 
-async function postRequest(url,postData){
-    return axios.post(url, postData , {
-        headers: {
-            // 'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${token}`
+// async function postRequest(url,postData){
+//   console.log(accessToken)
+//     return axios.post(url, postData , {
+//         headers: {
+//             // 'Content-Type': 'multipart/form-data',
+//             'Authorization': `Bearer ${token}`
 
-        }
-        
-    });
-}
-// async function deleteRequest(url){
+//         }
+//     });
+// }
+// // async function deleteRequest(url){
 //     return axios.delete(url, {
 //         headers: {
 //             Authorization: `Bearer ${token}`

@@ -145,16 +145,16 @@ const create_questionnaire = async (e) => {
         let create_questionnaire_res;
         if(LoadedQuestionnaire)
         {
-            await patchRequest(baseUrl + '/question-api/questionnaires/' + QuestionnaireToEdit.uuid + '/',LoadedQuestionnaire);
+            create_questionnaire_res = await patchRequest(baseUrl + '/question-api/questionnaires/' + QuestionnaireToEdit.uuid + '/',LoadedQuestionnaire);
             localStorage.setItem("SelectedQuestionnaire",JSON.stringify(LoadedQuestionnaire));
         }
         else
         {
-            await postRequest(baseUrl + '/question-api/questionnaires/',Questionnaire_PostData); 
-            localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res));
+            create_questionnaire_res = await postRequest(baseUrl + '/question-api/questionnaires/',Questionnaire_PostData); 
+            localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
         }
         
-      window.open("/Pages/FormDesign.html","_self");
+    window.open("/Pages/FormDesign.html","_self");
         
         
 }
