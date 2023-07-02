@@ -1,4 +1,4 @@
-import { postRequest , baseUrl , TokenInitializer} from '../ajax/ajaxRequsts.js';
+import { postRequest , baseUrl} from '../ajax/ajaxRequsts.js';
 import { showAlert } from '../Question Design Pages/CommonActions.js'
 
 const login_sms_confirm_button = document.getElementById('sms_confirm_button');
