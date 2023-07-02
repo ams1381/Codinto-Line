@@ -68,6 +68,7 @@
     color: var(--brand-color);
     font-size: calc(0.95rem + 0.25vw);
     font-family: IRANSans;
+    -moz-appearance:textfield;
 }
 .Login_LContainer__inputs input::placeholder{
     color: var(--brand-color);
@@ -214,10 +215,12 @@
     font-family: IRANSans;
     text-align: center;
     padding-bottom: 10px;
+    -moz-appearance:textfield;
 }
 .SMS_number_input[type=number]::-webkit-inner-spin-button, 
 .SMS_number_input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none;
+  margin: 0;
 }
 .forget__pass {
     color: var(--brand-color);
