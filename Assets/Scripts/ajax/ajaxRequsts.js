@@ -39,8 +39,9 @@ const postRequest = async (url, postData) => {
   console.log(accessToken)
   if(accessToken)
     token = accessToken;
-  else
-    token = accessToken = localStorage.getItem("ACCESS_TOKEN");
+  else if(localStorage.getItem("ACCESS_TOKEN"))
+    token = localStorage.getItem("ACCESS_TOKEN");
+    
     try {
       const response = await axios.post(url, postData, {
         headers: {
