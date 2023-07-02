@@ -35,4 +35,6 @@ sms_inputs.forEach((sms_input,index) =>
             sms_inputs[index - 1].focus();
       });
 })
-login_sms_confirm_button.addEventListener('click',sent_sms_handler)
+login_sms_confirm_button.addEventListener('click',async (e) => {
+   await sent_sms_handler(e);
+} )

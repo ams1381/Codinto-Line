@@ -6,7 +6,6 @@ let accessToken;
 const getRequest = async (url) => 
   {
     accessToken = localStorage.getItem("ACCESS_TOKEN");
-    console.log(accessToken)
     try {
       const response = await axios.get(url, {
         headers: {
