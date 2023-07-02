@@ -32,7 +32,7 @@ const DeleteQuestionItemHandler = async (QuestionInfo) => {
         case 'no_answer':
             deleteQuestionRes = await deleteRequest(delQuestionUrl + 'noanswer-questions/' + QuestionInfo.question_id + '/');
             break;
-        case 'drop-down':
+        case 'drop_down':
             deleteQuestionRes = await deleteRequest(delQuestionUrl + 'dropdown-questions/' + QuestionInfo.question_id + '/');
             break;
         case 'number_answer' : 

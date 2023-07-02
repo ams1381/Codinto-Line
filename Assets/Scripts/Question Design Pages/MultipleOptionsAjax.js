@@ -119,8 +119,7 @@ vertical_order_toggle.addEventListener('click',() => {
 toggle_handler(EditableQuestion,vertical_order_toggle.parentElement.parentElement.parentElement,vertical_order_toggle,multiple_option_postData);
 })
 all_options_toggle.addEventListener('click',() => {
-  
-toggle_handler(EditableQuestion,all_options_toggle.parentElement.parentElement.parentElement,all_options_toggle,multiple_option_postData);
+    toggle_handler(EditableQuestion,all_options_toggle.parentElement.parentElement.parentElement,all_options_toggle,multiple_option_postData);
 })
 no_options_toggle.addEventListener('click',() => {
   

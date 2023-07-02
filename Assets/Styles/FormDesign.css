@@ -134,6 +134,14 @@
 {
     fill: var(--theme-white);
 }
+.QuestionDesignItem:hover i svg
+{
+    fill: var(--theme-white);
+} 
+.text_answer i , .number_answer i , .group i , .optional i
+{
+    margin-top: 0;
+}
 .QuestionLabel
 {
     width: calc(3.9rem + 0.5vw);;
@@ -171,6 +179,7 @@
 {
     font-size: 1.5rem;
     color: var(--brand-color);
+    display: flex;
 } 
 .QuestionDesignItem i svg
 {
@@ -321,6 +330,11 @@
     .block__section main .QuestionsBox {
         width: 90%;
         margin-top: 30px;
+    }
+    .viewFormQuestions i svg 
+    {
+        width: 42px;
+        height: 42px;
     }
 }
 @media only screen and (max-width : 576px)

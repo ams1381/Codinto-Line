@@ -1,11 +1,8 @@
 .AssistiveButton
 {
-    position: absolute;
-    /* top: 50%; */
-    left: 20px;
-    /* transform: translate(0,-50%); */
     display: none;
     align-items: center;
+    margin-top: 5rem;
 }
 
 .AssistiveButton .AssistiveToggle
@@ -102,5 +99,13 @@
     {
         bottom: 0;
         display: flex;
+    }
+}
+@media only screen and (max-width : 576px)
+{
+    .AssistiveButton .AssistiveToggle
+    {
+        width: 75px;
+        height: 75px;
     }
 }

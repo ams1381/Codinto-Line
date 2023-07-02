@@ -7,7 +7,6 @@ const getQuestionnairesUrl = baseUrl + '/question-api/questionnaires/';
 
 const FormContainer= document.querySelector('.FormsManagement');
 const search_Questionnaire_input = document.querySelector("#search-input");
-const search_Questionnaire_button = document.querySelector(".FolderSearch");
 const search_Questionnaire_container = document.querySelector(".search-box");
 const nav_search_container = document.querySelector(".navTitle");
 let addFormItem = document.querySelector(".form.AddForm")
@@ -25,7 +24,7 @@ const QuestionnaireCleaner = () => {
 const QuestionnaireReloader = async () => {
     let FoldersRes = await getRequest(folderUrl);
     let SelectedForm = document.querySelector(".Selected.Folder");
-    let ResDataArray = FoldersRes.data;
+    let ResDataArray = FoldersRes;
       if(ResDataArray && ResDataArray.length)
       {
         ResDataArray.forEach((item) => {
@@ -54,23 +53,25 @@ const QuestionnaireSearchHandler = async (e) => {
             console.log(err)
         }
 }
-export const search_button_handler = () => {
+export const search_button_handler = async (SearchButton) => {
     nav_search_container.classList.toggle("search-active");
 
-    if(search_Questionnaire_button.classList.contains("search-active"))
-    {
-        search_Questionnaire_button.classList.remove("search-active");
-        search_Questionnaire_input.removeEventListener('input',QuestionnaireSearchHandler);
-        QuestionnaireCleaner();
-        QuestionnaireReloader();
-    }
-    else if(!search_Questionnaire_button.classList.contains("search-active"))
-    {
-        search_Questionnaire_button.classList.add("search-active");
-        search_Questionnaire_input.focus();
-        QuestionnaireCleaner();
-        search_Questionnaire_input.addEventListener('input',QuestionnaireSearchHandler);
-    }
+        if(SearchButton.classList.contains("search-active"))
+        {
+            SearchButton.classList.remove("search-active");
+            search_Questionnaire_input.removeEventListener('input',QuestionnaireSearchHandler);
+            QuestionnaireCleaner();
+            await QuestionnaireReloader();
+        }
+        else if(!SearchButton.classList.contains("search-active"))
+        {
+            SearchButton.classList.add("search-active");
+            search_Questionnaire_input.focus();
+            QuestionnaireCleaner();
+            search_Questionnaire_input.addEventListener('input',QuestionnaireSearchHandler);
+        }
+
+    
 
     search_Questionnaire_container.classList.toggle("search-active");
 }

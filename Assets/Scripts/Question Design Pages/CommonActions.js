@@ -194,7 +194,7 @@ export const preview_answer_option_hider = (view_button,option_number,Option_Typ
          view_button.classList.toggle("hidden-option");
     } 
 }
-export const answer_option_adder = (Option_Type) => {
+export const answer_option_adder = (Option_Type,Option_Text) => {
     answer_options = document.querySelectorAll(".Answer-Option");
     let Last_answer_option = answer_options[answer_options.length - 1];
     let last_answer_option_number = parseInt(Last_answer_option.getAttribute("id").split("-")[2]);
@@ -202,7 +202,7 @@ export const answer_option_adder = (Option_Type) => {
     <div class="Answer-Option" id="anw-option-${last_answer_option_number + 1}">
             <div class="anw-option-number">
                 <label class="anw-option-label">
-                  ${last_answer_option_number + 1}
+                  ${Option_Text ? Option_Text : (last_answer_option_number + 1)}
                 </label>  
                 <input type="text" class="anw-option-input" id="option_input_${last_answer_option_number + 1}">    
             </div>
@@ -306,7 +306,18 @@ export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,Pos
             case 'is_random_options':
                 is_alphabetic_toggle.previousElementSibling.checked = false;
                 break;
+            case 'all_options':
+                multiple_option_postData.options.push(
+                    { text : 'همه گزینه ها' }
+                )
+                break;
+            case 'nothing_selected':
+                multiple_option_postData.options.push(
+                    { text : 'هیچ کدام'}
+                )
+                break;
         }   
+        console.log(multiple_option_postData)
     }
     else 
     {
@@ -319,6 +330,10 @@ export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,Pos
                 PostData.nothing_selected = false;
                 all_options_toggle.previousElementSibling.checked = false;
                 no_options_toggle.previousElementSibling.checked = false;
+                multiple_option_postData.options.forEach((item,index) => {
+                    if(item.text = 'همه ی گزینه ها' || item.text == 'هیچکدام')
+                        delete multiple_option_postData.options[index];
+                })
                 break;
             case 'is_vertical':
                 preview_answer_options_container.classList.remove('vertical-order')
@@ -329,11 +344,36 @@ export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,Pos
             case 'show_number': 
                 $(question_preview_number).show(100);
                 break;
+            case 'all_options':
+                answer_options = document.querySelectorAll(".Answer-Option")
+                multiple_option_postData.options.forEach((item,index) => {
+                    if(item.class == 'همه ی گزینه ها')
+                        delete multiple_option_postData.options[index];
+                     })
+                     answer_options.forEach((answer_option) => {
+                        if(answer_option.firstElementChild.lastElementChild.value == 'همه گزینه ها')
+                            $(answer_option).hide(30);
+                            answer_option.remove();
+                     })
+                    break;
+            case 'nothing_selected':
+                answer_options = document.querySelectorAll(".Answer-Option")
+                multiple_option_postData.options.forEach((item,index) => {
+                    if(item.class == 'هیچ کدام')
+                        delete multiple_option_postData.options[index];
+                     })
+                answer_options.forEach((answer_option) => {
+                    if(answer_option.firstElementChild.lastElementChild.value == 'هیچ کدام')
+                        $(answer_option).hide(30);
+                        answer_option.remove();
+                    })
+                    break;
         }
         PostData[`${toggle_element.classList[0]}`] = false;
         if(EditableQuestion)
             EditableQuestion[`${toggle_element.classList[0]}`] = false;
     }
+    console.log(multiple_option_postData)
 }
 export const file_upload_handler = (FileType,FileInput,EditableQuestion,PostData) =>
 {   
@@ -403,10 +443,8 @@ export const detectFileFormat = (fileName) => {
 export const form_data_convertor =  (obj,formData,namespace) => {
     formData = formData || new FormData();
     namespace = namespace || '';
-    console.log(obj, namespace)
 
     for(var property in obj){
-        console.log(property, obj[property])
         if(Array.isArray(obj[property])){
             obj[property].map((item,i)=> {
                 formData.append(`${property}[${i}]text`, item.text !== null ? item.text : 'null')
@@ -443,7 +481,6 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
         showAlert('عنوان و متن سوال را وارد کنید.')
         return
     }
-    console.log([...form_data_convertor(DataForPost)])
     console.log(DataForPost)
         let createRes;
         try 

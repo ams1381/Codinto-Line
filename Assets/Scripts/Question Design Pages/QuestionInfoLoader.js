@@ -1,5 +1,5 @@
 import { baseUrl } from "../ajax/ajaxRequsts.js";
-import { file_upload_handler , file_src_setter} from "./CommonActions.js";
+import { file_upload_handler , file_src_setter , preview_answer_option_generator} from "./CommonActions.js";
 import { range_item_eventListener_setter } from "../../../Components/questionBox/rangeSelect.js";
 const show_number_toggle = document.querySelector(".show_number .Switch-Container input")
 const required_toggle = document.querySelector('.is_required .Switch-Container input');
@@ -27,6 +27,7 @@ const button_text_input = document.querySelector('.GEntryButton .ButtonTextInput
 const minInput = document.querySelector(".minInput .label-text-input")
 const maxInput = document.querySelector(".maxInput .label-text-input")
 const multiple_answer_select_inputs = document.querySelectorAll(".LimitInput input")
+const preview_options_container = document.querySelector(".multiple_answer_block-options");
 const degree_label = document.querySelector('.range-label');
 const question_preview_number = document.querySelector(".QuestionContainer .Question-Title label")
 const all_options_toggle = document.querySelector(".all_options .Switch-Container input");
@@ -36,13 +37,20 @@ let preview_degree_items = document.querySelectorAll('.degree_answer_block-optio
 const instagram_toggle = document.querySelector(".instagram .Switch-toggle input")
 const eitaa_toggle = document.querySelector(".eitaa .Switch-toggle input");
 const selective_degree_shapes = document.querySelectorAll('.shape_selector_options label');
-const seletive_degree_number = document.querySelector(".range-number .range-label")
+const seletive_degree_number = document.querySelector(".range-number .range-label");
+const no_options_toggle = document.querySelector(".nothing_selected .Switch-Container input");
+const additional_options_toggle = document.querySelector(".additional-options-toggle .Switch-Container input");
+const additional_options_selector = document.querySelector(".additional_options");
 const answer_limit_container = document.querySelector(".AnswerAlphabetLimit");
-const sampleAnswerBox = document.querySelector(".SampleAnw")
+const sampleAnswerBox = document.querySelector(".SampleAnw");
+const sampleAnswerInput = document.querySelector(".SampleAnw .label-text-input");
+const multiple_answer_selector = document.querySelector(".answer-number-selector");
 const sorush_toggle = document.querySelector(".sorush .Switch-toggle input");
 const preview_left_label = document.querySelector(".range__select_labels .range__select_left_label p");
 const preview_right_label = document.querySelector(".range__select_labels .range__select_right_label p");
+const answer_option = document.querySelectorAll('.Answer-Option');
 const preview_middle_label = document.querySelector(".range__select_labels .range__select_middle_label p");
+const answer_options_container = document.querySelector(".Answer-Options");
 
 export const question_info_loader = (Question) => {
     console.log(Question)
@@ -91,19 +99,12 @@ export const question_info_loader = (Question) => {
                 selective_degree_shape.previousElementSibling.checked = true;
         })
     }
-
     if(Question.max_label)
     {
         rightInput.value = Question.max_label;
         middleInput.value = Question.mid_label
         leftInput.value = Question.min_label
-
-        
-     //   preview_label_text_handler(Question.max_label,preview_right_label);
-        // preview_label_text_handler(Question.min_label,preview_left_label);
-        // preview_label_text_handler(Question.mid_label,preview_middle_label);
     }
-
     if(Question.button_text)
     {
       button_text_input.value = Question.button_text;
@@ -147,8 +148,9 @@ export const question_info_loader = (Question) => {
     }
     if(Question.max_selected_options)
     {
-        multiple_answer_min_input.value = Question.max_selected_options;
-        multiple_answer_max_input.value = Question.min_selected_options;
+        multiple_answer_selector.classList.add("active");
+        multiple_answer_min_input.value = Question.min_selected_options;
+        multiple_answer_max_input.value = Question.max_selected_options;
 
     }
     if(Question.media)
@@ -215,6 +217,17 @@ export const question_info_loader = (Question) => {
                 break;
         }
     }
+    if(Question.options)
+    {
+        answer_option.forEach((item) => { item.remove() });
+        Question.options.forEach((option,index) => {
+            main_multiple_option_generator(index + 1,option.text)
+        }) 
+    }
+    if(Question.answer_template)
+    {
+        sampleAnswerInput.value = Question.answer_template;
+    }
     //Toggles Loader :
     if(Question.is_required)
     {
@@ -231,6 +244,7 @@ export const question_info_loader = (Question) => {
         vertical_order_toggle.checked = Question.is_vertical;
         preview_answer_options_container.classList.add('vertical-order')
     }
+
     if(Question.is_random_options)
         randomize_options_toggle.checked = Question.is_random_options;
     if(Question.multiple_choice)
@@ -245,7 +259,19 @@ export const question_info_loader = (Question) => {
         eitaa_toggle.checked = Question.eitaa;
     if(Question.instagram)
         instagram_toggle.checked = Question.instagram;
-    
+    if(Question.all_options)
+    {
+        all_options_toggle.checked = true;
+    }
+    if(Question.nothing_selected)
+    {
+        no_options_toggle.checked = true;
+    }
+    if(Question.additional_options)
+    {
+        additional_options_toggle.checked = true;
+        additional_options_selector.classList.add("active");
+    }
 }
 const range_item_generator = (number_to_generate) => {
     let rangeContainer = document.querySelector(".range__select_items");
@@ -284,4 +310,33 @@ const preview_degree_handler = (Question,degree,shape_icon_className) => {
      preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option');
      preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i');
 
+}
+const main_multiple_option_generator = (OptionNumber,OptionText) => {
+ let main_option_html =  `<div class="multiple_answer_block-option">
+                <input type="radio" name="answer__option" id="answer-n${OptionNumber}">
+                <label class="answer_option-label" for="answer-n${OptionNumber}">${OptionText}</label>
+            </div>
+            `
+ let side_option_html = `<div class="Answer-Option" id="anw-option-${OptionNumber}">
+ <div class="anw-option-number">
+     <label class="anw-option-label">
+         ${OptionNumber}
+     </label>  
+     <input type="text" class="anw-option-input" id="option_input_${OptionNumber}" value ="${OptionText}">    
+ </div>
+ <div class="anw-option-tools">
+     <button class="answer-option-view">
+         <i class="fa fa-eye"></i>
+     </button>
+     <button class="answer-option-remove">
+         <i class="fa fa-trash"></i>
+     </button>
+     <button class="answer-option-add">
+         <i class="fa fa-plus-circle"></i>
+     </button>
+ </div>
+</div>
+ `
+    preview_options_container.innerHTML += main_option_html;
+    answer_options_container.innerHTML += side_option_html;
 }

@@ -139,7 +139,7 @@ export const question_component_generator = (Question) => {
                     </div>`
                 answer_box_html = `
                 <div class="answer_block">
-                    <div class="multiple_answer_block-options">
+                    <div class="multiple_answer_block-options ${option.is_vertical ? 'vertical-order' : ''}">
                      ${option_html ? option_html : ' '}
                     </div>
             </div>

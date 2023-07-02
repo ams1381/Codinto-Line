@@ -5,7 +5,7 @@ export let multiple_option_postData = {
     multiple_choice : false,
     is_random_options : false,
     max_selected_options : null,
-    min_selected_options : null,
+    min_selected_options : 0,
     additional_options : false,
     media : null,
     show_number : false,

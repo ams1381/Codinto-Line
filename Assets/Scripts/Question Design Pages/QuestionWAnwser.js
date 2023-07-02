@@ -120,67 +120,85 @@ document.addEventListener("DOMContentLoaded", function (event) {
 selection.addEventListener("change", function (event) {
     let selectedOption = event.target.options[event.target.selectedIndex];
     let classList = selectedOption.classList;
-    switch (classList[1]) {
+    if(EditableQuestion && ACTION_TYPE == 'Edit')
+        answer_pattern_selector(classList[1],EditableQuestion,selectedOption);
+    else
+    {
+        answer_pattern_selector(classList[1],text_question_with_answer_postData,selectedOption);
+        console.log('cheched')
+    }
+        
+    
+});
+const answer_pattern_selector = (Pattern,postData,selectedOption) => {
+    console.log(postData)
+    switch (Pattern) {
         case "text":
             $(minVmax).show(50)
             $(sampleAnswerBox).hide(80)
-            options = selectedOption.classList[2];
-            text_question_with_answer_postData.pattern = 'free'
+            postData.pattern = 'free'
             
             break;
         case "date__shamsi":
             $(minVmax).hide(80)
             $(sampleAnswerBox).show(100);
+            $(".SampleAnw .label-text-input").attr('placeholder', '1382/2/4');
+            document.querySelector(".SampleAnw .label-text-input").addEventListener('input',() => { postData.answer_template = document.querySelector(".SampleAnw .label-text-input").value })
             options = selectedOption.classList[2]
             minInput.value = "";
             maxInput.value = "";
-            text_question_with_answer_postData.pattern = 'jalali_date'
+            postData.pattern = 'jalali_date'
             break;
         case "date__miladi":
             $(minVmax).hide(80)
             $(sampleAnswerBox).show(100);
+            $(".SampleAnw .label-text-input").attr('placeholder', '2023/4/21');
+            document.querySelector(".SampleAnw .label-text-input").addEventListener('input',() => { postData.answer_template = document.querySelector(".SampleAnw .label-text-input").value })
             options = selectedOption.classList[2]
             minInput.value = "";
             maxInput.value = "";
-            text_question_with_answer_postData.pattern = 'georgian_date'
+            postData.pattern = 'georgian_date'
             break;
         case "phone__number":
             $(minVmax).hide(80)
             $(sampleAnswerBox).show(100);
+            $(".SampleAnw .label-text-input").attr('placeholder', '09121111111');
+            document.querySelector(".SampleAnw .label-text-input").addEventListener('input',() => { postData.answer_template = document.querySelector(".SampleAnw .label-text-input").value })
             options = selectedOption.classList[2];
             minInput.value = "";
             maxInput.value = "";
-            text_question_with_answer_postData.pattern = 'mobile_number'
+            postData.pattern = 'mobile_number'
             break;
         case "home__phone":
             $(minVmax).hide(80)
             $(sampleAnswerBox).show(100);
+            $(".SampleAnw .label-text-input").attr('placeholder', '02132323232');
+            document.querySelector(".SampleAnw .label-text-input").addEventListener('input',() => { postData.answer_template = document.querySelector(".SampleAnw .label-text-input").value })
             options = selectedOption.classList[2];
             minInput.value = "";
             maxInput.value = "";
-            text_question_with_answer_postData.pattern = 'phone_number'
+            postData.pattern = 'phone_number'
             break;
         case "number":
             $(minVmax).show(100)
             $(sampleAnswerBox).hide(100);
             options = selectedOption.classList[2]
-            text_question_with_answer_postData.pattern = 'number_character';
+            postData.pattern = 'number_character';
             break;
         case "persian":
             $(minVmax).show(100)
             $(sampleAnswerBox).hide(100);
             options = selectedOption.classList[2]
-            text_question_with_answer_postData.pattern = 'persian_letters';
+            postData.pattern = 'persian_letters';
             break;
         case "english":
             $(minVmax).show(100)
             $(sampleAnswerBox).hide(100);
             options = selectedOption.classList[2]
-            text_question_with_answer_postData.pattern = 'english_letters';
+            postData.pattern = 'english_letters';
             break;
     }
-    console.log(options)
-});
+}
 // add event listener to save button
 saveBtn.addEventListener("click",async function (event) {
      

@@ -35,8 +35,16 @@
     <section class="block__section">
         <aside class="block__side">
             <div class="sidenavbar">
-                <button class="navToggleButton navButton">
+                <!-- <button class="navToggleButton navButton">
                     <i class="fa fa-bars"></i>
+                </button> -->
+                <button class="FolderSearch navButton responsive_search_button">
+                    <i class="open-search">
+                        <svg width="38" height="38" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 11.1455C5.49956 8.21437 7.56975 5.69108 10.4445 5.11883C13.3193 4.54659 16.198 6.08477 17.32 8.79267C18.4421 11.5006 17.495 14.624 15.058 16.2528C12.621 17.8815 9.37287 17.562 7.3 15.4895C6.14763 14.3376 5.50014 12.775 5.5 11.1455Z" stroke="#3F52E3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15.989 15.4905L19.5 19.0015" stroke="#3F52E3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                    </i>
+                    <i class="close-search">
+                        <svg width="30" height="30" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#3F52E3" stroke="#3F52E3" stroke-width="34.816"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#3F52E3" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></g></svg>
+                    </i>
                 </button>
                 <div class="navTitle">
                     <h3 class="sidebar-codinto-title">کدینتو لاین</h3>
@@ -44,7 +52,7 @@
                 <div class="search-box">
                     <input type="text" id="search-input" placeholder="جستجو">
                 </div>
-                <div class="navMenu hide">
+                <!-- <div class="navMenu hide">
                     <ul class="navItemlist">
                         <li class="navItem">
                             <a href="">ایجاد پرسشنامه</a>
@@ -63,14 +71,22 @@
                             <i class="fa fa-eye"></i>
                         </li>
                     </ul>
-                </div>
+                </div> -->
                 <div class="navTools"> 
                     <button class="FolderSearch navButton">
-                        <i class="fa fa-search open-search animated-hover"></i>
-                        <i class="fa fa-close close-search"></i>
+                        <i class="open-search">
+                            <svg width="38" height="38" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 11.1455C5.49956 8.21437 7.56975 5.69108 10.4445 5.11883C13.3193 4.54659 16.198 6.08477 17.32 8.79267C18.4421 11.5006 17.495 14.624 15.058 16.2528C12.621 17.8815 9.37287 17.562 7.3 15.4895C6.14763 14.3376 5.50014 12.775 5.5 11.1455Z" stroke="#3F52E3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15.989 15.4905L19.5 19.0015" stroke="#3F52E3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                        </i>
+                        <i class="close-search">
+                            <svg width="30" height="30" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#3F52E3" stroke="#3F52E3" stroke-width="34.816"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#3F52E3" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></g></svg>
+                        </i>
                     </button>
                     <button class="AddFolder navButton">
-                        <i class="fa fa-plus-circle"></i>
+                        <i>
+                            <i>
+                                <svg width="30" height="30" viewBox="0 0 64.00 64.00" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#3F52E3" stroke-width="4.096"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><circle cx="32" cy="32" r="24"></circle><line x1="20" y1="32" x2="44" y2="32"></line><line x1="32" y1="20" x2="32" y2="44"></line></g></svg>
+                            </i>
+                        </i>
                     </button>
                 </div>
             </div>
@@ -84,7 +100,9 @@
             <div class="FormsManagement">
                 <div class="form AddForm">
                     <p>پرسشنامه جدید</p>
-                    <i class="fa fa-plus-circle"></i>
+                    <i>
+                        <svg width="30" height="30" viewBox="0 0 64.00 64.00" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#3F52E3" stroke-width="4.096"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><circle cx="32" cy="32" r="24"></circle><line x1="20" y1="32" x2="44" y2="32"></line><line x1="32" y1="20" x2="32" y2="44"></line></g></svg>
+                    </i>
                 </div>
             </div>
         </main>

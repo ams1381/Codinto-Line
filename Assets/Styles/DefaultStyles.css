@@ -115,7 +115,14 @@
     display: flex;
     align-items: center;
 }
-
+.navButton i
+{
+    display: flex;
+}
+.navButton.search-active i
+{
+    display: flex;
+}
 .navToggleButton {
     display: none;
 }
@@ -128,6 +135,10 @@
 }
 .viewFormQuestions {
     margin-left: 15px;
+}
+.viewFormQuestions  i , .back__button i
+{
+    display: flex;
 }
 .navMenu {
     width: 65%;
