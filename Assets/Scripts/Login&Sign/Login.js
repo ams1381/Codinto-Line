@@ -6,6 +6,7 @@ const user_phone_phoneNumber_input = document.querySelector('#PhoneNumberInput')
 
 
 const login_confirm_handler = async (e) => {
+    login_confirm_button.classList.add("loading");
     e.preventDefault();
     try
     {
@@ -16,6 +17,7 @@ const login_confirm_handler = async (e) => {
    catch(err)
    {
     showAlert('شماره تلفن نا معتبر است')
+    login_confirm_button.classList.remove("loading");
    }
 }
 

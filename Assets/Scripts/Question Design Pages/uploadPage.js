@@ -7,23 +7,21 @@ import {
     preview_question_toggle
 } from "../Question Design Pages/CommonActions.js";
 import {file_question_PostData} from "../ajax/QuestionPostData.js";
-import {question_info_loader} from './QuestionInfoLoader.js'
+import {question_info_loader} from './QuestionInfoLoader.js';
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
-const textInput = document.querySelector(".GDesc #desc_input")
+const textInput = document.querySelector(".GDesc #desc_input");
 const file_input = document.querySelector("#file.box__file");
-const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .slider-button")
+const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .slider-button");
 const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button");
 const title_text_style_labels  = document.querySelectorAll(".GTitle .TitleInputOptions label i");
 const desc_text_style_labels = document.querySelectorAll(".GDesc .DescInputOptions label i")
 const preview_title_container = document.querySelector('.Question-Title');
 const preview_desc_container = document.querySelector('.description_block');
-const saveBtn = document.querySelector(".saveQuestion")
-const KBSelector = document.querySelector(".KB__switcher")
-const sizeInput = document.querySelector(".file__size__upload")
-const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
+const saveBtn = document.querySelector(".saveQuestion");
+const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion");
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
 
 // initial data------------------------------------
@@ -35,32 +33,18 @@ if(ACTION_TYPE == 'Edit')
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',file_question_PostData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',file_question_PostData)})
 
-// function textStyle(input){
-//     const textEditor = document.querySelector(".TitleInputOptions")
-//     textEditor.addEventListener("click" , (e)=>{
-//         switch (e.target.classList[1]){
-//             case "fa-bold":
-//                 input.classList.toggle("bold")
-//                 break;
-//             case "fa-italic":
-//                 input.classList.toggle("italic")
-//                 break;
-//             case "fa-underline":
-//                 input.classList.toggle("underline")
-//                 break;
-//         }
-//     })
-// }
 title_text_style_labels.forEach((title_text_style_label) => {
     title_text_style_label.addEventListener('click',() => {
         let style_name = title_text_style_label.className;
-        text_style_setter(style_name,preview_title_container,titleInput);
+        text_style_setter(EditableQuestion,"title",file_question_PostData,style_name,preview_title_container,titleInput,titleInput.value);
+        
     })
 })
 desc_text_style_labels.forEach((desc_text_style_label) => {
     desc_text_style_label.addEventListener('click',() => {
         let style_name = desc_text_style_label.className;
-        text_style_setter(style_name,preview_desc_container,textInput);
+        text_style_setter(EditableQuestion,"description",file_question_PostData,style_name,preview_desc_container,textInput,titleInput.value);
+        
     })
 })
 // textStyle(titleInput)
@@ -83,6 +67,7 @@ QuestionNumber.addEventListener('click',() => {
 toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,file_question_PostData);
 })
 file_input.addEventListener('input',() => {
+    console.log(file_question_PostData)
     let selected_file_type;
     document.querySelectorAll(".fileFormat input").forEach((item) => {
         if(item.checked)

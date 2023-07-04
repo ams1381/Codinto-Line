@@ -42,30 +42,46 @@ export const  showAlert = (text) =>
         wrongAlert.style.opacity = "0";
     }, 3000);
 }
-export const text_style_setter = (Style,preview_text,input) => {
+export const text_style_setter = (EditableQuestion,text_type,PostData,Style,preview_text,input,input_text) => {
     switch(Style)
     {
         case 'fa fa-bold':
-            input.classList.toggle('bold')
-            if(![...input.classList].includes('bold'))
-                preview_text.classList.remove('bold')
-            else   
-                preview_text.classList.add('bold')
+            if(EditableQuestion)
+                text_style_class_setter(input,input_text,text_type,'bold',preview_text,"strong",EditableQuestion);
+            else 
+                text_style_class_setter(input,input_text,text_type,'bold',preview_text,"strong",PostData);
             break;
         case 'fa fa-italic':
-            input.classList.toggle('italic')
-            if(![...input.classList].includes('italic'))
-                preview_text.classList.remove('italic')
-            else   
-                preview_text.classList.add('italic')
+            if(EditableQuestion)
+                text_style_class_setter(input,input_text,text_type,'italic',preview_text,"em",EditableQuestion);
+            else 
+                text_style_class_setter(input,input_text,text_type,'italic',preview_text,"em",PostData);
             break;
         case 'fa fa-underline':
-            input.classList.toggle('underline')
-            if(![...input.classList].includes('underline'))
-                preview_text.classList.remove('underline')
-            else   
-                preview_text.classList.add('underline')
+            if(EditableQuestion)
+                text_style_class_setter(input,input_text,text_type,'underline',preview_text,"u",EditableQuestion);
+            else 
+                text_style_class_setter(input,input_text,text_type,'underline',preview_text,"u",PostData);
             break;
+    }
+}
+const text_style_class_setter = (input,input_text,text_type,text_style,preview_text,style_tag,PostData) => {
+    input.classList.toggle(text_style)
+    if(![...input.classList].includes(text_style))
+    {
+        preview_text.classList.remove(`${text_style}`);
+        if(text_type == "title")
+            PostData.title = input_text;
+        else if(text_type == "description")
+            PostData.question_text = input_text;
+    }
+    else   
+    {
+        preview_text.classList.add(text_style)
+        if(text_type == "title")
+            PostData.title = `<${style_tag}>${input_text}</${style_tag}>`
+        else if(text_type == "description")
+            PostData.question_text = `<${style_tag}>${input_text}</${style_tag}>`;
     }
 }
 export const preview_question_toggle = () => {
@@ -481,7 +497,7 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
         showAlert('عنوان و متن سوال را وارد کنید.')
         return
     }
-    console.log(DataForPost)
+    console.log(Question)
         let createRes;
         try 
         {

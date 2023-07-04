@@ -5,6 +5,7 @@ const login_sms_confirm_button = document.getElementById('sms_confirm_button');
 const sms_inputs = document.querySelectorAll(".SMS_SignUp_LContainer__inputs input");
 
 const sent_sms_handler = async (e) => {
+    login_sms_confirm_button.classList.add("loading");
     e.preventDefault();
     let sms_code = '';
     sms_inputs.forEach((sms_input) => {
@@ -12,17 +13,21 @@ const sent_sms_handler = async (e) => {
     })
     sms_code = sms_code.split('').reverse().join('');
     
-        let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/',{ 'token' : sms_code });
-        if(accessToken)
+        try
         {
-            localStorage.setItem("ACCESS_TOKEN",accessToken.data.access)
-            window.open("/Pages/Folders.html","_Self");
+            let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/',{ 'token' : sms_code });
+            if(accessToken)
+            {
+                localStorage.setItem("ACCESS_TOKEN",accessToken.data.access)
+                window.open("/Pages/Folders.html","_Self");
+            }
         }
-        else
+        catch(error)
         {
             showAlert('کد وارد شده نا معتبر است')
-            console.log(err)
-        }
+            console.log(error)
+            login_sms_confirm_button.classList.remove("loading");
+        } 
 }
 sms_inputs.forEach((sms_input,index) => 
 {

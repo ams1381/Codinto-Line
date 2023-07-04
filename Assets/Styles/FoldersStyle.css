@@ -194,6 +194,28 @@
     transition: opacity 0.4s;
     opacity: 0;
 }
+.emptyFolderContainer
+{
+    display: none;
+}
+.sideBody.emptyActive
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #c6c8d8;
+    height: 70%;
+    border-radius: 10px;
+}
+.sideBody.emptyActive .emptyFolderContainer
+{
+    display: block;
+}
+.sideBody.emptyActive .emptyListIcon {
+    margin-bottom: 2rem;
+    font-size: 5rem;
+}
 .createFolderPopUp.active , .renameFolderPopUp.active , .removeFolderPopUp.active
 {
     opacity: 1;
@@ -264,7 +286,7 @@
     width: 95%;
     height: 37px;
     border-radius: 14px;
-    font-size: 18px;
+    font-size: 1rem;
     font-family: IRANSans;
     cursor: pointer;
     margin: 0 5px 0 5px;
@@ -373,6 +395,39 @@
     cursor: pointer;
     margin-top: 2px;
 }
+.block__side
+{
+    position: relative;
+}
+#loading-animation
+{
+    height: 70%;
+    position: absolute;
+}
+.block__section
+{
+    padding-bottom: 0;
+}
+.emptyQuestionnaire
+{
+    display: none;
+}
+.block__main.emptyActive .emptyQuestionnaire
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #c6c8d8;
+    height: 90%;
+    border: 2px solid var(--deActive-input-text-color);
+    border-radius: 1rem;
+    margin: 1.8rem auto;
+    width: 90%;
+}
+.block__main.emptyActive .form.AddForm
+{
+    display: none;
+}
 @media only screen and (max-width : 992px)
 {
     .FormsManagement
@@ -394,6 +449,11 @@
     {
         width: 100%;
         height: auto;
+    }
+    .block__main
+    {
+        overflow-y: clip;
+        height: 50%;
     }
     .Selected .folder_control
     {

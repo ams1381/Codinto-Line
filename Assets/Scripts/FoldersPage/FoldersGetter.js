@@ -1,17 +1,37 @@
 import {getRequest} from "../ajax/ajaxRequsts.js";
 import {baseUrl} from "../ajax/ajaxRequsts.js";
 import  folder_generator  from './FolderScript.js'
-
+const folder_side_body = document.querySelector('.sideBody');
+const folder_main = document.querySelector(".block__main");
+const loading_container = document.getElementById('loading-animation');
+        
 const folderUrl = baseUrl + '/user-api/folders/';
 
 const folderLoader =  async () => {
     try
         {
             let FoldersRes = await getRequest(folderUrl);
-            if(FoldersRes)
-                FoldersRes.forEach((item, index) => {
+            console.log(FoldersRes.length)
+                if(FoldersRes.length == 0)
+                {
+                    $(loading_container).hide(100);
+                    loading_container.classList.add('hide');
+                    folder_side_body.classList.add("emptyActive");
+                    folder_main.classList.add("emptyActive");
+                    
+                }   
+                else
+                {
+                    folder_side_body.classList.remove("emptyActive");
+                    folder_main.classList.remove("emptyActive");
+                    FoldersRes.forEach((item, index) => {
                         folder_generator(item.name,item.id,item.questionnaires);
-                })
+                    })  
+                }
+                   
+                loading_container.classList.add('hide');
+            
+            
         }
     catch (err)
         {

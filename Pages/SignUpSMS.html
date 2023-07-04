@@ -19,7 +19,7 @@
                 <p class="default_massage">کد ارسال شده به تلفن همراه خود را وارد کنید</p>
             </div>
             <div class="LContainer__body">
-                <form id="loginForm" action="">
+                <form id="loginForm">
                     <div class="SMS_SignUp_LContainer__inputs">
                         <input type="number" id="sn-1" class="SMS_number_input">
                         <input type="number" id="sn-2" class="SMS_number_input">
@@ -27,7 +27,15 @@
                         <input type="number" id="sn-4" class="SMS_number_input">
                         <input type="number" id="sn-5" class="SMS_number_input">
                     </div>
-                    <input type="submit" id="sms_confirm_button" class="Login__btn" value="تایید" />
+                    <!-- <input type="submit" id="sms_confirm_button" class="Login__btn" value="تایید" /> -->
+                    <button class="Login__btn" id="sms_confirm_button">
+                        <div class="snippet" data-title="dot-pulse">
+                            <div class="stage">
+                              <div class="dot-pulse"></div>
+                            </div>
+                          </div>
+                        <p>تایید</p>
+                    </button>
                 </form>
             </div>
         </div>

@@ -6,6 +6,7 @@ let accessToken;
 const getRequest = async (url) => 
   {
     accessToken = localStorage.getItem("ACCESS_TOKEN");
+    console.log(accessToken)
     try {
       const response = await axios.get(url, {
         headers: {
@@ -31,7 +32,8 @@ const patchRequest = async (url, patchData) => {
     } 
     catch (error) 
     {
-       await errorHandler(error.response,error.status,error,url)
+        throw error;
+    //   await errorHandler(error.response,error.status,error,url)
     }
   };
   
@@ -57,9 +59,10 @@ const postRequest = async (url, postData) => {
     } 
     catch (error) 
     {
-       await errorHandler(error.response,error.status,error,url)
+      throw error
+      // await errorHandler(error.response,error.status,error,url)
     }
-  };
+};
   
 const deleteRequest = async (url) => {
     try {
@@ -104,8 +107,13 @@ async function errorHandler(errorRes,errorCode,error,url)
             break;
     }
 }
+
 function er400handler(error) 
 {
+  //TODO for in list of errors 
+    // error.forEach(element => {
+      
+    // });
     console.log('400 er ' + error)
 }
 async function er401handler(error,url) 
@@ -120,6 +128,7 @@ async function er401handler(error,url)
           throw error;
         }
       } 
+      //  if refresh token not valid redirect to login page 
       else 
       {
         console.error('GET request failed:', error);
@@ -130,6 +139,18 @@ function er404handler(error)
 {
     showAlert("یافت نشد")
 }
+
+
+function errorHandler2(errors,element){
+  errors.forEach(error => {
+    const errorElement = element.querySelector(`[data-value=${error.key}]`)
+    if (!errorElement) return;
+    
+    
+  });
+}
+
+
 export  { getRequest ,  patchRequest ,  postRequest ,  deleteRequest , baseUrl , renewToken }
 // async function getRequest(url){
 //         return axios.get(url, {

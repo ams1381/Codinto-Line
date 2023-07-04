@@ -140,7 +140,7 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
 
         localStorage.setItem("ACTION-TYPE",'Edit');
         localStorage.setItem("QuestionData",JSON.stringify(Question));
-        console.log(e.target.classList[0])
+        console.log(e.target)
         if(e.target.classList[0] == 'Questionitem' || e.target.classList[0] == 'QuestionLabel')
            QuestionDesignOpener(Question.question_type);
     })

@@ -11,7 +11,7 @@ const search_Questionnaire_container = document.querySelector(".search-box");
 const nav_search_container = document.querySelector(".navTitle");
 let addFormItem = document.querySelector(".form.AddForm")
 
-const QuestionnaireCleaner = () => {
+export const QuestionnaireCleaner = () => {
     let QuestionnaireForms = document.querySelectorAll('.form');
     QuestionnaireForms.forEach((item) => {
     if(!item.classList.contains("AddForm"))
