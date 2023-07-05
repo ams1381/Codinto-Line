@@ -28,9 +28,9 @@ export const questionnaire_generator = (Questionnaire) => {
     const parser = new DOMParser();
     const parsed_questionnaire_element_item = parser.parseFromString((Questionnaire_Element_Item),'text/html').firstChild.lastChild.lastChild;
 
-    $(parsed_questionnaire_element_item).hide(40);
+   $(parsed_questionnaire_element_item).hide(10);
     main_questionnaire_container.prepend(parsed_questionnaire_element_item);
-    $(parsed_questionnaire_element_item).fadeIn(100);
+    $(parsed_questionnaire_element_item).show(200);
 
     let questionnaire = document.getElementById(`Questionnaire${Questionnaire.id}`);
     let form_edit_toggle_button = document.querySelector(`#Questionnaire${Questionnaire.id} .form_edit_toggle_button`);

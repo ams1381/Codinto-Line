@@ -24,7 +24,8 @@ const all_options_toggle = document.querySelector(".all_options .Switch-Containe
 const no_options_toggle = document.querySelector(".nothing_selected .Switch-Container .slider-button");
 const Description_input = document.getElementById("desc_input");
 const preview_answer_options_container = document.querySelector(".multiple_answer_block-options")
-const question_preview_number = document.querySelector(".QuestionContainer .Question-Title label")
+const question_preview_number = document.querySelector(".QuestionContainer .Question-Title label");
+const save_button = document.querySelector('.SideFooter .saveQuestion');
 let answer_options = document.querySelectorAll(".Answer-Option");
 
 const file_input_container = document.querySelector(".inputUploader");
@@ -116,16 +117,24 @@ export const preview_answer_option_remover = (Option_Type) => {
         case 'MultipleOption' :
             preview_answer_options = document.querySelectorAll(".multiple_answer_block-option");
             if(preview_answer_options.length > 2)
-            preview_answer_options[preview_answer_options.length - 1].remove();
+            {
+                $(preview_answer_options[preview_answer_options.length - 1]).hide(300);
+                preview_answer_options[preview_answer_options.length - 1].remove();
+            }
+               
             break;
         case 'SliderOption' : 
-            preview_answer_options = document.querySelectorAll(".selection__box  .seletion__item");
+            preview_answer_options = document.querySelectorAll(".selection__box  .selection__item");
             if(preview_answer_options.length > 2)
-            preview_answer_options[preview_answer_options.length - 1].remove();
+            {
+                $(preview_answer_options[preview_answer_options.length - 1]).hide(300);
+                preview_answer_options[preview_answer_options.length - 1].remove();
+            }
+              
             break;
     }
 }
-export const preview_answer_option_generator = (preview_option_number,Option_Type) => 
+export const preview_answer_option_generator = (preview_option_number,Option_Type,Option_Text) => 
 {
     let preview_answer_option;
     let container_to_append;
@@ -135,7 +144,7 @@ export const preview_answer_option_generator = (preview_option_number,Option_Typ
             preview_answer_option = `
             <div class="multiple_answer_block-option">
                 <input type="radio" name="answer__option" id="answer-n${preview_option_number}">
-                <label class="answer_option-label" for="answer-n${preview_option_number}">گزینه ${preview_option_number}</label>
+                <label class="answer_option-label" for="answer-n${preview_option_number}">${Option_Text}</label>
             </div>
             `
             container_to_append = preview_options_container;
@@ -192,25 +201,30 @@ export const preview_answer_option_hider = (view_button,option_number,Option_Typ
             break;
 
         case 'SliderOption' :
-            preview_answer_options = document.querySelectorAll(".seletion__item");
+            preview_answer_options = document.querySelectorAll(".selection__item");
             break;
     }
     if(answer_options.length > 2)
     {
-        if(!view_button.classList.contains("hidden-option"))
+        let totalElements = document.querySelectorAll(".selection__item");
+        let hiddenELements =  document.querySelectorAll(".selection__item.hidden_option");
+        console.log(totalElements.length - hiddenELements.length)
+        if(!view_button.classList.contains("hidden-option") && (totalElements.length - hiddenELements.length > 2))
         {
             view_button.children[0].className = 'fa fa-eye-slash';
-            $(preview_answer_options[option_number]).hide()
+            $(preview_answer_options[option_number]).hide(50)
+            preview_answer_options[option_number].classList.add("hidden_option");
         }
         else 
         {
             view_button.children[0].className = 'fa fa-eye';
-            $(preview_answer_options[option_number]).show(50)
+            $(preview_answer_options[option_number]).show(50);
+            preview_answer_options[option_number].classList.remove("hidden_option");
         }
          view_button.classList.toggle("hidden-option");
     } 
 }
-export const answer_option_adder = (Option_Type,Option_Text) => {
+export const answer_option_adder = (Option_Type,Option_Text,PostData) => {
     answer_options = document.querySelectorAll(".Answer-Option");
     let Last_answer_option = answer_options[answer_options.length - 1];
     let last_answer_option_number = parseInt(Last_answer_option.getAttribute("id").split("-")[2]);
@@ -218,9 +232,9 @@ export const answer_option_adder = (Option_Type,Option_Text) => {
     <div class="Answer-Option" id="anw-option-${last_answer_option_number + 1}">
             <div class="anw-option-number">
                 <label class="anw-option-label">
-                  ${Option_Text ? Option_Text : (last_answer_option_number + 1)}
+                  ${(last_answer_option_number + 1)}
                 </label>  
-                <input type="text" class="anw-option-input" id="option_input_${last_answer_option_number + 1}">    
+                <input type="text" class="anw-option-input" id="option_input_${last_answer_option_number + 1}" value="${Option_Text ? Option_Text : ''}">    
             </div>
             <div class="anw-option-tools">
                 <button class="answer-option-view">
@@ -238,43 +252,47 @@ export const answer_option_adder = (Option_Type,Option_Text) => {
     const parsed_answer_option_element = parser.parseFromString((answer_option_element),'text/html').firstChild.lastChild.lastChild;
     
     answer_options_container.append(parsed_answer_option_element);
-
-    let answer_option_adder_button = document.querySelector(`#anw-option-${last_answer_option_number + 1} .anw-option-tools .answer-option-add`);
-    let answer_option_remover_button = document.querySelector(`#anw-option-${last_answer_option_number + 1} .anw-option-tools .answer-option-remove`);
-    let answer_option_input = document.querySelector(`#option_input_${last_answer_option_number + 1}`);
-    let answer_option_view_button = document.querySelector(`#anw-option-${last_answer_option_number + 1} .answer-option-view`)
-
-    answer_option_view_button.addEventListener('click',() => {
-        preview_answer_option_hider(answer_option_view_button,last_answer_option_number,Option_Type);
-    })
-    answer_option_adder_button.addEventListener("click",() => {
-        answer_option_adder(Option_Type);
-    })
-    answer_option_remover_button.addEventListener("click",() => {
-        answer_option_remover(Option_Type);
-    })
-    answer_option_input.addEventListener('input',(e) => {
-        preview_option_label_updater(last_answer_option_number,e.target.value,Option_Type);
-        
-    })
-    preview_answer_option_generator(last_answer_option_number + 1,Option_Type);
+    answer_option_eventListener_setter(last_answer_option_number + 1,Option_Type,PostData);
+    
+    preview_answer_option_generator(last_answer_option_number + 1,
+        Option_Type ,Option_Text ?  Option_Text :`گزینه ی ${last_answer_option_number + 1}`);
 
     switch(Option_Type)
     {
         case 'MultipleOption':
-            multiple_option_postData.options.push(
-                { text : last_answer_option_number + 1 }
+            PostData.options.push(
+                { text : Option_Text ? Option_Text : last_answer_option_number + 1 }
             )
             break;
         case 'SliderOption':
-            slider_option_postData.options.push(
-                { text : last_answer_option_number + 1 }
+            PostData.options.push(
+                { text : Option_Text ? Option_Text : last_answer_option_number + 1 }
             )
             break;
     }
     
 }
-export const answer_option_remover = (Option_Type) => {
+export const answer_option_eventListener_setter = (OptionNumber,Option_Type,PostData) => {
+    
+    let answer_option_adder_button = document.querySelector(`#anw-option-${OptionNumber} .anw-option-tools .answer-option-add`);
+    let answer_option_remover_button = document.querySelector(`#anw-option-${OptionNumber} .anw-option-tools .answer-option-remove`);
+    let answer_option_input = document.querySelector(`#option_input_${OptionNumber}`);
+    let answer_option_view_button = document.querySelector(`#anw-option-${OptionNumber} .answer-option-view`);
+
+    answer_option_view_button.addEventListener('click',() => {
+        preview_answer_option_hider(answer_option_view_button,OptionNumber - 1,Option_Type);
+    })
+    answer_option_adder_button.addEventListener("click",() => {
+        answer_option_adder(Option_Type,PostData);
+    })
+    answer_option_remover_button.addEventListener("click",() => {
+        answer_option_remover(Option_Type);
+    })
+    answer_option_input.addEventListener('input',(e) => {
+        preview_option_label_updater(OptionNumber - 1,e.target.value,Option_Type);
+    })
+}
+export const answer_option_remover = (Option_Type,Option_Number) => {
     answer_options = document.querySelectorAll(".Answer-Option");
     let last_answer_option = answer_options[answer_options.length - 1];
     if(answer_options.length > 2)
@@ -326,14 +344,27 @@ export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,Pos
                 multiple_option_postData.options.push(
                     { text : 'همه گزینه ها' }
                 )
+                if(EditableQuestion)
+                    answer_option_adder('MultipleOption','همه ی گزینه ها',EditableQuestion);
+                else
+                    answer_option_adder('MultipleOption','همه ی گزینه ها',multiple_option_postData);
                 break;
             case 'nothing_selected':
                 multiple_option_postData.options.push(
                     { text : 'هیچ کدام'}
                 )
+                if(EditableQuestion)
+                    answer_option_adder('MultipleOption','هیچ کدام',EditableQuestion);
+                else
+                    answer_option_adder('MultipleOption','هیچ کدام',multiple_option_postData);
+                break;
+            case 'multiple_choice':
+                if(EditableQuestion)
+                    EditableQuestion.multiple_choice = true;
+                else
+                    PostData.multiple_choice = true;
                 break;
         }   
-        console.log(multiple_option_postData)
     }
     else 
     {
@@ -342,14 +373,25 @@ export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,Pos
         switch(toggle_element.classList[0])
         {
             case 'additional_options' : 
-                PostData.all_options = false;
-                PostData.nothing_selected = false;
+                answer_options = document.querySelectorAll(".Answer-Option .answer_option-label");
+                if(EditableQuestion)
+                {
+                    PostData.all_options = false;
+                    PostData.nothing_selected = false;
+                }
+                    PostData.all_options = false;
+                    PostData.nothing_selected = false;
                 all_options_toggle.previousElementSibling.checked = false;
                 no_options_toggle.previousElementSibling.checked = false;
                 multiple_option_postData.options.forEach((item,index) => {
-                    if(item.text = 'همه ی گزینه ها' || item.text == 'هیچکدام')
-                        delete multiple_option_postData.options[index];
+                    if(item.text = 'همه ی گزینه ها' || item.text == 'هیچ کدام')
+                    {
+                        multiple_option_postData.options.splice(index,1);
+                    } 
                 })
+                answer_options.forEach((answer_option) => {
+                    console.log(answer_option)
+                 })
                 break;
             case 'is_vertical':
                 preview_answer_options_container.classList.remove('vertical-order')
@@ -361,15 +403,15 @@ export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,Pos
                 $(question_preview_number).show(100);
                 break;
             case 'all_options':
-                answer_options = document.querySelectorAll(".Answer-Option")
+                answer_options = document.querySelectorAll(".Answer-Option .answer_option-label")
                 multiple_option_postData.options.forEach((item,index) => {
-                    if(item.class == 'همه ی گزینه ها')
+                    if(item.text == 'همه ی گزینه ها')
                         delete multiple_option_postData.options[index];
                      })
                      answer_options.forEach((answer_option) => {
-                        if(answer_option.firstElementChild.lastElementChild.value == 'همه گزینه ها')
+                        if(answer_option.value == 'همه گزینه ها')
                             $(answer_option).hide(30);
-                            answer_option.remove();
+                            answer_option.parentElement.parentElement.remove();
                      })
                     break;
             case 'nothing_selected':
@@ -384,12 +426,18 @@ export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,Pos
                         answer_option.remove();
                     })
                     break;
+            case 'multiple_choice':
+                        if(EditableQuestion)
+                            EditableQuestion.multiple_choice = false;
+                        else
+                            PostData.multiple_choice = false;
+                        break;
         }
         PostData[`${toggle_element.classList[0]}`] = false;
         if(EditableQuestion)
             EditableQuestion[`${toggle_element.classList[0]}`] = false;
     }
-    console.log(multiple_option_postData)
+    console.log(EditableQuestion)
 }
 export const file_upload_handler = (FileType,FileInput,EditableQuestion,PostData) =>
 {   
@@ -410,7 +458,6 @@ export const file_upload_handler = (FileType,FileInput,EditableQuestion,PostData
             preview_video_main.src = ''
             PostData.media = 'null';
         })
-
     }
 }
 export const file_src_setter = (Src,FileName,FileType,EditableQuestion) => {
@@ -426,6 +473,7 @@ export const file_src_setter = (Src,FileName,FileType,EditableQuestion) => {
             preview_video_main.src = ''
             break;
         case 'Video':
+            console.log('video')
             preview_image_main.src = '';
             preview_container_main.classList.add("preview_video_active");
             preview_video_main.src = Src;
@@ -465,39 +513,25 @@ export const form_data_convertor =  (obj,formData,namespace) => {
             obj[property].map((item,i)=> {
                 formData.append(`${property}[${i}]text`, item.text !== null ? item.text : 'null')
             })
-            // for(var key in ){
-                
-            // }
-        }else {
+        }
+        else {
             if(obj[property] !== null){
                 formData.append(property, obj[property] !== null ? obj[property] : 'null')
-            }
-            
-        }
-        
+            }  
+        }  
     }
-    // for (var property in obj) {
-    //   if (obj.hasOwnProperty(property)) {
-    //     var formKey = namespace ? namespace + '[' + property + ']' : property;
-        
-    //     if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
-    //         form_data_convertor(obj[property], formData, formKey);
-    //         formData.append(formKey, obj[property] !== null ? obj[property] : 'null');
-    //     } else {
-    //       formData.append(formKey, obj[property] !== null ? obj[property] : 'null');
-    //     }
-    //   }
-    // }
   
     return formData;
 }
 export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,QuestionnaireUUID,DataForPost) => {
+    save_button.classList.add('saving');
     if(!DataForPost.title && !DataForPost.question_text && ACTION_TYPE == 'Create')
     {
+        save_button.classList.remove('saving');
         showAlert('عنوان و متن سوال را وارد کنید.')
         return
     }
-    console.log(Question)
+        console.log(Question)
         let createRes;
         try 
         {
@@ -522,4 +556,5 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
          {
              window.open("/Pages/FormDesign.html","_Self");
          }
+         save_button.classList.remove('saving');
 }

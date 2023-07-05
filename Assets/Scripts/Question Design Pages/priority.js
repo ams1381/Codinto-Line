@@ -120,7 +120,7 @@ answer_option_inputs.forEach((answer_option_input,index) => {
 answer_option_buttons.forEach((answer_option_button) => {
     if(answer_option_button.classList.contains('answer-option-add'))
         answer_option_button.addEventListener('click',() => {
-            answer_option_adder("MultipleOption");
+            answer_option_adder("MultipleOption",priority_question_PostData);
         })
     if(answer_option_button.classList.contains('answer-option-remove'))
         answer_option_button.addEventListener('click',() => {

@@ -227,6 +227,7 @@
     z-index: -1;
     transition: opacity 0.4s;
     opacity: 0;
+    overflow: hidden;
 }
 .removeFolderPopUp.active
 {
@@ -266,7 +267,7 @@
     width: 95%;
     height: 37px;
     border-radius: 14px;
-    font-size: 18px;
+    font-size: 1rem;
     font-family: IRANSans;
     cursor: pointer;
     margin: 0 5px 0 5px;
@@ -276,6 +277,17 @@
     background: var(--brand-color);
     border: none;
     color: var(--theme-white);
+}
+.confirm-button.operating p 
+{
+    display: none;
+}
+.confirm-button.operating .dot-pulse
+{
+    display: block;
+}
+.dot-pulse {
+    left: -10046px;
 }
 .cancel-button
 {

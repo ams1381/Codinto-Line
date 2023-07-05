@@ -2,21 +2,27 @@ import { getRequest , baseUrl } from "../ajax/ajaxRequsts.js";
 import { welcome_component_generator } from "./Question Generator/Welcome.js";
 import { question_component_generator } from "./Question Generator/question_comp_generator.js";
 import { showAlert } from "../Question Design Pages/CommonActions.js";
-import { total_answer_set_handler , single_answer_setter } from "./AnswerSetter.js";
 import { range_item_eventListener_setter } from "../../../Components/questionBox/rangeSelect.js";
-import { answer_set_poster , answer_set_postData} from './AnswerSetter.js';
+import { answer_set_poster , answer_set_postData ,
+    total_answer_set_handler , single_answer_setter } from './AnswerSetter.js';
 import { answer_loader } from "./AnswerLoader.js";
 
 const questionnaire_for_preview = JSON.parse(localStorage.getItem("questionnaire_for_preview"));
 const getQuestionsUrl = baseUrl + '/question-api/questionnaires/';
 const answer_page_container = document.querySelector('.answer_page_container');
 const block__header = document.querySelector('.block__header');
-
+let is_active = true;
 const loader_initializer = async () => {
     let questionnaire = await getRequest(getQuestionsUrl + questionnaire_for_preview.uuid + '/');
-    console.log(questionnaire)
-    if(!questionnaire.is_active)
-        showAlert("این پرسشنامه غیر فعال میباشد.")
+    let end_date_compare ;
+    let pub_date_compare = compareDates(form_date_convertor_to_Gregorian(current_date_getter().join("/")),questionnaire.pub_date);
+    if(questionnaire.end_date)
+      end_date_compare = compareDates(form_date_convertor_to_Gregorian(current_date_getter().join("/")),questionnaire.end_date);
+    if(pub_date_compare > 0 || end_date_compare < 0)
+    {
+        showAlert("این پرسشنامه غیر فعال میباشد.");
+        is_active = false;
+    }
     if(questionnaire.welcome_page)
     {
         welcome_loader(questionnaire.welcome_page)
@@ -33,7 +39,7 @@ const loader_initializer = async () => {
                 });
                 if(questionnaire.thanks_page)
                     thank_loader(questionnaire.thanks_page);
-                if(questionnaire.is_active)
+                if(is_active)
                 {
                     let question_controller_container = `
                     <div class="FormFooter SideFooter">
@@ -46,7 +52,7 @@ const loader_initializer = async () => {
             questionnaire_controller_loader(question_controller_container);
             let send_answers_button = document.querySelector(".FormFooter .send_answers");
             send_answers_button.addEventListener('click',async () => {
-                if(!questionnaire.is_active)
+                if(is_active)
                 {
                     showAlert("این پرسشنامه غیر فعال میباشد")
                     return;
@@ -140,7 +146,7 @@ const question_controller = (questionnaire,Questions,CurrState,progress_bar) => 
         $(next_question_button).show(10);
     if(CurrState == Questions.length - 1)
     {
-        if(questionnaire.is_active)
+        if(is_active)
         {
             next_question_button.textContent = 'ارسال';
             next_question_button.className = 'saveQuestion sendAnswers';
@@ -177,7 +183,7 @@ const question_controller = (questionnaire,Questions,CurrState,progress_bar) => 
 }
 const next_question_handler = (questionnaire,Questions,CurrState,progress_bar) => {
     let curQuestion = document.querySelector(".QuestionContainer");
-        if(questionnaire.is_active)
+        if(is_active)
             if(single_answer_setter(curQuestion,Questions[CurrState].question.is_required) == 'Error')
             {
                 showAlert('لطفا سوالات اجباری را پاسخ دهید')
@@ -245,4 +251,22 @@ const questionnaire_controller_loader = (controller) => {
     let parsed_controller_component =  parser.parseFromString(question_controller_container,'text/html').firstChild.lastChild.firstChild;
     answer_page_container.append(parsed_controller_component);
 }
+const current_date_getter = () => {
+    let currentDate = new Date();
+    let currentDateString = currentDate.toLocaleDateString();
+
+    currentDate = farvardin.gregorianToSolar(
+        parseInt(currentDateString.split("/")[2])
+        ,
+        parseInt(currentDateString.split("/")[0])
+        ,
+        parseInt(currentDateString.split("/")[1])
+        );
+    return currentDate;
+}
+const form_date_convertor_to_Gregorian = (Date) => {
+    let GregorianDate = farvardin.solarToGregorian(parseInt(Date.split("/")[0]) , parseInt(Date.split("/")[1]) , parseInt(Date.split("/")[2]));
+    return (GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2]);
+}
+const compareDates = (date1, date2) => new Date(date1) - new Date(date2);
 await loader_initializer()

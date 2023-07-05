@@ -15,8 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #3F52E3;
-    transition: 0.3s;
+    color: var(--brand-color);
     cursor: pointer;
     position: relative;
 }
@@ -193,6 +192,7 @@
     z-index: -1;
     transition: opacity 0.4s;
     opacity: 0;
+    overflow: hidden;
 }
 .emptyFolderContainer
 {
@@ -425,6 +425,21 @@
     width: 90%;
 }
 .block__main.emptyActive .form.AddForm
+{
+    display: none;
+}
+.confirm-button.operating .dot-pulse
+{
+    display: block;
+}
+.dot-pulse {
+    left: -10046px;
+}
+#loading-animation
+{
+    box-shadow: none;
+}
+.confirm-button.operating p
 {
     display: none;
 }

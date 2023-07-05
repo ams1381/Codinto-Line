@@ -22,6 +22,7 @@ export let slider_option_postData = {
     question_text : null,
     is_required : false,
     multiple_choice : false,
+    double_picture_size : false,
     is_random_options : false,
     max_selected_options : null,
     min_selected_options : null,
@@ -38,7 +39,6 @@ export let slider_option_postData = {
 export let range_question_postData = {
     title : null,
     question_text : null,
-    question_type :  null,
     placement : 4,
     group : null,
     is_required : false,
@@ -55,7 +55,6 @@ export let text_question_with_answer_postData  = {
     title : null,
     question_text : null,
     placement: 12,
-    question_type : "text_answer",
     group: null,
     is_required : false,
     show_number : false,
@@ -102,7 +101,6 @@ export let thank_page_postData  = {
 export let number_question_postData  = {
     title : null,
     question_text : null,
-    question_type : "Number answer",
     placement: 7,
     group: null,
     is_required : false,
@@ -114,7 +112,6 @@ export let number_question_postData  = {
 export let selective_degree_postData  = {
     title : null,
     question_text : null,
-    question_type : "Selective Degree",
     placement: 7,
     group: null,
     is_required : false,
@@ -143,7 +140,6 @@ export let Questionnaire_PostData = {
     
 };
 export let number_question_PostData = {
-    question_type : "Number answer",
     title: null,
     question_text: null,
     placement: 7,
@@ -155,7 +151,6 @@ export let number_question_PostData = {
     max: null,
 }
 export let priority_question_PostData = {
-    question_type : "Link question",
     title: null,
     question_text: null,
     placement: 12,

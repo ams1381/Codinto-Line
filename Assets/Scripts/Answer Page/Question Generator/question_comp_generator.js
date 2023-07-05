@@ -5,7 +5,7 @@ import { baseUrl } from "../../ajax/ajaxRequsts.js";
 export const question_component_generator = (Question) => {
     let media_src;
     if(Question.media)
-         media_src = baseUrl + Question.media;
+         media_src =  Question.media;
     let default_question_html = `
     `
     let answer_box_html;
@@ -184,8 +184,10 @@ export const question_component_generator = (Question) => {
                 <div class="preview_file_box ${preview_file_className}">
                 ${
                     (detectFileFormat(Question.media) == 'Picture') ? 
-                    `<img class="preview_image" src=${media_src}></img>` :
-                    `<video class="preview_video" controls ${detectFileFormat(Question.media) == "Video" ? src = media_src : ""} ></video>`
+                    `<img class="preview_image" src=${media_src ? media_src : ''}></img>` :
+                    `<video class="preview_video" controls >
+                            <source src=${media_src ? media_src : ''} />
+                    </video>`
                 }
                 </div>
                 ${answer_box_html}

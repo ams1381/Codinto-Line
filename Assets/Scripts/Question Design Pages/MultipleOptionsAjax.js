@@ -14,7 +14,7 @@ import { multiple_option_postData } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from './QuestionInfoLoader.js'
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-
+const double_image_size_toggle = document.querySelector('.double_picture_size .Switch-Container .slider-button')
 const Title_input = document.getElementById("title__input");
 const Description_input = document.getElementById("desc_input");
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
@@ -66,7 +66,7 @@ answer_option_inputs.forEach((answer_option_input,index) => {
 answer_option_buttons.forEach((answer_option_button) => {
     if(answer_option_button.classList.contains('answer-option-add'))
         answer_option_button.addEventListener('click',() => {
-            answer_option_adder("MultipleOption");
+            answer_option_adder("MultipleOption",multiple_option_postData);
         })
     if(answer_option_button.classList.contains('answer-option-remove'))
         answer_option_button.addEventListener('click',() => {
@@ -123,15 +123,15 @@ all_options_toggle.addEventListener('click',() => {
 })
 no_options_toggle.addEventListener('click',() => {
   
-toggle_handler(EditableQuestion,no_options_toggle.parentElement.parentElement.parentElement,no_options_toggle,multiple_option_postData);
+    toggle_handler(EditableQuestion,no_options_toggle.parentElement.parentElement.parentElement,no_options_toggle,multiple_option_postData);
 })
 show_number_toggle.addEventListener('click',() => {
   
-toggle_handler(EditableQuestion,show_number_toggle.parentElement.parentElement.parentElement,show_number_toggle,multiple_option_postData);
+    toggle_handler(EditableQuestion,show_number_toggle.parentElement.parentElement.parentElement,show_number_toggle,multiple_option_postData);
 })
 required_toggle.addEventListener('click',() => {
   
-toggle_handler(EditableQuestion,required_toggle.parentElement.parentElement.parentElement,required_toggle,multiple_option_postData);
+    toggle_handler(EditableQuestion,required_toggle.parentElement.parentElement.parentElement,required_toggle,multiple_option_postData);
 })
 multiple_answer_select_inputs.forEach((multiple_answer_select_input) => {
     multiple_answer_select_input.addEventListener('input',() => {
@@ -141,7 +141,20 @@ multiple_answer_select_inputs.forEach((multiple_answer_select_input) => {
             multiple_option_postData.max_selected_options = multiple_answer_select_input.value;    
 })
 })
- 
+double_image_size_toggle.addEventListener('click',() => {
+    preview_image_main.classList.toggle('double_size');
+    if(!double_image_size_toggle.previousElementSibling.checked)
+        {
+          EditableQuestion ? EditableQuestion.double_picture_size = true :
+          slider_option_postData.double_picture_size = true;
+        }
+    else
+        {
+          EditableQuestion ? EditableQuestion.double_picture_size = false :
+          slider_option_postData.double_picture_size = false;
+        }
+    console.log(EditableQuestion)
+})
 Title_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',multiple_option_postData)});
 Description_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',multiple_option_postData)});
 view_question_button.addEventListener('click',preview_question_toggle);

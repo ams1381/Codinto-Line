@@ -44,7 +44,6 @@ export const answer_loader = (Question,answer_set_postData) => {
         })
 }
 const text_answer_loader = (Answer_to_load) => {
-    console.log('teXT')
     let text_answer_input = document.querySelector('#text_answer_input');
     text_answer_input.value = Answer_to_load;
 }

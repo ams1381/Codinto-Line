@@ -11,7 +11,6 @@ const folderLoader =  async () => {
     try
         {
             let FoldersRes = await getRequest(folderUrl);
-            console.log(FoldersRes.length)
                 if(FoldersRes.length == 0)
                 {
                     $(loading_container).hide(100);

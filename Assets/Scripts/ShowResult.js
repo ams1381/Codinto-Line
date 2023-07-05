@@ -22,9 +22,7 @@ const result_loader = async () => {
                table_body_tr.remove()
       })
    }
-   $(".resultTable").resizableColumns({
-      store: window.store
-    });
+   $(".resultTable").resizableColumns();
 }
 const head_item_generator = (Head_item) => {
    let head_items_html = `

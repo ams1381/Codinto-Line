@@ -20,11 +20,11 @@
                    <h3 class="sidebar-codinto-title">کدینتو لاین</h3>
                </div>
                    <div class="SideHeaderBody">
-                    <button class="cancelDesign navButton">
-                        <a href="./FormDesign.html">
-                            <i class="fa fa-close"></i>
-                        </a>
-                    </button>
+                    <a href="./FormDesign.html">
+                        <button class="cancelDesign navButton">
+                            <svg width="17" height="17" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#3F52E3" stroke="#3F52E3" stroke-width="34.816"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#3F52E3" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"></path></g></svg>
+                        </button>
+                    </a>
                        <p class="quetion-type">لیست کشویی</p>
                        <button class="viewQuestion navButton">
                           <i class="fa fa-eye"></i>
@@ -176,7 +176,7 @@
                     </div>
                 </div>
                </div>
-               <div class="double-image-size ToggleOption">
+               <div class="double_picture_size ToggleOption">
                 <div class="Switch-Container">
                     <p>اندازه نمایش تصاویر دو برابر شود</p>
                 <label class="Switch-toggle">
@@ -225,7 +225,12 @@
             </div>
             <div class="SideFooter">
                <button class="saveQuestion">
-                    ذخیره
+                <div class="snippet" data-title="dot-pulse">
+                    <div class="stage">
+                      <div class="dot-pulse"></div>
+                    </div>
+                  </div>
+                    <p>ذخیره</p>
                </button>
                <button class="cancelQuestion">
                 <a href="./FormDesign.html">انصراف</a>
@@ -275,27 +280,10 @@
                     
                 </div>
              </div>
-             <div class="AssistiveButton">
-                <div class="AssistiveItems">
-                        <button class="AddQuestion">
-                            <i class="fa fa-plus-circle"></i>
-                        </button>
-                        <button class="Setting">
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                        </button>
-                        <button class="Send">
-                            <i class='fa fa-paper-plane'></i>
-                        </button>
-                </div>
-                <div class="AssistiveToggle">
-                    <button class="AssistiveToggleButton"> <i class="fa fa-plus"></i> </button>
-                </div>
-                
-               </div>
         </main>
         
     </section>
-    <script src="../Assets/Scripts/Question Design Pages/SlideList.js" type="module"></script>
+    <script src="../Assets/Scripts/Question Design Pages/SlideList.js" defer type="module"></script>
     
 </body>
 </html>

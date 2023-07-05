@@ -34,7 +34,7 @@ let endDayInputs = document.querySelectorAll(".end-picker .DayPicker input");
 let dateChanged = false;
 let LoadedQuestionnaire;
 
-const Form_Date_Updater = (YearInputs,MonthInputs,DayInputs) => {
+const current_date_getter = () => {
     let currentDate = new Date();
     let currentDateString = currentDate.toLocaleDateString();
 
@@ -45,6 +45,10 @@ const Form_Date_Updater = (YearInputs,MonthInputs,DayInputs) => {
         ,
         parseInt(currentDateString.split("/")[1])
         );
+    return currentDate;
+}
+const Form_Date_Updater = (YearInputs,MonthInputs,DayInputs) => {
+    let currentDate = current_date_getter();
    
     YearInputs.forEach((YearInput) => {
         if(YearInput.value < currentDate[0])
@@ -111,7 +115,7 @@ const form_date_convertor_to_Gregorian = (Date) => {
     return (GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2]);
 }
 const create_questionnaire = async (e) => {
-    
+    QuestionnaireSaveBtn.classList.add('operating');
     e.preventDefault();
     try
     {

@@ -1,5 +1,5 @@
 import { baseUrl } from "../ajax/ajaxRequsts.js";
-import { file_upload_handler , file_src_setter , preview_answer_option_generator} from "./CommonActions.js";
+import { file_upload_handler , file_src_setter , preview_answer_option_generator, answer_option_eventListener_setter, detectFileFormat} from "./CommonActions.js";
 import { range_item_eventListener_setter } from "../../../Components/questionBox/rangeSelect.js";
 const show_number_toggle = document.querySelector(".show_number .Switch-Container input")
 const required_toggle = document.querySelector('.is_required .Switch-Container input');
@@ -24,6 +24,7 @@ const button_shape_items = document.querySelectorAll(".ShapeOptions label");
 let preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i');
 const question_preview_title = document.querySelector(".QuestionContainer .Question-Title p");
 const button_text_input = document.querySelector('.GEntryButton .ButtonTextInput');
+const preview_image_main = document.querySelector(".preview_file_box .preview_image");
 const minInput = document.querySelector(".minInput .label-text-input")
 const maxInput = document.querySelector(".maxInput .label-text-input")
 const multiple_answer_select_inputs = document.querySelectorAll(".LimitInput input")
@@ -48,12 +49,12 @@ const multiple_answer_selector = document.querySelector(".answer-number-selector
 const sorush_toggle = document.querySelector(".sorush .Switch-toggle input");
 const preview_left_label = document.querySelector(".range__select_labels .range__select_left_label p");
 const preview_right_label = document.querySelector(".range__select_labels .range__select_right_label p");
-const answer_option = document.querySelectorAll('.Answer-Option');
+const optional_question_answer_options = document.querySelectorAll('.Answer-Option');
 const preview_middle_label = document.querySelector(".range__select_labels .range__select_middle_label p");
 const answer_options_container = document.querySelector(".Answer-Options");
 
 export const question_info_loader = (Question) => {
-    console.log(Question)
+   console.log(Question)
     if(!Question)
         return
     Title_input.value = Question.title;
@@ -136,7 +137,7 @@ export const question_info_loader = (Question) => {
     if(Question.min_label)
         preview_left_label.textContent = Question.min_label;
     
-    if(Question.question_type = 'integer_range' && Question.max && !Question.shape)
+    if(Question.question_type === 'integer_range' && Question.max && !Question.shape)
     {
         if(range_number_label)
         {
@@ -156,13 +157,12 @@ export const question_info_loader = (Question) => {
     if(Question.media)
     {
         let selected_file_type;
-        let file_name = Question.media.split("/")[6];
-       
+        let file_name = Question.media.split("/")[Question.media.split("/").length - 1];
         document.querySelectorAll(".fileFormat input").forEach((item) => { 
             if(item.checked)
                 selected_file_type = item.getAttribute("id")
         })
-        file_src_setter(baseUrl + Question.media,file_name,selected_file_type,Question)
+        file_src_setter(Question.media,file_name,detectFileFormat(file_name),Question)
     }
     if(Question.pattern)
     {
@@ -217,16 +217,16 @@ export const question_info_loader = (Question) => {
                 break;
         }
     }
-    if(Question.options)
+    if(Question.question_type === 'optional')
+        optional_question_info_loader(Question.options,Question)
+    if(Question.question_type === 'drop_down')
+        slide_list_question_info_loader(Question.options,Question.double_picture_size,Question)
+        
+    if(Question.question_type === 'text-answer')
     {
-        answer_option.forEach((item) => { item.remove() });
-        Question.options.forEach((option,index) => {
-            main_multiple_option_generator(index + 1,option.text)
-        }) 
-    }
-    if(Question.answer_template)
-    {
-        sampleAnswerInput.value = Question.answer_template;
+        Question.answer_template ? sampleAnswerInput.value = Question.answer_template : sampleAnswerInput.value = '';
+        minInput.value = Question.min;
+        maxInput.value = Question.max;
     }
     //Toggles Loader :
     if(Question.is_required)
@@ -244,7 +244,6 @@ export const question_info_loader = (Question) => {
         vertical_order_toggle.checked = Question.is_vertical;
         preview_answer_options_container.classList.add('vertical-order')
     }
-
     if(Question.is_random_options)
         randomize_options_toggle.checked = Question.is_random_options;
     if(Question.multiple_choice)
@@ -272,6 +271,23 @@ export const question_info_loader = (Question) => {
         additional_options_toggle.checked = true;
         additional_options_selector.classList.add("active");
     }
+}
+const optional_question_info_loader = (options,Question) => {
+    let preview_main_options = document.querySelectorAll('.multiple_answer_block-option');
+    preview_main_options.forEach((item) => { item.remove() });
+    optional_question_answer_options.forEach((item) => { item.remove() });
+    options.forEach((option,index) => {
+        main_multiple_option_generator(index + 1,option.text,Question)
+    }) 
+}
+const slide_list_question_info_loader = (options,double_size,Question) => {
+    if(double_size)
+        preview_image_main.classList.add('double_size');
+    optional_question_answer_options.forEach((item) => { item.remove() });
+    document.querySelectorAll('.selection__item').forEach((item) => { item.remove() })
+    options.forEach((option,index) => {
+        slide_list_option_generator(index + 1,option.text,Question)
+    }) 
 }
 const range_item_generator = (number_to_generate) => {
     let rangeContainer = document.querySelector(".range__select_items");
@@ -311,32 +327,53 @@ const preview_degree_handler = (Question,degree,shape_icon_className) => {
      preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i');
 
 }
-const main_multiple_option_generator = (OptionNumber,OptionText) => {
+const main_multiple_option_generator = (OptionNumber,OptionText,Question) => {
  let main_option_html =  `<div class="multiple_answer_block-option">
                 <input type="radio" name="answer__option" id="answer-n${OptionNumber}">
                 <label class="answer_option-label" for="answer-n${OptionNumber}">${OptionText}</label>
             </div>
             `
- let side_option_html = `<div class="Answer-Option" id="anw-option-${OptionNumber}">
- <div class="anw-option-number">
-     <label class="anw-option-label">
-         ${OptionNumber}
-     </label>  
-     <input type="text" class="anw-option-input" id="option_input_${OptionNumber}" value ="${OptionText}">    
- </div>
- <div class="anw-option-tools">
-     <button class="answer-option-view">
-         <i class="fa fa-eye"></i>
-     </button>
-     <button class="answer-option-remove">
-         <i class="fa fa-trash"></i>
-     </button>
-     <button class="answer-option-add">
-         <i class="fa fa-plus-circle"></i>
-     </button>
- </div>
-</div>
- `
+    side_answer_option_generator(OptionNumber,OptionText,"MultipleOption",Question)
     preview_options_container.innerHTML += main_option_html;
+    
+}
+const slide_list_option_generator = (OptionNumber,OptionText,Question) => {
+    const preview_slider_container = document.querySelector(".selection__box")
+    side_answer_option_generator(OptionNumber,OptionText,"SliderOption")
+        let  preview_answer_option = `
+            <span class="selection__item" id="select_item_${OptionNumber}">
+                <input class="select_item_input" type="radio" id="select_item_input_${OptionNumber}">
+                <label for="select_item_input_${OptionNumber}">${OptionText}</label>
+            </span>
+            `
+    const parser = new DOMParser();
+    const parsed_preview_answer_option = parser.parseFromString((preview_answer_option),'text/html').firstChild.lastChild.firstChild;
+    $(parsed_preview_answer_option).hide(50);
+    preview_slider_container.append(parsed_preview_answer_option,Question);
+    $(parsed_preview_answer_option).show(100);
+}
+const side_answer_option_generator = (OptionNumber,OptionText,Option_Type,Question) => {
+    let side_option_html = `<div class="Answer-Option" id="anw-option-${OptionNumber}">
+    <div class="anw-option-number">
+        <label class="anw-option-label">
+            ${OptionNumber}
+        </label>  
+        <input type="text" class="anw-option-input" id="option_input_${OptionNumber}" value ="${OptionText}">    
+    </div>
+        <div class="anw-option-tools">
+            <button class="answer-option-view">
+                <i class="fa fa-eye"></i>
+            </button>
+            <button class="answer-option-remove">
+                <i class="fa fa-trash"></i>
+            </button>
+            <button class="answer-option-add">
+                <i class="fa fa-plus-circle"></i>
+            </button>
+        </div>
+    </div>
+`
     answer_options_container.innerHTML += side_option_html;
+    answer_option_eventListener_setter(OptionNumber,Option_Type,Question)
+    console.log(OptionNumber,Option_Type)
 }

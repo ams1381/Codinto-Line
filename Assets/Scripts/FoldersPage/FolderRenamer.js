@@ -5,8 +5,10 @@ import { folder_reloader } from './FolderScript.js';
 
 const rename_folder_input = document.querySelector("#rename_folder_name");
 const rename_folder_popup = document.querySelector(".renameFolderPopUp");
+const rename_folder_confirm_button = document.querySelector('.renameFolderPopUp .confirm-button')
 
 export const folder_rename_handler = async (FolderItemId) => {
+    rename_folder_confirm_button.classList.add('operating');
     let RenameUrl = folderUrl + FolderItemId + '/';
     await patchRequest(RenameUrl,{ 'name' : rename_folder_input.value });
 
@@ -18,4 +20,5 @@ export const folder_rename_handler = async (FolderItemId) => {
 
     folder_reloader();
     await folderLoader();
+    rename_folder_confirm_button.classList.remove('operating');
 }

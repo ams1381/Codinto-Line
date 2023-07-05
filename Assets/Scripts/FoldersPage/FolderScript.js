@@ -25,6 +25,7 @@ const search_Questionnaire_button = document.querySelectorAll(".FolderSearch");
 const add_Questionnaire_button = document.querySelector(".form.AddForm")
 let SelectedFolderId;
 export const folder_generator = (folderName, id , Questionnaires) => {
+    create_folder_confirm_btn.classList.add('operating');
     const folder_element_item = `<div class="Folder" id="${id}" style="">
         <button class="FolderEdit navButton">
         <i>
@@ -96,7 +97,7 @@ export const folder_generator = (folderName, id , Questionnaires) => {
     });
 
     EventListenerSetter(folder_items);
-
+    create_folder_confirm_btn.classList.remove('operating');
 };
 export const folder_reloader = () => {
     folder_items.forEach((item,index) => {
@@ -148,6 +149,7 @@ const setActive_folder = (folder_item,elements,questionnaires) => {
             questionnaires.forEach((item) => {
                 questionnaire_generator(item)
             })
+            
         }
         else
         {
@@ -157,6 +159,8 @@ const setActive_folder = (folder_item,elements,questionnaires) => {
                     item.remove();
             })
         }
+        $('.form.AddForm').hide(10);
+        $('.form.AddForm').show(250);
 }
 const folder_popup_handler = (popup_element,popup_input,popup_type) => {
     if(popup_type == 'rename' || popup_type == 'remove' && popup_input)
@@ -208,11 +212,13 @@ rename_folder_confirm_btn.addEventListener('click', () => {
        folder_rename_handler(SelectedFolderId);
 });
 remove_folder_confirm_btn.addEventListener('click',() => {
+    remove_folder_confirm_btn.classList.add('operating');
     let Selected_folder = document.querySelector(".Folder.Selected");
     let Selected_folder_id = document.querySelector(".Folder.Selected").getAttribute("id");
 
     folder_remove_handler(Selected_folder_id,Selected_folder);
 
+    remove_folder_confirm_btn.classList.remove('operating');
     remove_folder_popup.classList.remove("active");
     nav_mask.classList.remove("active");
 

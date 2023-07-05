@@ -3,7 +3,7 @@ import { preview_change_handler } from "./CommonActions.js";
 import {
     group_question_postData
 } from "../ajax/QuestionPostData.js";
-
+import { question_info_loader } from "./QuestionInfoLoader.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
@@ -11,59 +11,56 @@ const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
 const buttonText = document.querySelector(".ButtonTextInput")
 const shapeSelector = document.querySelectorAll(".ShapeOptions label")
+const button_text_input = document.querySelector('.GEntryButton .ButtonTextInput');
+const button_shape_items = document.querySelectorAll(".ShapeOptions label")
 const saveBtn = document.querySelector(".saveQuestion")
 const file_input = document.querySelector("#file.box__file");
 const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle .slider-button")
+const preview_button = document.querySelector(".QuestionStart .QuestionStartButton")
 const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle .slider-button")
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
 
 if(ACTION_TYPE == 'Edit')
 {
-     
-    titleInput.value = EditableQuestion.title;
-    textInput.value = EditableQuestion.description;
-    buttonText.value = EditableQuestion.button_text
-    shapeSelector.forEach((shapeLabel) => {
-        if(EditableQuestion.is_solid_button)
-            if(shapeLabel.classList.contains(EditableQuestion.button_shape) && shapeLabel.classList.contains('bg-colored'))
-            {
-                shapeLabel.previousElementSibling.checked = true;
-                return
-            }
-
-            else
-            if(shapeLabel.classList.contains(EditableQuestion.button_shape) && shapeLabel.classList.contains('bg-transp'))
-            {
-                shapeLabel.previousElementSibling.checked = true;
-                return;
-            }
-
-    })
-
+    question_info_loader(EditableQuestion)
 }
 // functions
+const preview_button_shape_handler = (Shape,IsSolid) => {
+    if(IsSolid)
+        preview_button.className = 'QuestionStartButton ' + 'solid ' + Shape;
+    else
+        preview_button.className = 'QuestionStartButton ' + 'empty ' + Shape;
 
- 
+    group_question_postData.is_solid_button = IsSolid;
+    group_question_postData.button_shape = Shape;
+
+    if(EditableQuestion)
+    {
+        EditableQuestion.is_solid_button = IsSolid;
+        EditableQuestion.button_shape = Shape;
+    }
+}
+const preview_button_text_handler = (ButtonText) => {
+    preview_button.textContent = ButtonText;
+    group_question_postData.button_text = ButtonText;
+    if(EditableQuestion)
+        EditableQuestion.button_text = ButtonText;
+}
+button_text_input.addEventListener('input',(e) => {
+    preview_button_text_handler(e.target.value)
+})
+button_shape_items.forEach((button_shape_item)=>{
+    button_shape_item.addEventListener("click" , ()=> {
+        if(button_shape_item.className.split(" ")[0] == 'bg-colored')
+            preview_button_shape_handler(button_shape_item.classList[1],true);
+        else 
+            preview_button_shape_handler(button_shape_item.classList[1],false);
+    })
+    
+})
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',group_question_postData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',group_question_postData)})
-function textStyle(input){
-    const textEditor = document.querySelector(".TitleInputOptions")
-    textEditor.addEventListener("click" , (e)=>{
-        switch (e.target.classList[1]){
-            case "fa-bold":
-                input.classList.toggle("bold")
-                break;
-            case "fa-italic":
-                input.classList.toggle("italic")
-                break;
-            case "fa-underline":
-                input.classList.toggle("underline")
-                break;
-        }
-    })
-}
-textStyle(titleInput)
 
 let selectedObject = null
 shapeSelector.forEach((e)=>{
@@ -72,12 +69,10 @@ shapeSelector.forEach((e)=>{
     })
 })
 saveBtn.addEventListener("click" , async function (event){
-
-     
     if(EditableQuestion && ACTION_TYPE == 'Edit')
-        await question_creator(ACTION_TYPE,EditableQuestion,'group-questions',QuestionnaireUUID,group_question_postData);
+        await question_creator(ACTION_TYPE,EditableQuestion,'question-groups',QuestionnaireUUID,group_question_postData);
     else
-        await question_creator(ACTION_TYPE,null,'group-questions',QuestionnaireUUID,group_question_postData);
+        await question_creator(ACTION_TYPE,null,'question-groups',QuestionnaireUUID,group_question_postData);
 })
 necessaryQuestion.addEventListener('click',() => {
   
@@ -95,7 +90,7 @@ file_input.addEventListener('input',() => {
     })
     if(file_input.files)
  
-        group_question_postData = file_input.files[0];
+        group_question_postData .media= file_input.files[0];
     file_upload_handler(selected_file_type,file_input,EditableQuestion,group_question_postData);
 })
 view_question_button.addEventListener('click',preview_question_toggle);

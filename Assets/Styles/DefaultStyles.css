@@ -20,6 +20,7 @@
     --folder-shadow-color: #0000001a;
     --input-placeholder-color: #5360ed4d;
     --label-default-color: #5360ed77;
+    --loading-spinner_bg : #f3f3f3;;
     --answer-option-default-color : #5360eda3;
     --selected-date-bg-color: #3f52e335;
     --screen-mask-bg-color: #00000087;
@@ -320,11 +321,11 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid var(--brand-color);
+    border: 4px solid var(--loading-spinner_bg);
+    border-top: 4px solid var(--brand-color);
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     animation: LoadingSpinner 2s linear infinite;
 }
 @keyframes LoadingSpinner {
@@ -337,7 +338,76 @@
 }
 #loading-animation.hide {
     display: none;
-} 
+}
+.dot-pulse {
+    position: relative;
+    left: -9999px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: var(--theme-white);
+    color: var(--theme-white);
+    box-shadow: 9999px 0 0 -5px;
+    animation: dot-pulse 1.5s infinite linear;
+    animation-delay: 0.25s;
+    display: none;
+}
+.dot-pulse::before, .dot-pulse::after 
+{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: var(--theme-white);
+    color: var(--theme-white);
+    left: 1px;
+}
+.dot-pulse::before {
+    box-shadow: 9984px 0 0 -5px;
+    animation: dot-pulse-before 1.5s infinite linear;
+    animation-delay: 0s;
+  }
+.dot-pulse::after {
+    box-shadow: 10014px 0 0 -5px;
+    animation: dot-pulse-after 1.5s infinite linear;
+    animation-delay: 0.5s;
+}
+@keyframes dot-pulse {
+    0% {
+      box-shadow: 9999px 0 0 -5px;
+    }
+    30% {
+      box-shadow: 9999px 0 0 2px;
+    }
+    60%, 100% {
+      box-shadow: 9999px 0 0 -5px;
+    }
+}
+@keyframes dot-pulse-after {
+    0% {
+      box-shadow: 10014px 0 0 -5px;
+    }
+    30% {
+      box-shadow: 10014px 0 0 2px;
+    }
+    60%, 100% {
+      box-shadow: 10014px 0 0 -5px;
+    }
+}
+@keyframes dot-pulse-before {
+    0% {
+      box-shadow: 9984px 0 0 -5px;
+    }
+    30% {
+      box-shadow: 9984px 0 0 2px;
+    }
+    60%, 100% {
+      box-shadow: 9984px 0 0 -5px;
+    }
+}
 @media only screen and (max-width : 768px) {
 
     .navToggleButton,

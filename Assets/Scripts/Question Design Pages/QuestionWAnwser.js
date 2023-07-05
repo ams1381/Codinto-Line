@@ -26,9 +26,12 @@ if (ACTION_TYPE == 'Edit') {
 }
 // initial data------------------------------------
 options = "free"
-sampleAnswer.value = null;
-
- 
+sampleAnswer.addEventListener('input',() => {
+    if(EditableQuestion)
+       EditableQuestion.answer_template = sampleAnswer.value;
+    else
+        text_question_with_answer_postData.answer_template = sampleAnswer.value;
+})
 titleInput.addEventListener('input', () => { preview_change_handler(EditableQuestion,'Title-change', text_question_with_answer_postData) })
 textInput.addEventListener('input', () => { preview_change_handler(EditableQuestion,'Desc-change', text_question_with_answer_postData) })
 function textStyle(input) {
@@ -125,10 +128,7 @@ selection.addEventListener("change", function (event) {
     else
     {
         answer_pattern_selector(classList[1],text_question_with_answer_postData,selectedOption);
-        console.log('cheched')
     }
-        
-    
 });
 const answer_pattern_selector = (Pattern,postData,selectedOption) => {
     console.log(postData)
@@ -199,7 +199,7 @@ const answer_pattern_selector = (Pattern,postData,selectedOption) => {
             break;
     }
 }
-// add event listener to save button
+
 saveBtn.addEventListener("click",async function (event) {
      
     if(EditableQuestion && ACTION_TYPE == 'Edit')
@@ -225,6 +225,18 @@ file_input.addEventListener('input',() => {
  
         text_question_with_answer_postData.media = file_input.files[0];
     file_upload_handler(selected_file_type,file_input,EditableQuestion,text_question_with_answer_postData);
+})
+minInput.addEventListener('input',() => {
+    if(EditableQuestion)
+        EditableQuestion.min = parseInt(minInput.value);
+    else
+        text_question_with_answer_postData.min = parseInt(minInput.value);
+})
+maxInput.addEventListener('input',() => {
+    if(EditableQuestion)
+        EditableQuestion.max = parseInt(maxInput.value);
+    else
+        text_question_with_answer_postData.max = parseInt(maxInput.value);
 })
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)

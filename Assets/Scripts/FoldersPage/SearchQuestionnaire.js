@@ -55,20 +55,23 @@ const QuestionnaireSearchHandler = async (e) => {
 }
 export const search_button_handler = async (SearchButton) => {
     nav_search_container.classList.toggle("search-active");
-
+    search_Questionnaire_input.value = '';
         if(SearchButton.classList.contains("search-active"))
         {
             SearchButton.classList.remove("search-active");
-            search_Questionnaire_input.removeEventListener('input',QuestionnaireSearchHandler);
+            let search_timeout;
+            search_Questionnaire_input.addEventListener('input',QuestionnaireSearchHandler);
             QuestionnaireCleaner();
             await QuestionnaireReloader();
         }
         else if(!SearchButton.classList.contains("search-active"))
         {
+            search_Questionnaire_input.value = '';
+            let search_timeout;
             SearchButton.classList.add("search-active");
             search_Questionnaire_input.focus();
             QuestionnaireCleaner();
-            search_Questionnaire_input.addEventListener('input',QuestionnaireSearchHandler);
+           search_Questionnaire_input.addEventListener('input',QuestionnaireSearchHandler);
         }
 
     

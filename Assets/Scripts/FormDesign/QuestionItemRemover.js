@@ -3,6 +3,7 @@ import { delQuestionUrl , QuestionItemSetter } from "./FormDesignAjax.js";
 import { QuestionItemCleaner } from "./FormDesignAjax.js";
 import { folder_mask_close_panel } from "./FormDesignAjax.js";
 const remove_folder_popup = document.querySelector(".removeFolderPopUp");
+const delete_confirm_button = document.querySelector('.removeFolderPopUp .PopUpButtons .confirm-button');
 export let deleteQuestionInfo;
 
 const remove_folder_popup_handler = (QuestionType,QuestionId) => {
@@ -19,6 +20,8 @@ export const remove_eventListener_setter = (delete_button_element,question_type,
     })
 }
 const DeleteQuestionItemHandler = async (QuestionInfo) => {
+    console.log('test')
+    delete_confirm_button.classList.add('operating');
     let deleteQuestionRes;
     let deleteQuestionHTMLItem = document.querySelector(`#Question${QuestionInfo.question_id}`);
     switch(QuestionInfo.question_type)
@@ -68,5 +71,6 @@ const DeleteQuestionItemHandler = async (QuestionInfo) => {
             QuestionItemCleaner()
             QuestionItemSetter();
         }
+    delete_confirm_button.classList.remove('operating');
 }
 export default DeleteQuestionItemHandler;
