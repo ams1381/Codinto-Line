@@ -262,6 +262,14 @@ body
     text-decoration: none;
     color: var(--brand-color);
 }
+.save-Form.operating p
+{
+    display: none;
+}
+.save-Form.operating .dot-pulse
+{
+    display: block;
+}
 @media only screen and (max-width : 400px)
 {
     .SettingContainer
