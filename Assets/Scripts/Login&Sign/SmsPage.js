@@ -18,10 +18,10 @@ const sent_sms_handler = async (e) => {
             let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/',{ 'token' : sms_code });
             if(accessToken)
             {
-                // localStorage.setItem("ACCESS_TOKEN",accessToken.data.access)
-                cookie_setter('access',accessToken.data.access)
+                localStorage.setItem("ACCESS_TOKEN",accessToken.data.access)
+                cookie_setter('access',accessToken.data.access,null,'/Pages','codinto-like.codinguy.ir')
               //  document.cookie = accessToken.data.access;
-                //console.log(accessToken)
+                console.log(document.cookie)
                 window.open("/Pages/Folders.html","_Self");
             }
         }

@@ -18,21 +18,25 @@ const cookies_reader = (cname) =>
    }
    return "";
 }
-export const cookie_setter = (name, value) => {
-  document.cookie = name + "=" + encodeURIComponent(value) + "; path=/";
-  // var expires = "";
+export const cookie_setter = (name, value, expirationDays, path, domain) => {
+  var expires = "";
   
-  // if (expirationDays) {
-  //   var date = new Date();
-  //   date.setTime(date.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
-  //   expires = "; expires=" + date.toUTCString();
-  // }
-  // document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+  if (expirationDays) {
+    var date = new Date();
+    date.setTime(date.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toUTCString();
+  }
+  
+  var cookiePath = path ? "; path=" + path : "";
+  var cookieDomain = domain ? "; domain=" + domain : "";
+  
+  document.cookie = name + "=" + encodeURIComponent(value) + expires + cookiePath + cookieDomain;
+  console.log(document.cookie)
 }
-
 const getRequest = async (url) => 
   {
-    accessToken = cookies_reader('access');
+    accessToken = localStorage.getItem("ACCESS_TOKEN");
+    console.log(cookies_reader('access'))
     try {
       const response = await axios.get(url, {
         headers: {
@@ -47,7 +51,8 @@ const getRequest = async (url) =>
     }
 };
 const patchRequest = async (url, patchData) => {
-  accessToken = cookies_reader('access');
+  console.log(cookies_reader('access'))
+  accessToken = localStorage.getItem("ACCESS_TOKEN");
     try {
       const response = await axios.patch(url, patchData, {
         headers: {
@@ -62,11 +67,11 @@ const patchRequest = async (url, patchData) => {
     }
 };  
 const postRequest = async (url, postData) => {
-
+  console.log(cookies_reader('access'))
   if(accessToken)
     token = accessToken;
-  else if(cookies_reader('access'))
-    token = cookies_reader('access');
+  else if(localStorage.getItem("ACCESS_TOKEN"))
+    token = localStorage.getItem("ACCESS_TOKEN");
     
     try {
       const response = await axios.post(url, postData, {
@@ -106,7 +111,7 @@ async function renewToken() {
       });
       // localStorage.removeItem("ACCESS_TOKEN")
       // localStorage.setItem("ACCESS_TOKEN",response.data.access)
-      cookies_reader('access') = response.data.access;
+      localStorage.getItem("ACCESS_TOKEN") = response.data.access;
       accessToken = response.data.access;
     } 
     catch (error) 

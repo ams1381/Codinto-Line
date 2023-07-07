@@ -12,13 +12,15 @@ const login_confirm_handler = async (e) => {
     {
         await postRequest(baseUrl + '/user-api/auth/gateway/',{ 'phone_number' : user_phone_phoneNumber_input.value });
         localStorage.setItem("enteredPhoneNumber",user_phone_phoneNumber_input.value);
-        window.open('/Pages/SignUpSMS.html','_Self');
+       
     }
    catch(err)
    {
     showAlert('شماره تلفن نا معتبر است')
     login_confirm_button.classList.remove("loading");
+    return
    }
+   window.open('/Pages/SignUpSMS.html','_Self');
 }
 
 login_confirm_button.addEventListener('click',login_confirm_handler)
