@@ -1,4 +1,4 @@
-import { postRequest , baseUrl} from '../ajax/ajaxRequsts.js';
+import { postRequest , baseUrl , cookie_setter} from '../ajax/ajaxRequsts.js';
 import { showAlert } from '../Question Design Pages/CommonActions.js'
 
 const login_sms_confirm_button = document.getElementById('sms_confirm_button');
@@ -19,7 +19,9 @@ const sent_sms_handler = async (e) => {
             if(accessToken)
             {
                 // localStorage.setItem("ACCESS_TOKEN",accessToken.data.access)
-                document.cookie = accessToken.data.access;
+                cookie_setter('access',accessToken.data.access)
+              //  document.cookie = accessToken.data.access;
+                //console.log(accessToken)
                 window.open("/Pages/Folders.html","_Self");
             }
         }

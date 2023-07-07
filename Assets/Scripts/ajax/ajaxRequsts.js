@@ -2,10 +2,37 @@ import { showAlert } from "../Question Design Pages/CommonActions.js";
 let baseUrl = 'http://codinto-line.codinguy.ir';
 var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE2NDg1NTk5LCJqdGkiOiJhNDZlZGMzOTg3MTE0ZDc0OTYzMDI2MWY2MTMxMzZlMSIsInVzZXJfaWQiOjF9.S4jJOFS7nMjhwb5q4fssHslS1H7W--a5ktAOZTikjzI";
 let accessToken;
+const cookies_reader = (cname) => 
+{
+  var name = cname + "=";
+  var decoded_cookie = decodeURIComponent(document.cookie);
+  var carr = decoded_cookie.split(';');
+  for(var i=0; i<carr.length;i++){
+  var c = carr[i];
+  while(c.charAt(0)==' '){
+      c=c.substring(1);
+  }
+  if(c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+   }
+   }
+   return "";
+}
+export const cookie_setter = (name, value) => {
+  document.cookie = name + "=" + encodeURIComponent(value) + "; path=/";
+  // var expires = "";
+  
+  // if (expirationDays) {
+  //   var date = new Date();
+  //   date.setTime(date.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+  //   expires = "; expires=" + date.toUTCString();
+  // }
+  // document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+}
 
 const getRequest = async (url) => 
   {
-    accessToken = document.cookie;
+    accessToken = cookies_reader('access');
     try {
       const response = await axios.get(url, {
         headers: {
@@ -20,7 +47,7 @@ const getRequest = async (url) =>
     }
 };
 const patchRequest = async (url, patchData) => {
-  accessToken = document.cookie;
+  accessToken = cookies_reader('access');
     try {
       const response = await axios.patch(url, patchData, {
         headers: {
@@ -33,14 +60,13 @@ const patchRequest = async (url, patchData) => {
     {
       await errorHandler(error.response,error.status,error,url)
     }
-  };
-  
+};  
 const postRequest = async (url, postData) => {
 
   if(accessToken)
     token = accessToken;
-  else if(document.cookie)
-    token = document.cookie;
+  else if(cookies_reader('access'))
+    token = cookies_reader('access');
     
     try {
       const response = await axios.post(url, postData, {
@@ -59,8 +85,7 @@ const postRequest = async (url, postData) => {
     {
        await errorHandler(error.response,error.status,error,url)
     }
-};
-  
+}; 
 const deleteRequest = async (url) => {
     try {
       const response = await axios.delete(url, {
@@ -81,7 +106,7 @@ async function renewToken() {
       });
       // localStorage.removeItem("ACCESS_TOKEN")
       // localStorage.setItem("ACCESS_TOKEN",response.data.access)
-      document.cookie = response.data.access;
+      cookies_reader('access') = response.data.access;
       accessToken = response.data.access;
     } 
     catch (error) 
@@ -89,7 +114,6 @@ async function renewToken() {
       return error;
     }
 }
-
 async function errorHandler(errorRes,errorCode,error,url)
 {
     switch(errorRes.status)
@@ -105,7 +129,6 @@ async function errorHandler(errorRes,errorCode,error,url)
             break;
     }
 }
-
 function er400handler(error) 
 {
   //TODO for in list of errors 
