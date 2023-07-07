@@ -18,7 +18,8 @@ const sent_sms_handler = async (e) => {
             let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/',{ 'token' : sms_code });
             if(accessToken)
             {
-                localStorage.setItem("ACCESS_TOKEN",accessToken.data.access)
+                // localStorage.setItem("ACCESS_TOKEN",accessToken.data.access)
+                document.cookie = accessToken.data.access;
                 window.open("/Pages/Folders.html","_Self");
             }
         }

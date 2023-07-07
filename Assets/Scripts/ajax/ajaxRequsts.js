@@ -5,7 +5,7 @@ let accessToken;
 
 const getRequest = async (url) => 
   {
-    accessToken = localStorage.getItem("ACCESS_TOKEN");
+    accessToken = document.cookie;
     try {
       const response = await axios.get(url, {
         headers: {
@@ -20,7 +20,7 @@ const getRequest = async (url) =>
     }
 };
 const patchRequest = async (url, patchData) => {
-  accessToken = localStorage.getItem("ACCESS_TOKEN");
+  accessToken = document.cookie;
     try {
       const response = await axios.patch(url, patchData, {
         headers: {
@@ -39,8 +39,8 @@ const postRequest = async (url, postData) => {
 
   if(accessToken)
     token = accessToken;
-  else if(localStorage.getItem("ACCESS_TOKEN"))
-    token = localStorage.getItem("ACCESS_TOKEN");
+  else if(document.cookie)
+    token = document.cookie;
     
     try {
       const response = await axios.post(url, postData, {
@@ -79,8 +79,9 @@ async function renewToken() {
     try {
       const response = await axios.post(`${baseUrl}/user-api/auth/refresh-token`, {
       });
-      localStorage.removeItem("ACCESS_TOKEN")
-      localStorage.setItem("ACCESS_TOKEN",response.data.access)
+      // localStorage.removeItem("ACCESS_TOKEN")
+      // localStorage.setItem("ACCESS_TOKEN",response.data.access)
+      document.cookie = response.data.access;
       accessToken = response.data.access;
     } 
     catch (error) 
