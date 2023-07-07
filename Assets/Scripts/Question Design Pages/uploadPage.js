@@ -4,9 +4,10 @@ import {
     question_creator,
     toggle_handler , 
     text_style_setter,
-    preview_question_toggle
+    preview_question_toggle,
+    text_style_label_eventListener_setter
 } from "../Question Design Pages/CommonActions.js";
-import {file_question_PostData} from "../ajax/QuestionPostData.js";
+import {file_question_PostData, priority_question_PostData} from "../ajax/QuestionPostData.js";
 import {question_info_loader} from './QuestionInfoLoader.js';
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
@@ -18,8 +19,8 @@ const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .s
 const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button");
 const title_text_style_labels  = document.querySelectorAll(".GTitle .TitleInputOptions label i");
 const desc_text_style_labels = document.querySelectorAll(".GDesc .DescInputOptions label i")
-const preview_title_container = document.querySelector('.Question-Title');
-const preview_desc_container = document.querySelector('.description_block');
+const preview_title_container = document.querySelector('.Question-Title p');
+const preview_desc_container = document.querySelector('.description_block p');
 const saveBtn = document.querySelector(".saveQuestion");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion");
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
@@ -33,20 +34,24 @@ if(ACTION_TYPE == 'Edit')
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',file_question_PostData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',file_question_PostData)})
 
-title_text_style_labels.forEach((title_text_style_label) => {
-    title_text_style_label.addEventListener('click',() => {
-        let style_name = title_text_style_label.className;
-        text_style_setter(EditableQuestion,"title",file_question_PostData,style_name,preview_title_container,titleInput,titleInput.value);
-        
-    })
-})
-desc_text_style_labels.forEach((desc_text_style_label) => {
-    desc_text_style_label.addEventListener('click',() => {
-        let style_name = desc_text_style_label.className;
-        text_style_setter(EditableQuestion,"description",file_question_PostData,style_name,preview_desc_container,textInput,titleInput.value);
-        
-    })
-})
+// title_text_style_labels.forEach((title_text_style_label) => {
+//     title_text_style_label.addEventListener('click',() => {
+//         let style_name = title_text_style_label.className;
+//         if(EditableQuestion)
+//             text_style_setter(EditableQuestion,'title',style_name,preview_title_container,titleInput,titleInput.value);
+//         else
+//             text_style_setter(file_question_PostData,'title',style_name,preview_title_container,titleInput,titleInput.value);
+//     })
+// })
+// desc_text_style_labels.forEach((desc_text_style_label) => {
+//     desc_text_style_label.addEventListener('click',() => {
+//         let style_name = desc_text_style_label.className;
+//         if(EditableQuestion)
+//             text_style_setter(EditableQuestion,'question_text',style_name,preview_desc_container,textInput,textInput.value);
+//         else
+//             text_style_setter(file_question_PostData,'question_text',style_name,preview_desc_container,textInput,textInput.value);
+//     })
+// })
 // textStyle(titleInput)
 
 saveBtn.addEventListener("click", async function (event) {
@@ -74,9 +79,9 @@ file_input.addEventListener('input',() => {
             selected_file_type = item.getAttribute("id")
     })
     if(file_input.files)
- 
         file_question_PostData.media = file_input.files[0];
     file_upload_handler(selected_file_type,file_input,EditableQuestion,file_question_PostData);
 })
+text_style_label_eventListener_setter(EditableQuestion,file_question_PostData);
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)

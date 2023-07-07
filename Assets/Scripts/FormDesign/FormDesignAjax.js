@@ -4,6 +4,7 @@ import { deleteQuestionInfo } from "./QuestionItemRemover.js";
 import { QuestionItemGenerator } from "./QuestionItemLoader.js";
 import DeleteQuestionItemHandler from "./QuestionItemRemover.js";
 import { QuestionDesignOpener } from "./QuestionItemLoader.js";
+import { showAlert } from "../Question Design Pages/CommonActions.js";
 
 const SelectedQuestionnaire = JSON.parse(localStorage.getItem("SelectedQuestionnaire"));
 const getQuestionsUrl = baseUrl + '/question-api/questionnaires/';
@@ -80,10 +81,20 @@ export const QuestionItemSetter = async () => {
         let loading = document.getElementById('loading-animation');
         loading.classList.add('hide');
 }
-
-const QuestionDesignItemsHandler = (QuestionType) => {
+const questionnaire_retriever = async () => {
+   return await getRequest(baseUrl + `/question-api/questionnaires/${SelectedQuestionnaire.uuid}/`);
+}
+const QuestionDesignItemsHandler = async (QuestionType) => {
     localStorage.setItem("QuestionnaireUUID",SelectedQuestionnaire.uuid);
     localStorage.setItem("ACTION-TYPE",'Create');
+    localStorage.removeItem("QuestionData");
+    let questionnaire_retrieved = await questionnaire_retriever();
+    if(QuestionType == 'welcome-page' && questionnaire_retrieved.welcome_page)
+    {
+        showAlert("صفحه ی خوش آمد گویی وجود دارد.");
+        return
+    }
+        
     QuestionDesignOpener(QuestionType);
 }
 export const folder_mask_close_panel = () => {

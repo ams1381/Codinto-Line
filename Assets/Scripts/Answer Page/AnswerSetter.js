@@ -115,7 +115,7 @@ const multiple_answer_setter = (Question,required) => {
     {;
         return 'Error';
     }
-    else
+    else if(selected_drop_down_option)
     {
         answer_set_postData.answers.push({
             "question": parseInt(Question.getAttribute("id")),

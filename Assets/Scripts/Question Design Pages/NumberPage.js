@@ -1,4 +1,4 @@
-import {file_upload_handler, preview_change_handler, preview_question_toggle, question_creator, toggle_handler} from "./CommonActions.js";
+import {file_upload_handler, preview_change_handler, preview_question_toggle, question_creator, text_style_label_eventListener_setter, toggle_handler} from "./CommonActions.js";
 import {number_question_postData} from "../ajax/QuestionPostData.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
@@ -59,5 +59,6 @@ file_input.addEventListener('input',() => {
         number_question_postData.media = file_input.files[0];
     file_upload_handler(selected_file_type,file_input,EditableQuestion,number_question_postData);
 })
+text_style_label_eventListener_setter(EditableQuestion,number_question_postData);
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle);

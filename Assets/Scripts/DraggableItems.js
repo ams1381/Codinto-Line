@@ -29,8 +29,8 @@ const mainDrake = dragula(
             return true; 
           },
           invalid: function (el, handle) {
-            if(el.className.indexOf('Question-Nested-items') != -1)
-                return true;
+            // if(el.className.indexOf('Question-Nested-items') != -1)
+            //     return true;
             return false; 
           },
          revertOnSpill: true,

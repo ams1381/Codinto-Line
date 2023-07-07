@@ -1,5 +1,5 @@
 import { range_question_postData} from "../ajax/QuestionPostData.js";
-import {file_upload_handler, preview_change_handler, preview_question_toggle, question_creator, toggle_handler} from "./CommonActions.js";
+import {file_upload_handler, preview_change_handler, preview_question_toggle, question_creator, text_style_label_eventListener_setter, toggle_handler} from "./CommonActions.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
 import { range_item_eventListener_setter } from "../../../Components/questionBox/rangeSelect.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
@@ -133,6 +133,7 @@ toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.paren
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)
 range_item_eventListener_setter(document.querySelectorAll(".range__number"))
+text_style_label_eventListener_setter(EditableQuestion,rangeChange);
 if(ACTION_TYPE == 'Edit')
 {
     question_info_loader(EditableQuestion)

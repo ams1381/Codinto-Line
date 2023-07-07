@@ -119,13 +119,13 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
     const parser = new DOMParser();
     const parsed_question_element_item = parser.parseFromString((question_element_item),'text/html').firstChild.lastChild.lastChild;
     
-    $(question_element_item).hide(10);
+    $(question_element_item).hide(0);
     let thank_page_item = document.querySelector(".QuestionsBox .thank-page");
     if(thank_page_item)
             thank_page_item.parentElement.insertBefore(parsed_question_element_item,thank_page_item)
     else
         QuestionsBoxContainer.append(parsed_question_element_item);
-    $(parsed_question_element_item).fadeIn(200);
+    $(parsed_question_element_item).show(200);
 
     const delete_question_button = document.querySelector(`#Question${Question.id} .QuestionTools .DeleteButton`);
     const copy_question_button = document.querySelector(`#Question${Question.id} .QuestionTools .EditButton`);
@@ -139,7 +139,8 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
     parsed_question_element_item.addEventListener('click',(e) => {
         localStorage.setItem("ACTION-TYPE",'Edit');
         localStorage.setItem("QuestionData",JSON.stringify(Question));
-        if(e.target.classList[0] == 'Questionitem' || e.target.classList[0] == 'QuestionLabel' || e.target instanceof HTMLParagraphElement)
+        if(e.target.classList[0] == 'Questionitem' || e.target.classList[0] == 'QuestionLabel' ||
+         e.target instanceof HTMLParagraphElement)
            QuestionDesignOpener(Question.question_type);
     })
 }

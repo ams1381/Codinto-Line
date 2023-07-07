@@ -14,6 +14,7 @@ body
     box-shadow: 3px 3px 10px var(--theme-navbar-shadow);
     border-radius: calc(0.3rem + 1vw);
     padding: 25px 0 25px 0;
+    overflow: hidden;
 }
 .SettingContainer form 
 {
@@ -46,9 +47,10 @@ body
 {
     border: none;
 }
-#form-name-input.error_active 
+#form-name-input.error
 {
-    border: 2px solid red;
+    border: 1px solid var(--input-error-border-color);
+    background: var(--input-error-bg) !important;
 }
 .form-lan , .form-name
 {
@@ -136,7 +138,7 @@ body
 {
     width: 20%;
     overflow-y: scroll;
-    font-size: calc(0.9rem + 0.4vw);
+    font-size: calc(0.9rem + 0.3vw);
 }
 .YearPicker::-webkit-scrollbar , .MonthPicker::-webkit-scrollbar
 {
@@ -270,6 +272,15 @@ body
 {
     display: block;
 }
+.datePicker.active.error {
+    background: var(--date-picker-error-bg);
+}
+.datePicker.error .YearPicker,.datePicker.error  
+.MonthPicker, .datePicker.error
+ .DayPicker {
+    background: #ff000099;
+    color: var(--theme-white);
+ }
 @media only screen and (max-width : 400px)
 {
     .SettingContainer

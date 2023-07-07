@@ -1,12 +1,16 @@
 .FormsManagement
 {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
-
+.block__main
+{
+    overflow-x: hidden;
+}
 .AddForm , .form
 {
     margin: 25px 20px 0 0;
-    width: 33%;
+    width: 90%;
     background: var(--theme-white);
     height: calc(9rem + 4vw);
     border-radius: 25px/96px;
@@ -443,7 +447,7 @@
 {
     display: none;
 }
-@media only screen and (max-width : 992px)
+/* @media only screen and (max-width : 992px)
 {
     .FormsManagement
     {
@@ -453,7 +457,7 @@
     {
         width: 45%;
     }
-}
+} */
 @media only screen and (max-width : 768px)
 { 
     .block__section
@@ -528,5 +532,11 @@
     .FormsManagement
     {
         grid-template-columns: auto auto;
+    }
+    #loading-animation .spinner {
+        top: 22%;
+        left: 8%;
+        width: 20px;
+        height: 20px;
     }
 }

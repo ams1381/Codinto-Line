@@ -1,4 +1,4 @@
-import {file_upload_handler, preview_question_toggle, question_creator, toggle_handler} from "./CommonActions.js";
+import {file_upload_handler, preview_question_toggle, question_creator, text_style_label_eventListener_setter, toggle_handler} from "./CommonActions.js";
 import { preview_change_handler } from "./CommonActions.js";
 import {
     group_question_postData
@@ -17,6 +17,7 @@ const saveBtn = document.querySelector(".saveQuestion")
 const file_input = document.querySelector("#file.box__file");
 const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle .slider-button")
 const preview_button = document.querySelector(".QuestionStart .QuestionStartButton")
+const preview_button_text= document.querySelector(".QuestionStart .QuestionStartButton p")
 const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle .slider-button")
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
@@ -42,7 +43,7 @@ const preview_button_shape_handler = (Shape,IsSolid) => {
     }
 }
 const preview_button_text_handler = (ButtonText) => {
-    preview_button.textContent = ButtonText;
+    preview_button_text.textContent = ButtonText;
     group_question_postData.button_text = ButtonText;
     if(EditableQuestion)
         EditableQuestion.button_text = ButtonText;
@@ -95,3 +96,4 @@ file_input.addEventListener('input',() => {
 })
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)
+text_style_label_eventListener_setter(EditableQuestion,group_question_postData);

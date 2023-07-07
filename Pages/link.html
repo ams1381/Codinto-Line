@@ -14,7 +14,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-<section class="block__section" id="topPage">
+<section class="block__section" >
     <aside class="block__side">
         <div class="SideHeader">
             <div class="SideHeaderTitle">
@@ -50,7 +50,8 @@
                         </label>
                     </div>
                     <div class="TextField">
-                        <textarea id="title__input" class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
+                        <textarea id="title__input" class="TitleTextInput" cols="10" rows="6" data-title="title"
+                            placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
                     </div>
                 </div>
             </div>
@@ -71,51 +72,19 @@
                         </label>
                     </div>
                     <div class="TextField">
-                        <textarea id="desc_input" class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
-                        <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
+                        <textarea id="desc_input" class="TitleTextInput" cols="10" data-title="question_text"
+                             rows="9" placeholder="توضیح خود را بنویسید"></textarea>
                     </div>
                 </div>
             </div>
-            <div class="AnswerPattern">
-<!--                <div class="PatternChoose">-->
-<!--                    <p>الگوی پاسخ</p>-->
-<!--                    <select  id="pattern-select">-->
-<!--                        <option value="" class="selectionOption text free">متن آزاد</option>-->
-<!--                        <option value="" class="selectionOption date__shamsi jalali_date">تاریخ شمسی</option>-->
-<!--                        <option value="" class="selectionOption date__miladi georgian_date">تاریخ میلادی</option>-->
-<!--                        <option value="" class="selectionOption phone__number1 mobile_number">شماره موبایل</option>-->
-<!--                        <option value="" class="selectionOption home__phone phone_number">شماره تلفن</option>-->
-<!--                        <option value="" class="selectionOption number number_character">کاراکتر های عددی</option>-->
-<!--                        <option value="" class="selectionOption persion persian_letters">حروف فارسی</option>-->
-<!--                        <option value="" class="selectionOption english english_letters">حروف انگلیسی</option>-->
-<!--                    </select>-->
-<!--                </div>-->
-<!--                <div class="AnswerAlphabetLimit">-->
-<!--                    <p>محدودیت تعداد حروف پاسخ</p>-->
-<!--                    <div class="LimitInput">-->
-<!--                        <div class="minInput">-->
-<!--                            <label for="Alphabetmin">حداقل</label>-->
-<!--                            <input class="label-text-input" type="number" id="Alphabetmin">-->
-<!--                        </div>-->
-<!--                        <div class="maxInput">-->
-<!--                            <label for="Alphabetmax">حداکثر</label>-->
-<!--                            <input class="label-text-input" type="number" id="Alphabetmax">-->
-<!--                        </div>-->
-
-
-<!--                    </div>-->
-<!--                </div>-->
+            <!-- <div class="AnswerPattern">
                 <div class="AnwValidation">
                     <div class="SampleAnw">
                         <label >نمونه پاسخ</label>
                         <input class="label-text-input" type="text" placeholder="021-37773637"/>
                     </div>
-                    <!--                       <div class="Validator">-->
-                    <!--                           <label >پیام اعتبار سنجی</label>-->
-                    <!--                           <input class="label-text-input" type="number" placeholder="لطفا یک شماره تلفن معتبر وارد کنید">-->
-                    <!--                       </div>-->
                 </div>
-            </div>
+            </div> -->
             <div class="fileUploader">
                 <div class="fileFormat">
                     <input type="radio" name="lang" id="Picture" value="Picture" checked>
@@ -140,10 +109,10 @@
                             <div class="uploaded_file_info">
                                 <div class="uploaded_file_avatar">
                                     <img class="uploaded_file_image" alt="">
+                                    <video class="uploaded_file_video"></video>
                                 </div>
-                                <div class="uploaded_file_name">
-                                    <p></p>
-                                </div>
+                                 
+                                     
                             </div>
                         </div>
                         <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />

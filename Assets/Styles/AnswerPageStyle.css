@@ -1,7 +1,12 @@
 .answer_page_container {
-    width: 40%;
+    width: 80%;
     margin: 1.3rem auto 1rem auto;
     padding: 2rem;
+}
+.SideFooter
+{
+    justify-content: space-around;
+    width: 60%;
 }
 .answer_page_container.singleQuestion
 {
@@ -65,6 +70,10 @@
     .QuestionContainer
     {
         width: 80%;
+    }
+    .saveQuestion, .cancelQuestion
+    {
+        width: 45%;
     }
 }
 @media only screen and (max-width : 576px)

@@ -18,8 +18,14 @@ export const question_component_generator = (Question) => {
                 </div>
             `
             break;
-        case 'noanswer':
-            answer_box_html =''
+        case 'no_answer':
+            answer_box_html = `
+            <div class="QuestionStart">
+                <button class="QuestionStartButton ${Question.is_solid_button ? 'solid' : 'empty'} ${Question.button_shape}">
+                    <p> ${Question.button_text} </p>
+                </button>
+             </div>
+            `
             break;
         case 'integer_range':
             let range_items_html = '';
@@ -139,7 +145,7 @@ export const question_component_generator = (Question) => {
                     </div>`
                 answer_box_html = `
                 <div class="answer_block">
-                    <div class="multiple_answer_block-options ${option.is_vertical ? 'vertical-order' : ''}">
+                    <div class="multiple_answer_block-options ${Question.is_vertical ? 'vertical-order' : ''}">
                      ${option_html ? option_html : ' '}
                     </div>
             </div>
@@ -153,9 +159,15 @@ export const question_component_generator = (Question) => {
                     <input type="email" class="action__input" id="email_answer_input">
                 </div>`
             break;
-        // case 'group':
-        //     window.open("/Pages/groupQuestion.html","_Self");
-        //     break;
+        case 'group':
+            answer_box_html = `
+            <div class="QuestionStart">
+                <button class="QuestionStartButton ${Question.is_solid_button ? 'solid' : 'empty'} ${Question.button_shape}">
+                    <p> ${Question.button_text} </p>
+                </button>
+             </div>
+            `
+            break;
         // case 'Sort':
         //     window.open("/Pages/Priority.html","_Self");
         //     break;
@@ -163,16 +175,18 @@ export const question_component_generator = (Question) => {
     let preview_file_className = '';
     switch(detectFileFormat(Question.media))
     {
+        
         case 'Picture':
             preview_file_className = 'preview_image_active';
             break;
         case "Video":
-            preview_file_className - 'preview_video_active';
+            preview_file_className = 'preview_video_active';
             break;
         default:
             preview_file_className = ' ';
             break;
     }
+    
    return default_question_html = `<div id="${Question.id}" class="QuestionContainer ${Question.question_type} ${Question.is_required ? 'required' : ''}">
                 <div class="Question-Title">
                     <label>${Question.show_number ? Question.id + ":" : ""}</label>
@@ -184,7 +198,7 @@ export const question_component_generator = (Question) => {
                 <div class="preview_file_box ${preview_file_className}">
                 ${
                     (detectFileFormat(Question.media) == 'Picture') ? 
-                    `<img class="preview_image" src=${media_src ? media_src : ''}></img>` :
+                    `<img class="preview_image ${Question.double_picture_size ? 'double_size' : ' '}" src=${media_src ? media_src : ''}></img>` :
                     `<video class="preview_video" controls >
                             <source src=${media_src ? media_src : ''} />
                     </video>`

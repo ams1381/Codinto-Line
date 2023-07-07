@@ -1,6 +1,7 @@
 import {
     file_upload_handler,
     question_creator,
+    text_style_label_eventListener_setter,
     toggle_handler
 } from "../Question Design Pages/CommonActions.js";
 import { preview_change_handler , preview_question_toggle } from "../Question Design Pages/CommonActions.js";
@@ -95,9 +96,9 @@ file_input.addEventListener('input',() => {
             selected_file_type = item.getAttribute("id")
     })
     if(file_input.files)
- 
         thank_page_postData.media = file_input.files[0];
-    file_upload_handler(selected_file_type,file_input,EditableQuestion);
+    file_upload_handler(selected_file_type,file_input,EditableQuestion,thank_page_postData);
 })
+text_style_label_eventListener_setter(EditableQuestion,thank_page_postData);
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)

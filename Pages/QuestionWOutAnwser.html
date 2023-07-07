@@ -50,7 +50,8 @@
                             </label>
                         </div>
                         <div class="TextField">
-                            <textarea id="title__input" class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
+                            <textarea id="title__input" class="TitleTextInput" cols="10" rows="6" data-title="title"
+                            placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
                         </div>
                     </div>
                 </div>
@@ -71,7 +72,8 @@
                             </label>
                         </div>
                         <div class="TextField">
-                            <textarea id="desc_input" class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
+                            <textarea id="desc_input" class="TitleTextInput" cols="10" data-title="question_text"
+                             rows="9" placeholder="توضیح خود را بنویسید"></textarea>
                             <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
                         </div>
                     </div>
@@ -99,11 +101,11 @@
                              </div>
                              <div class="uploaded_file_info">
                                  <div class="uploaded_file_avatar">
-                                     <img class="uploaded_file_image" alt="">
-                                 </div>
-                                 <div class="uploaded_file_name">
-                                     <p></p>
-                                 </div>
+                                    <img class="uploaded_file_image" alt="">
+                                    <video class="uploaded_file_video"></video>
+                                </div>
+                                  
+                                      
                              </div>
                          </div>
                             <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
@@ -128,17 +130,16 @@
                             <i class="fa fa-bold"></i>
                         </label>
                         <label>
-                        <input type="checkbox" name="" id="TextItalic">
-                        <i class="fa fa-italic"></i>
+                            <input type="checkbox" name="" id="TItalic">
+                            <i class="fa fa-italic"></i>
                         </label>
                         <label>
-                        <input type="checkbox" name="" id="TitleUnderline">
-                        <i class="fa fa-underline"></i>
+                            <input type="checkbox" name="" id="TUnderline">
+                            <i class="fa fa-underline"></i>
                         </label>
                     </div>
                     <div class="TextField">
-                        <textarea class="ButtonTextInput" cols="10" rows="5" placeholder="متن دکمه را بنویسید"></textarea>
-                        <!-- <input type="text" name="" id="" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین"> -->
+                        <textarea class="ButtonTextInput"  data-title="button_text" cols="10" rows="5" placeholder="متن دکمه را بنویسید"></textarea>
                     </div>
                 </div>
              </div>
@@ -206,7 +207,7 @@
                 </div>
                 <div class="QuestionStart">
                     <button class="QuestionStartButton solid oval">
-                       شروع
+                       <p>شروع</p>
                     </button>
                  </div>
              </div>

@@ -49,7 +49,8 @@
                            </label>
                        </div>
                        <div class="TextField">
-                           <textarea id="title__input" class="TitleTextInput" cols="10" rows="6" placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
+                           <textarea id="title__input" class="TitleTextInput" cols="10" rows="6" data-title="title"
+                            placeholder="سلام و عرض ادب خدمت همه ی همراهان کدینتولاین" ></textarea>
                        </div>
                    </div>
                </div>
@@ -70,7 +71,8 @@
                            </label>
                        </div>
                        <div class="TextField">
-                           <textarea id="desc_input" class="TitleTextInput" cols="10" rows="9" placeholder="توضیح خود را بنویسید"></textarea>
+                           <textarea id="desc_input" class="TitleTextInput" cols="10" data-title="question_text"
+                             rows="9" placeholder="توضیح خود را بنویسید"></textarea>
                        </div>
                    </div>
                </div>
@@ -97,11 +99,11 @@
                         </div>
                         <div class="uploaded_file_info">
                             <div class="uploaded_file_avatar">
-                                <img class="uploaded_file_image" alt="">
-                            </div>
-                            <div class="uploaded_file_name">
-                                <p></p>
-                            </div>
+                                    <img class="uploaded_file_image" alt="">
+                                    <video class="uploaded_file_video"></video>
+                                </div>
+                             
+                                  
                         </div>
                     </div>
                         <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
@@ -125,11 +127,11 @@
                 <div class="LimitInput">
                     <div class="minInput">
                         <label for="Answermin">حداقل</label>
-                        <input class="label-text-input" type="number" id="Answermin" placeholder="0">
+                        <input class="label-text-input" type="number" min="0" id="Answermin" placeholder="0">
                     </div>
                     <div class="maxInput">
                         <label for="Answermax">حداکثر</label>
-                        <input class="label-text-input" type="number" id="Answermax" placeholder="2">
+                        <input class="label-text-input" type="number" min="1" id="Answermax" placeholder="2">
                     </div>
                 </div>
                </div>
@@ -281,7 +283,9 @@
                 </div>
              </div>
         </main>
-        
+        <div class="wrongEntry">
+            <span class="wrong__text"></span>
+            </div>
     </section>
     <script src="../Assets/Scripts/Question Design Pages/SlideList.js" defer type="module"></script>
     

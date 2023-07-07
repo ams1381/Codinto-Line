@@ -163,8 +163,13 @@ const setActive_folder = (folder_item,elements,questionnaires) => {
         $('.form.AddForm').show(250);
 }
 const folder_popup_handler = (popup_element,popup_input,popup_type) => {
-    if(popup_type == 'rename' || popup_type == 'remove' && popup_input)
+    if(popup_type == 'remove')
         popup_input.value = '';
+    if(popup_type == 'rename')
+    {
+        console.log(document.querySelector('.Folder.Selected .FolderName p').textContent)
+        popup_input.value = document.querySelector('.Folder.Selected .FolderName p').textContent;
+    }
     popup_element.classList.add("active");
     nav_mask.classList.add("active");
 }
@@ -175,8 +180,10 @@ add_folder_button.addEventListener("click",() => {
 });
 folder_cancel_button.forEach((item,index) => { item.addEventListener('click',folder_mask_close_panel) })
 
-rename_folder_button.forEach((item,index) => { item.addEventListener('click',() => {
-    folder_popup_handler(rename_folder_popup,rename_folder_input,"rename");
+rename_folder_button.forEach((item,index) => { 
+    item.addEventListener('click',() => {
+        console.log(item)
+        folder_popup_handler(rename_folder_popup,rename_folder_input,"rename");
     });
 })
 create_folder_confirm_btn.addEventListener('click',folder_creator_handler);
@@ -209,6 +216,7 @@ window.addEventListener('resize',() => {
 })
 EventListenerSetter(folder_items);
 rename_folder_confirm_btn.addEventListener('click', () => {
+
        folder_rename_handler(SelectedFolderId);
 });
 remove_folder_confirm_btn.addEventListener('click',() => {

@@ -3,7 +3,8 @@ import {
     , question_creator
     , toggle_handler
     , file_upload_handler,
-    preview_question_toggle
+    preview_question_toggle,
+    text_style_label_eventListener_setter
  } from './CommonActions.js'
 import { question_info_loader } from './QuestionInfoLoader.js';
 import { selective_degree_postData } from '../ajax/QuestionPostData.js';
@@ -24,16 +25,16 @@ const degree_shape_labels = document.querySelectorAll(".shape_selector_options l
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion");
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
 
-let shape_icon_className = 'fa fa-star-o';
 const save_question_btn = document.querySelector('.SideFooter .saveQuestion');
 if(ACTION_TYPE == 'Edit')
 {
-     
     question_info_loader(EditableQuestion)
 }
-const preview_degree_handler = (degree) => {
+const preview_degree_handler = (degree,shape_icon_className) => {
+    preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option');
     degree_label.textContent = degree ;
     preview_degree_items.forEach((preview_degree_item) => {
+        $(preview_degree_item).hide(100);
         preview_degree_item.remove();
     })
     for(let i = 0;i < degree; i++)
@@ -41,7 +42,7 @@ const preview_degree_handler = (degree) => {
         const degree_element = `
         <div class="degree_answer_block-option">
             <input type="radio" name="answer__option" id="answer-n${i}">
-            <label class="answer_option-label" for="answer-n${i}"><i class="${shape_icon_className}"></i></label>
+            <label class="answer_option-label" for="answer-n${i}"><i class="${shape_icon_className.className}"></i></label>
         </div>`
         const parser = new DOMParser();
         const parsed_degree_element = parser.parseFromString((degree_element),'text/html').firstChild.lastChild.firstChild;
@@ -57,7 +58,10 @@ const preview_degree_handler = (degree) => {
     else
         selective_degree_postData.max = degree;
 }
-const preview_degree_shape_handler = (selected_shape,DataForPost) => {
+const preview_degree_shape_handler = (selected_shape,DataForPost,shape_icon_className) => {
+    preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option');
+    preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i')
+    console.log(shape_icon_className)
     switch(selected_shape)
     {
         case 'star_shaped':
@@ -82,18 +86,20 @@ const preview_degree_shape_handler = (selected_shape,DataForPost) => {
 }
 degree_shape_labels.forEach((degree_shape_label) => {
     degree_shape_label.addEventListener('click',() => {
+        let shape_icon_className = degree_shape_label.firstChild.className;
         let selected_shape =  degree_shape_label.previousElementSibling.value;
         if(EditableQuestion  && ACTION_TYPE == 'Edit')
-            preview_degree_shape_handler(selected_shape,EditableQuestion);
+            preview_degree_shape_handler(selected_shape,EditableQuestion,shape_icon_className);
         else
-            preview_degree_shape_handler(selected_shape,selective_degree_postData);
+            preview_degree_shape_handler(selected_shape,selective_degree_postData,shape_icon_className);
     })
 })
 save_question_btn.addEventListener('click',async () => {
     await question_creator(ACTION_TYPE,EditableQuestion,'integerselective-questions',QuestionnaireUUID,selective_degree_postData)
 })
 degree_input.addEventListener('input',() => {
-    preview_degree_handler(degree_input.value);
+    let shape_icon_className = document.querySelector('.shape_selector_options input:checked + label i');
+    preview_degree_handler(degree_input.value,shape_icon_className);
 })
 file_input.addEventListener('input',() => {
     let selected_file_type;
@@ -118,5 +124,6 @@ required_toggle.addEventListener('click',() => {
   
 toggle_handler(EditableQuestion,required_toggle.parentElement.parentElement.parentElement,required_toggle,selective_degree_postData);
 })
+text_style_label_eventListener_setter(EditableQuestion,selective_degree_postData);
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)

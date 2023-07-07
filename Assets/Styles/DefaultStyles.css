@@ -3,7 +3,6 @@
     font-family: IRANSans;
     src: url('../Font/IRANSans Regular.woff') format("woff");
 }
-
 :root {
     --brand-color: #3F52E3;
     --theme-white: #FFFFFF;
@@ -13,16 +12,21 @@
     --theme-Checkbox-Toggle-bg: #EFEFEF;
     --toggle-shadow-color: #3f52e34d;
     --input-title-bg-color: #EEF1FF;
+    --text-editor-default-text-color : #3f52e3b5;
     --deActive-input-title-bg : #EFEFEF;
     --deActive-input-bg : #f5f5f8;
     --deActive-input-text-color : #d6d8e7;
     --input-shadow-color: #12004e1c;
     --folder-shadow-color: #0000001a;
     --input-placeholder-color: #5360ed4d;
+    --input-error-bg : #c41b1b1c;
+    --input-error-border-color : #e26363e0;
     --label-default-color: #5360ed77;
     --loading-spinner_bg : #f3f3f3;;
     --answer-option-default-color : #5360eda3;
     --selected-date-bg-color: #3f52e335;
+    --error-message-bg-color : #ff456a;
+    --date-picker-error-bg : #ff000099;
     --screen-mask-bg-color: #00000087;
     --theme-Codinto: #161D6F;
     --share-bg : #F6F7FF;
@@ -32,7 +36,10 @@
     margin: 0;
     padding: 0;
 }
-
+html 
+{
+    scroll-behavior: smooth;
+}
 .block__header {
     position: relative;
     width: 100%;
@@ -408,6 +415,16 @@
       box-shadow: 9984px 0 0 -5px;
     }
 }
+.bold{
+    font-weight: 900;
+}
+.italic{
+    font-style: italic;
+}
+.underline{
+    text-decoration: underline;
+}
+
 @media only screen and (max-width : 768px) {
 
     .navToggleButton,
@@ -437,26 +454,22 @@
     display: inline-block;
     width: 40px;
  }
-#topPage{
-     position: relative;
- }
 .wrongEntry{
-    width: 280px;
     height: 40px;
     position: absolute;
     top: 1rem;
     left: 2rem;
-    /*right: 2rem;*/
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ff456a;
+    background-color: var( --error-message-bg-color);
     border-radius : 8px;
     transition: ease-in 0.6s;
+    padding: 0 0.5rem 0 0.5rem;
     opacity: 0;
 }
 .wrong__text{
-    color: white;
+    color: var(--theme-white);
     font-size: 0.8rem;
     font-weight: 600;
     font-family: IRANSans;

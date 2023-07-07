@@ -31,7 +31,6 @@ let StartDayInputs = document.querySelectorAll(".start-picker .DayPicker input")
 let endYearInputs = document.querySelectorAll(".end-picker .YearPicker input");
 let endMonthInputs = document.querySelectorAll(".end-picker .MonthPicker input");
 let endDayInputs = document.querySelectorAll(".end-picker .DayPicker input");
-let dateChanged = false;
 let LoadedQuestionnaire;
 
 const current_date_getter = () => {
@@ -46,6 +45,11 @@ const current_date_getter = () => {
         parseInt(currentDateString.split("/")[1])
         );
     return currentDate;
+}
+const isGregorianDate = (dateString) => {
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+    return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
 }
 const Form_Date_Updater = (YearInputs,MonthInputs,DayInputs) => {
     let currentDate = current_date_getter();
@@ -69,7 +73,7 @@ const Form_Date_Day_Updater = (currentDate,YearInputs,MonthInputs,DayInputs) => 
             if(parseInt(MonthInput.value.split("m")[1]) < currentDate[1] && SelectedYear.value < currentDate[0])
                 MonthInput.disabled = true;
             MonthInput.addEventListener('click',() => {
-                if(MonthInput.value.split("m")[1] == currentDate[1])
+                if(MonthInput.value.split("m")[1] == currentDate[1] && SelectedYear.value == currentDate[0])
                 {
                     DayInputs.forEach((DayInput) => {
                         if(parseInt(DayInput.value.split("d")[1]) < currentDate[2])
@@ -104,7 +108,15 @@ const Form_Date_Month_Updater = (currentDate,YearInputs,MonthInputs,DayInputs) =
                 MonthInputs.forEach((MonthInput) => {
                     if(parseInt(MonthInput.value.split("m")[1]) < currentDate[1])
                         MonthInput.disabled = true;
+                    else if(parseInt(MonthInput.value.split("m")[1]) == currentDate[1])
+                    {
+                        DayInputs.forEach((DayInput) => {
+                            if(parseInt(DayInput.value.split("d")[1]) < currentDate[2])
+                                DayInput.disabled = true;
+                        })
+                    }
                 });
+                
             }
         })
     })
@@ -119,53 +131,52 @@ const create_questionnaire = async (e) => {
     e.preventDefault();
     try
     {
-        if(LoadedQuestionnaire && dateChanged)
+        if(LoadedQuestionnaire)
         {
-            if(LoadedQuestionnaire.end_date)
+            if(LoadedQuestionnaire.pub_date && !isGregorianDate(LoadedQuestionnaire.pub_date))
+                LoadedQuestionnaire.pub_date = form_date_convertor_to_Gregorian(LoadedQuestionnaire.pub_date)
+                
+            if(LoadedQuestionnaire.end_date && !isGregorianDate(LoadedQuestionnaire.end_date))
               LoadedQuestionnaire.end_date = form_date_convertor_to_Gregorian(LoadedQuestionnaire.end_date)
         }
         else
         {
-            if(Questionnaire_PostData.pub_date)
+            if(Questionnaire_PostData.pub_date && !isGregorianDate(Questionnaire_PostData.pub_date))
                 Questionnaire_PostData.pub_date = form_date_convertor_to_Gregorian(Questionnaire_PostData.pub_date);
-            if(Questionnaire_PostData.end_date)
+            if(Questionnaire_PostData.end_date && !isGregorianDate(Questionnaire_PostData.end_date))
                 Questionnaire_PostData.end_date = form_date_convertor_to_Gregorian(Questionnaire_PostData.end_date);
 
-            if(Questionnaire_PostData.pub_date && Questionnaire_PostData.end_date)
-                if(compareDates(Questionnaire_PostData.pub_date,Questionnaire_PostData.end_date) <= 0)
-                {
-                    showAlert('تاریخ را به درستی وارد کنید');
-                    return;
-                }
-                    
         }
     }
     catch(err)
     {
+        console.log(err)
+        QuestionnaireSaveBtn.classList.remove('operating');
         showAlert('تاریخ را به درستی وارد کنید');
-        return;
     }
-    
         let create_questionnaire_res;
         if(LoadedQuestionnaire)
         {
             create_questionnaire_res = await patchRequest(baseUrl + '/question-api/questionnaires/' + QuestionnaireToEdit.uuid + '/',LoadedQuestionnaire);
-            localStorage.setItem("SelectedQuestionnaire",JSON.stringify(LoadedQuestionnaire));
+            if(create_questionnaire_res)
+                localStorage.setItem("SelectedQuestionnaire",JSON.stringify(LoadedQuestionnaire));
         }
         else
         {
             create_questionnaire_res = await postRequest(baseUrl + '/question-api/questionnaires/',Questionnaire_PostData); 
-            localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
+            if(create_questionnaire_res)
+                localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
         }
-        
-    window.open("/Pages/FormDesign.html","_self");
+        QuestionnaireSaveBtn.classList.remove('operating');
+        if(create_questionnaire_res)
+            window.open("/Pages/FormDesign.html","_self");
         
         
 }
 const nameSetter = (e) => {
-    QuestionnaireNameInputs.classList.remove("error_active");
-    if(QuestionnaireToEdit)
-        QuestionnaireToEdit.name = e.target.value;
+    QuestionnaireNameInputs.classList.remove("error");
+    if(LoadedQuestionnaire)
+        LoadedQuestionnaire.name = e.target.value;
     else
         Questionnaire_PostData.name = e.target.value;
 }
@@ -218,9 +229,9 @@ const date_eventListener_setter = (YearLabels,MonthLabels,DayLabels,postData,dat
     })
     MonthLabels.forEach((item,index) => {
         if(item.previousElementSibling.checked)
-            Month = item.textContent;
+            Month = index + 1
         item.addEventListener('click',() => {
-            Month = index;
+            Month = index + 1;
             post_data_date_setter(Year,Month,Day,postData,date_type)
         })
     })
@@ -234,7 +245,8 @@ const date_eventListener_setter = (YearLabels,MonthLabels,DayLabels,postData,dat
     })
 }
 const post_data_date_setter = (Year,Month,Day,postData,date_type) => {
-    dateChanged = true;
+    QuestionnaireStartDatePicker.classList.remove('error');
+    QuestionnaireEndDatePicker.classList.remove('error');
     let  Questionnaire_date = `${Year}/` + 
     `${(Month < 10) ? ('0' + Month) : Month}/` + 
     `${(Day < 10) ? ('0' + Day) : Day}`;
@@ -242,6 +254,7 @@ const post_data_date_setter = (Year,Month,Day,postData,date_type) => {
     switch(date_type)
     {
         case 'start':
+            
             Form_Date_Updater(StartYearInputs,StartMonthInputs,StartDayInputs);
             if(QuestionnaireToEdit)
                 LoadedQuestionnaire.pub_date = Questionnaire_date;
@@ -249,6 +262,7 @@ const post_data_date_setter = (Year,Month,Day,postData,date_type) => {
                 postData.pub_date = Questionnaire_date;
             break;
         case 'end':
+            
             Form_Date_Updater(endYearInputs,endMonthInputs,endDayInputs);
             if(LoadedQuestionnaire)
                 LoadedQuestionnaire.end_date = Questionnaire_date;
@@ -265,8 +279,13 @@ QuestionnaireStartDateToggle.addEventListener('click',() => {
         DateSetter();
     }
     else
+    {
         QuestionnaireStartDatePicker.classList.remove('active')
-       Questionnaire_PostData.pub_date = null;
+        if(LoadedQuestionnaire)
+            LoadedQuestionnaire.pub_date = null;
+        else
+            Questionnaire_PostData.pub_date = null;
+    }
 })
 QuestionnaireEndDateToggle.addEventListener('click',() => {
     if(!QuestionnaireEndDateToggle.previousElementSibling.checked)
@@ -275,8 +294,14 @@ QuestionnaireEndDateToggle.addEventListener('click',() => {
         QuestionnaireEndDatePicker.classList.add('active');
     }
     else
+    {
         QuestionnaireEndDatePicker.classList.remove('active')
-       Questionnaire_PostData.end_date = null;
+        if(LoadedQuestionnaire)
+            LoadedQuestionnaire.end_date = null;
+        else
+            Questionnaire_PostData.end_date = null;
+    }
+          
 })
 QuestionnaireTimerToggleLabel.addEventListener('click',() => {
     if(!QuestionnaireTimerToggleInput.checked)

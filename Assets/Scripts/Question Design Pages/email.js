@@ -6,7 +6,8 @@ import {
     file_upload_handler,
     toggle_handler,
     question_creator,
-    preview_question_toggle
+    preview_question_toggle,
+    text_style_label_eventListener_setter
 } from "./CommonActions.js";
 import {email_question_PostData, } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
@@ -126,3 +127,4 @@ file_input.addEventListener('input',() => {
 
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)
+text_style_label_eventListener_setter(EditableQuestion,email_question_PostData);

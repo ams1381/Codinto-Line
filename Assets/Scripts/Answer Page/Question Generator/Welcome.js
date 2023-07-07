@@ -32,7 +32,7 @@ export const welcome_component_generator = (welcome) => {
                 </div>
                 <div class="QuestionStart">
                     <button class="QuestionStartButton ${welcome.is_solid_button ? 'solid' : 'empty'} ${welcome.button_shape}">
-                       ${welcome.button_text}
+                       <p> ${welcome.button_text} </p>
                     </button>
                  </div>
             </div>

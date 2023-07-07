@@ -1,4 +1,4 @@
-import {file_upload_handler, question_creator, toggle_handler , preview_question_toggle} from "./CommonActions.js";
+import {file_upload_handler, question_creator, toggle_handler , preview_question_toggle, text_style_label_eventListener_setter} from "./CommonActions.js";
 import { preview_change_handler } from "../Question Design Pages/CommonActions.js";
 import {text_question_with_answer_postData} from "../ajax/QuestionPostData.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
@@ -238,5 +238,6 @@ maxInput.addEventListener('input',() => {
     else
         text_question_with_answer_postData.max = parseInt(maxInput.value);
 })
+text_style_label_eventListener_setter(EditableQuestion,text_question_with_answer_postData);
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)

@@ -1,5 +1,5 @@
 import { text_question_with_out_answer_postData } from "../ajax/QuestionPostData.js"
-import { preview_question_toggle , preview_change_handler , file_upload_handler, question_creator } from "./CommonActions.js";
+import { preview_question_toggle , preview_change_handler , file_upload_handler, question_creator, text_style_label_eventListener_setter } from "./CommonActions.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
 
 const titleInput = document.querySelector(".GTitle .TitleTextInput");
@@ -14,6 +14,7 @@ const back_to_design_button = document.querySelector(".block__main .block__main_
 const button_text_input = document.querySelector('.GEntryButton .ButtonTextInput')
 const button_shape_items = document.querySelectorAll(".ShapeOptions label")
 const preview_button = document.querySelector(".QuestionStart .QuestionStartButton")
+const preview_button_text= document.querySelector(".QuestionStart .QuestionStartButton p")
 
 if(ACTION_TYPE == 'Edit')
 {
@@ -35,16 +36,29 @@ file_input.addEventListener('input',() => {
     file_upload_handler(selected_file_type,file_input,EditableQuestion,text_question_with_out_answer_postData);
 })
 const preview_button_shape_handler = (Shape,IsSolid) => {
+    preview_button.classList.remove('oval','round','sharp');
+    preview_button.classList.add(Shape)
     if(IsSolid)
-        preview_button.className = 'QuestionStartButton ' + 'solid ' + Shape;
+    {
+        preview_button.classList.remove('empty')
+        preview_button.classList.add('solid')
+    }
+       
     else
-        preview_button.className = 'QuestionStartButton ' + 'empty ' + Shape;
-
+    {
+        preview_button.classList.remove('solid')
+        preview_button.classList.add('empty')
+    }
     text_question_with_out_answer_postData.is_solid_button = IsSolid;
     text_question_with_out_answer_postData.button_shape = Shape;
+    if(EditableQuestion)
+    {
+        EditableQuestion.is_solid_button = IsSolid;
+        EditableQuestion.button_shape = Shape;
+    }
 }
 const preview_button_text_handler = (ButtonText) => {
-    preview_button.textContent = ButtonText;
+    preview_button_text.textContent = ButtonText;
     text_question_with_out_answer_postData.button_text = ButtonText;
 }
 button_text_input.addEventListener('input',(e) => {
@@ -65,5 +79,6 @@ saveBtn.addEventListener("click" , async function (event){
     else
         await question_creator(ACTION_TYPE,null,'noanswer-questions',QuestionnaireUUID,text_question_with_out_answer_postData);
 })
+text_style_label_eventListener_setter(EditableQuestion,text_question_with_out_answer_postData);
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)

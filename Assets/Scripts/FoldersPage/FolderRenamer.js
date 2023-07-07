@@ -13,7 +13,6 @@ export const folder_rename_handler = async (FolderItemId) => {
     await patchRequest(RenameUrl,{ 'name' : rename_folder_input.value });
 
     let folder_name = document.getElementById(`${FolderItemId}`).children[1].firstChild;
-
     folder_name.textContent = rename_folder_input.value;
     rename_folder_popup.classList.remove("active");
     nav_mask.classList.remove("active");

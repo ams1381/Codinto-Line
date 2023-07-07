@@ -6,6 +6,7 @@ import {
     preview_question_toggle,
     question_creator,
     showAlert,
+    text_style_label_eventListener_setter,
     toggle_handler
 } from "./CommonActions.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
@@ -13,8 +14,6 @@ let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const textInput = document.querySelector(".GDesc .TitleTextInput")
-const sampleAnswer = document.querySelector(".SampleAnw .label-text-input")
-const uploadInput = document.querySelector(".box__file")
 const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .slider-button")
 const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button")
 const saveBtn = document.querySelector(".saveQuestion")
@@ -30,8 +29,8 @@ if(ACTION_TYPE == 'Edit')
      
     question_info_loader(EditableQuestion)
 }
-options =  "free"
-sampleAnswer.value = null;
+// options =  "free"
+// sampleAnswer.value = null;
 
  
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',link_question_PostData)})
@@ -66,3 +65,4 @@ file_input.addEventListener('input',() => {
 })
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)
+text_style_label_eventListener_setter(EditableQuestion,link_question_PostData);

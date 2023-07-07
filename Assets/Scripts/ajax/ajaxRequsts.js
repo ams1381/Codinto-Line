@@ -31,13 +31,12 @@ const patchRequest = async (url, patchData) => {
     } 
     catch (error) 
     {
-        throw error;
-    //   await errorHandler(error.response,error.status,error,url)
+      await errorHandler(error.response,error.status,error,url)
     }
   };
   
 const postRequest = async (url, postData) => {
-  console.log(accessToken)
+
   if(accessToken)
     token = accessToken;
   else if(localStorage.getItem("ACCESS_TOKEN"))
@@ -58,8 +57,7 @@ const postRequest = async (url, postData) => {
     } 
     catch (error) 
     {
-      throw error
-      // await errorHandler(error.response,error.status,error,url)
+       await errorHandler(error.response,error.status,error,url)
     }
 };
   
@@ -89,17 +87,17 @@ async function renewToken() {
     {
       return error;
     }
-  }
+}
 
 async function errorHandler(errorRes,errorCode,error,url)
 {
-    switch(errorCode)
+    switch(errorRes.status)
     {
         case 401:
            await er401handler(error,url);
             break;
         case 400:
-            er400handler(error);
+            er400handler(errorRes);
             break;
         case 404:
             er404handler(error);
@@ -110,10 +108,16 @@ async function errorHandler(errorRes,errorCode,error,url)
 function er400handler(error) 
 {
   //TODO for in list of errors 
-    // error.forEach(element => {
+  console.log(error.data)
+    Object.keys(error.data).forEach((item) => {
+      const errorElements = document.querySelectorAll(`[data-title="${item}"]`)
       
-    // });
-    console.log('400 er ' + error)
+      errorElements.forEach((errorElement) => {
+        errorElement.classList.add('error');
+        errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      })      
+      showAlert(error.data[`${item}`][0]);
+    })
 }
 async function er401handler(error,url) 
 {
@@ -140,14 +144,14 @@ function er404handler(error)
 }
 
 
-function errorHandler2(errors,element){
-  errors.forEach(error => {
-    const errorElement = element.querySelector(`[data-value=${error.key}]`)
-    if (!errorElement) return;
+// function errorHandler2(errors,element){
+//   errors.forEach(error => {
+//     const errorElement = element.querySelector(`[data-value=${error.key}]`)
+//     if (!errorElement) return;
     
     
-  });
-}
+//   });
+// }
 
 
 export  { getRequest ,  patchRequest ,  postRequest ,  deleteRequest , baseUrl , renewToken }

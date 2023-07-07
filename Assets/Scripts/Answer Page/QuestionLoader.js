@@ -102,17 +102,19 @@ const thank_loader = (thank) =>
     answer_page_container.append(parsed_welcome_component);
 }
 const question_loader = (Question) => {
-        let parser = new DOMParser();
-       let parsed_question_component =  parser.parseFromString(question_component_generator(Question.question),'text/html').firstChild.lastChild.firstChild;
-       $(parsed_question_component).hide()
-       answer_page_container.append(parsed_question_component);
-       $(parsed_question_component).fadeIn(150);
-       if(Question.question.question_type == 'drop_down')
-       {
-            slider_options_eventListener_setter(document.querySelector(".slider_toggle_button"),document.querySelectorAll('.selection__item'))
-       }
-       if(Question.question.question_type == 'integer_range')
-            range_item_eventListener_setter(document.querySelectorAll(".range__number"));
+    console.log(Question)
+
+            let parser = new DOMParser();
+            let parsed_question_component =  parser.parseFromString(question_component_generator(Question.question),'text/html').firstChild.lastChild.firstChild;
+            $(parsed_question_component).hide()
+            answer_page_container.append(parsed_question_component);
+            $(parsed_question_component).fadeIn(150);
+            if(Question.question.question_type == 'drop_down')
+            {
+                 slider_options_eventListener_setter(document.querySelector(".slider_toggle_button"),document.querySelectorAll('.selection__item'))
+            }
+            if(Question.question.question_type == 'integer_range')
+                 range_item_eventListener_setter(document.querySelectorAll(".range__number"));
        
 }
 const question_controller = (questionnaire,Questions,CurrState,progress_bar) => {

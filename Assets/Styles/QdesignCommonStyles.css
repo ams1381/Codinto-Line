@@ -228,11 +228,19 @@
 {
     display: flex;
     cursor: pointer;
+    color: var(--text-editor-default-text-color);
+    transition: 0.2s;
+    margin: 0 0.3rem 0 0.3rem;
 }
 .GOptions label input 
 {
     height: 0;
     opacity: 0;
+    display: none;
+}
+.GOptions input:checked + i
+{
+    color: var(--brand-color);
 }
 .ShapeOptions
 {
@@ -259,6 +267,10 @@
     transition: 0.3s;
     pointer-events: none;
     margin: 0 auto;
+}
+.TitleTextInput.error , .ButtonTextInput.error {
+    border: 1px solid var(--input-error-border-color);
+    background: var(--input-error-bg) !important;
 }
 .ShapeOptions .bg-colored
 {
@@ -354,7 +366,7 @@
 .multiple_answer_block-option .answer_option-label
 {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
     padding-right: 15px;
     width: 100%;
@@ -363,6 +375,7 @@
     cursor: pointer;
     margin-right: 10px;
     color: var(--answer-option-default-color);
+    direction: ltr;
 }
 .multiple_answer_block-option input:checked + .answer_option-label
 {
@@ -493,11 +506,22 @@
 {
     border-color: var(--deActive-input-text-color);
     pointer-events: none;
+    color: var(--label-default-color);
+}
+.label-text-input::placeholder 
+{
+    color: var(--deActive-input-text-color);
 }
 .active.answer-number-selector .label-text-input
 {
     border-color: var(--brand-color);
     pointer-events: all;
+    color: var(--brand-color);
+}
+
+.active.answer-number-selector .label-text-input::placeholder 
+{
+    color: var(--label-default-color);
 }
 .AnwValidation  input
 {
@@ -741,6 +765,7 @@ input[type=range]::-webkit-slider-thumb {
     text-align: center;
     padding: 7px 0 7px 0;
     height: 70%;
+    direction: ltr;
 }
 .selection__box .selection__item label 
 {
@@ -758,6 +783,7 @@ input[type=range]::-webkit-slider-thumb {
 {
     opacity: 0;
     visibility: hidden;
+    display: none;
 }
 .slider_toggle {
     display: flex;
@@ -861,15 +887,30 @@ input[type=range]::-webkit-slider-thumb {
 }
 .uploaded_file_avatar , .uploaded_file_name
 {
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    line-height: 20px;
 }
 .uploaded_file_avatar .uploaded_file_image
 {
-    max-width: 7.5rem;
     object-fit: contain;
 }
+.uploaded_file_video , .uploaded_file_image
+{
+    height: 75%;
+    border-radius: 5px;
+}
+.image_uploaded .uploaded_file_video 
+{
+    display: none;
+}
+.video_uploaded .uploaded_file_image 
+{
+    display: none;
+}
+/* .uploaded_file_avatar .uploaded_file_video */
 .saveQuestion.saving .dot-pulse , .confirm-button.operating .dot-pulse
 {
     display: block;
@@ -918,96 +959,3 @@ input[type=range]::-webkit-slider-thumb {
         width: 95%;
     }
 }
-/* .fileSize__container{
-    width: 48%;
-    background: var(--text-input-bg-color);
-    display: flex;
-    justify-content: space-around;
-    border-radius: 10px;
-    align-items: center;
-    padding: 5px;
-    color: var(--label-default-color);
-}
-.size__input{
-    display: none;
-}
-.upload__file__size__container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-}
-.file__size__upload{
-    width: 20%;
-    height: 35px;
-    background: transparent;
-    border-radius: 10px;
-    outline: none;
-    border: 1px solid var(--brand-color);
-    text-align: center;
-    color: var(--brand-color);
-    font-size: 1rem;
-}
-.file__size__upload::placeholder{
-    color: var(--input-placeholder-color);
-}
-.file__size__upload::-webkit-inner-spin-button {
-    display: none; */
-}
-.bold{
-    font-weight: 900;
-}
-.italic{
-    font-style: italic;
-}
-.underline{
-    text-decoration: underline;
-}
-/* .upload__link{
-    font-size: 1rem;
-    color: var(--brand-color);
-     margin-right: 0.2rem;
-}
-.answer__priority{
-    display: none;
-}
-
-[draggable] {
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    /* Required to make elements draggable in old WebKit */
-    -khtml-user-drag: element;
-    -webkit-user-drag: element;
-}
-
-#columns {
-    list-style-type: none;
-}
-
-.column {
-    width: 162px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    text-align: center;
-    cursor: move;
-}
-.column header {
-    height: 20px;
-    width: 150px;
-    color: black;
-    background-color: #ccc;
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-    border-radius: 10px;
-    border: 2px solid #666666;
-}
-
-.column.dragElem {
-    opacity: 0.4;
-}
-.column.over {  
-    border: 2px dashed #000;
-    border-top: 2px solid blue;
-} */

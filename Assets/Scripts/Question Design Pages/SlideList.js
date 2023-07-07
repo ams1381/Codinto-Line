@@ -7,7 +7,9 @@ import {preview_answer_option_hider
     , question_creator
     , toggle_handler
     , file_upload_handler,
-    preview_question_toggle
+    preview_question_toggle,
+    text_style_label_eventListener_setter,
+    shuffleArray
  } from './CommonActions.js'
 import { slider_option_postData } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from './QuestionInfoLoader.js';
@@ -33,10 +35,10 @@ const back_to_design_button = document.querySelector(".block__main .block__main_
 let preview_select_container = document.querySelector('.selection__box');
 const preview_image_main = document.querySelector(".preview_file_box .preview_image");
 
+
 let Answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
 if(ACTION_TYPE == 'Edit')
 {
-    console.log(localStorage.getItem('QuestionData'))
     question_info_loader(EditableQuestion)
 }
 save_question_btn.addEventListener('click',async () => {
@@ -64,9 +66,10 @@ const preview_alphabetically_sort = (PostData) => {
 const preview_default_order_setter = (PostData) => {
    let preview_select_items =  document.querySelectorAll(".selection__box  .selection__item");
 
-   Array.from(preview_select_items).sort((a, b) => a.id.localeCompare(b.id))
-  .reduce((fragment, item) => (fragment.appendChild(item), fragment), document.createDocumentFragment()).childNodes
-  .forEach((defaultItem) => {
+  let sorted_select_item = Array.from(preview_select_items).sort((a, b) => a.id.localeCompare(b.id))
+  sorted_select_item.reduce((fragment, item) => (fragment.appendChild(item), fragment), document.createDocumentFragment()).childNodes;
+  preview_select_items.forEach((preview_select_item) => {  preview_select_item.remove() })
+  sorted_select_item.forEach((defaultItem) => {
     preview_select_container.innerHTML += defaultItem.outerHTML;
 })
     preview_select_items =  document.querySelectorAll(".selection__box  .selection__item")
@@ -81,7 +84,7 @@ const preview_default_order_setter = (PostData) => {
 Answer_option_buttons.forEach((answer_option_button) => {
     if(answer_option_button.classList.contains('answer-option-add'))
         answer_option_button.addEventListener('click',() => {
-            answer_option_adder("SliderOption",slider_option_postData);
+            answer_option_adder("SliderOption",null,slider_option_postData);
         })
     if(answer_option_button.classList.contains('answer-option-remove'))
         answer_option_button.addEventListener('click',() => {
@@ -94,7 +97,11 @@ multiple_answer_toggle.addEventListener('click',() => {
 })
 answer_option_inputs.forEach((answer_option_input,index) => {
     answer_option_input.addEventListener('input',(e) => {
-        preview_option_label_updater(index,e.target.value,"SliderOption")
+        console.log('hi')
+        if(EditableQuestion)
+            preview_option_label_updater(index,e.target.value,"SliderOption",EditableQuestion);
+        else
+            preview_option_label_updater(index,e.target.value,"SliderOption",slider_option_postData);
     })
 })
 file_input.addEventListener('input',() => {
@@ -123,6 +130,26 @@ multiple_answer_select_inputs.forEach((multiple_answer_select_input) => {
 })
 randomize_options_toggle.addEventListener('click',() => {
     toggle_handler(EditableQuestion,randomize_options_toggle.parentElement.parentElement.parentElement,randomize_options_toggle,slider_option_postData);
+    if(!randomize_options_toggle.previousElementSibling.checked)
+    {
+        if(is_alphabetic_toggle.previousElementSibling.checked)
+            is_alphabetic_toggle.previousElementSibling.checked = false;
+            if(EditableQuestion) 
+            {
+                preview_default_order_setter(EditableQuestion)
+                shuffleArray(EditableQuestion.options,EditableQuestion,'SliderOption','selection__item')
+            }
+            else
+            {
+                preview_default_order_setter(slider_option_postData)
+                shuffleArray(slider_option_postData.options,slider_option_postData,'SliderOption','selection__item')
+            } 
+    }   
+    else
+    {
+        EditableQuestion ? preview_default_order_setter(EditableQuestion) :
+            preview_default_order_setter(slider_option_postData)
+    }
 })
 show_number_toggle.addEventListener('click',() => {
     toggle_handler(EditableQuestion,show_number_toggle.parentElement.parentElement.parentElement,show_number_toggle,slider_option_postData);
@@ -134,8 +161,18 @@ is_alphabetic_toggle.addEventListener('click',() => {
     toggle_handler(EditableQuestion,is_alphabetic_toggle.parentElement.parentElement.parentElement,is_alphabetic_toggle,slider_option_postData);
         if(!is_alphabetic_toggle.previousElementSibling.checked)
         {
-             EditableQuestion ? preview_alphabetically_sort(EditableQuestion) :
-             preview_alphabetically_sort(slider_option_postData)
+            if(randomize_options_toggle.previousElementSibling.checked)
+                randomize_options_toggle.previousElementSibling.checked = false;
+             if(EditableQuestion) 
+             {
+                preview_default_order_setter(EditableQuestion)
+                preview_alphabetically_sort(EditableQuestion)
+             }
+             else
+             {
+                preview_default_order_setter(slider_option_postData)
+               preview_alphabetically_sort(slider_option_postData)
+             }
         }
             
         else
@@ -161,5 +198,22 @@ double_image_size_toggle.addEventListener('click',() => {
 Title_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',slider_option_postData)});
 Description_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',slider_option_postData)});
 
+text_style_label_eventListener_setter(EditableQuestion,slider_option_postData);
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)
+
+const min_answer_number = document.querySelector('#Answermin');
+const max_answer_number = document.querySelector('#Answermax');
+
+max_answer_number.addEventListener('input',() => {
+    if(EditableQuestion)
+        EditableQuestion.max_selected_options = parseInt(max_answer_number.value);
+    else
+        slider_option_postData.max_selected_options = parseInt(max_answer_number.value);
+})
+min_answer_number.addEventListener('input',() => {
+    if(EditableQuestion)
+        EditableQuestion.min_selected_options = parseInt(min_answer_number.value);
+    else
+        slider_option_postData.min_selected_options = parseInt(min_answer_number.value);
+})

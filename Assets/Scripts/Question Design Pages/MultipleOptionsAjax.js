@@ -8,7 +8,9 @@ import { preview_answer_option_generator
         , question_creator
         , toggle_handler 
         , file_upload_handler,
-        preview_question_toggle
+        preview_question_toggle,
+        text_style_label_eventListener_setter,
+        shuffleArray
      } from './CommonActions.js'
 import { multiple_option_postData } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from './QuestionInfoLoader.js'
@@ -25,6 +27,7 @@ const randomize_options_toggle = document.querySelector(".is_random_options .Swi
 const vertical_order_toggle = document.querySelector(".is_vertical .Switch-Container .slider-button");
 const all_options_toggle = document.querySelector(".all_options .Switch-Container .slider-button");
 const no_options_toggle = document.querySelector(".nothing_selected .Switch-Container .slider-button");
+const preview_image_main = document.querySelector(".preview_file_box .preview_image");
 const show_number_toggle = document.querySelector(".show_number .Switch-Container .slider-button")
 const required_toggle = document.querySelector('.is_required .Switch-Container .slider-button');
 const multiple_answer_select_inputs = document.querySelectorAll(".LimitInput input")
@@ -60,13 +63,16 @@ answer_number_selector_inputs.forEach((answer_number_selector_input) => {
 })
 answer_option_inputs.forEach((answer_option_input,index) => {
     answer_option_input.addEventListener('input',(e) => {
-        preview_option_label_updater(index,e.target.value,"MultipleOption")
+        if(EditableQuestion)
+            preview_option_label_updater(index,e.target.value,"MultipleOption",EditableQuestion);
+        else
+            preview_option_label_updater(index,e.target.value,"MultipleOption",multiple_option_postData);
     })
 })
 answer_option_buttons.forEach((answer_option_button) => {
     if(answer_option_button.classList.contains('answer-option-add'))
         answer_option_button.addEventListener('click',() => {
-            answer_option_adder("MultipleOption",multiple_option_postData);
+            answer_option_adder("MultipleOption",null,multiple_option_postData);
         })
     if(answer_option_button.classList.contains('answer-option-remove'))
         answer_option_button.addEventListener('click',() => {
@@ -74,6 +80,24 @@ answer_option_buttons.forEach((answer_option_button) => {
             preview_answer_option_remover("MultipleOption");
         })
 })
+const preview_default_order_setter = (PostData) => {
+    let preview_select_items =  document.querySelectorAll(".multiple_answer_block-option");
+ 
+   let sorted_select_item = Array.from(preview_select_items).sort((a, b) => a.id.localeCompare(b.id))
+   sorted_select_item.reduce((fragment, item) => (fragment.appendChild(item), fragment), document.createDocumentFragment()).childNodes;
+   preview_select_items.forEach((preview_select_item) => {  preview_select_item.remove() })
+   sorted_select_item.forEach((defaultItem) => {
+     preview_select_container.innerHTML += defaultItem.outerHTML;
+ })
+     preview_select_items =  document.querySelectorAll(".multiple_answer_block-option")
+     PostData.options = [];
+         [...preview_select_items].forEach((sorted_select_item) => {
+             PostData.options.push(
+                 { text : sorted_select_item.lastElementChild.textContent }
+             )
+         })
+     console.log(slider_option_postData)
+ }
 multiple_answer_toggle.addEventListener('click',() => {
   
   toggle_handler(EditableQuestion,multiple_answer_selector,multiple_answer_toggle,multiple_option_postData)
@@ -84,19 +108,8 @@ file_input.addEventListener('input',() => {
          if(item.checked)
             selected_file_type = item.getAttribute("id")
     })
-    
-//    {
-//       let reader = new FileReader();
-//       reader.onloadend = function() {
-//           let encodedFile = reader.result;
-//        };
-//     reader.readAsDataURL(file_input.files[0]);
-//    }
-    // let my_form = document.querySelector(".inputUploader form")
-    // let FoarmData = new FormData(my_form);
     if(file_input.files)
         multiple_option_postData.media = file_input.files[0];
-      //  console.log(encodeURIComponent(file_input.files[0]))
  
   file_upload_handler(selected_file_type,file_input,EditableQuestion,multiple_option_postData);
 })
@@ -111,12 +124,21 @@ answer_option_view_buttons.forEach((answer_option_view_button,index) => {
     })
 })
 randomize_options_toggle.addEventListener('click',() => {
-  
-toggle_handler(EditableQuestion,randomize_options_toggle.parentElement.parentElement.parentElement,randomize_options_toggle,multiple_option_postData);
+    toggle_handler(EditableQuestion,randomize_options_toggle.parentElement.parentElement.parentElement,randomize_options_toggle,multiple_option_postData);
+    if(!randomize_options_toggle.previousElementSibling.checked)
+    {
+            EditableQuestion ? shuffleArray(EditableQuestion.options,EditableQuestion,'MultipleOption','multiple_answer_block-option') 
+            :shuffleArray(multiple_option_postData.options,multiple_option_postData,'MultipleOption','multiple_answer_block-option')
+    }   
+    else
+    {
+        EditableQuestion ? preview_default_order_setter(EditableQuestion) :
+            preview_default_order_setter(multiple_option_postData)
+    }
 })
 vertical_order_toggle.addEventListener('click',() => {
   
-toggle_handler(EditableQuestion,vertical_order_toggle.parentElement.parentElement.parentElement,vertical_order_toggle,multiple_option_postData);
+    toggle_handler(EditableQuestion,vertical_order_toggle.parentElement.parentElement.parentElement,vertical_order_toggle,multiple_option_postData);
 })
 all_options_toggle.addEventListener('click',() => {
     toggle_handler(EditableQuestion,all_options_toggle.parentElement.parentElement.parentElement,all_options_toggle,multiple_option_postData);
@@ -146,12 +168,12 @@ double_image_size_toggle.addEventListener('click',() => {
     if(!double_image_size_toggle.previousElementSibling.checked)
         {
           EditableQuestion ? EditableQuestion.double_picture_size = true :
-          slider_option_postData.double_picture_size = true;
+          multiple_option_postData.double_picture_size = true;
         }
     else
         {
           EditableQuestion ? EditableQuestion.double_picture_size = false :
-          slider_option_postData.double_picture_size = false;
+          multiple_option_postData.double_picture_size = false;
         }
     console.log(EditableQuestion)
 })
@@ -159,3 +181,4 @@ Title_input.addEventListener('input',() => {preview_change_handler(EditableQuest
 Description_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',multiple_option_postData)});
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)
+text_style_label_eventListener_setter(EditableQuestion,multiple_option_postData);

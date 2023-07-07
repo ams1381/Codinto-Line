@@ -1,5 +1,5 @@
 import { baseUrl } from "../ajax/ajaxRequsts.js";
-import { file_upload_handler , file_src_setter , preview_answer_option_generator, answer_option_eventListener_setter, detectFileFormat} from "./CommonActions.js";
+import { file_upload_handler , file_src_setter , preview_answer_option_generator, answer_option_eventListener_setter, detectFileFormat, file_input_empty_setter} from "./CommonActions.js";
 import { range_item_eventListener_setter } from "../../../Components/questionBox/rangeSelect.js";
 const show_number_toggle = document.querySelector(".show_number .Switch-Container input")
 const required_toggle = document.querySelector('.is_required .Switch-Container input');
@@ -14,11 +14,13 @@ const multiple_answer_min_input = document.querySelector('.minInput #Answermin')
 const randomize_options_toggle = document.querySelector(".is_random_options .Switch-Container input");
 const file_input = document.querySelector("#file.box__file");
 const range_number_label = document.querySelector(".range-label");
+const preview_image_cancel_button = document.querySelector(".inputUploader .cancel_uploaded_file_button")
 const preview_degree_container = document.querySelector('.degree_answer_block-options');
 const range_input_selector = document.querySelector(".range-input input")
 const multiple_answer_max_input = document.querySelector('.maxInput #Answermax');
 const question_preview_description = document.querySelector('.QuestionContainer .description_block p');
 const preview_button = document.querySelector(".QuestionStart .QuestionStartButton")
+const preview_button_text= document.querySelector(".QuestionStart .QuestionStartButton p");
 const preview_answer_options_container = document.querySelector(".multiple_answer_block-options")
 const button_shape_items = document.querySelectorAll(".ShapeOptions label");
 let preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i');
@@ -41,6 +43,7 @@ const selective_degree_shapes = document.querySelectorAll('.shape_selector_optio
 const seletive_degree_number = document.querySelector(".range-number .range-label");
 const no_options_toggle = document.querySelector(".nothing_selected .Switch-Container input");
 const additional_options_toggle = document.querySelector(".additional-options-toggle .Switch-Container input");
+const double_picture_size_toggle = document.querySelector('.double_picture_size .Switch-Container input')
 const additional_options_selector = document.querySelector(".additional_options");
 const answer_limit_container = document.querySelector(".AnswerAlphabetLimit");
 const sampleAnswerBox = document.querySelector(".SampleAnw");
@@ -54,23 +57,30 @@ const preview_middle_label = document.querySelector(".range__select_labels .rang
 const answer_options_container = document.querySelector(".Answer-Options");
 
 export const question_info_loader = (Question) => {
-   console.log(Question)
     if(!Question)
         return
-    Title_input.value = Question.title;
-    question_preview_title.textContent = Question.title;
+    Title_input.textContent = $(new DOMParser().parseFromString(Question.title,'text/html')).text();
+    question_preview_title.textContent = $(new DOMParser().parseFromString(Question.title,'text/html')).text()
+    
+
+    text_style_load_handler(Question,'title','em','TitleInput','italic',Title_input,'Question-Title');
+    text_style_load_handler(Question,'title','strong','TitleInput','bold',Title_input,'Question-Title');
+    text_style_load_handler(Question,'title','u','TitleInput','underline',Title_input,'Question-Title');
+    
     if(Question.description)
     {
-        Description_input.value = Question.description;
         question_preview_description.textContent = Question.description;
+        question_preview_description.textContent = $(new DOMParser().parseFromString(Question.description,'text/html')).text();
+        Description_input.textContent = $(new DOMParser().parseFromString(Question.description,'text/html')).text();
     }
     else if(!Question.description)
     {
-         Description_input.value = Question.question_text;
-         question_preview_description.textContent = Question.question_text;
+        text_style_load_handler(Question,'question_text','em','DescInput','italic',Description_input,'description_block');
+        text_style_load_handler(Question,'question_text','strong','DescInput','bold',Description_input,'description_block');
+        text_style_load_handler(Question,'question_text','u','DescInput','underline',Description_input,'description_block');
+        question_preview_description.textContent = $(new DOMParser().parseFromString(Question.question_text,'text/html')).text();
+        Description_input.textContent = $(new DOMParser().parseFromString(Question.question_text,'text/html')).text();
     }
-    
-    // Description_input.value = Question.description 
     if(Question.shape)
     {
         range_number_label.textContent = Question.max;
@@ -91,10 +101,10 @@ export const question_info_loader = (Question) => {
                     shapeClassName = 'fa fa-heart-o';
                 break;
         }
-        preview_degree_shapes.forEach((preview_degree_shape) => {
-                    preview_degree_shape.className = shapeClassName;
-                })
-        preview_degree_handler(Question,Question.max,shapeClassName);
+        // preview_degree_shapes.forEach((preview_degree_shape) => {
+        //             preview_degree_shape.className = shapeClassName;
+        //         })
+        preview_degree_handler(Question.max,shapeClassName);
         selective_degree_shapes.forEach((selective_degree_shape) => {
             if(selective_degree_shape.classList.contains(Question.shape))
                 selective_degree_shape.previousElementSibling.checked = true;
@@ -108,8 +118,11 @@ export const question_info_loader = (Question) => {
     }
     if(Question.button_text)
     {
-      button_text_input.value = Question.button_text;
-      preview_button.textContent = Question.button_text;
+     text_style_load_handler(Question,'button_text','em','ButtonTextInputOptions','italic',button_text_input,'QuestionStartButton');
+     text_style_load_handler(Question,'button_text','strong','ButtonTextInputOptions','bold',button_text_input,'QuestionStartButton');
+     text_style_load_handler(Question,'button_text','u','ButtonTextInputOptions','underline',button_text_input,'QuestionStartButton');
+      button_text_input.value = $(new DOMParser().parseFromString(Question.button_text,'text/html')).text();
+      preview_button_text.textContent = $(new DOMParser().parseFromString(Question.button_text,'text/html')).text();
       button_shape_items.forEach((button_shape_item) => {
         if(Question.is_solid_button)
             if(button_shape_item.classList.contains(Question.button_shape) && button_shape_item.classList.contains('bg-colored'))
@@ -125,9 +138,15 @@ export const question_info_loader = (Question) => {
             }
       })
       if(Question.is_solid_button)
-            preview_button.className = 'QuestionStartButton ' + 'solid ' + Question.button_shape;
+      {
+        preview_button.classList.remove('empty')
+        preview_button.classList.add('solid',Question.button_shape)
+      }
        else
-            preview_button.className = 'QuestionStartButton ' + 'empty ' + Question.button_shape;
+       {
+        preview_button.classList.remove('solid')
+        preview_button.classList.add('empty',Question.button_shape)
+       }
     }
 
     if(Question.max_label)
@@ -152,18 +171,10 @@ export const question_info_loader = (Question) => {
         multiple_answer_selector.classList.add("active");
         multiple_answer_min_input.value = Question.min_selected_options;
         multiple_answer_max_input.value = Question.max_selected_options;
-
+        // multiple_answer_selector
     }
     if(Question.media)
-    {
-        let selected_file_type;
-        let file_name = Question.media.split("/")[Question.media.split("/").length - 1];
-        document.querySelectorAll(".fileFormat input").forEach((item) => { 
-            if(item.checked)
-                selected_file_type = item.getAttribute("id")
-        })
-        file_src_setter(Question.media,file_name,detectFileFormat(file_name),Question)
-    }
+        media_loader(Question);
     if(Question.pattern)
     {
         switch(Question.pattern) {
@@ -218,17 +229,25 @@ export const question_info_loader = (Question) => {
         }
     }
     if(Question.question_type === 'optional')
-        optional_question_info_loader(Question.options,Question)
+    {
+        optional_question_info_loader(Question.options,Question);
+        if(!Question.multiple_choice)
+            multiple_answer_selector.classList.remove('active')
+    }
+        
     if(Question.question_type === 'drop_down')
         slide_list_question_info_loader(Question.options,Question.double_picture_size,Question)
         
-    if(Question.question_type === 'text-answer')
+    if(Question.question_type === 'text_answer')
     {
         Question.answer_template ? sampleAnswerInput.value = Question.answer_template : sampleAnswerInput.value = '';
         minInput.value = Question.min;
         maxInput.value = Question.max;
     }
-    //Toggles Loader :
+    toggle_loader(Question)
+}
+const toggle_loader = (Question) => {
+//Toggles Loader :
     if(Question.is_required)
     {
         required_toggle.checked = Question.is_required;
@@ -259,18 +278,43 @@ export const question_info_loader = (Question) => {
     if(Question.instagram)
         instagram_toggle.checked = Question.instagram;
     if(Question.all_options)
-    {
         all_options_toggle.checked = true;
-    }
     if(Question.nothing_selected)
-    {
         no_options_toggle.checked = true;
-    }
     if(Question.additional_options)
     {
         additional_options_toggle.checked = true;
         additional_options_selector.classList.add("active");
     }
+    if(Question.double_picture_size)
+    {
+        double_picture_size_toggle.checked  = true;
+    }
+
+}
+const media_loader = (Question) => {
+    let selected_file_type;
+        let file_name = Question.media.split("/")[Question.media.split("/").length - 1];
+        let FileInput = document.querySelector('.inputUploader .box__file');
+        document.querySelectorAll(".fileFormat input").forEach((item) => { 
+            if(item.checked)
+                selected_file_type = item.getAttribute("id");
+        })
+        document.querySelectorAll(".fileFormat input").forEach((item) => { 
+            if(item.value == detectFileFormat(file_name))
+                item.checked = true;
+            item.addEventListener('click',() => {
+                if(item.value != detectFileFormat(file_name))
+                    file_input_empty_setter(FileInput,Question);
+            })                
+        })
+        FileInput = document.querySelector('.inputUploader .box__file');
+        preview_image_cancel_button.addEventListener('click',() => {
+            file_input_empty_setter(FileInput,Question);
+        })
+        // file_input_empty_setter(document.querySelector('.inputUploader .box__file'),Question);
+        file_src_setter(Question.media,file_name,detectFileFormat(file_name),Question);
+        Question.media = null;
 }
 const optional_question_info_loader = (options,Question) => {
     let preview_main_options = document.querySelectorAll('.multiple_answer_block-option');
@@ -305,7 +349,7 @@ const range_item_generator = (number_to_generate) => {
         range_item_eventListener_setter(document.querySelectorAll(".range__number"))
     }
 }
-const preview_degree_handler = (Question,degree,shape_icon_className) => {
+const preview_degree_handler = (degree,shape_icon_className) => {
     degree_label.textContent = degree ;
     preview_degree_items.forEach((preview_degree_item) => {
         preview_degree_item.remove();
@@ -328,7 +372,7 @@ const preview_degree_handler = (Question,degree,shape_icon_className) => {
 
 }
 const main_multiple_option_generator = (OptionNumber,OptionText,Question) => {
- let main_option_html =  `<div class="multiple_answer_block-option">
+ let main_option_html =  `<div class="multiple_answer_block-option" id="preview-option-${OptionNumber}">
                 <input type="radio" name="answer__option" id="answer-n${OptionNumber}">
                 <label class="answer_option-label" for="answer-n${OptionNumber}">${OptionText}</label>
             </div>
@@ -339,7 +383,7 @@ const main_multiple_option_generator = (OptionNumber,OptionText,Question) => {
 }
 const slide_list_option_generator = (OptionNumber,OptionText,Question) => {
     const preview_slider_container = document.querySelector(".selection__box")
-    side_answer_option_generator(OptionNumber,OptionText,"SliderOption")
+    side_answer_option_generator(OptionNumber,OptionText,"SliderOption",Question)
         let  preview_answer_option = `
             <span class="selection__item" id="select_item_${OptionNumber}">
                 <input class="select_item_input" type="radio" id="select_item_input_${OptionNumber}">
@@ -349,7 +393,7 @@ const slide_list_option_generator = (OptionNumber,OptionText,Question) => {
     const parser = new DOMParser();
     const parsed_preview_answer_option = parser.parseFromString((preview_answer_option),'text/html').firstChild.lastChild.firstChild;
     $(parsed_preview_answer_option).hide(50);
-    preview_slider_container.append(parsed_preview_answer_option,Question);
+    preview_slider_container.append(parsed_preview_answer_option);
     $(parsed_preview_answer_option).show(100);
 }
 const side_answer_option_generator = (OptionNumber,OptionText,Option_Type,Question) => {
@@ -373,7 +417,33 @@ const side_answer_option_generator = (OptionNumber,OptionText,Option_Type,Questi
         </div>
     </div>
 `
-    answer_options_container.innerHTML += side_option_html;
+    answer_options_container.append(
+        new DOMParser().parseFromString(side_option_html,'text/html').firstChild.lastChild.firstChild
+    ) 
     answer_option_eventListener_setter(OptionNumber,Option_Type,Question)
-    console.log(OptionNumber,Option_Type)
+    // console.log(OptionNumber,Option_Type)
+}
+const text_style_load_handler = (Question,text_to_load,style_tag,style_container_class,style,input,main_container_class) => {
+    if(Question[`${text_to_load}`].search(`${style_tag}`) != -1)
+    {
+        side_text_style_loader(style_container_class,style,input);
+        document.querySelector(`.${main_container_class} p`).classList.add(style)
+    }   
+}
+const side_text_style_loader = (style_container_class,Style,Input) => {
+    switch(Style)
+    {
+       case 'bold':
+            document.querySelector(`.${style_container_class} #Tbolder`).checked = true;
+            Input.classList.add('bold');
+            break;
+       case 'italic':
+            document.querySelector(`.${style_container_class} #TItalic`).checked = true;
+            Input.classList.add('italic');
+            break;
+        case 'underline':
+            document.querySelector(`.${style_container_class} #TUnderline`).checked = true;
+            Input.classList.add('underline');
+            break;
+    }
 }

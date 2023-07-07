@@ -102,7 +102,6 @@
     align-items: center;
     margin-top: 20px;
     cursor: pointer;
-    transition: all 0.3s;
 }
 .Questionitem.is_dragging 
 {
@@ -322,7 +321,7 @@
     }
     .viewFormQuestions i svg 
     {
-        width: 42px;
+        width: 30px;
         height: 42px;
     }
 }
