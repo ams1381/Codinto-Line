@@ -14,7 +14,8 @@ export const question_component_generator = (Question) => {
         case 'text_answer':
             answer_box_html = `
             <div class="textArea__container">
-                    <textarea class="entry__input" id="text_answer_input" name="w3review" rows="7" cols="50" placeholder="لطفا پاسخ خود را وارد کنید"></textarea>
+                    <textarea class="entry__input" id="text_answer_input" name="w3review" rows="7" 
+                    cols="50" placeholder="${Question.answer_template ? Question.answer_template : ''}"></textarea>
                 </div>
             `
             break;

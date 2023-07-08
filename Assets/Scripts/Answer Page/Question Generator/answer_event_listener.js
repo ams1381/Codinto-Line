@@ -1,4 +1,4 @@
-import { detectFileFormat, file_src_setter } from "../../Question Design Pages/CommonActions.js";
+import { detectFileFormat, file_src_setter, showAlert } from "../../Question Design Pages/CommonActions.js";
 import { answer_set_postData } from "../AnswerSetter.js";
 
 
@@ -7,6 +7,7 @@ export const answer_input_checker = (Question) => {
     {
         case 'text_answer':
             // text_answer_loader(answer_object.answer.text_answer);
+            text_input_eventListener(Question);
             break;
         case 'integer_range':
             // range_answer_loader(answer_object.answer.integer_range);
@@ -21,6 +22,7 @@ export const answer_input_checker = (Question) => {
             // drop_down_answer_loader(answer_object.answer.selected_options[0])
             break;
         case 'number_answer':
+            number_input_eventListener(Question)
             // number_answer_loader(answer_object.answer.number_answer);
             break;
         case 'link':
@@ -38,10 +40,71 @@ export const answer_input_checker = (Question) => {
     // case 'Sort':
     //     return window.open("/Pages/Priority.html","_Self");
     //     break;
+    }
 }
+const number_input_eventListener = (Question) => {
+    let number_answer_input = document.querySelector('#number_answer_input');
+    number_answer_input.addEventListener('input',() => {
+        console.log('input test')
+        if(Question.max && parseInt(number_answer_input.value) > Question.max)
+        {
+            showAlert(`حداکثر عدد ${Question.max} است`)
+            return 'Error'
+        }
+        if(Question.min && parseInt(number_answer_input.value) < Question.min)
+        {
+            showAlert(`حداقل عدد ${Question.min} است`)
+            return 'Error'
+        }
+      })
 }
-
-
+const text_input_eventListener = (Question) => {
+    console.log(Question)
+    let text_answer_input = document.querySelector('#text_answer_input');
+    text_answer_input.setAttribute
+    // text_answer_input.addEventListener('input',() => {
+    //     console.log(Question.pattern)
+        switch(Question.pattern)
+        {
+            case 'free':
+                if(!Question.answer_template)
+                    text_answer_input.setAttribute("placeholder","پاسخ به شکل متن آزاد")
+                break;
+            case 'jalali_date':
+                if(!Question.answer_template)
+                    text_answer_input.setAttribute("placeholder","لطفا پاسخ را به شکل تاریخ شمسی وارد کنید")
+                break;
+            case 'georgian_date':
+                if(!Question.answer_template)
+                    text_answer_input.setAttribute("placeholder","لطفا پاسخ را به شکل تاریخ میلادی وارد کنید")
+                break;
+            case 'phone__number':
+                if(!Question.answer_template)
+                    text_answer_input.setAttribute("placeholder","لطفا پاسخ را به شکل شماره تلفن موبایل وارد کنید")
+                break;
+            case 'number':
+                if(!Question.answer_template)
+                    text_answer_input.setAttribute("placeholder","لطفا پاسخ را به شکل عدد وارد کنید")
+                break;
+            case 'english':
+            if(!Question.answer_template)
+                text_answer_input.setAttribute("placeholder","لطفا پاسخ را به شکل حروف انگلیسی وارد کنید")
+            break;
+        }
+        text_answer_input.addEventListener('input',() => {
+            if(Question.pattern == 'free' && Question.max)
+            {
+                if(text_answer_input.value.length > Question.max)
+                {
+                    showAlert('تعداد حروف وارد شده از حداکثر بیشتر است')
+                }
+                if(text_answer_input.value.length < Question.min)
+                {
+                    showAlert('تعداد حروف وارد شده از حداقل کمتر است')
+                }
+            } 
+        })
+} 
 export const file_event_listener = (Question) => {
     let file_input = document.querySelector(`#Q${Question.id} .inputUploader .box__file`);
     const preview_image_side = document.querySelector(`#Q${Question.id} .inputUploader .uploaded_file_image`);

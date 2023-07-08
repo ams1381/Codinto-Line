@@ -37,12 +37,12 @@ const objectToFormData = (obj) => {
     return formData;
   }
 
-export const total_answer_set_handler = (Questions) => {
-    Questions.forEach((Question) => {
-        single_answer_setter(Question,[...Question.classList].indexOf("required") != -1);
+export const total_answer_set_handler = (QuestionsData,Questions) => {
+    Questions.forEach((Question,index) => {
+        single_answer_setter(QuestionsData[index],Question,[...Question.classList].indexOf("required") != -1);
     })
 }
-export const single_answer_setter = (Question,required) => {
+export const single_answer_setter = (QuestionData,Question,required) => {
     switch([...Question.classList][1])
     {
             case 'text_answer':
@@ -61,7 +61,7 @@ export const single_answer_setter = (Question,required) => {
                 return drop_down_answer_setter(Question,required);
                 break;
             case 'number_answer':
-                return number_answer_setter(Question,required);
+                return number_answer_setter(QuestionData,Question,required);
                 break;
             case 'link':
                 return link_question_setter(Question,required);
@@ -173,21 +173,20 @@ const link_question_setter = (Question,required) => {
         })
     }
 }
-const number_answer_setter = (Question,required) => {
+const number_answer_setter = (QuestionData,QuestionContainer,required) => {
+
     let number_answer_input = document.querySelector('#number_answer_input');
     if(!number_answer_input.value && required)
       {
         return 'Error';
       }
-    else
-    {
+      
         answer_set_postData.answers.push({
-            "question": parseInt(Question.getAttribute("id").split("Q")[1]),
+            "question": parseInt(QuestionContainer.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'number_answer' : number_answer_input.value
             }
         })
-    }
 }
 const drop_down_answer_setter = (Question,required) => {
     let selected_drop_down_option = document.querySelector('.selection__item.slide_selected label');

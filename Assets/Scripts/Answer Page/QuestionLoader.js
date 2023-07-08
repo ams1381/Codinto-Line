@@ -63,7 +63,7 @@ const loader_initializer = async () => {
                     else
                     {
                         console.log('test')
-                        total_answer_set_handler(document.querySelectorAll(".QuestionContainer"));
+                        total_answer_set_handler(questionnaire.questions,document.querySelectorAll(".QuestionContainer"));
                         try
                         {
                             await answer_set_poster(questionnaire_for_preview.uuid)
@@ -191,7 +191,7 @@ const question_controller = (questionnaire,Questions,CurrState,progress_bar) => 
 const next_question_handler = (questionnaire,Questions,CurrState,progress_bar) => {
     let curQuestion = document.querySelector(".QuestionContainer");
         if(is_active)
-            if(single_answer_setter(curQuestion,Questions[CurrState].question.is_required) == 'Error')
+            if(single_answer_setter(Questions[CurrState].question,curQuestion,Questions[CurrState].question.is_required) == 'Error')
             {
                 showAlert('لطفا سوالات اجباری را پاسخ دهید')
                 return 'Err'; 
@@ -204,7 +204,7 @@ const next_question_handler = (questionnaire,Questions,CurrState,progress_bar) =
 }
 const prev_question_handler = (questionnaire,Questions,CurrState,progress_bar) => {
     let curQuestion = document.querySelector(".QuestionContainer");
-    single_answer_setter(curQuestion,Questions[CurrState].question.is_required);
+    single_answer_setter(Questions[CurrState].question,curQuestion,Questions[CurrState].question.is_required);
     $(curQuestion).fadeOut(100);
     curQuestion.remove();
     document.querySelector('.FormFooter.SideFooter').remove();
