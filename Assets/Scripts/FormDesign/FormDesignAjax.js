@@ -51,8 +51,8 @@ export const QuestionItemSetter = async () => {
              }
             if(QuestionsResponse.questions.length !== 0)
             {
-                QuestionsResponse.questions.forEach((Question,index) => {
-                    QuestionItemGenerator(Question.question,index);
+                QuestionsResponse.questions.forEach((Question) => {
+                    QuestionItemGenerator(Question.question,Question.question.placement);
     
                 })
             }
@@ -88,6 +88,10 @@ const QuestionDesignItemsHandler = async (QuestionType) => {
     localStorage.setItem("QuestionnaireUUID",SelectedQuestionnaire.uuid);
     localStorage.setItem("ACTION-TYPE",'Create');
     localStorage.removeItem("QuestionData");
+    document.querySelectorAll('.sup-label').length > 0 ?
+        localStorage.setItem("question_placement",document.querySelectorAll('.sup-label').length + 1) 
+    :   localStorage.removeItem('question_placement');
+    
     let questionnaire_retrieved = await questionnaire_retriever();
     if(QuestionType == 'welcome-page' && questionnaire_retrieved.welcome_page)
     {

@@ -1,4 +1,4 @@
-import {file_upload_handler, preview_change_handler, preview_question_toggle, question_creator, text_style_label_eventListener_setter, toggle_handler} from "./CommonActions.js";
+import {file_upload_handler, preview_change_handler, preview_question_toggle, question_creator, question_placement_setter, text_style_label_eventListener_setter, toggle_handler} from "./CommonActions.js";
 import {number_question_postData} from "../ajax/QuestionPostData.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
@@ -17,14 +17,12 @@ const back_to_design_button = document.querySelector(".block__main .block__main_
 const min_input_number = document.querySelector('#Alphabetmin');
 const max_input_number = document.querySelector('#Alphabetmax');
 console.log(QuestionnaireUUID)
-// initial data------------------------------------
+// initial data------------------------------------\
+question_placement_setter(localStorage.getItem("question_placement"),number_question_postData)
 if(ACTION_TYPE == 'Edit')
 {
-     
     question_info_loader(EditableQuestion)
 }
-
- 
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',number_question_postData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',number_question_postData)})
 answer_number_selector_inputs.forEach((answer_number_selector_input) => {

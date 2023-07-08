@@ -1,5 +1,5 @@
 import { range_question_postData} from "../ajax/QuestionPostData.js";
-import {file_upload_handler, preview_change_handler, preview_question_toggle, question_creator, text_style_label_eventListener_setter, toggle_handler} from "./CommonActions.js";
+import {file_upload_handler, preview_change_handler, preview_question_toggle, question_creator, question_placement_setter, text_style_label_eventListener_setter, toggle_handler} from "./CommonActions.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
 import { range_item_eventListener_setter } from "../../../Components/questionBox/rangeSelect.js";
 const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
@@ -27,7 +27,7 @@ const back_to_design_button = document.querySelector(".block__main .block__main_
 // range_question_postData.min = 3;
 
 // functions--------------------------------------
-
+question_placement_setter(localStorage.getItem("question_placement"),range_question_postData)
 function rangePreview(input){
     input.addEventListener("input" , (e)=>{
        document.querySelector(".range-label").innerText =  e.target.value;
@@ -123,12 +123,10 @@ saveBtn.addEventListener("click" , async function (event){
         await question_creator(ACTION_TYPE,null,'integerrange-questions',QuestionnaireUUID,range_question_postData);
 })
 necessaryQuestion.addEventListener('click',() => {
-  
-toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,range_question_postData);
+    toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,range_question_postData);
 })
 QuestionNumber.addEventListener('click',() => {
-  
-toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,range_question_postData);
+    toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,range_question_postData);
 })
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)

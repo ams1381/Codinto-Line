@@ -37,7 +37,7 @@ const QuestionLabelSetter = (Question_Type,Question_Number) =>
         default : 
             question_label = `
             <div class="QuestionLabel sup-label">
-                ${Question_Number + 1}
+                ${Question_Number}
             </div>
             `;
             question_tools_box = `
@@ -94,7 +94,7 @@ export const QuestionDesignOpener = (QuestionType) =>
         case 'group':
             window.open("/Pages/groupQuestion.html","_Self");
             break;
-        case 'Sort':
+        case 'sort':
             window.open("/Pages/Priority.html","_Self");
             break;
         case 'thank-page':

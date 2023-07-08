@@ -9,7 +9,8 @@ import {preview_answer_option_hider
     , file_upload_handler,
     preview_question_toggle,
     text_style_label_eventListener_setter,
-    shuffleArray
+    shuffleArray,
+    question_placement_setter
  } from './CommonActions.js'
 import { slider_option_postData } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from './QuestionInfoLoader.js';
@@ -34,13 +35,14 @@ const multiple_answer_select_inputs = document.querySelectorAll(".LimitInput inp
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
 let preview_select_container = document.querySelector('.selection__box');
 const preview_image_main = document.querySelector(".preview_file_box .preview_image");
-
-
 let Answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
+
+question_placement_setter(localStorage.getItem("question_placement"),slider_option_postData);
 if(ACTION_TYPE == 'Edit')
 {
     question_info_loader(EditableQuestion)
 }
+
 save_question_btn.addEventListener('click',async () => {
      console.log('asfasfasf')
     if(ACTION_TYPE == 'Edit')

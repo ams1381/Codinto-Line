@@ -36,7 +36,18 @@ const save_button = document.querySelector('.SideFooter .saveQuestion');
 let answer_options = document.querySelectorAll(".Answer-Option");
 
 const file_input_container = document.querySelector(".inputUploader");
-
+export const question_placement_setter = (placement_number,PostData) => {
+    if(!placement_number)
+    {
+        question_preview_number.textContent  = ' 1 '
+        PostData.placement = 1;
+    }
+    else
+    {
+        PostData.placement = placement_number;
+        question_preview_number.textContent = ` ${placement_number} `;
+    }
+}
 export const  showAlert = (text) => 
 {
     wrongAlert.style.opacity = "1";
@@ -407,7 +418,7 @@ export const preview_option_label_updater = (input_number,input_value,Option_Typ
     }
     changed_label.textContent = input_value;
     
- }
+}
 const additional_options_handler = (Addition_type,state,PostData) =>
 {
     let answer_options = document.querySelectorAll(".Answer-Option");
@@ -626,7 +637,7 @@ const getVideoCoverImage = (videoElement) => {
           captureFrame();
         });
       });
-  }
+}
 export const file_src_setter = async (Src,FileName,FileType) => {
     file_input_container.classList.add("uploaded");
     switch(FileType)
@@ -689,8 +700,8 @@ export const form_data_convertor =  (obj,formData,namespace) => {
 export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,QuestionnaireUUID,DataForPost) => {
     save_button.classList.add('saving');
         let createRes;
-        console.log(Question)
-        console.log([...form_data_convertor(Question)])
+        console.log(DataForPost)
+        console.log([...form_data_convertor(DataForPost)])
         console.log(ACTION_TYPE)
         try 
         {
@@ -708,11 +719,11 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
             }
             save_button.classList.remove('saving');
         console.log(createRes.data)
-        if((createRes.status == 201 || createRes.status == 200))
-            {
-                window.open("/Pages/FormDesign.html","_Self");
+        // if((createRes.status == 201 || createRes.status == 200))
+        //     {
+        //         window.open("/Pages/FormDesign.html","_Self");
                 
-            }
+        //     }
         }
         catch(err)
         {

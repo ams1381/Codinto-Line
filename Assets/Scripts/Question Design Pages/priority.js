@@ -9,7 +9,9 @@ import { preview_answer_option_generator
     , toggle_handler 
     , file_upload_handler,
     preview_question_toggle,
-    text_style_label_eventListener_setter
+    text_style_label_eventListener_setter,
+    question_placement_setter,
+    shuffleArray
  } from './CommonActions.js'
 import {priority_question_PostData} from "../ajax/QuestionPostData.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
@@ -25,17 +27,42 @@ const saveBtn = document.querySelector(".saveQuestion")
 const answer_option_inputs = document.querySelectorAll(".anw-option-input");
 const answer_option_view_buttons = document.querySelectorAll(".answer-option-view");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
-const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
+const randomize_options_toggle = document.querySelector(".is_random_options .Switch-Container .slider-button");
 let answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
-let options = null;
+const preview_answer_options_container = document.querySelectorAll(".multiple_answer_block-options.nested");
+let preview_select_container = document.querySelector('.multiple_answer_block-options');
 
-// initial data------------------------------------
+
+question_placement_setter(localStorage.getItem("question_placement"),priority_question_PostData)
 if(ACTION_TYPE == 'Edit')
 {    
     question_info_loader(EditableQuestion)
 }
-// answer_block
-options =  "free"
+const answer_options_drag = dragula(
+    [...preview_answer_options_container], {
+    direction : 'vertical',
+    slideFactorX : 0,
+    }
+)
+const preview_default_order_setter = (PostData) => {
+    let preview_select_items =  document.querySelectorAll(".multiple_answer_block-option");
+ 
+   let sorted_select_item = Array.from(preview_select_items).sort((a, b) => a.id.localeCompare(b.id))
+   sorted_select_item.reduce((fragment, item) => (fragment.appendChild(item), fragment), document.createDocumentFragment()).childNodes;
+   preview_select_items.forEach((preview_select_item) => {  preview_select_item.remove() })
+   sorted_select_item.forEach((defaultItem) => {
+     preview_select_container.innerHTML += defaultItem.outerHTML;
+ })
+     preview_select_items =  document.querySelectorAll(".multiple_answer_block-option")
+     PostData.options = [];
+         [...preview_select_items].forEach((sorted_select_item) => {
+             PostData.options.push(
+                 { text : sorted_select_item.lastElementChild.textContent }
+             )
+         })
+}
+
 answer_option_inputs.forEach((answer_option_input,index) => {
     answer_option_input.addEventListener('input',(e) => {
         if(EditableQuestion)
@@ -54,6 +81,7 @@ answer_option_buttons.forEach((answer_option_button) => {
             answer_option_remover();
             preview_answer_option_remover("MultipleOption");
         })
+    console.log(priority_question_PostData)
 })
 answer_option_view_buttons.forEach((answer_option_view_button,index) => {
     answer_option_view_button.addEventListener('click',() => {
@@ -62,13 +90,11 @@ answer_option_view_buttons.forEach((answer_option_view_button,index) => {
 })
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',priority_question_PostData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',priority_question_PostData)})
-
-
 // add event listener to save button
 saveBtn.addEventListener("click", async function (event) {
      
     if(EditableQuestion && ACTION_TYPE == 'Edit')
-        await question_creator(ACTION_TYPE,EditableQuestion,'sort-questions',QuestionnaireUUID,priority_question_PostData);
+        await question_creator(ACTION_TYPE,EditableQuestion,'sort-questions',QuestionnaireUUID,EditableQuestion);
     else
         await question_creator(ACTION_TYPE,null,'sort-questions',QuestionnaireUUID,priority_question_PostData);
 })
@@ -88,6 +114,19 @@ file_input.addEventListener('input',() => {
  
         priority_question_PostData.media = file_input.files[0];
     file_upload_handler(selected_file_type,file_input,EditableQuestion,priority_question_PostData);
+})
+randomize_options_toggle.addEventListener('click',() => {
+    toggle_handler(EditableQuestion,randomize_options_toggle.parentElement.parentElement.parentElement,randomize_options_toggle,priority_question_PostData);
+    if(!randomize_options_toggle.previousElementSibling.checked)
+    {
+            EditableQuestion ? shuffleArray(EditableQuestion.options,EditableQuestion,'MultipleOption','multiple_answer_block-option') 
+            :shuffleArray(priority_question_PostData.options,priority_question_PostData,'MultipleOption','multiple_answer_block-option')
+    }   
+    else
+    {
+        EditableQuestion ? preview_default_order_setter(EditableQuestion) :
+            preview_default_order_setter(priority_question_PostData)
+    }
 })
 text_style_label_eventListener_setter(EditableQuestion,priority_question_PostData);
 view_question_button.addEventListener('click',preview_question_toggle);

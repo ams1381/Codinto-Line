@@ -1,4 +1,4 @@
-import {file_upload_handler, question_creator, toggle_handler , preview_question_toggle, text_style_label_eventListener_setter} from "./CommonActions.js";
+import {file_upload_handler, question_creator, toggle_handler , preview_question_toggle, text_style_label_eventListener_setter, question_placement_setter} from "./CommonActions.js";
 import { preview_change_handler } from "../Question Design Pages/CommonActions.js";
 import {text_question_with_answer_postData} from "../ajax/QuestionPostData.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
@@ -20,12 +20,14 @@ const saveBtn = document.querySelector(".saveQuestion")
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
 let options = null;
+question_placement_setter(localStorage.getItem("question_placement"),text_question_with_answer_postData)
 if (ACTION_TYPE == 'Edit') {
      
     question_info_loader(EditableQuestion)
 }
 // initial data------------------------------------
 options = "free"
+
 sampleAnswer.addEventListener('input',() => {
     if(EditableQuestion)
        EditableQuestion.answer_template = sampleAnswer.value;
@@ -34,85 +36,7 @@ sampleAnswer.addEventListener('input',() => {
 })
 titleInput.addEventListener('input', () => { preview_change_handler(EditableQuestion,'Title-change', text_question_with_answer_postData) })
 textInput.addEventListener('input', () => { preview_change_handler(EditableQuestion,'Desc-change', text_question_with_answer_postData) })
-function textStyle(input) {
-    const textEditor = document.querySelector(".TitleInputOptions")
-    textEditor.addEventListener("click", (e) => {
-        switch (e.target.classList[1]) {
-            case "fa-bold":
-                input.classList.toggle("bold")
-                break;
-            case "fa-italic":
-                input.classList.toggle("italic")
-                break;
-            case "fa-underline":
-                input.classList.toggle("underline")
-                break;
-        }
-    })
-}
-textStyle(titleInput)
-// function uploadValidation(input) {
-//     if (uploadInput.files[0] !== undefined) {
-//         let uploadUrl = uploadInput.files[0].name.split(".")
-//         console.log(uploadInput.files[0].size)
-//         if (uploadInput.files[0].size > 3000000) {
-//             return showAlert("حجم فایل وارد شده بیش از 3 مگابایت است")
-//         }
-//         if (pictureSwitcher.classList.contains("active")) {
-//             const pictureTranslate = {
-//                 jpg: "jpg",
-//                 png: "png",
-//                 jpeg: "jpeg",
-//                 JPG: "JPG",
-//                 PNG: "PNG",
-//                 JPEG: "JPEG"
-//             }
-//             if (!pictureTranslate[uploadUrl[1]]) {
-//                 return showAlert("فرمت وارد شده پذیرفته نیست")
-//             }
-//         } else if (videoSwitcher.classList.contains("active")) {
-//             //
-//             const videoTranslate = {
-//                 mp4: "mp4",
-//                 mov: "mov",
-//                 m4v: "m4v",
-//                 mkv: "mkv",
-//                 flv: "flv",
-//                 wmv: "wmv",
-//                 MP4: "MP4",
-//                 MOV: "MOV",
-//                 M4V: "M4V",
-//                 MKV: "MKV",
-//                 FLV: "FLV",
-//                 WMV: "WMV"
-//             }
-//             if (!videoTranslate[uploadUrl[1]]) {
-//                 return showAlert("فرمت وارد شده پذیرفته نیست")
-//             }
-//         }
-//     } else {
-//         console.log("no file");
-//     }
-// }
-//event listener------------------------------------
-// create folder and questionnaire
-// pictureSwitcher.addEventListener("click", (e) => {
-//     uploadInput.accept = ".jpg , .png , .jpeg , JPG , PNG , JPEG"
-//     if (videoSwitcher.classList.contains("active")) {
-//         videoSwitcher.classList.remove("active")
-//         pictureSwitcher.classList.add("active")
-//     }
-// })
-// videoSwitcher.addEventListener("click", (e) => {
-//     uploadInput.accept = ".mp4 , .mov , .m4v , .mkv , .flv , .wmv , .MP4 , . MOV , .M4V , .MKV , .FLV , .WMV"
-//     if (pictureSwitcher.classList.contains("active")) {
-//         pictureSwitcher.classList.remove("active")
-//         videoSwitcher.classList.add("active")
-//     }
-// })
-// uploadInput.addEventListener("change", (e) => {
-//     document.querySelector(".upload__link").innerText = uploadInput.files[0].name;
-// })
+
 document.addEventListener("DOMContentLoaded", function (event) {
     if(ACTION_TYPE != 'Edit')
     {

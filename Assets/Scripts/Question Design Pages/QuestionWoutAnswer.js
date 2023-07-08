@@ -1,5 +1,5 @@
 import { text_question_with_out_answer_postData } from "../ajax/QuestionPostData.js"
-import { preview_question_toggle , preview_change_handler , file_upload_handler, question_creator, text_style_label_eventListener_setter } from "./CommonActions.js";
+import { preview_question_toggle , preview_change_handler , file_upload_handler, question_creator, text_style_label_eventListener_setter, question_placement_setter } from "./CommonActions.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
 
 const titleInput = document.querySelector(".GTitle .TitleTextInput");
@@ -16,11 +16,12 @@ const button_shape_items = document.querySelectorAll(".ShapeOptions label")
 const preview_button = document.querySelector(".QuestionStart .QuestionStartButton")
 const preview_button_text= document.querySelector(".QuestionStart .QuestionStartButton p")
 
+question_placement_setter(localStorage.getItem("question_placement"),text_question_with_out_answer_postData)
 if(ACTION_TYPE == 'Edit')
 {
-     
     question_info_loader(EditableQuestion)
 }
+
 titleInput.addEventListener('input', () => { preview_change_handler(EditableQuestion,'Title-change', text_question_with_out_answer_postData) })
 textInput.addEventListener('input', () => { preview_change_handler(EditableQuestion,'Desc-change', text_question_with_out_answer_postData) })
 

@@ -14,9 +14,9 @@ const mainDrake = dragula(
     [...nestedContainer], {
          direction: 'vertical',
          slideFactorX: 0,
-         mirrorContainer: document.body,  
+         mirrorContainer: document.body, 
          moves: function (el, source, handle, sibling) {
-
+          console.log(el, source, handle, sibling)
             const draggedItem = el;
             if(draggedItem.className.indexOf('welcome-page') != -1 
             || draggedItem.className.indexOf('thank-page') != -1 )
@@ -24,8 +24,11 @@ const mainDrake = dragula(
             return true; 
           },
           accepts: function (el, target, source, sibling) {
+            // /
             if(el.nextElementSibling)
                return  !(el.nextElementSibling.className.indexOf('welcome-page') != -1);
+            if(el.previousElementSibling)
+              return !(el.previousElementSibling.className.indexOf('thank-page') != -1)
             return true; 
           },
           invalid: function (el, handle) {
@@ -102,11 +105,14 @@ const ReorderQuestionsPoster = async () => {
     })
    replacementPostObject.placements.pop();
 
-    let reorderRes =  await postRequest(reorderQuestionsUrl,'application/json',replacementPostObject);
+    await postRequest(reorderQuestionsUrl,'application/json',replacementPostObject);
 
-    console.log(replacementPostObject)
 }
 mainDrake.on('drop',MainDroppedHandler)
 mainDrake.on('drop',ReorderQuestionsPoster)
+mainDrake.on('shadow',(el, container, source) => {
+  console.log(el.previousElementSibling)
+  let group_container_div = document.createElement('div');
+})
 InnerNestedContainer.on('drop',DashedNumberSorter)
 

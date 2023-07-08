@@ -4,7 +4,8 @@ import {
     , toggle_handler
     , file_upload_handler,
     preview_question_toggle,
-    text_style_label_eventListener_setter
+    text_style_label_eventListener_setter,
+    question_placement_setter
  } from './CommonActions.js'
 import { question_info_loader } from './QuestionInfoLoader.js';
 import { selective_degree_postData } from '../ajax/QuestionPostData.js';
@@ -24,12 +25,14 @@ let preview_degree_items = document.querySelectorAll('.degree_answer_block-optio
 const degree_shape_labels = document.querySelectorAll(".shape_selector_options label");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion");
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
-
 const save_question_btn = document.querySelector('.SideFooter .saveQuestion');
+
+question_placement_setter(localStorage.getItem("question_placement"),selective_degree_postData);
 if(ACTION_TYPE == 'Edit')
 {
     question_info_loader(EditableQuestion)
 }
+
 const preview_degree_handler = (degree,shape_icon_className) => {
     preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option');
     degree_label.textContent = degree ;

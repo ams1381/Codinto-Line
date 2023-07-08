@@ -51,7 +51,7 @@ const isGregorianDate = (dateString) => {
     const date = new Date(year, month - 1, day);
     return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
 }
-const Form_Date_Updater = (YearInputs,MonthInputs,DayInputs) => {
+export const Form_Date_Updater = (YearInputs,MonthInputs,DayInputs) => {
     let currentDate = current_date_getter();
    
     YearInputs.forEach((YearInput) => {
@@ -119,6 +119,17 @@ const Form_Date_Month_Updater = (currentDate,YearInputs,MonthInputs,DayInputs) =
                 
             }
         })
+    })
+}
+const date_inputs_InActive_setter = (YearInputs,MonthInputs,DayInputs) => {
+    YearInputs.forEach((YearInput) => {
+        YearInput.checked = false;
+    })
+    MonthInputs.forEach((YearInput) => {
+        YearInput.checked = false;
+    })
+    DayInputs.forEach((YearInput) => {
+        YearInput.checked = false;
     })
 }
 const compareDates = (date1, date2) => new Date(date1) - new Date(date2);
@@ -277,14 +288,23 @@ QuestionnaireStartDateToggle.addEventListener('click',() => {
     {
         QuestionnaireStartDatePicker.classList.add('active')
         DateSetter();
+        Questionnaire_PostData['pub_date'] = null;
     }
     else
     {
         QuestionnaireStartDatePicker.classList.remove('active')
         if(LoadedQuestionnaire)
-            LoadedQuestionnaire.pub_date = null;
+        {
+            delete LoadedQuestionnaire.pub_date;
+        }
+         //   LoadedQuestionnaire.pub_date = null;
         else
-            Questionnaire_PostData.pub_date = null;
+        {
+            delete Questionnaire_PostData.pub_date
+           // Questionnaire_PostData.pub_date = null;
+        }
+        date_inputs_InActive_setter(StartYearInputs,StartMonthInputs,StartDayInputs)  
+
     }
 })
 QuestionnaireEndDateToggle.addEventListener('click',() => {
@@ -300,6 +320,8 @@ QuestionnaireEndDateToggle.addEventListener('click',() => {
             LoadedQuestionnaire.end_date = null;
         else
             Questionnaire_PostData.end_date = null;
+
+        date_inputs_InActive_setter(endYearInputs,endMonthInputs,endDayInputs)  
     }
           
 })
@@ -307,7 +329,10 @@ QuestionnaireTimerToggleLabel.addEventListener('click',() => {
     if(!QuestionnaireTimerToggleInput.checked)
         QuestionnaireTimerPicker.classList.add("active");
     else    
+    {
         QuestionnaireTimerPicker.classList.remove("active");
+        LoadedQuestionnaire ? LoadedQuestionnaire.timer = null : Questionnaire_PostData.timer = null;
+    }
 })
 QuestionnaireProgressBar.addEventListener('click',() => {
     if(LoadedQuestionnaire)

@@ -1,3 +1,4 @@
+@import url('Dragula.css');
 .block__main 
 {
     display: grid;
@@ -347,6 +348,14 @@
     justify-content: flex-start;
     padding-right: 10px;
     word-break: break-all;
+}
+.Question-Title p 
+{
+    margin-right: 5px;
+}
+.Question-Title label
+{
+    margin-left: 5px;
 }
 .description_block
 {

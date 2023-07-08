@@ -10,7 +10,8 @@ import { preview_answer_option_generator
         , file_upload_handler,
         preview_question_toggle,
         text_style_label_eventListener_setter,
-        shuffleArray
+        shuffleArray,
+        question_placement_setter
      } from './CommonActions.js'
 import { multiple_option_postData } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from './QuestionInfoLoader.js'
@@ -34,6 +35,7 @@ const multiple_answer_select_inputs = document.querySelectorAll(".LimitInput inp
 const additional_options_selector = document.querySelector(".additional_options");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
+let preview_select_container = document.querySelector('.multiple_answer_block-options');
 
 
 const answer_option_inputs = document.querySelectorAll(".anw-option-input");
@@ -43,12 +45,11 @@ const answer_number_selector_inputs = document.querySelectorAll('.answer-number-
 const save_question_btn = document.querySelector('.SideFooter .saveQuestion')
 
 let answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
+question_placement_setter(localStorage.getItem("question_placement"),multiple_option_postData);
 if(ACTION_TYPE == 'Edit')
 {
-     
     question_info_loader(EditableQuestion)
 }
-
 save_question_btn.addEventListener('click', async () => {  
    await question_creator(ACTION_TYPE,EditableQuestion,'optional-questions',QuestionnaireUUID,multiple_option_postData);
 })
@@ -96,7 +97,7 @@ const preview_default_order_setter = (PostData) => {
              )
          })
      console.log(slider_option_postData)
- }
+}
 multiple_answer_toggle.addEventListener('click',() => {
   
   toggle_handler(EditableQuestion,multiple_answer_selector,multiple_answer_toggle,multiple_option_postData)
@@ -157,9 +158,16 @@ required_toggle.addEventListener('click',() => {
 multiple_answer_select_inputs.forEach((multiple_answer_select_input) => {
     multiple_answer_select_input.addEventListener('input',() => {
         if(multiple_answer_select_input.id == "Answermin")
-           multiple_option_postData.min_selected_options =  multiple_answer_select_input.value;
+        {
+             EditableQuestion ? EditableQuestion.min_selected_options =  multiple_answer_select_input.value
+           : multiple_option_postData.min_selected_options = multiple_answer_select_input.value
+        }
+          
         else
-            multiple_option_postData.max_selected_options = multiple_answer_select_input.value;    
+        {
+            EditableQuestion ? EditableQuestion.max_selected_options =  multiple_answer_select_input.value
+            : multiple_option_postData.max_selected_options = multiple_answer_select_input.value
+        }
 })
 })
 double_image_size_toggle.addEventListener('click',() => {

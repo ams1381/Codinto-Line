@@ -122,10 +122,10 @@ const range_answer_setter = (Question,required) => {
    }
 }
 const multiple_answer_setter = (Question,required) => {
-    let selected_option;
+    let selected_option = [];
     document.querySelectorAll('.multiple_answer_block-option input').forEach((item,index) => {
         if(item.checked)
-            selected_option = index + 1;
+            selected_option.push(parseInt(item.getAttribute("id").split("answer-n")[1]));
     })
     if(!selected_option && required)
     {
@@ -136,10 +136,11 @@ const multiple_answer_setter = (Question,required) => {
         answer_set_postData.answers.push({
             "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
-                'selected_options' : [selected_option]
+                'selected_options' : selected_option.length == 1 ? selected_option[0] : selected_option
             }
         })
     }
+    console.log(answer_set_postData)
 }
 const email_answer_setter = (Question,required) => {
     let email_answer_input = document.querySelector('#email_answer_input');

@@ -1,5 +1,6 @@
 export let multiple_option_postData = {
     title : null,
+    placement : null ,
     question_text : null,
     is_required : false,
     multiple_choice : false,
@@ -19,6 +20,7 @@ export let multiple_option_postData = {
 }
 export let slider_option_postData = {
     title : null,
+    placement : null ,
     question_text : null,
     is_required : false,
     multiple_choice : false,
@@ -38,6 +40,7 @@ export let slider_option_postData = {
 }
 export let range_question_postData = {
     title : null,
+    placement : null ,
     question_text : null,
     placement : 4,
     group : null,
@@ -53,6 +56,7 @@ export let range_question_postData = {
 export let text_question_with_answer_postData  = {
     
     title : null,
+    placement : null ,
     question_text : null,
     placement: 12,
     group: null,
@@ -66,6 +70,7 @@ export let text_question_with_answer_postData  = {
 };
 export let text_question_with_out_answer_postData = {
     title : null,
+    placement : null ,
     question_text : null,
     placement: 12,
     group: null,
@@ -79,6 +84,7 @@ export let text_question_with_out_answer_postData = {
 }
 export let welcome_page_postData = {
     title : null,
+    placement : null ,
     description : null,
     media : null,
     button_text : null,
@@ -87,6 +93,7 @@ export let welcome_page_postData = {
 }
 export let thank_page_postData  = {
     title : null,
+    placement : null ,
     description : null,
     placement: 3,
     group: "",
@@ -100,6 +107,7 @@ export let thank_page_postData  = {
 };
 export let number_question_postData  = {
     title : null,
+    placement : null ,
     question_text : null,
     placement: 7,
     group: null,
@@ -111,6 +119,7 @@ export let number_question_postData  = {
 };
 export let selective_degree_postData  = {
     title : null,
+    placement : null ,
     question_text : null,
     placement: 7,
     group: null,
@@ -122,6 +131,7 @@ export let selective_degree_postData  = {
 };
 export let group_question_postData = {
         title : null,
+        placement : null ,
         question_text : null,
         media : null,
         button_text : null,
@@ -131,7 +141,6 @@ export let group_question_postData = {
         show_number : false,
 }
 export let Questionnaire_PostData = {
-    pub_date : null,
     end_date : null,
     timer : null,
     progress_bar : false,
@@ -154,6 +163,7 @@ export let priority_question_PostData = {
     title: null,
     question_text: null,
     placement: 12,
+    is_random_options : false,
     group: "",
     is_required: false,
     show_number: false,

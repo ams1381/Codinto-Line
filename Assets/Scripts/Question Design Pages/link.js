@@ -5,6 +5,7 @@ import {
     preview_change_handler,
     preview_question_toggle,
     question_creator,
+    question_placement_setter,
     showAlert,
     text_style_label_eventListener_setter,
     toggle_handler
@@ -31,7 +32,7 @@ if(ACTION_TYPE == 'Edit')
 }
 // options =  "free"
 // sampleAnswer.value = null;
-
+question_placement_setter(localStorage.getItem("question_placement"),link_question_PostData);
  
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',link_question_PostData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',link_question_PostData)})

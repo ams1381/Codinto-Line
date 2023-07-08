@@ -5,7 +5,8 @@ import {
     toggle_handler , 
     text_style_setter,
     preview_question_toggle,
-    text_style_label_eventListener_setter
+    text_style_label_eventListener_setter,
+    question_placement_setter
 } from "../Question Design Pages/CommonActions.js";
 import {file_question_PostData, priority_question_PostData} from "../ajax/QuestionPostData.js";
 import {question_info_loader} from './QuestionInfoLoader.js';
@@ -26,6 +27,7 @@ const view_question_button = document.querySelector(".SideHeaderBody .viewQuesti
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
 
 // initial data------------------------------------
+question_placement_setter(localStorage.getItem("question_placement"),file_question_PostData);
 if(ACTION_TYPE == 'Edit')
 {
     question_info_loader(EditableQuestion)
@@ -34,25 +36,6 @@ if(ACTION_TYPE == 'Edit')
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',file_question_PostData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',file_question_PostData)})
 
-// title_text_style_labels.forEach((title_text_style_label) => {
-//     title_text_style_label.addEventListener('click',() => {
-//         let style_name = title_text_style_label.className;
-//         if(EditableQuestion)
-//             text_style_setter(EditableQuestion,'title',style_name,preview_title_container,titleInput,titleInput.value);
-//         else
-//             text_style_setter(file_question_PostData,'title',style_name,preview_title_container,titleInput,titleInput.value);
-//     })
-// })
-// desc_text_style_labels.forEach((desc_text_style_label) => {
-//     desc_text_style_label.addEventListener('click',() => {
-//         let style_name = desc_text_style_label.className;
-//         if(EditableQuestion)
-//             text_style_setter(EditableQuestion,'question_text',style_name,preview_desc_container,textInput,textInput.value);
-//         else
-//             text_style_setter(file_question_PostData,'question_text',style_name,preview_desc_container,textInput,textInput.value);
-//     })
-// })
-// textStyle(titleInput)
 
 saveBtn.addEventListener("click", async function (event) {
 // console.log(sizeInput.value);

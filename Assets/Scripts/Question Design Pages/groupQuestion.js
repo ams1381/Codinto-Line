@@ -1,4 +1,4 @@
-import {file_upload_handler, preview_question_toggle, question_creator, text_style_label_eventListener_setter, toggle_handler} from "./CommonActions.js";
+import {file_upload_handler, preview_question_toggle, question_creator, question_placement_setter, text_style_label_eventListener_setter, toggle_handler} from "./CommonActions.js";
 import { preview_change_handler } from "./CommonActions.js";
 import {
     group_question_postData
@@ -26,6 +26,7 @@ if(ACTION_TYPE == 'Edit')
 {
     question_info_loader(EditableQuestion)
 }
+question_placement_setter(localStorage.getItem("question_placement"),group_question_postData);
 // functions
 const preview_button_shape_handler = (Shape,IsSolid) => {
     if(IsSolid)

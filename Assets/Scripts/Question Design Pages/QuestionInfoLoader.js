@@ -69,6 +69,11 @@ export const question_info_loader = (Question) => {
     text_style_load_handler(Question,'title','em','TitleInput','italic',Title_input,'Question-Title');
     text_style_load_handler(Question,'title','strong','TitleInput','bold',Title_input,'Question-Title');
     text_style_load_handler(Question,'title','u','TitleInput','underline',Title_input,'Question-Title');
+    if(Question.placement)
+    {
+        if(question_preview_number)
+            question_preview_number.textContent = ` ${Question.placement} `
+    }
     
     if(Question.description)
     {

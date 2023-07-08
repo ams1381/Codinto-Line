@@ -3,6 +3,7 @@ import { baseUrl } from "../../ajax/ajaxRequsts.js";
 
 
 export const question_component_generator = (Question) => {
+    console.log(Question)
     let media_src;
     if(Question.media)
          media_src =  Question.media;
@@ -112,6 +113,7 @@ export const question_component_generator = (Question) => {
         case 'drop_down':
             let drop_down_options_html = '';
             Question.options.forEach((option) => {
+               
                 if(option)
                 drop_down_options_html += `<span class="selection__item" id="select_item_${option.id}">
                     <input class="select_item_input" type="radio" id="select_item_input_${option.id}">
@@ -152,8 +154,8 @@ export const question_component_generator = (Question) => {
             Question.options.forEach((option,index) => {
                 if(option)
                     option_html +=  `<div class="multiple_answer_block-option">
-                            <input type="radio" class="answer_option_input" name="answer__option" id="answer-n${index + 1}">
-                            <label class="answer_option-label" for="answer-n${index + 1}">${option.text}</label>
+                            <input type="${Question.multiple_choice ? 'checkbox' : 'radio'}" class="answer_option_input" name="answer__option" id="answer-n${option.id}">
+                            <label class="answer_option-label" for="answer-n${option.id}">${option.text}</label>
                     </div>`
                 answer_box_html = `
                 <div class="answer_block">
@@ -163,6 +165,7 @@ export const question_component_generator = (Question) => {
             </div>
             `
             })
+            
             // return multiple_question_component(Question,media_src,Question.media)
             break;
         case 'email_field':
@@ -180,9 +183,23 @@ export const question_component_generator = (Question) => {
              </div>
             `
             break;
-        // case 'Sort':
-        //     window.open("/Pages/Priority.html","_Self");
-        //     break;
+        case 'sort':
+            let drag_option_html = '';
+            Question.options.forEach((option,index) => {
+                if(option)
+                drag_option_html +=  `<div class="multiple_answer_block-option">
+                            <input type="${Question.multiple_choice ? 'checkbox' : 'radio'}" class="answer_option_input" name="answer__option" id="answer-n${option.id}">
+                            <label class="answer_option-label" for="answer-n${option.id}">${option.text}</label>
+                    </div>`
+                answer_box_html = `
+                <div class="answer_block">
+                    <div class="multiple_answer_block-options vertical-order nested">
+                     ${drag_option_html ? drag_option_html : ' '}
+                    </div>
+            </div>
+            `
+            })
+            break;
     }
     let preview_file_className = '';
     switch(detectFileFormat(Question.media))

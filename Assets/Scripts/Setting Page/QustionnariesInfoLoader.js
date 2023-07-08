@@ -1,5 +1,5 @@
 import { baseUrl , getRequest } from "../ajax/ajaxRequsts.js"
-import  { DateSetter}  from "./QuestionnaireSetting.js";
+import  { DateSetter  }  from "./QuestionnaireSetting.js";
 
 const QuestionnaireNameInputs = document.querySelector("#form-name-input");
 const QuestionnaireStartDateToggle = document.querySelector(".date-start .Switch-toggle input");
@@ -13,6 +13,8 @@ const QuestionnaireTimerContainer = document.querySelector(".ResponePicker");
 const QuestionnaireTimerInputsH = document.querySelector(".ResponeTiming .ResponePicker .RhourPicker input");
 const QuestionnaireTimerInputsM = document.querySelector(".ResponeTiming .ResponePicker .RminutePicker input");
 const QuestionnaireTimerInputsS = document.querySelector(".ResponeTiming .ResponePicker .RsecondPicker input");
+let StartYearInputs = document.querySelectorAll(".start-picker .YearPicker input");
+let endYearInputs = document.querySelectorAll(".end-picker .YearPicker input");
 const StartYearItems = document.querySelectorAll(".start-picker .YearPicker label");
 const StartMonthItems = document.querySelectorAll(".start-picker .MonthPicker label");
 const StartDayItems = document.querySelectorAll(".start-picker .DayPicker label");
