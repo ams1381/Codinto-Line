@@ -48,7 +48,6 @@ html
 
 .block__header nav {
     display: flex;
-    height: 60px;
     box-shadow: 0px 3px 4px var(--theme-navbar-shadow);
     font-family: IRANSans;
     text-align: center;
@@ -58,8 +57,8 @@ html
 
 .navbar-codinto-title {
     margin: 0 auto 0 auto;
-    font-size: 1.5rem;
     color: var(--theme-Codinto);
+    font-size: calc(1rem + 0.5vw);
 }
 
 .block__section {

@@ -4,10 +4,15 @@ export const answer_set_postData = {
     'answers' : []
 }
 export const answer_set_poster = async (questionnaireUUID) =>{
+    let request_header = 'application/json';
     console.log([...objectToFormData(answer_set_postData)])
     try 
     {
-       return await postRequest(`${baseUrl}/question-api/questionnaires/${questionnaireUUID}/answer-sets/`,answer_set_postData);
+        answer_set_postData.answers.forEach((item) => {
+            if(item.file)
+                request_header = 'multipart/form-data';
+        })
+       return await postRequest(`${baseUrl}/question-api/questionnaires/${questionnaireUUID}/answer-sets/`,request_header,answer_set_postData);
     }
     catch(err)
     {
@@ -21,21 +26,23 @@ export const answer_set_poster = async (questionnaireUUID) =>{
 const objectToFormData = (obj) => {
     const formData = new FormData();
   
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        formData.append(key, obj[key]);
-      }
-    }
-  
+    // for (let key in obj) {
+    //   if (obj.hasOwnProperty(key)) {
+    //       key.forEach((keyItem,index) => {
+    //         console.log(keyItem)
+    //       })
+    //     // formData.append(key, obj[key]);
+    //   }
+    // }
     return formData;
   }
+
 export const total_answer_set_handler = (Questions) => {
     Questions.forEach((Question) => {
         single_answer_setter(Question,[...Question.classList].indexOf("required") != -1);
     })
 }
 export const single_answer_setter = (Question,required) => {
-
     switch([...Question.classList][1])
     {
             case 'text_answer':
