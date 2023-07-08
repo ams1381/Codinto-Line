@@ -35,6 +35,7 @@ export const cookie_setter = (name, value, expirationDays, path, domain) => {
 }
 const getRequest = async (url) => 
   {
+    console.log(localStorage.getItem("ACCESS_TOKEN"))
     accessToken = localStorage.getItem("ACCESS_TOKEN");
     console.log(cookies_reader('access'))
     try {
@@ -66,7 +67,7 @@ const patchRequest = async (url, patchData) => {
       await errorHandler(error.response,error.status,error,url)
     }
 };  
-const postRequest = async (url, postData) => {
+const postRequest = async (url,content_type, postData) => {
   console.log(cookies_reader('access'))
   if(accessToken)
     token = accessToken;
@@ -74,9 +75,10 @@ const postRequest = async (url, postData) => {
     token = localStorage.getItem("ACCESS_TOKEN");
     
     try {
-      const response = await axios.post(url, postData, {
+      const response = await axios.post(url , postData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          // 'Content-Type': 'multipart/form-data',
+          'Content-Type' : content_type,
           Authorization: `Bearer ${token}`
         }
       });

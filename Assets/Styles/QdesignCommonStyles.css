@@ -1,6 +1,6 @@
 .block__main 
 {
-    display: flex;
+    display: grid;
     align-items: center;
     justify-content: flex-start;
     position: relative;
@@ -307,7 +307,7 @@
 .QuestionContainer
 {
     width: calc(15rem + 17vw);
-    margin-right: 1.5rem;
+    margin: 1rem 1.5rem 0 0;
     background: white;
     border-radius: 20px;
     box-shadow: 3px 3px 10px var(--folder-shadow-color);
@@ -968,5 +968,6 @@ input[type=range]::-webkit-slider-thumb {
     .QuestionContainer
     {
         width: 95%;
+        margin-right: 0;
     }
 }

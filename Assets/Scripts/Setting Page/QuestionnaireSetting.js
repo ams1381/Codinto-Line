@@ -163,7 +163,7 @@ const create_questionnaire = async (e) => {
         }
         else
         {
-            create_questionnaire_res = await postRequest(baseUrl + '/question-api/questionnaires/',Questionnaire_PostData); 
+            create_questionnaire_res = await postRequest(baseUrl + '/question-api/questionnaires/','application/json',Questionnaire_PostData); 
             if(create_questionnaire_res)
                 localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
         }

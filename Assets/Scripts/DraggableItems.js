@@ -96,13 +96,13 @@ const ReorderQuestionsPoster = async () => {
         replacementPostObject.placements.push(
           {
             'question_id' : parseInt(QuestionSupLabel.parentElement.getAttribute("id").split("Question")[1]) ,
-            'new_placement' : parseInt(QuestionSupLabel.textContent)
+            'new_placement' : parseInt($(QuestionSupLabel).text())
             }
         )
     })
-    replacementPostObject.placements.pop();
+   replacementPostObject.placements.pop();
 
-    let reorderRes =  await postRequest(reorderQuestionsUrl,replacementPostObject.placements);
+    let reorderRes =  await postRequest(reorderQuestionsUrl,'application/json',replacementPostObject);
 
     console.log(replacementPostObject)
 }

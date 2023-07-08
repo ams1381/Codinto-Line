@@ -1,5 +1,5 @@
 import { detectFileFormat } from "../Question Design Pages/CommonActions.js";
-import { file_event_listener, file_preview_setter } from "./Question Generator/answer_event_listener.js";
+import { file_event_listener } from "./Question Generator/answer_event_listener.js";
 
 export const answer_loader = (QuestionData,Question,answer_set_postData) => {
     answer_set_postData.answers.forEach((answer_object) => {
@@ -86,18 +86,22 @@ const email_answer_loader = (Answer_to_load) => {
 }
 const multiple_answer_loader = (Answer_to_load) => {
     let selected_drop_down_option = document.querySelector(`.multiple_answer_block-option #answer-n${Answer_to_load}`);
+    console.log(Answer_to_load)
     if(selected_drop_down_option)
         selected_drop_down_option.checked = true;
 }
 const file_answer_loader = async (QuestionData,Answer_to_load) => {
     if(Answer_to_load)
     {
-        file_preview_setter(await generateFileSrc(Answer_to_load),detectFileFormat(Answer_to_load.name),
-        document.querySelector(`#Q${QuestionData.question.id} .inputUploader .uploaded_file_image`),
+        // file_preview_setter(await generateFileSrc(Answer_to_load),detectFileFormat(Answer_to_load.name),
+        // document.querySelector(`#Q${QuestionData.question.id} .inputUploader .uploaded_file_image`),
+        // document.querySelector(`#Q${QuestionData.question.id} .uploaded_file_video`) ,
+        // document.querySelector(`#Q${QuestionData.question.id} .inputUploader`)
+        // )
+        console.log(document.querySelector(`#Q${QuestionData.question.id}`))
+        console.log(document.querySelector(`#Q${QuestionData.question.id} .inputUploader .uploaded_file_image`),
         document.querySelector(`#Q${QuestionData.question.id} .uploaded_file_video`) ,
-        document.querySelector(`#Q${QuestionData.question.id} .inputUploader`)
-        )
-        
+        document.querySelector(`#Q${QuestionData.question.id} .inputUploader`))
         // file_input.files[0] = Answer_to_load;
     }
 }
@@ -111,4 +115,30 @@ const  generateFileSrc = (file) =>
       
       reader.readAsDataURL(file);
     });
-  }
+}
+const file_preview_setter = (FileSrc,FileType,preview_image_side,preview_video_side,file_input_container) => {
+    // if(!file_input_container)
+    //     return
+    console.log(preview_image_side)
+    console.log('testsdgsdgasdg')
+    if(file_input_container)
+        file_input_container.classList.add("uploaded");
+
+    switch(FileType)
+    {
+        case 'Picture' :
+            if(file_input_container)
+            {
+                file_input_container.classList.add("image_uploaded"); 
+                file_input_container.classList.remove("video_uploaded");  
+            }
+            preview_image_side.src = FileSrc;  
+            preview_video_side.removeAttribute("src");
+            break;
+        case 'Video':
+            file_input_container.classList.add("video_uploaded");  
+            file_input_container.classList.remove("image_uploaded");  
+            preview_video_side.src = FileSrc;
+            break;         
+    }
+}

@@ -288,6 +288,17 @@ body
         border-radius: 0;
     }
 }
+@media only screen and (max-width : 500px)
+{
+    .ResponePicker
+    {
+        flex-direction: column;
+    }
+    .ResponePicker > div input
+    {
+        margin: 0.5rem auto;
+    }
+}
 @media only screen and (max-width: 992px)
 {
     .AssistiveButton {

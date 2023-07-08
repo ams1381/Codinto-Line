@@ -362,7 +362,8 @@ export const answer_option_remover = (Option_Type,PostData) => {
         $(last_answer_option).hide(80);
         last_answer_option.remove();
         preview_answer_option_remover(Option_Type);
-        PostData.options.pop();
+        if(PostData)
+            PostData.options.pop();
     }
     if(last_option_input.value == 'هیچ کدام')
     {
@@ -699,10 +700,10 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
                     createRes = await patchRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/${Question.id}/`,form_data_convertor(Question));
                     break;
                 case 'Create':
-                    createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`, form_data_convertor(DataForPost));
+                    createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`,'multipart/form-data', form_data_convertor(DataForPost));
                     break;
                 case 'Copy':
-                    createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`, form_data_convertor(DataForPost));
+                    createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`,'multipart/form-data', form_data_convertor(DataForPost));
                     break;
             }
             save_button.classList.remove('saving');

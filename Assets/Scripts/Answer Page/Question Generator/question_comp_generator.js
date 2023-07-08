@@ -148,11 +148,11 @@ export const question_component_generator = (Question) => {
             break;
         case 'optional':
             let option_html = '';
-            Question.options.forEach((option) => {
+            Question.options.forEach((option,index) => {
                 if(option)
                     option_html +=  `<div class="multiple_answer_block-option">
-                            <input type="radio" class="answer_option_input" name="answer__option" id="answer-n${option.id}">
-                            <label class="answer_option-label" for="answer-n${option.id}">${option.text}</label>
+                            <input type="radio" class="answer_option_input" name="answer__option" id="answer-n${index + 1}">
+                            <label class="answer_option-label" for="answer-n${index + 1}">${option.text}</label>
                     </div>`
                 answer_box_html = `
                 <div class="answer_block">

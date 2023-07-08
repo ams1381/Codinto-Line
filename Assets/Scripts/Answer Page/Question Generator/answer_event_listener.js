@@ -77,9 +77,6 @@ export const file_event_listener = (Question) => {
     // 
 }
 export const file_preview_setter = (FileSrc,FileType,preview_image_side,preview_video_side,file_input_container) => {
-    if(!file_input_container)
-        return
-
     file_input_container.classList.add("uploaded");
 
     switch(FileType)

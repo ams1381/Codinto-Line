@@ -15,7 +15,7 @@ const sent_sms_handler = async (e) => {
     
         try
         {
-            let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/',{ 'token' : sms_code });
+            let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/','application/json',{ 'token' : sms_code });
             if(accessToken)
             {
                 localStorage.setItem("ACCESS_TOKEN",accessToken.data.access)

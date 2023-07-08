@@ -4,7 +4,7 @@ export const answer_set_postData = {
     'answers' : []
 }
 export const answer_set_poster = async (questionnaireUUID) =>{
-    console.log(answer_set_postData)
+    console.log([...objectToFormData(answer_set_postData)])
     try 
     {
        return await postRequest(`${baseUrl}/question-api/questionnaires/${questionnaireUUID}/answer-sets/`,answer_set_postData);
@@ -18,6 +18,17 @@ export const answer_set_poster = async (questionnaireUUID) =>{
     }
 
 }
+const objectToFormData = (obj) => {
+    const formData = new FormData();
+  
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        formData.append(key, obj[key]);
+      }
+    }
+  
+    return formData;
+  }
 export const total_answer_set_handler = (Questions) => {
     Questions.forEach((Question) => {
         single_answer_setter(Question,[...Question.classList].indexOf("required") != -1);
