@@ -94,12 +94,11 @@
 {
     position: relative;
     width: 100%;
-    height: 50px;
     border: 2px solid var(--brand-color);
     border-radius: 20px;
     padding: 0;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     margin-top: 20px;
     cursor: pointer;
 }
@@ -149,7 +148,6 @@
 .QuestionLabel
 {
     width: calc(3.9rem + 0.5vw);;
-    height: 100%;
     border-radius: 17px;
     background-color: var(--brand-color);
     color: var(--theme-white);
@@ -161,10 +159,14 @@
 }
 .QuestionitemText
 { 
-    margin-right: 10px;
+    margin: 0 10px 0 10px;
     color: var(--brand-color);
     width: 90%;
     font-size: calc(0.6rem + 0.5vw);
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 0 0.8rem 0;
+    word-break: break-all;
 }
 .QuestionTools
 {

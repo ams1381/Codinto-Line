@@ -1,7 +1,9 @@
-export const answer_loader = (Question,answer_set_postData) => {
+import { detectFileFormat } from "../Question Design Pages/CommonActions.js";
+import { file_event_listener, file_preview_setter } from "./Question Generator/answer_event_listener.js";
 
+export const answer_loader = (QuestionData,Question,answer_set_postData) => {
     answer_set_postData.answers.forEach((answer_object) => {
-        if(answer_object.question == parseInt(Question.getAttribute("id")))
+        if(answer_object.question == parseInt(Question.getAttribute("id").split("Q")[1]))
             {
                 switch([...Question.classList][1])
                 {
@@ -15,7 +17,7 @@ export const answer_loader = (Question,answer_set_postData) => {
                         selective_degree_answer_loader(answer_object.answer.integer_selective);
                         break;
                     case 'file':
-                        file_answer_loader(answer_object.answer.answer);
+                        file_answer_loader(QuestionData,answer_object.file);
                         break;
                     case 'drop_down':
                         drop_down_answer_loader(answer_object.answer.selected_options[0])
@@ -70,6 +72,7 @@ const drop_down_answer_loader = (Answer_to_load) => {
     }
 }
 const number_answer_loader = (Answer_to_load) => {
+    console.log('number question',Answer_to_load)
     let number_answer_input = document.querySelector('#number_answer_input');
     number_answer_input.value = Answer_to_load;
 }
@@ -86,10 +89,26 @@ const multiple_answer_loader = (Answer_to_load) => {
     if(selected_drop_down_option)
         selected_drop_down_option.checked = true;
 }
-const file_answer_loader = (Answer_to_load) => {
-    let file_input = document.querySelector('#uploadInput');
+const file_answer_loader = async (QuestionData,Answer_to_load) => {
     if(Answer_to_load)
     {
-        file_input.files[0] = Answer_to_load;
+        file_preview_setter(await generateFileSrc(Answer_to_load),detectFileFormat(Answer_to_load.name),
+        document.querySelector(`#Q${QuestionData.question.id} .inputUploader .uploaded_file_image`),
+        document.querySelector(`#Q${QuestionData.question.id} .uploaded_file_video`) ,
+        document.querySelector(`#Q${QuestionData.question.id} .inputUploader`)
+        )
+        
+        // file_input.files[0] = Answer_to_load;
     }
 }
+const  generateFileSrc = (file) => 
+{
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+  
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error('Error reading file.'));
+      
+      reader.readAsDataURL(file);
+    });
+  }

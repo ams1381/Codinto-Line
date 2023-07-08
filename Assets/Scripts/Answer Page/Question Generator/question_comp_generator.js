@@ -88,14 +88,25 @@ export const question_component_generator = (Question) => {
             break;
         case 'file':
             answer_box_html = `
-                <div class="Upload__container ">
-                    <div class="upload__box">
-                        <input type="file" id="uploadInput" class="uploadInput"/>
-                        <label for="uploadInput">
-                            <i class="fa fa-upload uploadIcon"></i>
-                        </label>
+            <div class="inputUploader">
+                <div class="image_or_video_box">
+                    <div class="cancel_uploaded_file">
+                        <button class="cancel_uploaded_file_button">
+                            <i class="fa fa-close"></i>
+                        </button>
                     </div>
-                </div>`
+                <div class="uploaded_file_info">
+                    <div class="uploaded_file_avatar">
+                        <img class="uploaded_file_image" alt="">
+                        <video class="uploaded_file_video"></video>
+                    </div>          
+                </div>
+            </div>
+                <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+                    <label for="file" class="upload_file_label">
+                      <i class="fa fa-upload"></i>
+                    </label>
+            </div>`
             break;
         case 'drop_down':
             let drop_down_options_html = '';
@@ -125,13 +136,13 @@ export const question_component_generator = (Question) => {
         case 'number_answer':
             answer_box_html = `
             <div class="textArea__container">
-                    <input type="number" class="action__input" id="number_answer_input">
+                    <input type="number" class="action__input" id="number_answer_input" placeholder = "یک عدد وارد کنید">
                 </div>`
             break;
         case 'link':
             answer_box_html = `
             <div class="textArea__container">
-                <input type="text" class="action__input" id="link_answer_input">
+                <input type="text" class="action__input" id="link_answer_input" placeholder = "wwww.google.com">
             </div>
             `
             break;
@@ -156,7 +167,7 @@ export const question_component_generator = (Question) => {
         case 'email_field':
             answer_box_html = `
             <div class="textArea__container">
-                    <input type="email" class="action__input" id="email_answer_input">
+                    <input type="email" class="action__input" id="email_answer_input" placeholder = "example23@gamil.com">
                 </div>`
             break;
         case 'group':
@@ -187,7 +198,7 @@ export const question_component_generator = (Question) => {
             break;
     }
     
-   return default_question_html = `<div id="${Question.id}" class="QuestionContainer ${Question.question_type} ${Question.is_required ? 'required' : ''}">
+   return default_question_html = `<div id="Q${Question.id}" class="QuestionContainer ${Question.question_type} ${Question.is_required ? 'required' : ''}">
                 <div class="Question-Title">
                     <label>${Question.show_number ? Question.id + ":" : ""}</label>
                     <p>${Question.title} ${Question.is_required ? '*' : ''}</p>

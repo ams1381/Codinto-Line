@@ -105,7 +105,6 @@ export const QuestionDesignOpener = (QuestionType) =>
 export const QuestionItemGenerator = (Question,QuestionOrderNumber) => 
 {   
     let { question_label , question_tools_box } = QuestionLabelSetter(Question.question_type,QuestionOrderNumber);
-
     const question_element_item = `
     <div id="Question${Question.id}" class="Questionitem ${Question.question_type}" style="">
             ${question_label.split(" "[1])}
@@ -133,14 +132,21 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
     remove_eventListener_setter(delete_question_button,Question.question_type,Question.id);
     if(copy_question_button)
         copy_question_button.addEventListener('click',() => {
+            localStorage.removeItem("ACTION-TYPE")
             localStorage.setItem("ACTION-TYPE","Copy")
             QuestionDesignOpener(Question.question_type);
         })
     parsed_question_element_item.addEventListener('click',(e) => {
-        localStorage.setItem("ACTION-TYPE",'Edit');
-        localStorage.setItem("QuestionData",JSON.stringify(Question));
+        console.log(e.target instanceof HTMLStyleElement)
         if(e.target.classList[0] == 'Questionitem' || e.target.classList[0] == 'QuestionLabel' ||
-         e.target instanceof HTMLParagraphElement)
-           QuestionDesignOpener(Question.question_type);
+        e.target.classList[0] == 'QuestionitemText' || isStrongEmUElement(e.target)
+        || e.target instanceof HTMLParagraphElement)
+         {
+            localStorage.setItem("ACTION-TYPE",'Edit');
+            localStorage.setItem("QuestionData",JSON.stringify(Question))
+            QuestionDesignOpener(Question.question_type);
+         }
+           
     })
 }
+const isStrongEmUElement = (element) => ['STRONG', 'EM', 'U'].includes(element.tagName);

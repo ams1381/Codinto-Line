@@ -103,7 +103,8 @@ const ReorderQuestionsPoster = async () => {
     replacementPostObject.placements.pop();
 
     let reorderRes =  await postRequest(reorderQuestionsUrl,replacementPostObject.placements);
-    
+
+    console.log(replacementPostObject)
 }
 mainDrake.on('drop',MainDroppedHandler)
 mainDrake.on('drop',ReorderQuestionsPoster)

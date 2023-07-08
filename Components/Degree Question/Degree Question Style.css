@@ -6,19 +6,6 @@
     box-shadow: 3px 3px 10px var(--folder-shadow-color);
     font-family: IRANSans;
 }
-.Question-Title , .Greeting-Title
-{
-    height: 50px;
-    line-height: 50px;
-    width: 100%;
-}
-.Question-Title
-{
-    color: var(--brand-color);
-    text-align: right;
-    display: flex;
-    justify-content: flex-start;
-}
 .description_block
 {
     padding: 10px;

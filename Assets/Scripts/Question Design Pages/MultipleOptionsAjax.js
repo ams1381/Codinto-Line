@@ -49,8 +49,7 @@ if(ACTION_TYPE == 'Edit')
     question_info_loader(EditableQuestion)
 }
 
-save_question_btn.addEventListener('click', async () => {
-     
+save_question_btn.addEventListener('click', async () => {  
    await question_creator(ACTION_TYPE,EditableQuestion,'optional-questions',QuestionnaireUUID,multiple_option_postData);
 })
 answer_number_selector_inputs.forEach((answer_number_selector_input) => {

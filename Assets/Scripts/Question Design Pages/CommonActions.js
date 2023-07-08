@@ -690,6 +690,7 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
         let createRes;
         console.log(Question)
         console.log([...form_data_convertor(Question)])
+        console.log(ACTION_TYPE)
         try 
         {
             switch(ACTION_TYPE)

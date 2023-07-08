@@ -5,6 +5,8 @@ const show_number_toggle = document.querySelector(".show_number .Switch-Containe
 const required_toggle = document.querySelector('.is_required .Switch-Container input');
 const multiple_answer_toggle = document.querySelector(".multiple_choice .Switch-toggle input");
 const Title_input = document.getElementById("title__input");
+const min_input_number = document.querySelector('#Alphabetmin');
+const max_input_number = document.querySelector('#Alphabetmax');
 const Description_input = document.getElementById("desc_input");
 const rightInput = document.querySelector(".right-Input .label-text-input")
 const vertical_order_toggle = document.querySelector(".is_vertical .Switch-Container input");
@@ -57,6 +59,7 @@ const preview_middle_label = document.querySelector(".range__select_labels .rang
 const answer_options_container = document.querySelector(".Answer-Options");
 
 export const question_info_loader = (Question) => {
+    console.log(Question)
     if(!Question)
         return
     Title_input.textContent = $(new DOMParser().parseFromString(Question.title,'text/html')).text();
@@ -243,6 +246,11 @@ export const question_info_loader = (Question) => {
         Question.answer_template ? sampleAnswerInput.value = Question.answer_template : sampleAnswerInput.value = '';
         minInput.value = Question.min;
         maxInput.value = Question.max;
+    }
+    if(Question.question_type == 'number_answer')
+    {
+        min_input_number.value = Question.min;
+        max_input_number.value = Question.max;
     }
     toggle_loader(Question)
 }

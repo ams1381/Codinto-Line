@@ -1,5 +1,5 @@
 import { postRequest , baseUrl } from "../ajax/ajaxRequsts.js";
-import { showAlert , form_data_convertor } from "../Question Design Pages/CommonActions.js";
+import { showAlert , form_data_convertor , detectFileFormat , file_src_setter } from "../Question Design Pages/CommonActions.js";
 export const answer_set_postData = {
     'answers' : []
 }
@@ -24,7 +24,7 @@ export const total_answer_set_handler = (Questions) => {
     })
 }
 export const single_answer_setter = (Question,required) => {
-    
+
     switch([...Question.classList][1])
     {
             case 'text_answer':
@@ -63,18 +63,12 @@ export const single_answer_setter = (Question,required) => {
     }
 }
 const file_answer_setter = (Question,required) => {
-    let file_input = document.querySelector('#uploadInput');
+    let file_input = document.querySelector('.inputUploader .box__file');
     if(file_input.files.length == 0 && required)
     {
         return 'Error';
-    }
-    else if(file_input.files.length)
-        answer_set_postData.answers.push({
-            "question": parseInt(Question.getAttribute("id")),
-            "answer" : null,
-            "file" : file_input.files[0]
-        })
-}
+    }   
+}    
 const text_answer_setter = (Question,required) => {
     let text_answer_input = document.querySelector('#text_answer_input');
     
@@ -85,7 +79,7 @@ const text_answer_setter = (Question,required) => {
     else
     {
         answer_set_postData.answers.push({
-            "question": parseInt(Question.getAttribute("id")),
+            "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'text_answer' : text_answer_input.value
             }
@@ -102,7 +96,7 @@ const range_answer_setter = (Question,required) => {
    else if(selected_range_item_label)
    {
        answer_set_postData.answers.push({
-        "question": parseInt(Question.getAttribute("id")),
+        "question": parseInt(Question.getAttribute("id").split("Q")[1]),
         "answer" : {
             'integer_range' : parseInt(selected_range_item_label.textContent)
         }
@@ -110,17 +104,21 @@ const range_answer_setter = (Question,required) => {
    }
 }
 const multiple_answer_setter = (Question,required) => {
-    let selected_drop_down_option = document.querySelector('.selection__item.slide_selected label');
-    if(!selected_drop_down_option && required)
-    {;
+    let selected_option;
+    document.querySelectorAll('.multiple_answer_block-option input').forEach((item,index) => {
+        if(item.checked)
+            selected_option = index + 1;
+    })
+    if(!selected_option && required)
+    {
         return 'Error';
     }
-    else if(selected_drop_down_option)
+    else if(selected_option)
     {
         answer_set_postData.answers.push({
-            "question": parseInt(Question.getAttribute("id")),
+            "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
-                'selected_options' : [parseInt(selected_drop_down_option.textContent)]
+                'selected_options' : [selected_option]
             }
         })
     }
@@ -134,7 +132,7 @@ const email_answer_setter = (Question,required) => {
     else
     {
         answer_set_postData.answers.push({
-            "question": parseInt(Question.getAttribute("id")),
+            "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'email_field' : email_answer_input.value
             }
@@ -150,7 +148,7 @@ const link_question_setter = (Question,required) => {
     else if(link_answer_input.value)
     {
         answer_set_postData.answers.push({
-            "question": parseInt(Question.getAttribute("id")),
+            "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'link' : link_answer_input.value
             }
@@ -166,7 +164,7 @@ const number_answer_setter = (Question,required) => {
     else
     {
         answer_set_postData.answers.push({
-            "question": parseInt(Question.getAttribute("id")),
+            "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'number_answer' : number_answer_input.value
             }
@@ -182,7 +180,7 @@ const drop_down_answer_setter = (Question,required) => {
     else if(selected_drop_down_option)
     {
         answer_set_postData.answers.push({
-            "question": parseInt(Question.getAttribute("id")),
+            "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'selected_options' : [parseInt(selected_drop_down_option.textContent)]
             }
@@ -198,7 +196,7 @@ const selective_degree_answer_setter = (Question,required) => {
     else if(selected_degree_option)
     {
         answer_set_postData.answers.push({
-            "question": parseInt(Question.getAttribute("id")),
+            "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'integer_selective' : parseInt(selected_degree_option.getAttribute("id").split('answer-n')[1])
             }

@@ -2,7 +2,7 @@ import { getRequest , baseUrl } from "../ajax/ajaxRequsts.js";
 import { welcome_component_generator } from "./Question Generator/Welcome.js";
 import { question_component_generator } from "./Question Generator/question_comp_generator.js";
 import { showAlert } from "../Question Design Pages/CommonActions.js";
-import { range_item_eventListener_setter } from "../../../Components/questionBox/rangeSelect.js";
+import { answer_input_checker, file_event_listener } from "./Question Generator/answer_event_listener.js";
 import { answer_set_poster , answer_set_postData ,
     total_answer_set_handler , single_answer_setter } from './AnswerSetter.js';
 import { answer_loader } from "./AnswerLoader.js";
@@ -21,7 +21,7 @@ const loader_initializer = async () => {
     if(pub_date_compare > 0 || end_date_compare < 0)
     {
         showAlert("این پرسشنامه غیر فعال میباشد.");
-        is_active = false;
+        //is_active = false;
     }
     if(questionnaire.welcome_page)
     {
@@ -48,32 +48,37 @@ const loader_initializer = async () => {
                         </button>
                     </div>
                 </div>
-            `
-            questionnaire_controller_loader(question_controller_container);
-            let send_answers_button = document.querySelector(".FormFooter .send_answers");
-            send_answers_button.addEventListener('click',async () => {
-                if(is_active)
-                {
-                    showAlert("این پرسشنامه غیر فعال میباشد")
-                    return;
-                }
-                else
-                {
-                    total_answer_set_handler(document.querySelectorAll(".QuestionContainer"));
-                    try
+                    `;
+                // file_event_listener()
+                questionnaire_controller_loader(question_controller_container);
+                
+                let send_answers_button = document.querySelector(".FormFooter .send_answers");
+                
+                send_answers_button.addEventListener('click',async () => {
+                    if(!is_active)
                     {
-                        await answer_set_poster(questionnaire_for_preview.uuid)
+                        showAlert("این پرسشنامه غیر فعال میباشد")
+                        // return;
                     }
-                    catch(Err)
+                    else
                     {
-                        console.log(Err)
+                        console.log('test')
+                        total_answer_set_handler(document.querySelectorAll(".QuestionContainer"));
+                        try
+                        {
+                            await answer_set_poster(questionnaire_for_preview.uuid)
+                        }
+                        catch(Err)
+                        {
+                            console.log(Err)
+                        }
                     }
-                }
-                    
-            })
+                        
+                })
             } 
         }
             else
+            
                 question_controller(questionnaire,questionnaire.questions,0,questionnaire.progress_bar)
             
         })
@@ -102,8 +107,7 @@ const thank_loader = (thank) =>
     answer_page_container.append(parsed_welcome_component);
 }
 const question_loader = (Question) => {
-    console.log(Question)
-
+           
             let parser = new DOMParser();
             let parsed_question_component =  parser.parseFromString(question_component_generator(Question.question),'text/html').firstChild.lastChild.firstChild;
             $(parsed_question_component).hide()
@@ -115,7 +119,7 @@ const question_loader = (Question) => {
             }
             if(Question.question.question_type == 'integer_range')
                  range_item_eventListener_setter(document.querySelectorAll(".range__number"));
-       
+            answer_input_checker(Question.question)
 }
 const question_controller = (questionnaire,Questions,CurrState,progress_bar) => {
     if(progress_bar)
@@ -175,7 +179,8 @@ const question_controller = (questionnaire,Questions,CurrState,progress_bar) => 
         {
             let curQuestion = document.querySelector(".QuestionContainer");
             if(CurrState !== Questions.length - 1)
-            answer_loader(curQuestion,answer_set_postData);
+            answer_loader(Questions[CurrState],curQuestion,answer_set_postData);
+            answer_input_checker(curQuestion);
         }   
     })
     if(prev_question_button)
@@ -211,7 +216,7 @@ const prev_question_handler = (questionnaire,Questions,CurrState,progress_bar) =
     {
         question_controller(questionnaire,Questions,CurrState - 1,progress_bar);
         let curQuestion = document.querySelector(".QuestionContainer");
-        answer_loader(curQuestion,answer_set_postData);
+        answer_loader(Questions[CurrState],curQuestion,answer_set_postData);
     }
         
 }
@@ -269,6 +274,21 @@ const current_date_getter = () => {
 const form_date_convertor_to_Gregorian = (Date) => {
     let GregorianDate = farvardin.solarToGregorian(parseInt(Date.split("/")[0]) , parseInt(Date.split("/")[1]) , parseInt(Date.split("/")[2]));
     return (GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2]);
+}
+const range_item_eventListener_setter = (range_select_options) => {
+    range_select_options.forEach((range_select_option) => {
+        range_select_option.addEventListener('click', () => {
+            setActive_range_item(range_select_option,range_select_options)
+        })
+    });
+    const setActive_range_item = (slide_option,slide_options) => {
+        if(slide_option.classList.contains("range__active"))
+            return;
+            range_select_options.forEach((item) => {
+            item.classList.remove('range__active');
+        })
+        slide_option.classList.add("range__active")
+    }
 }
 const compareDates = (date1, date2) => new Date(date1) - new Date(date2);
 await loader_initializer()

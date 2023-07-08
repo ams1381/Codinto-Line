@@ -47,6 +47,8 @@ const preview_button_text_handler = (ButtonText) => {
     group_question_postData.button_text = ButtonText;
     if(EditableQuestion)
         EditableQuestion.button_text = ButtonText;
+    else
+        group_question_postData.button_text = ButtonText;
 }
 button_text_input.addEventListener('input',(e) => {
     preview_button_text_handler(e.target.value)
@@ -90,7 +92,6 @@ file_input.addEventListener('input',() => {
             selected_file_type = item.getAttribute("id")
     })
     if(file_input.files)
- 
         group_question_postData .media= file_input.files[0];
     file_upload_handler(selected_file_type,file_input,EditableQuestion,group_question_postData);
 })
