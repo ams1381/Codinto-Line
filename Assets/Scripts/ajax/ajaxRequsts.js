@@ -1,5 +1,5 @@
 import { showAlert } from "../Question Design Pages/CommonActions.js";
-let baseUrl = 'http://codinto-line.codinguy.ir';
+let baseUrl = 'https://codinto-line.codinguy.ir';
 var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE2NDg1NTk5LCJqdGkiOiJhNDZlZGMzOTg3MTE0ZDc0OTYzMDI2MWY2MTMxMzZlMSIsInVzZXJfaWQiOjF9.S4jJOFS7nMjhwb5q4fssHslS1H7W--a5ktAOZTikjzI";
 let accessToken;
 const cookies_reader = (cname) => 
@@ -35,9 +35,7 @@ export const cookie_setter = (name, value, expirationDays, path, domain) => {
 }
 const getRequest = async (url) => 
   {
-    console.log(localStorage.getItem("ACCESS_TOKEN"))
     accessToken = localStorage.getItem("ACCESS_TOKEN");
-    console.log(cookies_reader('access'))
     try {
       const response = await axios.get(url, {
         headers: {
@@ -52,7 +50,6 @@ const getRequest = async (url) =>
     }
 };
 const patchRequest = async (url, patchData) => {
-  console.log(cookies_reader('access'))
   accessToken = localStorage.getItem("ACCESS_TOKEN");
     try {
       const response = await axios.patch(url, patchData, {
@@ -68,7 +65,6 @@ const patchRequest = async (url, patchData) => {
     }
 };  
 const postRequest = async (url,content_type, postData) => {
-  console.log(cookies_reader('access'))
   if(accessToken)
     token = accessToken;
   else if(localStorage.getItem("ACCESS_TOKEN"))
@@ -91,6 +87,7 @@ const postRequest = async (url,content_type, postData) => {
     catch (error) 
     {
        await errorHandler(error.response,error.status,error,url)
+       throw error;
     }
 }; 
 const deleteRequest = async (url) => {
@@ -138,17 +135,27 @@ async function errorHandler(errorRes,errorCode,error,url)
 }
 function er400handler(error) 
 {
-  //TODO for in list of errors 
-  console.log(error.data)
-    Object.keys(error.data).forEach((item) => {
-      const errorElements = document.querySelectorAll(`[data-title="${item}"]`)
+  if(Array.isArray(error.data))
+        error.data.forEach((item) => {
+          if(item.answer)
+            item.answer.forEach((answer_error) => {
+              showAlert(item.answer)
+            })
+            
+        })
+      else
+      {
+        Object.keys(error.data).forEach((item) => {
+          const errorElements = document.querySelectorAll(`[data-title="${item}"]`)
+          
+          errorElements.forEach((errorElement) => {
+            errorElement.classList.add('error');
+            errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
+          })      
+          showAlert(error.data[`${item}`][0]);
+        })
+      }
       
-      errorElements.forEach((errorElement) => {
-        errorElement.classList.add('error');
-        errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
-      })      
-      showAlert(error.data[`${item}`][0]);
-    })
 }
 async function er401handler(error,url) 
 {

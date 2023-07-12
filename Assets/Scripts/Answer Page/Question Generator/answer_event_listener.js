@@ -6,7 +6,6 @@ export const answer_input_checker = (Question) => {
     switch(Question.question_type)
     {
         case 'text_answer':
-            // text_answer_loader(answer_object.answer.text_answer);
             text_input_eventListener(Question);
             break;
         case 'integer_range':
@@ -38,26 +37,36 @@ export const answer_input_checker = (Question) => {
     // case 'group':
     //     return window.open("/Pages/groupQuestion.html","_Self");
     //     break;
-    // case 'Sort':
-    //     return window.open("/Pages/Priority.html","_Self");
-    //     break;
+        case 'sort':
+            sort_input_eventListener(Question)
+            break;
     }
+}
+const sort_input_eventListener = (Question) => {
+    const preview_answer_options_container = document.querySelectorAll(`#Q${Question.id} .multiple_answer_block-options.nested`);
+    const answer_options_drag = dragula(
+        [...preview_answer_options_container], {
+        direction : 'vertical',
+        slideFactorX : 0,
+        }
+    )
 }
 const number_input_eventListener = (Question) => {
     let number_answer_input = document.querySelector('#number_answer_input');
-    number_answer_input.addEventListener('input',() => {
-        console.log('input test')
-        if(Question.max && parseInt(number_answer_input.value) > Question.max)
-        {
-            showAlert(`حداکثر عدد ${Question.max} است`)
-            return 'Error'
-        }
-        if(Question.min && parseInt(number_answer_input.value) < Question.min)
-        {
-            showAlert(`حداقل عدد ${Question.min} است`)
-            return 'Error'
-        }
-      })
+    if(number_answer_input)
+        number_answer_input.addEventListener('input',() => {
+            console.log('input test')
+            if(Question.max && parseInt(number_answer_input.value) > Question.max)
+            {
+                showAlert(`حداکثر عدد ${Question.max} است`)
+                return 'Error'
+            }
+            if(Question.min && parseInt(number_answer_input.value) < Question.min)
+            {
+                showAlert(`حداقل عدد ${Question.min} است`)
+                return 'Error'
+            }
+        })
 }
 const text_input_eventListener = (Question) => {
     let text_answer_input = document.querySelector('#text_answer_input');
@@ -159,7 +168,7 @@ export const file_preview_setter = (FileSrc,FileType,preview_image_side,preview_
     }
 }
 const multiple_answer_eventListener = (Question) => {
-   let answer_options = document.querySelectorAll('.multiple_answer_block-option label');
+   let answer_options = document.querySelectorAll(`#Q${Question.id} .multiple_answer_block-option label`);
    answer_options.forEach((answer_option) => {
     answer_option.addEventListener('click',() =>{
         console.log(answer_option.textContent)

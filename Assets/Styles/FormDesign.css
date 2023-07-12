@@ -74,12 +74,15 @@
     width: 70%;
     margin: 60px auto 0 auto;
     height: 650px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 .QuestionsBox.emptyActive
 {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center !important;
     justify-content: center;
     color: #c6c8d8;
     border-radius: 10px;
@@ -90,7 +93,7 @@
     margin-bottom: 2rem;
     font-size: 6.5rem;
 }
-.QuestionsBox .Questionitem , .Question-Nested-item 
+.QuestionsBox .Questionitem
 {
     position: relative;
     width: 100%;
@@ -101,6 +104,17 @@
     align-items: stretch;
     margin-top: 20px;
     cursor: pointer;
+}
+
+.Question-Nested-items
+{
+    width: 91% !important;
+    border: none !important;
+    margin-top: 0 !important;
+}
+.Question-Nested-items .nested
+{
+    padding: 1rem;
 }
 .Questionitem.is_dragging 
 {
@@ -114,10 +128,6 @@
 {
     font-size: calc(0.9rem + 0.5vw);
     margin-top: 10px;
-}
-.Questionitem:hover , .Question-Nested-item:hover 
-{
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.105);
 }
 .QuestionDesignItem:hover 
 {
@@ -201,6 +211,7 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
+    width: 100%;
 }
 .Question-Nested-items
 {
@@ -298,6 +309,14 @@
     color: var(--brand-color);
     background: none;
 } 
+.Questionitem.group.group_question_hover + .group_container_div
+{
+    width: 80%;
+    height: 3px;
+    background-color: var(--text-editor-default-text-color);
+    margin: 0.5rem 0 0.2rem 0.4rem;
+    border-radius: 2px;
+}
 @media only screen and (max-width : 992px)
 {
     .block__section main .QuestionsBox {

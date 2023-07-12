@@ -719,11 +719,11 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
             }
             save_button.classList.remove('saving');
         console.log(createRes.data)
-        // if((createRes.status == 201 || createRes.status == 200))
-        //     {
-        //         window.open("/Pages/FormDesign.html","_Self");
+        if((createRes.status == 201 || createRes.status == 200))
+            {
+                window.open("/Pages/FormDesign.html","_Self");
                 
-        //     }
+            }
         }
         catch(err)
         {

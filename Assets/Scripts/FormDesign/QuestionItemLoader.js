@@ -1,4 +1,5 @@
 import { remove_eventListener_setter } from "./QuestionItemRemover.js";
+import { drag_drop_setter } from "../DraggableItems.js";
 const QuestionsBoxContainer = document.querySelector(".QuestionsBox");
 const QuestionLabelSetter = (Question_Type,Question_Number) => 
 {
@@ -104,20 +105,52 @@ export const QuestionDesignOpener = (QuestionType) =>
 }
 export const QuestionItemGenerator = (Question,QuestionOrderNumber) => 
 {   
+    if(Array.isArray(Question))
+        return
     let { question_label , question_tools_box } = QuestionLabelSetter(Question.question_type,QuestionOrderNumber);
-    const question_element_item = `
-    <div id="Question${Question.id}" class="Questionitem ${Question.question_type}" style="">
-            ${question_label.split(" "[1])}
-        <div class="QuestionitemText">
-            <p>${Question.title}</p>
-        </div>
-        <div class="QuestionTools">
-            ${question_tools_box}
-        </div>
-    </div>`
+    let sub_questions = '';
+    if(Question.child_questions)
+        Question.child_questions.forEach((item,index) => {
+            sub_questions += question_sub_itemGenerator(item.question,question_label,question_tools_box,`${Question.placement}-${index + 1}`)
+        })
+    let question_element_item = '';
+    if(Question.question_type == 'group')
+    {
+        question_element_item = `
+        <div   class="Question-Nested nested-container ${Question.question_type}" >
+            <div id="Question${Question.id}" class="Questionitem ${Question.question_type}">
+                        ${question_label.split(" "[1])}
+                    <div class="QuestionitemText">
+                        <p>${Question.title}</p>
+                    </div>
+                    <div class="QuestionTools">
+                        ${question_tools_box}
+                    </div>
+                </div>
+           <div class="Questionitem Question-Nested-items">
+            <div class="nested">
+                ${sub_questions}
+            </div>
+           </div>
+        </div> `
+        
+    }
+    else
+        question_element_item = `
+        <div id="Question${Question.id}" class="Questionitem ${Question.question_type} ${Question.question_type == 'group' ? 'nested' : ''}" style="">
+                ${question_label.split(" "[1])}
+            <div class="QuestionitemText">
+                <p>${Question.title}</p>
+            </div>
+            <div class="QuestionTools">
+                ${question_tools_box}
+            </div>
+            ${Question.question_type == 'group' ? '<div class="nested_question nested"></div>' : ''}
+        </div>`
+        
     const parser = new DOMParser();
-    const parsed_question_element_item = parser.parseFromString((question_element_item),'text/html').firstChild.lastChild.lastChild;
-    
+    const parsed_question_element_item = parser.parseFromString((question_element_item),'text/html').firstChild.lastChild.firstChild;
+   
     $(question_element_item).hide(0);
     let thank_page_item = document.querySelector(".QuestionsBox .thank-page");
     if(thank_page_item)
@@ -148,5 +181,54 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
          }
            
     })
+    // dragula([].slice.apply(document.querySelectorAll('.nested'))
+    // 
+}
+const question_sub_itemGenerator = (Question,question_label,question_tools_box,question_number) => {
+    // $(question_label).text() = 2;
+    let parsed_question_number =  new DOMParser().parseFromString(question_label,'text/html').firstChild.lastChild.firstChild;
+    parsed_question_number.textContent = question_number;
+    parsed_question_number.className = 'QuestionLabel sub-label'
+    console.log(parsed_question_number)
+    // Question.child_questions.forEach((item,index) => {
+    //     console.log(item)
+    //  //   question_sub_itemGenerator(item.question.question)
+    // })
+    if(Question.question_type == 'group')
+    {
+         return `
+        <div   class="Question-Nested nested-container ${Question.question_type}" >
+            <div id="Question${Question.id}" class="Questionitem ${Question.question_type}">
+                        ${parsed_question_number.outerHTML}
+                    <div class="QuestionitemText">
+                        <p>${Question.title}</p>
+                    </div>
+                    <div class="QuestionTools">
+                        ${question_tools_box}
+                    </div>
+                </div>
+           <div class="Questionitem Question-Nested-items">
+            <div class="nested">
+                
+            </div>
+           </div>
+        </div> `
+        
+    }
+    else
+    {
+
+        return ` 
+        <div id="Question${Question.id}" class="Questionitem ${Question.question_type} ${Question.question_type == 'group' ? 'nested' : ''}" style="">
+        ${parsed_question_number.outerHTML}
+        <div class="QuestionitemText">
+            <p>${Question.title}</p>
+        </div>
+        <div class="QuestionTools">
+            ${question_tools_box}
+        </div>
+    </div>`
+    }
+    
 }
 const isStrongEmUElement = (element) => ['STRONG', 'EM', 'U'].includes(element.tagName);

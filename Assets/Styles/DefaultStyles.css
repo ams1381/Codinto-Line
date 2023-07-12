@@ -140,7 +140,7 @@ html
 {
     color: var(--brand-color);
 }
-.viewFormQuestions {
+.viewFormQuestions , .shareQuestionnaire{
     margin-left: 15px;
 }
 .viewFormQuestions  i , .back__button i

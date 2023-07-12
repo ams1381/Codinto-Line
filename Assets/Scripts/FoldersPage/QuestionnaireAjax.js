@@ -11,7 +11,7 @@ export const questionnaire_generator = (Questionnaire) => {
         <div class="form_edit">
             <button class="form_delete">حذف</button>
             <button class="form_preview">پیش نمایش</button>
-            <button class="form_setting_edit">ویرایش</button>
+            <button class="form_setting_edit">تنظیمات</button>
             <button class="form_show_answer">مشاهده نتایج</button>
             <button class="form_edit_cancel">
                 <i class="close_icon">

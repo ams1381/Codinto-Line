@@ -1,6 +1,7 @@
 const link_to_copy = document.querySelector(".link_label_text");
 const copy_button = document.querySelector(".link_label .copy_button");
-const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const QuestionnaireUUID = JSON.parse(localStorage.getItem("questionnaire_for_share")).uuid;
+
 
 const copy_link_handler = () => {
     navigator.clipboard.writeText(link_to_copy.textContent);

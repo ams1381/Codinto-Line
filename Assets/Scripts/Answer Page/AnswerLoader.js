@@ -2,6 +2,7 @@ import { detectFileFormat } from "../Question Design Pages/CommonActions.js";
 import { file_event_listener } from "./Question Generator/answer_event_listener.js";
 
 export const answer_loader = (QuestionData,Question,answer_set_postData) => {
+    console.log(answer_set_postData)
     answer_set_postData.answers.forEach((answer_object) => {
         if(answer_object.question == parseInt(Question.getAttribute("id").split("Q")[1]))
             {
@@ -26,6 +27,7 @@ export const answer_loader = (QuestionData,Question,answer_set_postData) => {
                         number_answer_loader(answer_object.answer.number_answer);
                         break;
                     case 'link':
+                        
                         link_question_loader(answer_object.answer.link);
                         break;
                     case 'optional':

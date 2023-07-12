@@ -5,6 +5,7 @@ import { QuestionItemGenerator } from "./QuestionItemLoader.js";
 import DeleteQuestionItemHandler from "./QuestionItemRemover.js";
 import { QuestionDesignOpener } from "./QuestionItemLoader.js";
 import { showAlert } from "../Question Design Pages/CommonActions.js";
+import { drag_drop_setter } from "../DraggableItems.js";
 
 const SelectedQuestionnaire = JSON.parse(localStorage.getItem("SelectedQuestionnaire"));
 const getQuestionsUrl = baseUrl + '/question-api/questionnaires/';
@@ -20,6 +21,7 @@ const remove_folder_confirm_btn = document.querySelector(".removeFolderPopUp .co
 const remove_folder_popup = document.querySelector(".removeFolderPopUp");
 const folder_cancel_button = document.querySelectorAll(".cancel-button");
 const questionnaire_preview_button = document.querySelector('.viewFormQuestions');
+const questionnaire_share_button = document.querySelector('.shareQuestionnaire');
 const AssistiveButtons = document.querySelectorAll('.AssistiveButton .AssistiveItems button');
 console.log(SelectedQuestionnaire)
 QuestionnaireName.textContent = SelectedQuestionnaire.name;
@@ -32,7 +34,6 @@ export const QuestionItemCleaner = () => {
     })
 }
 export const QuestionItemSetter = async () => {
-    console.log( SelectedQuestionnaire.uuid)
         let QuestionsResponse = await getRequest(getQuestionsUrl + SelectedQuestionnaire.uuid + '/');
         if(QuestionsResponse)
         {
@@ -53,8 +54,8 @@ export const QuestionItemSetter = async () => {
             {
                 QuestionsResponse.questions.forEach((Question) => {
                     QuestionItemGenerator(Question.question,Question.question.placement);
-    
                 })
+                drag_drop_setter(document.querySelectorAll('.nested'));
             }
             else if(QuestionsResponse.questions.length === 0 && !QuestionsResponse.welcome_page &&
                 !QuestionsResponse.thanks_page
@@ -143,4 +144,9 @@ close_side_panel_button.addEventListener('click',() => {
 questionnaire_preview_button.addEventListener('click',() => {
     window.open("/Pages/AnswerPage.html");
     localStorage.setItem("questionnaire_for_preview",JSON.stringify(SelectedQuestionnaire));
+})
+questionnaire_share_button.addEventListener('click',() => {
+    localStorage.removeItem('questionnaire_for_share');
+    window.open("/Pages/Share.html");
+    localStorage.setItem("questionnaire_for_share",JSON.stringify(SelectedQuestionnaire));
 })

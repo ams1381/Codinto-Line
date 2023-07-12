@@ -1,4 +1,8 @@
 @import url('Dragula.css');
+body 
+{
+    background: var(--theme-Page-Graybg);
+}
 .answer_page_container {
     width: 80%;
     margin: 1.3rem auto 1rem auto;
@@ -20,10 +24,19 @@
 {
     margin: 1.2rem auto;
     font-family: IRANSans;
+    width: 50%;
+}
+.QuestionContainer .QuestionContainer 
+{
+    width: 85%;
 }
 .QuestionContainer:not
 {
     padding: 1rem;
+}
+.Question-Title, .Greeting-Title
+{
+    width: auto;
 }
 .answer_page_progressBar
 {
@@ -61,6 +74,30 @@
 .upload__box
 {
     pointer-events: all;
+}
+.action__input{
+    background-color: transparent;
+    border: 1px solid var(--brand-color);
+    height: 30px;
+    outline: none;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    color: var(--brand-color);
+    font-size: 15px;
+    font-weight: 400;
+    font-family: IRANSans;
+    border-radius: 25px;
+    padding: 0.6rem; 
+    border: 1px solid var(--brand-color);
+    transition: 0.4s;
+    width: 100%;
+}
+.textArea__container, .number_answer_box_container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 0.1rem;
+    width: 90%;
+    margin: 0.8rem auto 0 auto;
 }
 @media only screen and (max-width : 900px)
 {

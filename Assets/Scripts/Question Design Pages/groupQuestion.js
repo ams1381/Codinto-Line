@@ -15,10 +15,10 @@ const button_text_input = document.querySelector('.GEntryButton .ButtonTextInput
 const button_shape_items = document.querySelectorAll(".ShapeOptions label")
 const saveBtn = document.querySelector(".saveQuestion")
 const file_input = document.querySelector("#file.box__file");
-const necessaryQuestion = document.querySelector(".AnswerNecessity .Switch-toggle .slider-button")
+const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .slider-button")
 const preview_button = document.querySelector(".QuestionStart .QuestionStartButton")
 const preview_button_text= document.querySelector(".QuestionStart .QuestionStartButton p")
-const QuestionNumber = document.querySelector(".QuestionNumber .Switch-toggle .slider-button")
+const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button")
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
 
@@ -79,12 +79,10 @@ saveBtn.addEventListener("click" , async function (event){
         await question_creator(ACTION_TYPE,null,'question-groups',QuestionnaireUUID,group_question_postData);
 })
 necessaryQuestion.addEventListener('click',() => {
-  
-toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,group_question_postData);
+    toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,group_question_postData);
 })
 QuestionNumber.addEventListener('click',() => {
-  
-toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,group_question_postData);
+    toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,group_question_postData);
 })
 file_input.addEventListener('input',() => {
     let selected_file_type;

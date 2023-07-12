@@ -156,7 +156,6 @@ export const question_info_loader = (Question) => {
         preview_button.classList.add('empty',Question.button_shape)
        }
     }
-
     if(Question.max_label)
         preview_right_label.textContent = Question.max_label;
     if(Question.mid_label)
@@ -256,6 +255,10 @@ export const question_info_loader = (Question) => {
     {
         min_input_number.value = Question.min;
         max_input_number.value = Question.max;
+    }
+    if(Question.question_type == 'sort')
+    {
+        optional_question_info_loader(Question.options,Question);
     }
     toggle_loader(Question)
 }
@@ -434,7 +437,6 @@ const side_answer_option_generator = (OptionNumber,OptionText,Option_Type,Questi
         new DOMParser().parseFromString(side_option_html,'text/html').firstChild.lastChild.firstChild
     ) 
     answer_option_eventListener_setter(OptionNumber,Option_Type,Question)
-    // console.log(OptionNumber,Option_Type)
 }
 const text_style_load_handler = (Question,text_to_load,style_tag,style_container_class,style,input,main_container_class) => {
     if(Question[`${text_to_load}`].search(`${style_tag}`) != -1)

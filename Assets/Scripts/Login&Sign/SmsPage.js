@@ -3,7 +3,7 @@ import { showAlert } from '../Question Design Pages/CommonActions.js'
 
 const login_sms_confirm_button = document.getElementById('sms_confirm_button');
 const sms_inputs = document.querySelectorAll(".SMS_SignUp_LContainer__inputs input");
-
+sms_inputs[sms_inputs.length - 1].focus();
 const sent_sms_handler = async (e) => {
     login_sms_confirm_button.classList.add("loading");
     e.preventDefault();
@@ -34,7 +34,7 @@ const sent_sms_handler = async (e) => {
 }
 sms_inputs.forEach((sms_input,index) => 
 {
-    sms_input.addEventListener("input", function() {
+    sms_input.addEventListener("input", async function(e) {
         this.value = this.value.replace(/\D/g, "");
 
         if (this.value.length > 1) {
@@ -42,6 +42,10 @@ sms_inputs.forEach((sms_input,index) =>
         }
         if(sms_inputs[index - 1])
             sms_inputs[index - 1].focus();
+        if(sms_inputs[0] == sms_input)
+        {
+            await sent_sms_handler(e)
+        }
       });
 })
 login_sms_confirm_button.addEventListener('click',async (e) => {

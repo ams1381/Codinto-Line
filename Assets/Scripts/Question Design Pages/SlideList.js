@@ -44,7 +44,6 @@ if(ACTION_TYPE == 'Edit')
 }
 
 save_question_btn.addEventListener('click',async () => {
-     console.log('asfasfasf')
     if(ACTION_TYPE == 'Edit')
         await question_creator(ACTION_TYPE,EditableQuestion,'dropdown-questions',QuestionnaireUUID,slider_option_postData)
     else

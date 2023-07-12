@@ -3,7 +3,9 @@ import { baseUrl } from "../../ajax/ajaxRequsts.js";
 
 
 export const question_component_generator = (Question) => {
-    console.log(Question)
+    if(Array.isArray(Question))
+        return null;
+
     let media_src;
     if(Question.media)
          media_src =  Question.media;
@@ -181,6 +183,10 @@ export const question_component_generator = (Question) => {
                     <p> ${Question.button_text} </p>
                 </button>
              </div>
+             ${Question.child_questions.map((item) => {
+                // console.log(question_component_generator(item.question))
+                return question_component_generator(item.question)
+             })}
             `
             break;
         case 'sort':
@@ -218,7 +224,7 @@ export const question_component_generator = (Question) => {
     
    return default_question_html = `<div id="Q${Question.id}" class="QuestionContainer ${Question.question_type} ${Question.is_required ? 'required' : ''}">
                 <div class="Question-Title">
-                    <label>${Question.show_number ? Question.id + ":" : ""}</label>
+                    <label>${!Question.show_number ? Question.placement : ""}</label> ${!Question.show_number  ? ':' : ''}
                     <p>${Question.title} ${Question.is_required ? '*' : ''}</p>
                 </div>
                 <div class="description_block">

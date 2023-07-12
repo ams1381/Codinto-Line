@@ -1,13 +1,11 @@
 .container{
     width: 80%;
-    height: auto;
+    height: 70%;
+    overflow: scroll;
     display: flex;
+    margin: 3.5rem auto;
     flex-direction: column;
     justify-content: center;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
 }
 .resultTable {
 
@@ -26,9 +24,8 @@
 .resultTable tbody td {
     overflow: hidden;
     font-size: 0.8rem;
-    padding: 0.45rem 0 0.45rem 0;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    padding: 0.45rem 0.2rem 0.45rem 0.2rem;
+    word-break: break-all;
 }
 .resultTable #result_table_body tr:nth-child(even) {
     background: #EFEFEF;
@@ -118,7 +115,7 @@
   .resultTable tbody td {
     display: flex;
     font-size: .8em;
-    flex-direction: row-reverse;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     text-align: right;
@@ -128,10 +125,11 @@
   .resultTable tbody td::before {
     content: attr(data-label);
     float: left;
-    font-weight: bold;
     color: white;
     border-radius: 5px;
     padding: 10px;
+    width: 45%;
+    word-break: break-word;
     background: var(--brand-color);
     text-transform: uppercase;
   }

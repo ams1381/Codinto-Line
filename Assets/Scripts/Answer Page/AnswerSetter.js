@@ -5,7 +5,6 @@ export const answer_set_postData = {
 }
 export const answer_set_poster = async (questionnaireUUID) =>{
     let request_header = 'application/json';
-    console.log([...objectToFormData(answer_set_postData)])
     try 
     {
         answer_set_postData.answers.forEach((item) => {
@@ -23,6 +22,10 @@ export const answer_set_poster = async (questionnaireUUID) =>{
     }
 
 }
+const single_answer_poster = async (questionnaireUUID,AnswerSetID,DataToPost) => {
+    console.log(DataToPost)
+    return postRequest(`${baseUrl}/question-api/questionnaires/${questionnaireUUID}/answer-sets/${AnswerSetID}/add-answer/`,'application/json',DataToPost);
+}
 const objectToFormData = (obj) => {
     const formData = new FormData();
   
@@ -37,57 +40,55 @@ const objectToFormData = (obj) => {
     return formData;
   }
 
-export const total_answer_set_handler = (QuestionsData,Questions) => {
+export const total_answer_set_handler = (Questionnaire,AnswerSetID,Questions) => {
     Questions.forEach((Question,index) => {
-        single_answer_setter(QuestionsData[index],Question,[...Question.classList].indexOf("required") != -1);
+        single_answer_setter(Questionnaire.uuid,AnswerSetID,Questionnaire.questions[index],Question);
+       
     })
 }
-export const single_answer_setter = (QuestionData,Question,required) => {
-    switch([...Question.classList][1])
+export const single_answer_setter = (Questionnaireuuid,AnswerSetID,Question,QuestionHTML) => {
+    switch([...QuestionHTML.classList][1])
     {
             case 'text_answer':
-                return text_answer_setter(Question,required);
+                return text_answer_setter(Questionnaireuuid,AnswerSetID,QuestionHTML,Question.is_required);
                 break;
             case 'integer_range':
-                return range_answer_setter(Question,required);
+                return range_answer_setter(Questionnaireuuid,AnswerSetID,QuestionHTML,Question.is_required);
                 break;
             case 'integer_selective':
-                return selective_degree_answer_setter(Question,required);
+                return selective_degree_answer_setter(Questionnaireuuid,AnswerSetID,QuestionHTML,Question.is_required);
                 break;
             case 'file':
-                return file_answer_setter(Question,required);
+                return file_answer_setter(Questionnaireuuid,AnswerSetID,QuestionHTML,Question.is_required);
                 break;
             case 'drop_down':
-                return drop_down_answer_setter(Question,required);
+                return drop_down_answer_setter(Questionnaireuuid,AnswerSetID,QuestionHTML,Question.is_required);
                 break;
             case 'number_answer':
-                return number_answer_setter(QuestionData,Question,required);
+                return number_answer_setter(Questionnaireuuid,AnswerSetID,QuestionHTML,Question.is_required);
                 break;
             case 'link':
-                return link_question_setter(Question,required);
+                return link_question_setter(Questionnaireuuid,AnswerSetID,QuestionHTML,Question.is_required);
                 break;
             case 'optional':
-                return multiple_answer_setter(Question,required);
+                return multiple_answer_setter(Questionnaireuuid,AnswerSetID,QuestionHTML,Question.is_required);
                 break;
             case 'email_field':
-                return email_answer_setter(Question,required);
+                return email_answer_setter(Questionnaireuuid,AnswerSetID,QuestionHTML,Question.is_required);
                 break;
-            // case 'group':
-            //     return window.open("/Pages/groupQuestion.html","_Self");
-            //     break;
-            // case 'Sort':
-            //     return window.open("/Pages/Priority.html","_Self");
-            //     break;
+            case 'sort':
+                return sort_answer_setter(Questionnaireuuid,AnswerSetID,QuestionHTML,Question.is_required);
+                break;
     }
 }
-const file_answer_setter = (Question,required) => {
+const file_answer_setter = (Questionnaireuuid,AnswerSetID,Question,required) => {
     let file_input = document.querySelector('.inputUploader .box__file');
     if(file_input.files.length == 0 && required)
     {
         return 'Error';
     }   
 }    
-const text_answer_setter = (Question,required) => {
+const text_answer_setter = (Questionnaireuuid,AnswerSetID,Question,required) => {
     let text_answer_input = document.querySelector('#text_answer_input');
     
     if(text_answer_input.value.split("").length == 0 && required)
@@ -95,16 +96,19 @@ const text_answer_setter = (Question,required) => {
         return 'Error';
     }
     else
-    {
-        answer_set_postData.answers.push({
+    { 
+        let answer_object = [
+        {
             "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'text_answer' : text_answer_input.value
             }
-        })
+        }
+        ]
+        single_answer_poster(Questionnaireuuid,AnswerSetID,answer_object)
     }
 }
-const range_answer_setter = (Question,required) => {
+const range_answer_setter = (Questionnaireuuid,AnswerSetID,Question,required) => {
     
     let selected_range_item_label = document.querySelector(".range__number.range__active label");
     if(!selected_range_item_label && required)
@@ -113,36 +117,43 @@ const range_answer_setter = (Question,required) => {
     }
    else if(selected_range_item_label)
    {
-       answer_set_postData.answers.push({
+       let answer_object = [
+       {
         "question": parseInt(Question.getAttribute("id").split("Q")[1]),
         "answer" : {
             'integer_range' : parseInt(selected_range_item_label.textContent)
-        }
-    })
-   }
+        }}
+        ]
+        single_answer_poster(Questionnaireuuid,AnswerSetID,answer_object)
+    }
+    
+   
 }
-const multiple_answer_setter = (Question,required) => {
+const multiple_answer_setter = (Questionnaireuuid,AnswerSetID,Question,required) => {
     let selected_option = [];
-    document.querySelectorAll('.multiple_answer_block-option input').forEach((item,index) => {
+    document.querySelectorAll(`#${Question.getAttribute("id")} .multiple_answer_block-option input`).forEach((item,index) => {
         if(item.checked)
             selected_option.push(parseInt(item.getAttribute("id").split("answer-n")[1]));
     })
-    if(!selected_option && required)
+    if((!selected_option || (selected_option.length== 0)) && required)
     {
         return 'Error';
     }
     else if(selected_option)
     {
-        answer_set_postData.answers.push({
+        let answer_object = [
+        {
             "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
-                'selected_options' : selected_option.length == 1 ? selected_option[0] : selected_option
+                'selected_options' : selected_option.length == 1 ? [parseInt(selected_option[0])] : selected_option
             }
-        })
-    }
-    console.log(answer_set_postData)
+        }
+        ]
+    console.log(answer_object)
+        single_answer_poster(Questionnaireuuid,AnswerSetID,answer_object)
+    }   
 }
-const email_answer_setter = (Question,required) => {
+const email_answer_setter = (Questionnaireuuid,AnswerSetID,Question,required) => {
     let email_answer_input = document.querySelector('#email_answer_input');
     if(!email_answer_input.value && required)
     {
@@ -150,31 +161,39 @@ const email_answer_setter = (Question,required) => {
     }
     else
     {
-        answer_set_postData.answers.push({
+        let answer_object = [
+        {
             "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'email_field' : email_answer_input.value
             }
-        })
+        }
+    ]
+        single_answer_poster(Questionnaireuuid,AnswerSetID,answer_object)
     }
+    
 }
-const link_question_setter = (Question,required) => {
+const link_question_setter = (Questionnaireuuid,AnswerSetID,Question,required) => {
     let link_answer_input = document.querySelector('#link_answer_input');
-    if(!link_answer_input.value && required)
+    if((link_answer_input.value.split("").length == 0) && required)
     {
+        
         return 'Error';
     }
     else if(link_answer_input.value)
     {
-        answer_set_postData.answers.push({
+        let answer_object = [
+        {
             "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'link' : link_answer_input.value
             }
-        })
+        }
+        ]
+        single_answer_poster(Questionnaireuuid,AnswerSetID,answer_object)
     }
 }
-const number_answer_setter = (QuestionData,QuestionContainer,required) => {
+const number_answer_setter = (Questionnaireuuid,AnswerSetID,QuestionContainer,required) => {
 
     let number_answer_input = document.querySelector('#number_answer_input');
     if(!number_answer_input.value && required)
@@ -182,42 +201,71 @@ const number_answer_setter = (QuestionData,QuestionContainer,required) => {
         return 'Error';
       }
       
-        answer_set_postData.answers.push({
+       let answer_object = [
+       {
             "question": parseInt(QuestionContainer.getAttribute("id").split("Q")[1]),
             "answer" : {
-                'number_answer' : number_answer_input.value
+                'number_answer' : parseInt(number_answer_input.value)
             }
-        })
+        }
+        ]
+        single_answer_poster(Questionnaireuuid,AnswerSetID,answer_object)
 }
-const drop_down_answer_setter = (Question,required) => {
+const drop_down_answer_setter = (Questionnaireuuid,AnswerSetID,Question,required) => {
     let selected_drop_down_option = document.querySelector('.selection__item.slide_selected label');
     if(!selected_drop_down_option && required)
-    {;
+    {
         return 'Error';
     }
     else if(selected_drop_down_option)
     {
-        answer_set_postData.answers.push({
+        let answer_object = [
+        {
             "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'selected_options' : [parseInt(selected_drop_down_option.textContent)]
             }
-        })
+        }
+        ]
+        single_answer_poster(Questionnaireuuid,AnswerSetID,answer_object);
     }
 }
-const selective_degree_answer_setter = (Question,required) => {
+const selective_degree_answer_setter = (Questionnaireuuid,AnswerSetID,Question,required) => {
     let selected_degree_option = document.querySelector(".degree_answer_block-option input:checked");
     if(!selected_degree_option && required)
-    {;
+    {
         return 'Error';
     }
     else if(selected_degree_option)
     {
-        answer_set_postData.answers.push({
+        let answer_object = [
+            {
             "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
                 'integer_selective' : parseInt(selected_degree_option.getAttribute("id").split('answer-n')[1])
             }
-        })
+        }
+    ]
+        single_answer_poster(Questionnaireuuid,AnswerSetID,answer_object)
     }
+}
+const sort_answer_setter = (Questionnaireuuid,AnswerSetID,Question,required) => {
+    let answer_object  = [
+    { 
+        "question": parseInt(Question.getAttribute("id").split("Q")[1]),
+            "answer" : {
+                'sorted_options' : [] 
+            }
+    }
+    ]
+    document.querySelectorAll(`#${Question.getAttribute("id")} .multiple_answer_block-option .answer_option_input`).forEach((item,index) => {
+            answer_object[0].answer.sorted_options.push(
+                {
+                    'id' : parseInt( item.getAttribute('id').split('answer-n')[1]),
+                    'placement' : index + 1
+                }
+            )
+       ;
+    })
+    single_answer_poster(Questionnaireuuid,AnswerSetID,answer_object)
 }

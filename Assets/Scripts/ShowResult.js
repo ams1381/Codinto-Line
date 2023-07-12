@@ -9,7 +9,8 @@ const result_loader = async () => {
    let questionnaire_response = await getRequest(baseUrl + '/question-api/questionnaires/' + Questionnaire.uuid + '/')
    let head_items_html = ``;
    questionnaire_response.questions.forEach((question) => {
-      head_item_generator(question.question)
+      if(!Array.isArray(question.question))
+         head_item_generator(question.question)
    })
    result_response.forEach((result_item) => {
       body_row_generator(result_item,questionnaire_response.questions)
@@ -22,25 +23,31 @@ const result_loader = async () => {
                table_body_tr.remove()
       })
    }
-   $(".resultTable").resizableColumns();
 }
 const head_item_generator = (Head_item) => {
-   let head_items_html = `
-      <th scope="col" id="${Head_item.id}" >${Head_item.title}</th>
+   if(Head_item)
+   {
+      let head_items_html = `
+      <th scope="col" id="${Head_item.id}" >
+         ${$(new DOMParser().parseFromString(Head_item.title,'text/html').firstChild.lastChild.firstChild).text()}
+      </th>
       `
    result_table_head_row.innerHTML += head_items_html;
+   }
 }
 const body_row_generator = (RowTextItems,questions) => {
-   console.log(RowTextItems.answers)
    let body_row_td_items_html = ``;
    
    RowTextItems.answers.forEach((answer) => {
       let td_data_label;
       questions.forEach((Question) => {
          if(Question.question.id === answer.question)
-           td_data_label = Question.question.title;
+           td_data_label = $(new DOMParser().parseFromString(Question.question.title,'text/html').firstChild.lastChild.firstChild).text();
       })
-      body_row_td_items_html += `<td data-label="${td_data_label}">${answer.answer[`${Object.keys(answer.answer)[0]}`]}</td>`
+      body_row_td_items_html += `
+      <td data-label="${td_data_label}">
+         ${answer.answer[`${Object.keys(answer.answer)[0]}`]}
+      </td>`
    })
 
    if(new DOMParser().parseFromString(body_row_td_items_html,'text/html').firstChild.lastChild.firstChild)
@@ -76,10 +83,4 @@ const exportTableToExcel = (table, filename = 'table') => {
 excel_export_button.addEventListener('click',() => {
    exportTableToExcel(table,'exported_table')
 })
-// const question_title_getter = (Questions,answerID) => {
-//    Questions.forEach((Question) => {
-//       if(Question.question.id === answerID)
-//          return Question.question.title;
-//    })
-// }
 await result_loader();
