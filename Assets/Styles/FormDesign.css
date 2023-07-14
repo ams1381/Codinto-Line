@@ -73,8 +73,8 @@
 {
     width: 70%;
     margin: 60px auto 0 auto;
-    height: 650px;
     display: flex;
+    height: 80%;
     flex-direction: column;
     align-items: flex-end;
 }
@@ -87,6 +87,14 @@
     color: #c6c8d8;
     border-radius: 10px;
     border: 1px solid #c6c8d8;
+}
+.QuestionsBox.loading 
+{
+    height: 100vh;
+}
+.QuestionsBox.loading .AssistiveButton
+{
+    display: none;
 }
 .QuestionsBox.emptyActive .emptyListIcon
 {
@@ -115,6 +123,7 @@
 .Question-Nested-items .nested
 {
     padding: 1rem;
+    width: 100%;
 }
 .Questionitem.is_dragging 
 {
@@ -324,6 +333,10 @@
     }
 }
 @media only screen and (max-width : 768px) {
+    body 
+    {
+        background: var(--theme-Page-Graybg);
+    }
     .block__section .block__side 
     {
         display: none; 
@@ -337,6 +350,7 @@
     }
     .block__section main {
         width: 100%;
+        overflow: auto;
     }
     .block__section main .QuestionsBox {
         width: 90%;
@@ -355,7 +369,7 @@
         height: 100%;
     }
     .block__section main .QuestionsBox {
-        width: 95%;
+        width: 90%;
     }
     .QuestionLabel svg 
     {

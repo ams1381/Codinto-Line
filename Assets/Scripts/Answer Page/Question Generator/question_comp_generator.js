@@ -12,6 +12,7 @@ export const question_component_generator = (Question) => {
     let default_question_html = `
     `
     let answer_box_html;
+    
     switch(Question.question_type)
     {
         case 'text_answer':

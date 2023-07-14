@@ -25,7 +25,7 @@ console.log(ACTION_TYPE)
 let options = null;
 
 // initial data------------------------------------
-if(ACTION_TYPE == 'Edit')
+if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
      
     question_info_loader(EditableQuestion)

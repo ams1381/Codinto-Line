@@ -1,6 +1,5 @@
-import { detectFileFormat, file_src_setter, showAlert } from "../../Question Design Pages/CommonActions.js";
+import { detectFileFormat, showAlert } from "../../Question Design Pages/CommonActions.js";
 import { answer_set_postData } from "../AnswerSetter.js";
-
 
 export const answer_input_checker = (Question) => {
     switch(Question.question_type)
@@ -9,36 +8,37 @@ export const answer_input_checker = (Question) => {
             text_input_eventListener(Question);
             break;
         case 'integer_range':
-            // range_answer_loader(answer_object.answer.integer_range);
+            range_item_eventListener_setter(document.querySelectorAll(`#Q${Question.id} .range__number`))
             break;
         case 'integer_selective':
-            // selective_degree_answer_loader(answer_object.answer.integer_selective);
             break;
         case 'file':
             file_event_listener(Question);
             break;
         case 'drop_down':
-            // drop_down_answer_loader(answer_object.answer.selected_options[0])
+            slider_options_eventListener_setter(document.querySelector(`#Q${Question.id}`),document.querySelector(`#Q${Question.id} .slider_toggle_button`),
+            document.querySelectorAll(`#Q${Question.id} .selection__item`))
             break;
         case 'number_answer':
             number_input_eventListener(Question)
-            // number_answer_loader(answer_object.answer.number_answer);
             break;
         case 'link':
-            // link_question_loader(answer_object.answer.link);
             break;
         case 'optional':
             multiple_answer_eventListener(Question)
-            // multiple_answer_loader(answer_object.answer.selected_options);
             break;
         case 'email_field':
-            // email_answer_loader(answer_object.answer.email_field);
             break;
-    // case 'group':
-    //     return window.open("/Pages/groupQuestion.html","_Self");
-    //     break;
         case 'sort':
             sort_input_eventListener(Question)
+            break;
+        case 'group':
+            if(Question.child_questions)
+            {
+                Question.child_questions.forEach((item) => {
+                    answer_input_checker(item.question);
+                })
+            }
             break;
     }
 }
@@ -50,6 +50,9 @@ const sort_input_eventListener = (Question) => {
         slideFactorX : 0,
         }
     )
+    answer_options_drag.on('drag',() => {
+        document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
+    })
 }
 const number_input_eventListener = (Question) => {
     let number_answer_input = document.querySelector('#number_answer_input');
@@ -66,13 +69,12 @@ const number_input_eventListener = (Question) => {
                 showAlert(`حداقل عدد ${Question.min} است`)
                 return 'Error'
             }
+            document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
         })
 }
 const text_input_eventListener = (Question) => {
     let text_answer_input = document.querySelector('#text_answer_input');
     text_answer_input.setAttribute
-    // text_answer_input.addEventListener('input',() => {
-    //     console.log(Question.pattern)
         switch(Question.pattern)
         {
             case 'free':
@@ -112,6 +114,7 @@ const text_input_eventListener = (Question) => {
                     showAlert('تعداد حروف وارد شده از حداقل کمتر است')
                 }
             } 
+            document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
         })
 } 
 export const file_event_listener = (Question) => {
@@ -127,11 +130,7 @@ export const file_event_listener = (Question) => {
             file_preview_setter(URL.createObjectURL(file_input.files[0]),detectFileFormat(file_input.files[0].name)
             ,preview_image_side,preview_video_side,file_input_container)
         }
-        answer_set_postData.answers.push({
-            "question": parseInt(Question.id),
-            "answer" : null,
-            "file" : file_input.files[0]
-        })
+        document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
     })
     if(preview_image_cancel_button)
     preview_image_cancel_button.addEventListener('click',() => {
@@ -145,8 +144,6 @@ export const file_event_listener = (Question) => {
                 answer_set_postData.answers.splice(index,1);
          })
     })
-   
-    // 
 }
 export const file_preview_setter = (FileSrc,FileType,preview_image_side,preview_video_side,file_input_container) => {
     file_input_container.classList.add("uploaded");
@@ -171,6 +168,7 @@ const multiple_answer_eventListener = (Question) => {
    let answer_options = document.querySelectorAll(`#Q${Question.id} .multiple_answer_block-option label`);
    answer_options.forEach((answer_option) => {
     answer_option.addEventListener('click',() =>{
+        document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
         console.log(answer_option.textContent)
        if(answer_option.textContent == 'هیچ کدام')
         {
@@ -208,4 +206,52 @@ const selected_option_controller = (max_select_option) => {
     })
     if(selected_number > max_select_option)
         selected_options_input[0].checked = false;
+}
+const slider_options_eventListener_setter = (QuestionHTML,slider_button,slider_options) => {
+    slider_button.addEventListener('click',() => {
+        QuestionHTML.classList.remove('error_occur')
+        if(slider_button.classList.contains("up"))
+        {
+            $(slider_options).slideDown(100);
+            slider_button.classList.remove("up");
+        }
+        else
+        {
+            $(slider_options).slideUp(10);
+            slider_button.classList.add("up");
+        }
+    })
+    slider_options.forEach((item) => {
+        item.addEventListener('click',() => {
+            setActive_slide_item(item,slider_options);
+            $(slider_options).not(".slide_selected").slideUp(10);
+            slider_button.classList.add("up");
+            if(item.firstElementChild.checked)
+                console.log(item)
+        })
+        
+    })
+    const setActive_slide_item = (slide_option,slide_options) => {
+        if(slide_option.classList.contains("slide_selected"))
+            return;
+        slide_options.forEach((item) => {
+            item.classList.remove('slide_selected');
+        })
+        slide_option.classList.add("slide_selected")
+    }
+}
+const range_item_eventListener_setter = (range_select_options) => {
+    range_select_options.forEach((range_select_option) => {
+        range_select_option.addEventListener('click', () => {
+            setActive_range_item(range_select_option,range_select_options)
+        })
+    });
+    const setActive_range_item = (slide_option,slide_options) => {
+        if(slide_option.classList.contains("range__active"))
+            return;
+            range_select_options.forEach((item) => {
+            item.classList.remove('range__active');
+        })
+        slide_option.classList.add("range__active")
+    }
 }

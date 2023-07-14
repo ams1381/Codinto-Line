@@ -204,7 +204,8 @@ const group_question_patcher = async (Question_Type,QuestionID,group_question_id
       Question_Type = 'noanswer';
     else if(Question_Type == 'integer_selective')
       Question_Type = 'integerselective';
-
+    else if(Question_Type == 'text_answer')
+      Question_Type = 'textanswer';
     retrieved_question = await  getRequest(`${baseUrl}/question-api/questionnaires/${SelectedQuestionnaire.uuid}/${Question_Type}-questions/${QuestionID}/`);
     if(Question_Type == 'group')
       retrieved_question = await  getRequest(`${baseUrl}/question-api/questionnaires/${SelectedQuestionnaire.uuid}/question-groups/${QuestionID}/`);

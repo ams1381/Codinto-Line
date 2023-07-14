@@ -493,6 +493,7 @@ export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,Pos
                 break;
             case 'show_number': 
                 $(question_preview_number).hide(100);
+                $('.Question-Title span').hide(100);
                 break;
             case 'is_random_options':
                 randomize_options_toggle.previousElementSibling.checked = false;
@@ -538,6 +539,7 @@ export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,Pos
                 break;
             case 'show_number': 
                 $(question_preview_number).show(100);
+                $('.Question-Title span').show(100);
                 break;
             case 'all_options':
                 if(EditableQuestion)
@@ -700,9 +702,6 @@ export const form_data_convertor =  (obj,formData,namespace) => {
 export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,QuestionnaireUUID,DataForPost) => {
     save_button.classList.add('saving');
         let createRes;
-        console.log(DataForPost)
-        console.log([...form_data_convertor(DataForPost)])
-        console.log(ACTION_TYPE)
         try 
         {
             switch(ACTION_TYPE)
@@ -714,11 +713,10 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
                     createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`,'multipart/form-data', form_data_convertor(DataForPost));
                     break;
                 case 'Copy':
-                    createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`,'multipart/form-data', form_data_convertor(DataForPost));
+                    createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`,'multipart/form-data', form_data_convertor(Question));
                     break;
             }
             save_button.classList.remove('saving');
-        console.log(createRes.data)
         if((createRes.status == 201 || createRes.status == 200))
             {
                 window.open("/Pages/FormDesign.html","_Self");
@@ -727,6 +725,6 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
         }
         catch(err)
         {
-            console.log(err)
+            return;
         }
 }

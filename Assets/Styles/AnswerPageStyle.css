@@ -8,6 +8,27 @@ body
     margin: 1.3rem auto 1rem auto;
     padding: 2rem;
 }
+.questionnaire_ended
+{
+    display: none;
+}
+.answer_page_container.ended
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.answer_page_container.ended .questionnaire_ended
+{
+    color: var(--brand-color);
+    display: block;
+    font-family: IRANSans;
+}
+.answer_page_container.ended .FormFooter
+{
+    display: none;
+}
 .SideFooter
 {
     justify-content: space-around;
@@ -25,6 +46,12 @@ body
     margin: 1.2rem auto;
     font-family: IRANSans;
     width: 50%;
+}
+.QuestionContainer.error_occur
+{
+    border: 2px solid var(--answer-page-error-border );
+    box-shadow: 4px 4px 10px var(--answer-page-error-boxShadow);
+    background: var(--answer-page-error-bg);
 }
 .QuestionContainer .QuestionContainer 
 {
@@ -75,21 +102,31 @@ body
 {
     pointer-events: all;
 }
-.action__input{
+
+.entry__input{
+    resize: none;
     background-color: transparent;
-    border: 1px solid var(--brand-color);
-    height: 30px;
+    border: none;
     outline: none;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: var(--input-title-bg-color) 0px 2px 8px 0px;
     color: var(--brand-color);
     font-size: 15px;
     font-weight: 400;
     font-family: IRANSans;
-    border-radius: 25px;
+    border-radius: 10px;
     padding: 0.6rem; 
     border: 1px solid var(--brand-color);
     transition: 0.4s;
     width: 100%;
+}
+.entry__input::placeholder{
+    color: var(--input-placeholder-color);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: IRANSans;
+}
+.entry__input:focus{
+  background-color: var(--input-title-bg-color);
 }
 .textArea__container, .number_answer_box_container {
     display: flex;

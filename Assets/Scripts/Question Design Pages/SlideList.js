@@ -38,13 +38,13 @@ const preview_image_main = document.querySelector(".preview_file_box .preview_im
 let Answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
 
 question_placement_setter(localStorage.getItem("question_placement"),slider_option_postData);
-if(ACTION_TYPE == 'Edit')
+if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
 }
 
 save_question_btn.addEventListener('click',async () => {
-    if(ACTION_TYPE == 'Edit')
+    if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
         await question_creator(ACTION_TYPE,EditableQuestion,'dropdown-questions',QuestionnaireUUID,slider_option_postData)
     else
         await question_creator(ACTION_TYPE,null,'dropdown-questions',QuestionnaireUUID,slider_option_postData)

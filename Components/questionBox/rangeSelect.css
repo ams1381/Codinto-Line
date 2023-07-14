@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: var(--input-title-bg-color) 0px 2px 8px 0px;
     padding: 0 0.4rem 0 0.4rem;
     margin: 1rem 10px 0 0;
     flex-direction: row-reverse;
@@ -57,5 +57,5 @@
 .range__active{
     background-color: var(--theme-white);
     border-radius: 8px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: var(--range-selected-boxShadow) 0px 2px 8px 0px;
 }

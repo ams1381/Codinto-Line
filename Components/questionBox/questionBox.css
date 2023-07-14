@@ -65,7 +65,7 @@ body{
     background-color: transparent;
     border: none;
     outline: none;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: var(--input-title-bg-color) 0px 2px 8px 0px;
     color: var(--brand-color);
     font-size: 15px;
     font-weight: 400;

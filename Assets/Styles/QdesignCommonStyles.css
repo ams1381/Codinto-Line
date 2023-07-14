@@ -178,6 +178,7 @@
     padding: 10px;
     font-size: calc(0.69rem + 0.4vw);
     transition: 0.2s;
+    line-height: normal;
 }
 .ButtonTextInput
 {
@@ -347,7 +348,7 @@
     display: flex;
     justify-content: flex-start;
     padding-right: 10px;
-    word-break: break-all;
+    word-break: break-word;
 }
 .Question-Title p 
 {
@@ -361,7 +362,7 @@
 {
     padding: 10px;
     color: var(--brand-color);
-    word-break: break-all;
+    word-break: break-word;
 }
 .multiple_answer_block-options
 {
@@ -939,7 +940,22 @@ input[type=range]::-webkit-slider-thumb {
 {
     display: none;
 }
-
+.action__input{
+    background-color: transparent;
+    border: 1px solid var(--brand-color);
+    height: 30px;
+    outline: none;
+    box-shadow: var(--input-title-bg-color) 0px 2px 8px 0px;
+    color: var(--brand-color);
+    font-size: 15px;
+    font-weight: 400;
+    font-family: IRANSans;
+    border-radius: 25px;
+    padding: 0.6rem; 
+    border: 1px solid var(--brand-color);
+    transition: 0.4s;
+    width: 100%;
+}
 @media only screen and (max-width : 992px)
 {
     .block__main 

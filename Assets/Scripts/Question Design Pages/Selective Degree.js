@@ -28,7 +28,7 @@ const back_to_design_button = document.querySelector(".block__main .block__main_
 const save_question_btn = document.querySelector('.SideFooter .saveQuestion');
 
 question_placement_setter(localStorage.getItem("question_placement"),selective_degree_postData);
-if(ACTION_TYPE == 'Edit')
+if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
 }
@@ -120,12 +120,10 @@ Title_input.addEventListener('input',() => {preview_change_handler(EditableQuest
 Description_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',selective_degree_postData)});
 
 show_number_toggle.addEventListener('click',() => {
-  
-toggle_handler(EditableQuestion,show_number_toggle.parentElement.parentElement.parentElement,show_number_toggle,selective_degree_postData);
+    toggle_handler(EditableQuestion,show_number_toggle.parentElement.parentElement.parentElement,show_number_toggle,selective_degree_postData);
 })
 required_toggle.addEventListener('click',() => {
-  
-toggle_handler(EditableQuestion,required_toggle.parentElement.parentElement.parentElement,required_toggle,selective_degree_postData);
+    toggle_handler(EditableQuestion,required_toggle.parentElement.parentElement.parentElement,required_toggle,selective_degree_postData);
 })
 text_style_label_eventListener_setter(EditableQuestion,selective_degree_postData);
 view_question_button.addEventListener('click',preview_question_toggle);

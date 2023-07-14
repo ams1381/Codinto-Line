@@ -22,7 +22,7 @@ const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slid
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
 
-if(ACTION_TYPE == 'Edit')
+if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
 }

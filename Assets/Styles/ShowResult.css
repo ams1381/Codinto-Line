@@ -12,9 +12,9 @@
     width: 100%;
     text-align: center;
     border-collapse: separate;
-    border-spacing: 4px 0px;
     table-layout: fixed;
     font-family: IRANSans;
+    border-spacing: 0.25rem 0.25rem;
 }
 
 .resultTable #result_table_body
@@ -39,7 +39,7 @@
     font-weight: 500;
     color: var(--theme-white);
     text-align: center;
-    padding: 0 0.2rem 0 0.2rem;
+    padding: 0.3rem;
     border-radius: 5px;
 }
 

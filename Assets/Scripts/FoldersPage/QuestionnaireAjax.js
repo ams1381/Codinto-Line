@@ -41,7 +41,7 @@ export const questionnaire_generator = (Questionnaire) => {
     let form_show_result_button = document.querySelector(`#Questionnaire${Questionnaire.id} .form_show_answer`)
 
         questionnaire.addEventListener('click',(e) => {
-            if(e.target.className == 'form')
+            if(e.target.className == 'form' || e.target instanceof HTMLParagraphElement)
             {
                 window.open("/Pages/FormDesign.html","_self");
                 localStorage.setItem("SelectedQuestionnaire",JSON.stringify(Questionnaire));

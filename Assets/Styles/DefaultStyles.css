@@ -23,6 +23,11 @@
     --input-error-border-color : #e26363e0;
     --label-default-color: #5360ed77;
     --loading-spinner_bg : #f3f3f3;;
+    --answer-page-error-border : #ff00008f;
+    --answer-page-error-boxShadow : #ff00004f;
+    --answer-page-error-bg : #ff2a2a0d;
+    --range-selected-boxShadow : #7887ee5e;
+    --input-focus-bg : #636363;
     --answer-option-default-color : #5360eda3;
     --selected-date-bg-color: #3f52e335;
     --error-message-bg-color : #ff456a;
@@ -140,8 +145,12 @@ html
 {
     color: var(--brand-color);
 }
-.viewFormQuestions , .shareQuestionnaire{
+.viewFormQuestions{
     margin-left: 15px;
+}
+.shareQuestionnaire
+{
+    margin-left: 1.2rem;
 }
 .viewFormQuestions  i , .back__button i
 {

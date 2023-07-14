@@ -22,9 +22,9 @@ const remove_folder_popup = document.querySelector(".removeFolderPopUp");
 const folder_cancel_button = document.querySelectorAll(".cancel-button");
 const questionnaire_preview_button = document.querySelector('.viewFormQuestions');
 const questionnaire_share_button = document.querySelector('.shareQuestionnaire');
-const AssistiveButtons = document.querySelectorAll('.AssistiveButton .AssistiveItems button');
-console.log(SelectedQuestionnaire)
 QuestionnaireName.textContent = SelectedQuestionnaire.name;
+if(window.innerWidth < 770)
+            $('.AssistiveButton').css('display','none');
 
 export const QuestionItemCleaner = () => {
     const QuestionItems = document.querySelectorAll(".Questionitem");
@@ -34,6 +34,7 @@ export const QuestionItemCleaner = () => {
     })
 }
 export const QuestionItemSetter = async () => {
+        QuestionsBoxContainer.classList.add('loading');
         let QuestionsResponse = await getRequest(getQuestionsUrl + SelectedQuestionnaire.uuid + '/');
         if(QuestionsResponse)
         {
@@ -80,7 +81,10 @@ export const QuestionItemSetter = async () => {
         }
         
         let loading = document.getElementById('loading-animation');
+        QuestionsBoxContainer.classList.remove('loading');
         loading.classList.add('hide');
+        if(window.innerWidth < 770)
+            $('.AssistiveButton').css('display','flex');
 }
 const questionnaire_retriever = async () => {
    return await getRequest(baseUrl + `/question-api/questionnaires/${SelectedQuestionnaire.uuid}/`);
@@ -118,9 +122,6 @@ remove_folder_confirm_btn.addEventListener('click',() => {
     DeleteQuestionItemHandler(deleteQuestionInfo)
 });
 
-AssistiveButtons[1].addEventListener('click',() => {
-    window.open("/Pages/Setting.html","_Self")
-});
 QuestionItemSetter();
 export default { QuestionItemSetter , QuestionDesignItemsHandler};
 
@@ -129,15 +130,21 @@ window.addEventListener('resize',() => {
     {
         block_side.classList.remove('add_question_active');
         $(block_main).show(120);
+        $('.AssistiveButton').hide();
     }
-        
+    else
+    {
+        $('.AssistiveButton').css('display','flex')
+    }
 })
 
 AssistiveToggleButton.addEventListener('click',() => {
+    $(block_main).hide();
+    $(block_side).show(100);
     block_side.classList.add('add_question_active');
-    $(block_main).hide(120);
 })
 close_side_panel_button.addEventListener('click',() => {
+    $(block_side).hide();
     block_side.classList.remove('add_question_active');
     $(block_main).show(120);
 })

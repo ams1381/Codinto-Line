@@ -133,6 +133,7 @@ const date_inputs_InActive_setter = (YearInputs,MonthInputs,DayInputs) => {
     })
 }
 const compareDates = (date1, date2) => new Date(date1) - new Date(date2);
+
 const form_date_convertor_to_Gregorian = (Date) => {
     let GregorianDate = farvardin.solarToGregorian(parseInt(Date.split("/")[0]) , parseInt(Date.split("/")[1]) , parseInt(Date.split("/")[2]));
     return (GregorianDate[0] + '-' + GregorianDate[1] + '-' + GregorianDate[2]);
@@ -161,9 +162,7 @@ const create_questionnaire = async (e) => {
     }
     catch(err)
     {
-        console.log(err)
         QuestionnaireSaveBtn.classList.remove('operating');
-        showAlert('تاریخ را به درستی وارد کنید');
     }
         let create_questionnaire_res;
         if(LoadedQuestionnaire)
@@ -171,14 +170,16 @@ const create_questionnaire = async (e) => {
             create_questionnaire_res = await patchRequest(baseUrl + '/question-api/questionnaires/' + QuestionnaireToEdit.uuid + '/',LoadedQuestionnaire);
             if(create_questionnaire_res)
                 localStorage.setItem("SelectedQuestionnaire",JSON.stringify(LoadedQuestionnaire));
+            QuestionnaireSaveBtn.classList.remove('operating');
         }
         else
         {
             create_questionnaire_res = await postRequest(baseUrl + '/question-api/questionnaires/','application/json',Questionnaire_PostData); 
             if(create_questionnaire_res)
                 localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
+            QuestionnaireSaveBtn.classList.remove('operating');
         }
-        QuestionnaireSaveBtn.classList.remove('operating');
+        
         if(create_questionnaire_res)
             window.open("/Pages/FormDesign.html","_self");
         

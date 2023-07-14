@@ -28,7 +28,7 @@ const back_to_design_button = document.querySelector(".block__main .block__main_
 
 // initial data------------------------------------
 question_placement_setter(localStorage.getItem("question_placement"),file_question_PostData);
-if(ACTION_TYPE == 'Edit')
+if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
 }

@@ -1,5 +1,5 @@
 import { text_question_with_out_answer_postData } from "../ajax/QuestionPostData.js"
-import { preview_question_toggle , preview_change_handler , file_upload_handler, question_creator, text_style_label_eventListener_setter, question_placement_setter } from "./CommonActions.js";
+import { preview_question_toggle , preview_change_handler , file_upload_handler, question_creator, text_style_label_eventListener_setter, question_placement_setter, toggle_handler } from "./CommonActions.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
 
 const titleInput = document.querySelector(".GTitle .TitleTextInput");
@@ -11,13 +11,14 @@ const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const file_input = document.querySelector("#file.box__file");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
+const show_number_toggle = document.querySelector(".show_number .Switch-Container .slider-button")
 const button_text_input = document.querySelector('.GEntryButton .ButtonTextInput')
 const button_shape_items = document.querySelectorAll(".ShapeOptions label")
 const preview_button = document.querySelector(".QuestionStart .QuestionStartButton")
 const preview_button_text= document.querySelector(".QuestionStart .QuestionStartButton p")
 
 question_placement_setter(localStorage.getItem("question_placement"),text_question_with_out_answer_postData)
-if(ACTION_TYPE == 'Edit')
+if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
 }
@@ -73,6 +74,9 @@ button_shape_items.forEach((button_shape_item)=>{
             preview_button_shape_handler(button_shape_item.classList[1],false);
     })
     
+})
+show_number_toggle.addEventListener('click',() => {
+    toggle_handler(EditableQuestion,show_number_toggle.parentElement.parentElement.parentElement,show_number_toggle,text_question_with_out_answer_postData);
 })
 saveBtn.addEventListener("click" , async function (event){
     if(EditableQuestion && ACTION_TYPE == 'Edit')

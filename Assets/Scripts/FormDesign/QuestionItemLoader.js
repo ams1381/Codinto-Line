@@ -127,13 +127,12 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
                         ${question_tools_box}
                     </div>
                 </div>
-           <div class="Questionitem Question-Nested-items">
+           <div class="Question-Nested-items">
             <div class="nested">
                 ${sub_questions}
             </div>
            </div>
         </div> `
-        
     }
     else
         question_element_item = `
@@ -151,7 +150,7 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
     const parser = new DOMParser();
     const parsed_question_element_item = parser.parseFromString((question_element_item),'text/html').firstChild.lastChild.firstChild;
    
-    $(question_element_item).hide(0);
+    $(parsed_question_element_item).hide(0);
     let thank_page_item = document.querySelector(".QuestionsBox .thank-page");
     if(thank_page_item)
             thank_page_item.parentElement.insertBefore(parsed_question_element_item,thank_page_item)
@@ -161,39 +160,80 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
 
     const delete_question_button = document.querySelector(`#Question${Question.id} .QuestionTools .DeleteButton`);
     const copy_question_button = document.querySelector(`#Question${Question.id} .QuestionTools .EditButton`);
+    const sub_delete_buttons = document.querySelectorAll(`.Question-Nested .Question-Nested-items .nested .DeleteButton`);
+    const sub_copy_buttons = document.querySelectorAll(`.Question-Nested .Question-Nested-items .nested .EditButton`);
+    const question_element = document.querySelector(`#Question${Question.id}`);
+    const sub_question_elements = document.querySelectorAll(`.Question-Nested .Question-Nested-items .Questionitem`);
+    console.log(sub_question_elements)
 
+    if(sub_delete_buttons)
+    {
+        sub_delete_buttons.forEach((item) => {
+            
+            remove_eventListener_setter(item,item.parentElement.parentElement.classList[1],
+                parseInt(item.parentElement.parentElement.getAttribute('id').split("Question")[1]))
+        })
+    }
+    if(sub_copy_buttons)
+    {
+        
+    }
     remove_eventListener_setter(delete_question_button,Question.question_type,Question.id);
     if(copy_question_button)
         copy_question_button.addEventListener('click',() => {
-            localStorage.removeItem("ACTION-TYPE")
-            localStorage.setItem("ACTION-TYPE","Copy")
-            QuestionDesignOpener(Question.question_type);
+            question_copier(Question,copy_question_button.parentElement.parentElement.getAttribute("id").split('Question')[1])
         })
-    parsed_question_element_item.addEventListener('click',(e) => {
-        console.log(e.target instanceof HTMLStyleElement)
+    if(sub_copy_buttons)
+    {
+        sub_copy_buttons.forEach((sub_copy_button) => {
+            sub_copy_button.addEventListener('click',() => {
+                question_copier(Question,sub_copy_button.parentElement.parentElement.getAttribute("id").split('Question')[1])
+            })
+        })
+    }
+    const question_click_handler = (QuestionId,e) => {
+        let clicked_question;
+        if(Question.id == QuestionId)
+            clicked_question = Question;
+        else
+        {
+            if(Question.child_questions)
+            {
+                Question.child_questions.forEach((child_question) => {
+                    if(child_question.question.id == QuestionId)
+                        clicked_question = child_question.question;
+                })
+            }
+        }
+        console.log(clicked_question)
         if(e.target.classList[0] == 'Questionitem' || e.target.classList[0] == 'QuestionLabel' ||
         e.target.classList[0] == 'QuestionitemText' || isStrongEmUElement(e.target)
         || e.target instanceof HTMLParagraphElement)
-         {
-            localStorage.setItem("ACTION-TYPE",'Edit');
-            localStorage.setItem("QuestionData",JSON.stringify(Question))
-            QuestionDesignOpener(Question.question_type);
-         }
-           
+            {
+                localStorage.setItem("ACTION-TYPE",'Edit');
+                localStorage.setItem("QuestionData",JSON.stringify(clicked_question))
+                QuestionDesignOpener(clicked_question.question_type);
+            }  
+    }
+    
+        if(sub_question_elements)
+        {
+            sub_question_elements.forEach((item) => {
+                item.addEventListener('click',(e) => {
+                    question_click_handler(item.getAttribute("id").split("Question")[1],e)   
+                })
+            })
+        }
+    question_element.addEventListener('click',(e) => {
+        question_click_handler(question_element.getAttribute("id").split("Question")[1],e)     
     })
-    // dragula([].slice.apply(document.querySelectorAll('.nested'))
-    // 
+   
 }
+
 const question_sub_itemGenerator = (Question,question_label,question_tools_box,question_number) => {
-    // $(question_label).text() = 2;
     let parsed_question_number =  new DOMParser().parseFromString(question_label,'text/html').firstChild.lastChild.firstChild;
     parsed_question_number.textContent = question_number;
     parsed_question_number.className = 'QuestionLabel sub-label'
-    console.log(parsed_question_number)
-    // Question.child_questions.forEach((item,index) => {
-    //     console.log(item)
-    //  //   question_sub_itemGenerator(item.question.question)
-    // })
     if(Question.question_type == 'group')
     {
          return `
@@ -230,5 +270,25 @@ const question_sub_itemGenerator = (Question,question_label,question_tools_box,q
     </div>`
     }
     
+}
+const question_copier = (Question,QuestionID) => {
+    let clicked_question;
+        if(Question.id == QuestionID)
+            clicked_question = Question;
+        else
+        {
+            if(Question.child_questions)
+            {
+                Question.child_questions.forEach((child_question) => {
+                    if(child_question.question.id == QuestionID)
+                        clicked_question = child_question.question;
+                })
+            }
+        }
+    localStorage.removeItem("QuestionData")
+    localStorage.removeItem("ACTION-TYPE")
+    localStorage.setItem("ACTION-TYPE","Copy")
+    localStorage.setItem("QuestionData",JSON.stringify(clicked_question))
+    QuestionDesignOpener(clicked_question.question_type);
 }
 const isStrongEmUElement = (element) => ['STRONG', 'EM', 'U'].includes(element.tagName);

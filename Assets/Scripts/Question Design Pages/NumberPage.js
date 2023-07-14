@@ -19,7 +19,7 @@ const max_input_number = document.querySelector('#Alphabetmax');
 console.log(QuestionnaireUUID)
 // initial data------------------------------------\
 question_placement_setter(localStorage.getItem("question_placement"),number_question_postData)
-if(ACTION_TYPE == 'Edit')
+if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
 }
@@ -35,18 +35,16 @@ answer_number_selector_inputs.forEach((answer_number_selector_input) => {
 })
 saveBtn.addEventListener("click", async function (event) {
      
-    if(EditableQuestion && ACTION_TYPE == 'Edit')
+    if(EditableQuestion)
         await question_creator(ACTION_TYPE,EditableQuestion,'numberanswer-questions',QuestionnaireUUID,number_question_postData);
     else
         await question_creator(ACTION_TYPE,null,'numberanswer-questions',QuestionnaireUUID,number_question_postData);
 })
-necessaryQuestion.addEventListener('click',() => {
-  
-toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,number_question_postData);
+necessaryQuestion.addEventListener('click',() => { 
+    toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,number_question_postData);
 })
 QuestionNumber.addEventListener('click',() => {
-  
-toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,number_question_postData);
+    toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,number_question_postData);
 })
 file_input.addEventListener('input',() => {
     let selected_file_type;

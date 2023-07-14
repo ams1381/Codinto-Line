@@ -35,7 +35,7 @@ let preview_select_container = document.querySelector('.multiple_answer_block-op
 
 
 question_placement_setter(localStorage.getItem("question_placement"),priority_question_PostData)
-if(ACTION_TYPE == 'Edit')
+if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {    
     question_info_loader(EditableQuestion)
 }

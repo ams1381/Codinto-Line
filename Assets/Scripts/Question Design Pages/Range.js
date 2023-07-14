@@ -132,7 +132,7 @@ view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)
 range_item_eventListener_setter(document.querySelectorAll(".range__number"))
 text_style_label_eventListener_setter(EditableQuestion,rangeChange);
-if(ACTION_TYPE == 'Edit')
+if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
 }

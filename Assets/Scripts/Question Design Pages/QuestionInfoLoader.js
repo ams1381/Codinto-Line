@@ -273,6 +273,7 @@ const toggle_loader = (Question) => {
     {
         show_number_toggle.checked = Question.show_number;
         $(question_preview_number).hide(200);
+        $('.Question-Title span').hide(100);
     }
     if(Question.is_vertical)
     {

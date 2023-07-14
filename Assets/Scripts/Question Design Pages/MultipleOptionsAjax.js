@@ -46,7 +46,7 @@ const save_question_btn = document.querySelector('.SideFooter .saveQuestion')
 
 let answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
 question_placement_setter(localStorage.getItem("question_placement"),multiple_option_postData);
-if(ACTION_TYPE == 'Edit')
+if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
 }

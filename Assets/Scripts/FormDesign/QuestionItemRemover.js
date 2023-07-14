@@ -13,6 +13,7 @@ const remove_folder_popup_handler = (QuestionType,QuestionId) => {
 export const remove_eventListener_setter = (delete_button_element,question_type,QuestionOrderNumber) => {
     delete_button_element.addEventListener('click',() => {
         remove_folder_popup_handler();
+        remove_folder_popup.scrollIntoView({ behavior: "smooth", block: "nearest" });
         deleteQuestionInfo = {
                 'question_type' : question_type,
                 'question_id' : QuestionOrderNumber

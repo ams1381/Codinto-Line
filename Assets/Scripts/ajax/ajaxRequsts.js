@@ -61,7 +61,7 @@ const patchRequest = async (url, patchData) => {
     } 
     catch (error) 
     {
-      await errorHandler(error.response,error.status,error,url)
+      return(await errorHandler(error.response,error.status,error,url))
     }
 };  
 const postRequest = async (url,content_type, postData) => {
@@ -87,7 +87,6 @@ const postRequest = async (url,content_type, postData) => {
     catch (error) 
     {
        await errorHandler(error.response,error.status,error,url)
-       throw error;
     }
 }; 
 const deleteRequest = async (url) => {
@@ -135,14 +134,15 @@ async function errorHandler(errorRes,errorCode,error,url)
 }
 function er400handler(error) 
 {
+  
   if(Array.isArray(error.data))
-        error.data.forEach((item) => {
-          if(item.answer)
-            item.answer.forEach((answer_error) => {
-              showAlert(item.answer)
-            })
-            
-        })
+  {
+    error.data.forEach((item) => {
+      if(document.querySelector(`#Q${Object.keys(item)[0]}`))
+        document.querySelector(`#Q${Object.keys(item)[0]}`).classList.add('error_occur')
+      showAlert(item[Object.keys(item)[0]][0])
+    })
+  }
       else
       {
         Object.keys(error.data).forEach((item) => {
@@ -155,7 +155,7 @@ function er400handler(error)
           showAlert(error.data[`${item}`][0]);
         })
       }
-      
+      throw error;
 }
 async function er401handler(error,url) 
 {
@@ -178,50 +178,8 @@ async function er401handler(error,url)
 }
 function er404handler(error) 
 {
-    showAlert("یافت نشد")
+    window.open("404Page.html")
 }
 
 
-// function errorHandler2(errors,element){
-//   errors.forEach(error => {
-//     const errorElement = element.querySelector(`[data-value=${error.key}]`)
-//     if (!errorElement) return;
-    
-    
-//   });
-// }
-
-
 export  { getRequest ,  patchRequest ,  postRequest ,  deleteRequest , baseUrl , renewToken }
-// async function getRequest(url){
-//         return axios.get(url, {
-//             headers: {
-//                 Authorization: `Bearer ${token}`
-//             }
-//         });
-// }
-// async function patchRequest(url,patchData){
-//     return axios.patch(url,patchData ,{
-//         headers: {
-
-//             Authorization: `Bearer ${token}`
-//         }
-//     });
-// }
-
-// async function postRequest(url,postData){
-//   console.log(accessToken)
-//     return axios.post(url, postData , {
-//         headers: {
-//             // 'Content-Type': 'multipart/form-data',
-//             'Authorization': `Bearer ${token}`
-
-//         }
-//     });
-// }
-// // async function deleteRequest(url){
-//     return axios.delete(url, {
-//         headers: {
-//             Authorization: `Bearer ${token}`
-//         }
-//     });
