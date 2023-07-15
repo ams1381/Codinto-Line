@@ -19,9 +19,7 @@ const sent_sms_handler = async (e) => {
             if(accessToken)
             {
                 localStorage.setItem("ACCESS_TOKEN",accessToken.data.access)
-                cookie_setter('access',accessToken.data.access,null,'/Pages','codinto-like.codinguy.ir')
-              //  document.cookie = accessToken.data.access;
-                console.log(document.cookie)
+                cookie_setter('access',accessToken.data.access);
                 window.open("/Pages/Folders.html","_Self");
             }
         }

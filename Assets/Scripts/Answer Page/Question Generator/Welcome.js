@@ -21,7 +21,7 @@ export const welcome_component_generator = (welcome) => {
                     <p>${welcome.title}</p>
                 </div>
                 <div class="description_block">
-                   <p>${welcome.description}</p>
+                   <p>${welcome.description ? welcome.description : ''}</p>
                 </div>
                 <div class="preview_file_box ${preview_file_className}">
                 ${

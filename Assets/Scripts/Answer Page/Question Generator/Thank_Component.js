@@ -9,7 +9,7 @@ export const thank_component_generator = (thank) => {
                     <p>${thank.title}</p>
                 </div>
                 <div class="description_block">
-                   <p>${thank.description}</p>
+                   <p>${thank.description ? thank.description : ''}</p>
                 </div>
                 <div class="preview_file_box ${detectFileFormat(thank.media) == 'PICTURE' ? 'preview_image_active' : detectFileFormat(thank.media) == 'VIDEO' ? 'preview_video_active' : ' '}">
                 ${

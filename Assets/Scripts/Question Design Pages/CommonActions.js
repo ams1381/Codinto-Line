@@ -715,8 +715,7 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
                 case 'Copy':
                     createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`,'multipart/form-data', form_data_convertor(Question));
                     break;
-            }
-            save_button.classList.remove('saving');
+        }
         if((createRes.status == 201 || createRes.status == 200))
             {
                 window.open("/Pages/FormDesign.html","_Self");
@@ -725,6 +724,7 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
         }
         catch(err)
         {
+            save_button.classList.remove('saving');
             return;
         }
 }

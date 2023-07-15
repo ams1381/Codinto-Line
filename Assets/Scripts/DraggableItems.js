@@ -218,7 +218,7 @@ const group_question_patcher = async (Question_Type,QuestionID,group_question_id
     else if(Group_state != 'group')
       retrieved_question.group = null;
 
-      retrieved_question.media = null;
+      delete retrieved_question.media;
     console.log(retrieved_question)
     await patchRequest(`${baseUrl}/question-api/questionnaires/${SelectedQuestionnaire.uuid}/${Question_Type}-questions/${QuestionID}/`,retrieved_question)
 }

@@ -229,11 +229,11 @@ body
     width: 70%;
     height: 35px;
     font-size: 22px;
-    padding-right: 7px;
     margin: 0 5px 0 5px;
     border-radius: 10px;
     border: none;
     outline: none;
+    padding: 0 0.4rem 0 0.4rem;
     text-align: center;
     color: var(--deActive-input-text-color);
 }

@@ -229,7 +229,7 @@ export const question_component_generator = (Question) => {
                     <p>${Question.title} ${Question.is_required ? '*' : ''}</p>
                 </div>
                 <div class="description_block">
-                    <p>${Question.question_text}</p>
+                    <p>${Question.question_text ? Question.question_text : ''}</p>
                 </div>
                 <div class="preview_file_box ${preview_file_className}">
                 ${
