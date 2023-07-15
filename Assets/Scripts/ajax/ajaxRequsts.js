@@ -107,8 +107,8 @@ async function renewToken() {
     try {
       const response = await axios.post(`${baseUrl}/user-api/auth/refresh-token`, {
       });
-      // localStorage.removeItem("ACCESS_TOKEN")
-      // localStorage.setItem("ACCESS_TOKEN",response.data.access)
+      localStorage.removeItem("ACCESS_TOKEN")
+      localStorage.setItem("ACCESS_TOKEN",response.data.access)
       localStorage.getItem("ACCESS_TOKEN") = response.data.access;
       accessToken = response.data.access;
     } 
@@ -138,9 +138,15 @@ function er400handler(error)
   if(Array.isArray(error.data))
   {
     error.data.forEach((item) => {
+      console.log(item)
       if(document.querySelector(`#Q${Object.keys(item)[0]}`))
+      {
         document.querySelector(`#Q${Object.keys(item)[0]}`).classList.add('error_occur')
-      showAlert(item[Object.keys(item)[0]][0])
+        document.querySelector(`#Q${Object.keys(item)[0]}`).scrollIntoView()
+        showAlert(item[Object.keys(item)[0]][0])
+      }
+        
+      
     })
   }
       else

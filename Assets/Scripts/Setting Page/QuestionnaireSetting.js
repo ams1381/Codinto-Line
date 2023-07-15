@@ -19,6 +19,7 @@ const QuestionnaireStartDateToggle = document.querySelector(".date-start .Switch
 const QuestionnaireEndDateToggle = document.querySelector(".date-end .Switch-toggle .slider-button");
 const QuestionnaireTimerToggleLabel = document.querySelector(".ResponeTiming .ResponseAutoSet .slider-button");
 const QuestionnaireTimerToggleInput = document.querySelector(".ResponeTiming .ResponseAutoSet input");
+const cancel_button = document.querySelector('.cancel-Form.cancelQuestion')
 let StartYearItems = document.querySelectorAll(".start-picker .YearPicker label");
 let StartMonthItems = document.querySelectorAll(".start-picker .MonthPicker label");
 let StartDayItems = document.querySelectorAll(".start-picker .DayPicker label");
@@ -31,6 +32,7 @@ let StartDayInputs = document.querySelectorAll(".start-picker .DayPicker input")
 let endYearInputs = document.querySelectorAll(".end-picker .YearPicker input");
 let endMonthInputs = document.querySelectorAll(".end-picker .MonthPicker input");
 let endDayInputs = document.querySelectorAll(".end-picker .DayPicker input");
+let dateChanged = false;
 let LoadedQuestionnaire;
 
 const current_date_getter = () => {
@@ -167,6 +169,8 @@ const create_questionnaire = async (e) => {
         let create_questionnaire_res;
         if(LoadedQuestionnaire)
         {
+            if(!dateChanged)
+                delete LoadedQuestionnaire.pub_date
             create_questionnaire_res = await patchRequest(baseUrl + '/question-api/questionnaires/' + QuestionnaireToEdit.uuid + '/',LoadedQuestionnaire);
             if(create_questionnaire_res)
                 localStorage.setItem("SelectedQuestionnaire",JSON.stringify(LoadedQuestionnaire));
@@ -179,11 +183,8 @@ const create_questionnaire = async (e) => {
                 localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
             QuestionnaireSaveBtn.classList.remove('operating');
         }
-        
         if(create_questionnaire_res)
             window.open("/Pages/FormDesign.html","_self");
-        
-        
 }
 const nameSetter = (e) => {
     QuestionnaireNameInputs.classList.remove("error");
@@ -257,6 +258,13 @@ const date_eventListener_setter = (YearLabels,MonthLabels,DayLabels,postData,dat
     })
 }
 const post_data_date_setter = (Year,Month,Day,postData,date_type) => {
+    if(!dateChanged)
+    {
+        dateChanged = true;
+        if(!QuestionnaireToEdit.pub_date)
+            QuestionnaireToEdit.pub_date == null;
+    }
+        
     QuestionnaireStartDatePicker.classList.remove('error');
     QuestionnaireEndDatePicker.classList.remove('error');
     let  Questionnaire_date = `${Year}/` + 
@@ -356,3 +364,7 @@ if(QuestionnaireToEdit)
     await QuestionnaireInfoSetter(QuestionnaireToEdit.uuid)
     LoadedQuestionnaire =  await getRequest(baseUrl + '/question-api/questionnaires/' + QuestionnaireToEdit.uuid + '/')
 }
+cancel_button.addEventListener('click',(e) => {
+    e.preventDefault();
+    window.open('Folders.html',"_Self")
+})

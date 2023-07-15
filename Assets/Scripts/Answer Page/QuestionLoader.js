@@ -6,7 +6,7 @@ import { answer_input_checker, file_event_listener } from "./Question Generator/
 import { total_answer_set_handler , single_answer_setter } from './AnswerSetter.js';
 import { answer_loader } from "./AnswerLoader.js";
 import { thank_component_generator } from "./Question Generator/Thank_Component.js";
-
+import {error_occur } from './AnswerSetter.js'
 const questionnaire_for_preview = JSON.parse(localStorage.getItem("questionnaire_for_preview"));
 const getQuestionsUrl = baseUrl + '/question-api/questionnaires/';
 const answer_page_container = document.querySelector('.answer_page_container');
@@ -49,6 +49,7 @@ const loader_initializer = async () => {
         start_button.addEventListener('click',async () => {
             $(start_container).hide(100);
             start_container.remove()
+            console.log(questionnaire)
             if(!questionnaire.show_question_in_pages)
             {
                 questionnaire.questions.forEach((Question) => {
@@ -74,6 +75,7 @@ const loader_initializer = async () => {
         }
             else
             {
+                
                 let start_question_index = 0;
                 if(questionnaire.questions[start_question_index])
                     while(Array.isArray(questionnaire.questions[start_question_index].question))
@@ -117,7 +119,9 @@ const loader_initializer = async () => {
 const confirm_button_handler = async (send_answers_button,questionnaire) => {
         try
         {
-          await total_answer_set_handler(questionnaire,answer_set_id,document.querySelectorAll(".QuestionContainer"))          
+            await total_answer_set_handler(questionnaire,answer_set_id,document.querySelectorAll(".QuestionContainer"))
+            if(error_occur)
+                return
         }
         catch(error)
         {
@@ -239,6 +243,7 @@ const next_question_handler = async (questionnaire,Questions,CurrState,progress_
     }
     catch(error)
     {
+        console.log(error)
         return;
     }         
         $(curQuestion).fadeOut(100);

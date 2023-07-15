@@ -11,6 +11,7 @@ export const answer_input_checker = (Question) => {
             range_item_eventListener_setter(document.querySelectorAll(`#Q${Question.id} .range__number`))
             break;
         case 'integer_selective':
+            integer_selective_eventListener(Question)
             break;
         case 'file':
             file_event_listener(Question);
@@ -23,11 +24,13 @@ export const answer_input_checker = (Question) => {
             number_input_eventListener(Question)
             break;
         case 'link':
+            link_input_eventListener(Question)
             break;
         case 'optional':
             multiple_answer_eventListener(Question)
             break;
         case 'email_field':
+            email_input_eventListener(Question)
             break;
         case 'sort':
             sort_input_eventListener(Question)
@@ -73,7 +76,7 @@ const number_input_eventListener = (Question) => {
         })
 }
 const text_input_eventListener = (Question) => {
-    let text_answer_input = document.querySelector('#text_answer_input');
+    let text_answer_input = document.querySelector(`#Q${Question.id} #text_answer_input`);
     text_answer_input.setAttribute
         switch(Question.pattern)
         {
@@ -117,6 +120,18 @@ const text_input_eventListener = (Question) => {
             document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
         })
 } 
+const link_input_eventListener = (Question) => {
+    let link_answer_input = document.querySelector(`#Q${Question.id} #link_answer_input`);
+    link_answer_input.addEventListener('input',() => {
+        document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
+    })
+}
+const email_input_eventListener = (Question) => {
+    let email_answer_input = document.querySelector(`#Q${Question.id} #email_answer_input`);
+    email_answer_input.addEventListener('input',() => {
+        document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
+    })
+}
 export const file_event_listener = (Question) => {
     let file_input = document.querySelector(`#Q${Question.id} .inputUploader .box__file`);
     const preview_image_side = document.querySelector(`#Q${Question.id} .inputUploader .uploaded_file_image`);
@@ -183,7 +198,7 @@ const multiple_answer_eventListener = (Question) => {
     })
    })
 }
-const  options_answer_inActive_setter = (Text) => {
+const options_answer_inActive_setter = (Text) => {
     let answer_options = document.querySelectorAll('.multiple_answer_block-option label');
     answer_options.forEach((answer_option) => {
         if(answer_option.textContent != Text)
@@ -254,4 +269,11 @@ const range_item_eventListener_setter = (range_select_options) => {
         })
         slide_option.classList.add("range__active")
     }
+}
+const integer_selective_eventListener = (Question) => {
+    document.querySelectorAll('.degree_answer_block-option label').forEach((item) => {
+        item.addEventListener('click',() => {
+            document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
+        })
+    })
 }
