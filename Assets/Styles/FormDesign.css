@@ -348,6 +348,11 @@
         flex-direction: column;
         align-items: center;
     }
+    .block__side.add_question_active .question_design_items
+    {
+        margin: 0 auto;
+        height: 100vh;
+    }
     .block__section main {
         width: 100%;
         overflow: auto;
