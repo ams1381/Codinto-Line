@@ -16,10 +16,18 @@ const Questionnaireuuid = urlParams.get('Questionnaireuuid');
 let answer_set_id;
 
 const answer_set_creator = async () => {
-    if(Questionnaireuuid)
+    try 
     {
-        let answer_set_res = await postRequest(`${baseUrl}/question-api/questionnaires/${Questionnaireuuid}/answer-sets/`);
-        answer_set_id = answer_set_res.data.id;
+        if(Questionnaireuuid)
+        {
+            let answer_set_res = await postRequest(`${baseUrl}/question-api/questionnaires/${Questionnaireuuid}/answer-sets/`);
+            answer_set_id = answer_set_res.data.id;
+        }
+    }
+    catch(error)
+    {
+        answer_page_container.classList.add('not_found');
+        $('.not_found_container').show(100);
     }
 }
 const loader_initializer = async () => {
@@ -60,7 +68,12 @@ const loader_initializer = async () => {
                     let question_controller_container = `
                     <div class="FormFooter SideFooter">
                         <button class="save-Form saveQuestion send_answers">
-                            ارسال
+                        <div class="snippet" data-title="dot-pulse">
+                                <div class="stage">
+                                    <div class="dot-pulse"></div>
+                                </div>
+                        </div>
+                            <p>ارسال</p>
                         </button>
                     </div>
                 </div>
@@ -78,9 +91,9 @@ const loader_initializer = async () => {
                 
                 let start_question_index = 0;
                 if(questionnaire.questions[start_question_index])
-                    while(Array.isArray(questionnaire.questions[start_question_index].question))
+                    while(!questionnaire.questions[start_question_index].question)
                         start_question_index += 1;
-                question_controller(questionnaire,questionnaire.questions,start_question_index,questionnaire.progress_bar)
+                question_controller(questionnaire,questionnaire.questions,start_question_index,questionnaire.progress_bar);
             }
         })
     }
@@ -89,6 +102,7 @@ const loader_initializer = async () => {
         if(!questionnaire.show_question_in_pages)
         {
             questionnaire.questions.forEach((Question) => {
+                if(Question.question)
                     question_loader(Question);
                 });
             if(questionnaire.is_active && Questionnaireuuid)
@@ -96,7 +110,12 @@ const loader_initializer = async () => {
                     let question_controller_container = `
                     <div class="FormFooter SideFooter">
                         <button class="save-Form saveQuestion send_answers">
-                            ارسال
+                            <div class="snippet" data-title="dot-pulse">
+                                <div class="stage">
+                                    <div class="dot-pulse"></div>
+                                </div>
+                        </div>
+                            <p>ارسال</P>
                         </button>
                     </div>
                 </div>
@@ -104,27 +123,32 @@ const loader_initializer = async () => {
                 questionnaire_controller_loader(question_controller_container);
                 let send_answers_button = document.querySelector(".FormFooter .send_answers");
                 send_answers_button.addEventListener('click',() => {
+                    
                     confirm_button_handler(send_answers_button,questionnaire);
                 })
             }
-            await confirm_button_handler(questionnaire)
+        } 
+        else 
+        {
+            let start_question_index = 0;
+            if(questionnaire.questions[start_question_index])
+                while(!questionnaire.questions[start_question_index].question)
+                    start_question_index += 1;
+            question_controller(questionnaire,questionnaire.questions,start_question_index,questionnaire.progress_bar);
         }
             
-        
-        else 
-            question_controller(questionnaire,questionnaire.questions,0,questionnaire.progress_bar);
     }
     
 } 
 const confirm_button_handler = async (send_answers_button,questionnaire) => {
         try
         {
+            send_answers_button.classList.add('operating')
             await total_answer_set_handler(questionnaire,answer_set_id,document.querySelectorAll(".QuestionContainer"))
-            if(error_occur)
-                return
         }
         catch(error)
         {
+            send_answers_button.classList.remove('operating')
             return
         }
         send_answers_button.remove()
@@ -135,7 +159,11 @@ const confirm_button_handler = async (send_answers_button,questionnaire) => {
         if(questionnaire.thanks_page)
             thank_loader(questionnaire.thanks_page)
         if(!questionnaire.thanks_page)
+        {
             $('.answer_page_container').addClass("ended")
+            $('.questionnaire_ended').show(100);
+        }
+            
            
 }
 const welcome_loader = (welcome) => {
@@ -176,7 +204,12 @@ const question_controller = (questionnaire,Questions,CurrState,progress_bar) => 
             let question_controller_container = `
             <div class="FormFooter SideFooter">
                 <button class="save-Form saveQuestion nextQuestion">
-                     بعدی
+                <div class="snippet" data-title="dot-pulse">
+                                <div class="stage">
+                                    <div class="dot-pulse"></div>
+                                </div>
+                        </div>
+                     <p>بعدی</p>
                 </button>
                 <button class="cancel-Form cancelQuestion preQuestion">
                     قبلی
@@ -205,7 +238,7 @@ const question_controller = (questionnaire,Questions,CurrState,progress_bar) => 
     }
     if(next_question_button)
         next_question_button.addEventListener('click',() => {
-            let next_question_handler_result = next_question_handler(questionnaire,Questions,CurrState,progress_bar);
+            let next_question_handler_result = next_question_handler(next_question_button,questionnaire,Questions,CurrState,progress_bar);
             if(next_question_handler_result == 'Err')
                 return;
             if(CurrState == Questions.length - 1 && questionnaire.thanks_page)
@@ -230,27 +263,28 @@ const question_controller = (questionnaire,Questions,CurrState,progress_bar) => 
             prev_question_handler(questionnaire,Questions,CurrState,progress_bar)
         })
 }
-const next_question_handler = async (questionnaire,Questions,CurrState,progress_bar) => {
+const next_question_handler = async (next_question_button,questionnaire,Questions,CurrState,progress_bar) => {
     let posted_answer_set;
     let curQuestion = document.querySelector(".QuestionContainer");
     try
     {
         if(questionnaire.is_active && Questionnaireuuid)
         {
-           await single_answer_setter(questionnaire.uuid,answer_set_id,Questions[CurrState].question,curQuestion)
+            next_question_button.classList.add('operating')
+           await single_answer_setter(questionnaire.uuid,answer_set_id,Questions[CurrState].question,curQuestion,'Single')
         }
           
     }
     catch(error)
     {
-        console.log(error)
+        next_question_button.classList.remove('operating')
         return;
     }         
         $(curQuestion).fadeOut(100);
         curQuestion.remove();
         document.querySelector('.FormFooter.SideFooter').remove();
         if(Questions[CurrState + 1])
-            while(Array.isArray(Questions[CurrState + 1].question))
+            while(!Questions[CurrState + 1].question)
                 CurrState += 1;
         question_controller(questionnaire,Questions,CurrState + 1,progress_bar);
 
@@ -275,7 +309,7 @@ const prev_question_handler = async (questionnaire,Questions,CurrState,progress_
     else
     {
         if(Questions[CurrState - 1])
-            while(Array.isArray(Questions[CurrState - 1].question))
+            while(!Questions[CurrState - 1].question)
                 CurrState -= 1;
         question_controller(questionnaire,Questions,CurrState - 1,progress_bar);
 

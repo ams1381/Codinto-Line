@@ -106,6 +106,7 @@ async function renewToken() {
     } 
     catch (error) 
     {
+      window.open('LoginPage.html')
       return error;
     }
 }
@@ -125,12 +126,10 @@ async function errorHandler(errorRes,errorCode,error,url)
     }
 }
 function er400handler(error) 
-{
-  
+{ 
   if(Array.isArray(error.data))
   {
     error.data.forEach((item) => {
-      console.log(item)
       if(document.querySelector(`#Q${Object.keys(item)[0]}`))
       {
         document.querySelector(`#Q${Object.keys(item)[0]}`).classList.add('error_occur')

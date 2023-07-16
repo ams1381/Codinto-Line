@@ -164,7 +164,6 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
     const sub_copy_buttons = document.querySelectorAll(`.Question-Nested .Question-Nested-items .nested .EditButton`);
     const question_element = document.querySelector(`#Question${Question.id}`);
     const sub_question_elements = document.querySelectorAll(`.Question-Nested .Question-Nested-items .Questionitem`);
-    console.log(sub_question_elements)
 
     if(sub_delete_buttons)
     {

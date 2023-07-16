@@ -32,6 +32,7 @@ export const QuestionItemCleaner = () => {
         $(QuestionItem).hide(10);
         QuestionItem.remove();
     })
+    $('#loading-animation').removeClass('hide');
 }
 export const QuestionItemSetter = async () => {
         QuestionsBoxContainer.classList.add('loading');
@@ -54,7 +55,8 @@ export const QuestionItemSetter = async () => {
             if(QuestionsResponse.questions.length !== 0)
             {
                 QuestionsResponse.questions.forEach((Question) => {
-                    QuestionItemGenerator(Question.question,Question.question.placement);
+                    if(Question.question)
+                        QuestionItemGenerator(Question.question,Question.question.placement);
                 })
                 drag_drop_setter(document.querySelectorAll('.nested'));
             }

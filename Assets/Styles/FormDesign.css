@@ -356,6 +356,10 @@
         width: 90%;
         margin-top: 30px;
     }
+    .QuestionsBox.loading 
+    {
+        height: 620px !important;
+    }
     .viewFormQuestions i svg 
     {
         width: 30px;

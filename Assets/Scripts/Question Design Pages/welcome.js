@@ -1,7 +1,7 @@
 import {file_upload_handler, preview_change_handler, question_creator, toggle_handler , showAlert, preview_question_toggle, text_style_label_eventListener_setter} from "./CommonActions.js";
 import {welcome_page_postData} from "../ajax/QuestionPostData.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
-const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const titleInput = document.querySelector(".GTitle .TitleTextInput")

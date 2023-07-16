@@ -2,7 +2,7 @@ import { range_question_postData} from "../ajax/QuestionPostData.js";
 import {file_upload_handler, preview_change_handler, preview_question_toggle, question_creator, question_placement_setter, text_style_label_eventListener_setter, toggle_handler} from "./CommonActions.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
 import { range_item_eventListener_setter } from "../../../Components/questionBox/rangeSelect.js";
-const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const titleInput = document.querySelector(".GTitle .TitleTextInput");

@@ -14,7 +14,7 @@ import {preview_answer_option_hider
  } from './CommonActions.js'
 import { slider_option_postData } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from './QuestionInfoLoader.js';
-const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE")
 const randomize_options_toggle = document.querySelector(".is_random_options .Switch-Container .slider-button");

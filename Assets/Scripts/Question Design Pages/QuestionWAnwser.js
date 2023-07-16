@@ -3,7 +3,7 @@ import { preview_change_handler } from "../Question Design Pages/CommonActions.j
 import {text_question_with_answer_postData} from "../ajax/QuestionPostData.js";
 import {question_info_loader} from './QuestionInfoLoader.js'
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
-const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")

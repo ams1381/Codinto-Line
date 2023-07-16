@@ -9,7 +9,7 @@ import {
  } from './CommonActions.js'
 import { question_info_loader } from './QuestionInfoLoader.js';
 import { selective_degree_postData } from '../ajax/QuestionPostData.js';
-const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const Title_input = document.getElementById("title__input");

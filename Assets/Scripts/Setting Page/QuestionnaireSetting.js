@@ -200,10 +200,23 @@ const Timer_EventListener_Setter = () => {
         Timer_Setter(TimerHour,TimerMinute,TimerSecond)
     });
     QuestionnaireTimerInputsM.addEventListener('input',(e) => {
+        if($(QuestionnaireTimerInputsS).val() > 60)
+        {
+             $(QuestionnaireTimerInputsS).val($(QuestionnaireTimerInputsS).val().substr(0, 2));
+             return
+        }
+           
         TimerMinute = e.target.value;
         Timer_Setter(TimerHour,TimerMinute,TimerSecond)
+        
     });
     QuestionnaireTimerInputsS.addEventListener('input',(e) => {
+        if($(QuestionnaireTimerInputsS).val() > 60)
+        {
+            $(QuestionnaireTimerInputsS).val($(QuestionnaireTimerInputsS).val().substr(0, 2));
+            return
+        }
+           
         TimerSecond = e.target.value;
         Timer_Setter(TimerHour,TimerMinute,TimerSecond)
     });

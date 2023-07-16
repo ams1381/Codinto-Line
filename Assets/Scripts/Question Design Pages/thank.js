@@ -7,7 +7,7 @@ import {
 import { preview_change_handler , preview_question_toggle } from "../Question Design Pages/CommonActions.js";
 import {thank_page_postData} from "../ajax/QuestionPostData.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
-const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
@@ -15,7 +15,7 @@ const textInput = document.querySelector(".GDesc .TitleTextInput")
 const file_input = document.querySelector("#file.box__file")
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const saveBtn = document.querySelector(".saveQuestion")
-const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slider-button");
+const share_link_toggle = document.querySelector(".share_link .Switch-Container .slider-button");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion");
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
 
@@ -41,6 +41,9 @@ file_input.addEventListener('input',() => {
     if(file_input.files)
         thank_page_postData.media = file_input.files[0];
     file_upload_handler(selected_file_type,file_input,EditableQuestion,thank_page_postData);
+})
+share_link_toggle.addEventListener('click',() => {
+    toggle_handler(EditableQuestion,share_link_toggle.parentElement.parentElement.parentElement,share_link_toggle,thank_page_postData);
 })
 text_style_label_eventListener_setter(EditableQuestion,thank_page_postData);
 view_question_button.addEventListener('click',preview_question_toggle);

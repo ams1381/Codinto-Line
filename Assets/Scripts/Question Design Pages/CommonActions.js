@@ -573,7 +573,12 @@ export const file_upload_handler = (FileType,FileInput,EditableQuestion,PostData
         showAlert('فرمت فایل پذیرفته نیست');
         return
     }
-    
+    if(FileInput.files[0].size > 3000000)
+    {
+        FileInput.value = null;
+        showAlert('حجم فایل نباید بیشتر از 3 مگابایت باشد')
+        return;
+    }
     if(EditableQuestion)
     {
         file_data_setter(EditableQuestion,FileInput.files[0]);
@@ -671,13 +676,16 @@ const file_data_setter = (PostData,file) => {
 export const detectFileFormat = (fileName) => {
     if(!fileName)
      return
+     fileName = fileName.toLowerCase();
     let pictureFormats = ['jpg', 'jpeg', 'png', 'gif'];
     let videoFormats = ['mp4', 'avi', 'mkv', 'mov', 'flv', 'wmv'];
-    
+    let zip_formats  = ['zip','rar','7z'];
+    let audio_formats = ['mp3','wav','ogg','mpeg-1']
     let fileFormat = fileName.split(".")[fileName.split(".").length - 1];
     
     return pictureFormats.includes(fileFormat) ? 'Picture' :
-           videoFormats.includes(fileFormat) ? 'Video' : 'UNKNOWN';
+           videoFormats.includes(fileFormat) ? 'Video' : zip_formats.includes(fileFormat) ?
+            'Zip' : audio_formats.includes(fileFormat) ? 'Audio' : 'UNKNOWN';
 }
 export const form_data_convertor =  (obj,formData,namespace) => {
     let form_Data = new FormData();
@@ -717,10 +725,9 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
                     break;
         }
         if((createRes.status == 201 || createRes.status == 200))
-            {
-                window.open("/Pages/FormDesign.html","_Self");
-                
-            }
+        {
+            window.open("/Pages/FormDesign.html","_Self");
+        }
         }
         catch(err)
         {

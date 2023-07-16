@@ -21,7 +21,7 @@ export const questionnaire_generator = (Questionnaire) => {
         </div>
         <button class="form_edit_toggle_button">
              <i class = "sliders_icon">
-             <svg class="sliders_svg" fill="#3F52E3" width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M23,4a1,1,0,0,1-1,1H19a1,1,0,0,1,0-2h3A1,1,0,0,1,23,4ZM2,3h8.184a3,3,0,1,1,0,2H2A1,1,0,0,1,2,3ZM12,4a1,1,0,1,0,1-1A1,1,0,0,0,12,4ZM1,12a1,1,0,0,1,1-1H6.184a3,3,0,1,1,0,2H2A1,1,0,0,1,1,12Zm7,0a1,1,0,1,0,1-1A1,1,0,0,0,8,12Zm14-1H15a1,1,0,0,0,0,2h7a1,1,0,0,0,0-2Zm0,8H17a1,1,0,0,0,0,2h5a1,1,0,0,0,0-2ZM1,20a1,1,0,0,1,1-1H8.184a3,3,0,1,1,0,2H2A1,1,0,0,1,1,20Zm9,0a1,1,0,1,0,1-1A1,1,0,0,0,10,20Z"></path></g></svg>
+                <svg class="sliders_svg" fill="#3F52E3" width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M23,4a1,1,0,0,1-1,1H19a1,1,0,0,1,0-2h3A1,1,0,0,1,23,4ZM2,3h8.184a3,3,0,1,1,0,2H2A1,1,0,0,1,2,3ZM12,4a1,1,0,1,0,1-1A1,1,0,0,0,12,4ZM1,12a1,1,0,0,1,1-1H6.184a3,3,0,1,1,0,2H2A1,1,0,0,1,1,12Zm7,0a1,1,0,1,0,1-1A1,1,0,0,0,8,12Zm14-1H15a1,1,0,0,0,0,2h7a1,1,0,0,0,0-2Zm0,8H17a1,1,0,0,0,0,2h5a1,1,0,0,0,0-2ZM1,20a1,1,0,0,1,1-1H8.184a3,3,0,1,1,0,2H2A1,1,0,0,1,1,20Zm9,0a1,1,0,1,0,1-1A1,1,0,0,0,10,20Z"></path></g></svg>
              </i>
         </button>
     </div>`

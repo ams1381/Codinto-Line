@@ -6,6 +6,8 @@ export const answer_loader = (QuestionData,Question,answer_set_postData) => {
         
         if(answer_object.question == parseInt(Question.getAttribute("id").split("Q")[1]))
             {
+                if(!answer_object.answer)
+                    return;
                 switch([...Question.classList][1])
                 {
                     case 'text_answer':

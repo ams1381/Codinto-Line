@@ -13,7 +13,7 @@ import {
 import {email_question_PostData, } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
-const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/email-questions/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput")

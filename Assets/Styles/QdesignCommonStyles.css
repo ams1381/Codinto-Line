@@ -363,6 +363,7 @@
     padding: 10px;
     color: var(--brand-color);
     word-break: break-word;
+    line-height: 22px;
 }
 .multiple_answer_block-options
 {
@@ -616,7 +617,9 @@
     outline: none;
     padding: 0.4rem 0.2rem 0.1rem 0.2rem;
 }
-
+.anw-option-input::placeholder {
+    color: var(--text-editor-default-text-color);
+}
 .anw-option-tools button {
     color: var(--brand-color);
     background: none;

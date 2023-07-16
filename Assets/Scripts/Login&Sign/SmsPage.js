@@ -15,7 +15,9 @@ const sent_sms_handler = async (e) => {
     
         try
         {
-            let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/','application/json',{ 'token' : sms_code });
+            let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/','application/json',
+            { 'token' : sms_code , 'phone_number' : localStorage.getItem('enteredPhoneNumber') }
+            );
             if(accessToken)
             {
                 localStorage.setItem("ACCESS_TOKEN",accessToken.data.access)
@@ -33,6 +35,7 @@ const sent_sms_handler = async (e) => {
 sms_inputs.forEach((sms_input,index) => 
 {
     sms_input.addEventListener("input", async function(e) {
+        sms_input.focus();
         this.value = this.value.replace(/\D/g, "");
 
         if (this.value.length > 1) {

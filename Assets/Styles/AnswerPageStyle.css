@@ -136,6 +136,23 @@ body
     width: 90%;
     margin: 0.8rem auto 0 auto;
 }
+.saveQuestion
+{
+    padding: 0.8rem 0 0.8rem 0;
+    overflow: hidden;
+}
+.saveQuestion.operating
+{
+    padding: 0.9rem 0 0.9rem 0;
+}
+.saveQuestion.operating .dot-pulse
+{
+    display: block;
+}
+.saveQuestion.operating p 
+{
+    display: none;
+}
 @media only screen and (max-width : 900px)
 {
     .answer_page_container
@@ -150,6 +167,34 @@ body
     {
         width: 45%;
     }
+}
+.not_found_container {
+    text-align: center;
+    font-family: 'IRANSANS';
+    color: var(--brand-color);
+    display: none;
+}
+.answer_page_container.not_found  , .answer_page_container.ended
+{
+    background: var(--theme-white);
+    border-radius: 20px;
+    box-shadow: 4px 4px 10px #0000001c;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inputUploader.audio_uploaded .uploaded_file_video , .inputUploader.zip_uploaded .uploaded_file_video
+{
+    display: none;
+}
+.zip_file_preview , .audio_file_preview
+{
+    display: none;
+}
+.inputUploader.zip_uploaded .zip_file_preview , .inputUploader.audio_uploaded .audio_file_preview
+{
+    display: block;
 }
 @media only screen and (max-width : 576px)
 {

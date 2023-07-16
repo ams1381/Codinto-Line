@@ -1,7 +1,6 @@
 .container{
     width: 80%;
     height: 70%;
-    overflow: scroll;
     display: flex;
     margin: 3.5rem auto;
     flex-direction: column;
@@ -41,6 +40,7 @@
     text-align: center;
     padding: 0.3rem;
     border-radius: 5px;
+    word-break: break-word;
 }
 
 #exportButton {
@@ -54,6 +54,10 @@
     margin-top: 1.2rem;
     font-size: 0.9rem;
     cursor: pointer;
+}
+.container.loading  .resultTable ,.container.loading  #exportButton
+{
+  display: none;
 }
 @media screen and (max-width: 600px) {
     .container

@@ -8,7 +8,7 @@ export const answer_input_checker = (Question) => {
             text_input_eventListener(Question);
             break;
         case 'integer_range':
-            range_item_eventListener_setter(document.querySelectorAll(`#Q${Question.id} .range__number`))
+            range_item_eventListener_setter(Question,document.querySelectorAll(`#Q${Question.id} .range__number`))
             break;
         case 'integer_selective':
             integer_selective_eventListener(Question)
@@ -142,6 +142,12 @@ export const file_event_listener = (Question) => {
     file_input.addEventListener('input',() => {
         if(file_input.files)
         {
+            if(file_input.files[0].size > 30000000)
+                {
+                    document.querySelector(`#Q${Question.id}`).classList.add('error_occur');
+                    showAlert('حجم فایل نمیتواند بیشتر از 30 مگابایت باشد')
+                    return
+                }
             file_preview_setter(URL.createObjectURL(file_input.files[0]),detectFileFormat(file_input.files[0].name)
             ,preview_image_side,preview_video_side,file_input_container)
         }
@@ -149,6 +155,7 @@ export const file_event_listener = (Question) => {
     })
     if(preview_image_cancel_button)
     preview_image_cancel_button.addEventListener('click',() => {
+        document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
       file_input_container.classList.remove("uploaded");
         if(file_input)
             file_input.value = null;
@@ -162,21 +169,26 @@ export const file_event_listener = (Question) => {
 }
 export const file_preview_setter = (FileSrc,FileType,preview_image_side,preview_video_side,file_input_container) => {
     file_input_container.classList.add("uploaded");
-
+    console.log(FileType)
     switch(FileType)
     {
         case 'Picture' :
-            console.log('this is for test')
-            file_input_container.classList.add("image_uploaded"); 
-            file_input_container.classList.remove("video_uploaded");  
+            file_input_container.className =  'inputUploader uploaded image_uploaded';
             preview_image_side.src = FileSrc;  
             preview_video_side.removeAttribute("src");
             break;
         case 'Video':
-            file_input_container.classList.add("video_uploaded");  
-            file_input_container.classList.remove("image_uploaded");  
+            file_input_container.className = 'inputUploader uploaded video_uploaded';  
             preview_video_side.src = FileSrc;
-            break;         
+            break;    
+        case 'Zip':
+            file_input_container.className =  'inputUploader uploaded zip_uploaded';
+            preview_video_side.removeAttribute("src");
+            break;
+        case 'Audio':
+            file_input_container.className =  'inputUploader uploaded audio_uploaded';
+            preview_video_side.removeAttribute("src");
+            break;
     }
 }
 const multiple_answer_eventListener = (Question) => {
@@ -224,7 +236,6 @@ const selected_option_controller = (max_select_option) => {
 }
 const slider_options_eventListener_setter = (QuestionHTML,slider_button,slider_options) => {
     slider_button.addEventListener('click',() => {
-        QuestionHTML.classList.remove('error_occur')
         if(slider_button.classList.contains("up"))
         {
             $(slider_options).slideDown(100);
@@ -238,6 +249,7 @@ const slider_options_eventListener_setter = (QuestionHTML,slider_button,slider_o
     })
     slider_options.forEach((item) => {
         item.addEventListener('click',() => {
+            QuestionHTML.classList.remove('error_occur')
             setActive_slide_item(item,slider_options);
             $(slider_options).not(".slide_selected").slideUp(10);
             slider_button.classList.add("up");
@@ -255,9 +267,10 @@ const slider_options_eventListener_setter = (QuestionHTML,slider_button,slider_o
         slide_option.classList.add("slide_selected")
     }
 }
-const range_item_eventListener_setter = (range_select_options) => {
+const range_item_eventListener_setter = (Question,range_select_options) => {
     range_select_options.forEach((range_select_option) => {
         range_select_option.addEventListener('click', () => {
+            document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
             setActive_range_item(range_select_option,range_select_options)
         })
     });

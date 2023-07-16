@@ -15,7 +15,7 @@ import { preview_answer_option_generator
  } from './CommonActions.js'
 import {priority_question_PostData} from "../ajax/QuestionPostData.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
-const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");

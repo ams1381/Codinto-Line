@@ -15,7 +15,7 @@ import { preview_answer_option_generator
      } from './CommonActions.js'
 import { multiple_option_postData } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from './QuestionInfoLoader.js'
-const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const double_image_size_toggle = document.querySelector('.double_picture_size .Switch-Container .slider-button')
 const Title_input = document.getElementById("title__input");

@@ -31,7 +31,8 @@ const button_text_input = document.querySelector('.GEntryButton .ButtonTextInput
 const preview_image_main = document.querySelector(".preview_file_box .preview_image");
 const minInput = document.querySelector(".minInput .label-text-input")
 const maxInput = document.querySelector(".maxInput .label-text-input")
-const multiple_answer_select_inputs = document.querySelectorAll(".LimitInput input")
+const multiple_answer_select_inputs = document.querySelectorAll(".LimitInput input");
+const share_link_toggle = document.querySelector(".share_link .Switch-Container input");
 const preview_options_container = document.querySelector(".multiple_answer_block-options");
 const degree_label = document.querySelector('.range-label');
 const question_preview_number = document.querySelector(".QuestionContainer .Question-Title label")
@@ -81,7 +82,7 @@ export const question_info_loader = (Question) => {
         question_preview_description.textContent = $(new DOMParser().parseFromString(Question.description,'text/html')).text();
         Description_input.textContent = $(new DOMParser().parseFromString(Question.description,'text/html')).text();
     }
-    else if(!Question.description)
+    else if(Question.question_text)
     {
         text_style_load_handler(Question,'question_text','em','DescInput','italic',Description_input,'description_block');
         text_style_load_handler(Question,'question_text','strong','DescInput','bold',Description_input,'description_block');
@@ -263,7 +264,6 @@ export const question_info_loader = (Question) => {
     toggle_loader(Question)
 }
 const toggle_loader = (Question) => {
-//Toggles Loader :
     if(Question.is_required)
     {
         required_toggle.checked = Question.is_required;
@@ -280,6 +280,8 @@ const toggle_loader = (Question) => {
         vertical_order_toggle.checked = Question.is_vertical;
         preview_answer_options_container.classList.add('vertical-order')
     }
+    if(Question.share_link)
+        share_link_toggle.checked = Question.share_link;  
     if(Question.is_random_options)
         randomize_options_toggle.checked = Question.is_random_options;
     if(Question.multiple_choice)

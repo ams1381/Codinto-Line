@@ -217,6 +217,11 @@
     text-align: center;
     padding-bottom: 10px;
     -moz-appearance:textfield;
+    transition: 0.3s;
+}
+.SMS_number_input:focus 
+{
+    border-bottom: 2px solid rgb(0, 0, 93);
 }
 .SMS_number_input[type=number]::-webkit-inner-spin-button, 
 .SMS_number_input[type=number]::-webkit-outer-spin-button { 

@@ -10,7 +10,7 @@ import {
     text_style_label_eventListener_setter,
     toggle_handler
 } from "./CommonActions.js";
-const QuestionnaireUUID = localStorage.getItem("QuestionnaireUUID");
+const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
