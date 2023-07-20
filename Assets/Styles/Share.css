@@ -1,10 +1,7 @@
 .share_container
 {
     width: 85%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    margin: 3rem auto;
     background-color: var(--theme-white);
     color: var(--brand-color);
     box-shadow: 3px 3px 10px var(--theme-navbar-shadow);
@@ -12,7 +9,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     font-family: IRANSans;
 }
 .share_via_social_media {
