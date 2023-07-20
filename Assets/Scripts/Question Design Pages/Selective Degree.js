@@ -24,6 +24,7 @@ let preview_degree_shapes = document.querySelectorAll('.degree_answer_block-opti
 let preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option');
 const degree_shape_labels = document.querySelectorAll(".shape_selector_options label");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion");
+let input_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option input')
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
 const save_question_btn = document.querySelector('.SideFooter .saveQuestion');
 
@@ -40,11 +41,11 @@ const preview_degree_handler = (degree,shape_icon_className) => {
         $(preview_degree_item).hide(100);
         preview_degree_item.remove();
     })
-    for(let i = 0;i < degree; i++)
+    for(let i = 0; i < degree; i++)
     {
         const degree_element = `
         <div class="degree_answer_block-option">
-            <input type="radio" name="answer__option" id="answer-n${i}">
+            <input type="radio" id="answer-n${i}">
             <label class="answer_option-label" for="answer-n${i}"><i class="${shape_icon_className.className}"></i></label>
         </div>`
         const parser = new DOMParser();
@@ -55,11 +56,13 @@ const preview_degree_handler = (degree,shape_icon_className) => {
     }
      preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option');
      preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i');
+     input_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option input')
 
      if(EditableQuestion && ACTION_TYPE == 'Edit')
         EditableQuestion.max = degree;
     else
         selective_degree_postData.max = degree;
+    preview_degree_eventListener_setter(preview_degree_items,input_items)
 }
 const preview_degree_shape_handler = (selected_shape,DataForPost,shape_icon_className) => {
     preview_degree_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option');
@@ -86,6 +89,8 @@ const preview_degree_shape_handler = (selected_shape,DataForPost,shape_icon_clas
     preview_degree_shapes.forEach((preview_degree_shape) => {
         preview_degree_shape.className = shape_icon_className;
     })
+    input_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option input')
+    preview_degree_eventListener_setter(preview_degree_items,input_items)
 }
 degree_shape_labels.forEach((degree_shape_label) => {
     degree_shape_label.addEventListener('click',() => {
@@ -128,3 +133,28 @@ required_toggle.addEventListener('click',() => {
 text_style_label_eventListener_setter(EditableQuestion,selective_degree_postData);
 view_question_button.addEventListener('click',preview_question_toggle);
 back_to_design_button.addEventListener('click',preview_question_toggle)
+const preview_degree_eventListener_setter = (degree_items,input_items) => {
+    degree_items.forEach((preview_degree_item,index) => {
+        preview_degree_item.addEventListener('click',() => {
+            input_items.forEach((item) => 
+            { 
+                item.classList.remove('selected_answer')
+                if(preview_degree_item.firstElementChild.getAttribute('id') !== item.getAttribute('id')) 
+                    item.checked = false
+             })
+           degree_click_handler(degree_items.length - index,input_items,preview_degree_item.firstElementChild);
+        })
+    })
+    const degree_click_handler = (Click_index,preview_degree_inputs,clicked_input) => {
+        preview_degree_inputs.forEach((item,index) => {
+            if(preview_degree_inputs.length - index <= Click_index - 1)
+            {
+                
+                item.checked = true;
+                clicked_input.classList.add('selected_answer');
+            }
+                
+        })
+    }
+}
+preview_degree_eventListener_setter(preview_degree_items,input_items)

@@ -47,7 +47,7 @@
                     <h3 class="sidebar-codinto-title">کدینتو لاین</h3>
                 </div>
                 <div class="search-box">
-                    <input type="text" id="search-input" placeholder="جستجو">
+                    <input type="text" class="search-input" id="search-input" placeholder="جستجو">
                 </div>
                 <div class="navTools"> 
                     <button class="FolderSearch navButton">
@@ -75,12 +75,13 @@
                     <div id="loading-animation">
                         <div class="spinner"></div>
                     </div>
+                    <Button class="folder_slide_toggle">
+                        <i class="fa fa-angle-up"></i>
+                    </Button>
             </div>
-            <Button class="folder_slide_toggle">
-                <i class="fa fa-angle-up"></i>
-            </Button>
+            
         </aside>
-        <main class="block__main">
+        <main class="block__main loading">
             <div class="emptyQuestionnaire">
                 <p>برای ساختن پرسشنامه ابتدا پوشه بسازید</p>
             </div>
@@ -90,6 +91,11 @@
                     <i>
                         <svg width="30" height="30" viewBox="0 0 64.00 64.00" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#3F52E3" stroke-width="4.096"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><circle cx="32" cy="32" r="24"></circle><line x1="20" y1="32" x2="44" y2="32"></line><line x1="32" y1="20" x2="32" y2="44"></line></g></svg>
                     </i>
+                </div>
+            </div>
+            <div class="loading_questionnaire">
+                <div id="loading-animation">
+                    <div class="spinner"></div>
                 </div>
             </div>
         </main>
@@ -134,9 +140,7 @@
         <div class="removeFolderPopUp">
             <div class="popUpHeader">
                 <div class="popup_deleteIcon">
-                    <i>
-                                            <svg class="close_svg" fill="#3F52E3" width="24" height="24" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM21.657 10.344c-0.39-0.39-1.023-0.39-1.414 0l-4.242 4.242-4.242-4.242c-0.39-0.39-1.024-0.39-1.415 0s-0.39 1.024 0 1.414l4.242 4.242-4.242 4.242c-0.39 0.39-0.39 1.024 0 1.414s1.024 0.39 1.415 0l4.242-4.242 4.242 4.242c0.39 0.39 1.023 0.39 1.414 0s0.39-1.024 0-1.414l-4.242-4.242 4.242-4.242c0.391-0.391 0.391-1.024 0-1.414z"></path> </g></svg>
-                                        </i>
+                    <i class="fa fa-remove"></i>
                 </div>
                 <div class="popup_headerText">
                     آیا مطمعن هستید؟

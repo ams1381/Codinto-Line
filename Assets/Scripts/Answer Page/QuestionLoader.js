@@ -13,7 +13,9 @@ const answer_page_container = document.querySelector('.answer_page_container');
 const block__header = document.querySelector('.block__header');
 const urlParams = new URLSearchParams(window.location.search);
 const Questionnaireuuid = urlParams.get('Questionnaireuuid');
+let start_question_index = 0;
 let answer_set_id;
+let first_question_number;
 
 const answer_set_creator = async () => {
     try 
@@ -60,8 +62,10 @@ const loader_initializer = async () => {
             console.log(questionnaire)
             if(!questionnaire.show_question_in_pages)
             {
+                $('.parent_container').addClass('total');
                 questionnaire.questions.forEach((Question) => {
-                    question_loader(Question);
+                    if(Question.question)
+                        question_loader(Question);
                 });
                 if(questionnaire.is_active && Questionnaireuuid)
                 {
@@ -88,12 +92,13 @@ const loader_initializer = async () => {
         }
             else
             {
+                $('.parent_container').addClass('single');
                 
-                let start_question_index = 0;
                 if(questionnaire.questions[start_question_index])
                     while(!questionnaire.questions[start_question_index].question)
                         start_question_index += 1;
-                question_controller(questionnaire,questionnaire.questions,start_question_index,questionnaire.progress_bar);
+                 first_question_number =  start_question_index; 
+                question_controller(questionnaire,questionnaire.questions,start_question_index,questionnaire.progress_bar,'firstQuestion');
             }
         })
     }
@@ -101,6 +106,7 @@ const loader_initializer = async () => {
     {
         if(!questionnaire.show_question_in_pages)
         {
+            $('.parent_container').addClass('total');
             questionnaire.questions.forEach((Question) => {
                 if(Question.question)
                     question_loader(Question);
@@ -130,13 +136,14 @@ const loader_initializer = async () => {
         } 
         else 
         {
-            let start_question_index = 0;
+            $('.parent_container').addClass('single');
+            
             if(questionnaire.questions[start_question_index])
                 while(!questionnaire.questions[start_question_index].question)
                     start_question_index += 1;
-            question_controller(questionnaire,questionnaire.questions,start_question_index,questionnaire.progress_bar);
+            first_question_number =  start_question_index; 
+            question_controller(questionnaire,questionnaire.questions,start_question_index,questionnaire.progress_bar,'firstQuestion');
         }
-            
     }
     
 } 
@@ -191,7 +198,7 @@ const question_loader = (Question) => {
     }
         
 }
-const question_controller = (questionnaire,Questions,CurrState,progress_bar) => {
+const question_controller = (questionnaire,Questions,CurrState,progress_bar,firstQuestion) => {
     if(progress_bar)
     {
         document.querySelector(".answer_page_progressBar").classList.add('active');
@@ -222,7 +229,7 @@ const question_controller = (questionnaire,Questions,CurrState,progress_bar) => 
     
     let next_question_button = document.querySelector(".FormFooter .nextQuestion");
     let prev_question_button = document.querySelector(".FormFooter .preQuestion");
-    if(CurrState == 0)
+    if(firstQuestion)
         $(prev_question_button).hide(10);
     else 
         $(next_question_button).show(10);
@@ -311,14 +318,21 @@ const prev_question_handler = async (questionnaire,Questions,CurrState,progress_
         if(Questions[CurrState - 1])
             while(!Questions[CurrState - 1].question)
                 CurrState -= 1;
-        question_controller(questionnaire,Questions,CurrState - 1,progress_bar);
+        if(CurrState - 1 == start_question_index)
+            question_controller(questionnaire,Questions,CurrState - 1,progress_bar,'firstQuestion');
+        else
+            question_controller(questionnaire,Questions,CurrState - 1,progress_bar);
 
         let curQuestion = document.querySelector(".QuestionContainer");
         if(Questionnaireuuid)
         {
+            console.log(start_question_index,CurrState - 1)
             posted_answer_set = await getRequest(`${baseUrl}/question-api/questionnaires/${Questionnaireuuid}/answer-sets/${answer_set_id}/`);
             if(curQuestion)
-                answer_loader(Questions[CurrState - 1],curQuestion,posted_answer_set);
+                answer_loader(Questions[CurrState - 1],curQuestion,posted_answer_set)
+            //     answer_loader(Questions[CurrState - 1],curQuestion,posted_answer_set);
+            // else
+                
         }
     }
 }

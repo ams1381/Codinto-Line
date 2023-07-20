@@ -56,7 +56,7 @@ export const folder_generator = (folderName, id , Questionnaires) => {
     
     const parser = new DOMParser();
     const parsed_folder_element_item = parser.parseFromString((folder_element_item),'text/html').firstChild.lastChild.lastChild;
-    SideBodyContainer.append(parsed_folder_element_item);
+    SideBodyContainer.prepend(parsed_folder_element_item);
     parsed_folder_element_item.addEventListener('click',() => {
         setActive_folder(parsed_folder_element_item,folder_items,Questionnaires);
     })

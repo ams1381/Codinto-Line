@@ -7,12 +7,16 @@
 {
     overflow-x: hidden;
 }
+.block__side
+{
+    filter: drop-shadow(2px 4px 6px #0000001A);
+    z-index: 10;
+}
 .AddForm , .form
 {
     margin: 25px 20px 0 0;
     width: 90%;
     background: var(--theme-white);
-    height: calc(9rem + 4vw);
     border-radius: 25px/96px;
     box-shadow: 1px 2px 4px #00000026;
     display: flex;
@@ -22,6 +26,7 @@
     color: var(--brand-color);
     cursor: pointer;
     position: relative;
+    padding: calc(3rem + 1vw) 0 calc(3rem + 1vw) 0;
 }
 .form p 
 {
@@ -55,6 +60,14 @@
     border-bottom: 2px solid var(--brand-color);
     margin: 16px auto 0 auto;
     padding-bottom: 15px;
+}
+.block__main #loading-animation
+{
+    height: 100%;
+}
+.block__main.loading .FormsManagement , .block__main.loading .emptyQuestionnaire
+{
+    display: none;
 }
 .navTools
 {
@@ -119,20 +132,6 @@
 .navTitle
 {
     width: 80%;
-    transition: 0.3s;
-}
-#search-input
-{
-    width: 0;
-    border: none;
-    border-bottom: 2px solid var(--brand-color);
-    color: var(--brand-color);
-    outline: none;
-    font-size: 18px;
-    padding-bottom: 5px;
-    font-family: IRANSans;
-    transition: width 0.4s;
-    margin: 0 auto 0 auto;
 }
 .search-box 
 {
@@ -161,18 +160,6 @@
 {
     width: 0;
     opacity: 0;
-    display: none;
-}
-.sidebar-codinto-title
-{
-    transition: 0.2s;
-}
-.FolderSearch .close-search
-{
-    display: none;
-}
-.FolderSearch.search-active .open-search
-{
     display: none;
 }
 
@@ -217,7 +204,7 @@
     display: block;
 }
 .sideBody.emptyActive .emptyListIcon {
-    margin-bottom: 2rem;
+    margin: 1rem 0 1rem 0;
     font-size: 5rem;
 }
 .createFolderPopUp.active , .renameFolderPopUp.active , .removeFolderPopUp.active
@@ -427,6 +414,7 @@
     border-radius: 1rem;
     margin: 1.8rem auto;
     width: 90%;
+    text-align: center;
 }
 .block__main.emptyActive .form.AddForm
 {
@@ -447,17 +435,6 @@
 {
     display: none;
 }
-/* @media only screen and (max-width : 992px)
-{
-    .FormsManagement
-    {
-        flex-wrap: wrap;
-    }
-    .AddForm, .form
-    {
-        width: 45%;
-    }
-} */
 @media only screen and (max-width : 768px)
 { 
     .block__section
@@ -471,8 +448,11 @@
     }
     .block__main
     {
-        overflow-y: clip;
-        height: 50%;
+        padding-bottom: 1.5rem;
+    }
+    .block__side
+    {
+        overflow: initial;
     }
     .Selected .folder_control
     {
@@ -526,17 +506,17 @@
     {
         display: block;
     }
+    #loading-animation .spinner {
+        top: 22%;
+        left: 8%;
+        width: 20px;
+        height: 20px;
+    }
 }
 @media only screen and (max-width : 576px)
 {
     .FormsManagement
     {
         grid-template-columns: auto auto;
-    }
-    #loading-animation .spinner {
-        top: 22%;
-        left: 8%;
-        width: 20px;
-        height: 20px;
     }
 }

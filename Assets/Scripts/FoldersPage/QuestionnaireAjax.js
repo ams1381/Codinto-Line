@@ -31,7 +31,8 @@ export const questionnaire_generator = (Questionnaire) => {
    $(parsed_questionnaire_element_item).hide(10);
     main_questionnaire_container.prepend(parsed_questionnaire_element_item);
     $(parsed_questionnaire_element_item).show(200);
-
+    $('.block__main').removeClass('loading')
+    $('.block__main #loading-animation').addClass('hide');
     let questionnaire = document.getElementById(`Questionnaire${Questionnaire.id}`);
     let form_edit_toggle_button = document.querySelector(`#Questionnaire${Questionnaire.id} .form_edit_toggle_button`);
     let form_edit_cancel_button = document.querySelector(`#Questionnaire${Questionnaire.id} .form_edit_cancel`);
@@ -68,6 +69,7 @@ export const questionnaire_generator = (Questionnaire) => {
             window.open("/Pages/ShowResult.html","_Self");
             localStorage.setItem('QuestionnaireToShowResult',JSON.stringify(Questionnaire));
         })
+        
 }
 const questionnaire_remove_handler = async (questionnaireUUID,questionnaireID) => {
     let delRes = await deleteRequest(DeleteUrl + questionnaireUUID + '/');

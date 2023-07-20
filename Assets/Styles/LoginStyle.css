@@ -70,6 +70,7 @@
     font-size: calc(0.95rem + 0.25vw);
     font-family: IRANSans;
     -moz-appearance:textfield;
+    line-height: 12px;
 }
 .Login_LContainer__inputs input::placeholder{
     color: var(--brand-color);
@@ -215,7 +216,7 @@
     color: var(--brand-color);
     font-family: IRANSans;
     text-align: center;
-    padding-bottom: 10px;
+    line-height: 5px;
     -moz-appearance:textfield;
     transition: 0.3s;
 }

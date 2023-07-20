@@ -1,5 +1,6 @@
 import { showAlert } from "../Question Design Pages/CommonActions.js";
 let baseUrl = 'https://codinto-line.codinguy.ir';
+// let baseUrl = 'http://62.106.95.214:8003/';
 var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE2NDg1NTk5LCJqdGkiOiJhNDZlZGMzOTg3MTE0ZDc0OTYzMDI2MWY2MTMxMzZlMSIsInVzZXJfaWQiOjF9.S4jJOFS7nMjhwb5q4fssHslS1H7W--a5ktAOZTikjzI";
 let accessToken;
 const cookies_reader = (cname) => 
@@ -27,7 +28,6 @@ export const cookie_setter = (cname, cvalue, exdays = 2) => {
 const getRequest = async (url) => 
   {
     accessToken = cookies_reader('access');
-    console.log(cookies_reader('access'))
     try {
       const response = await axios.get(url, {
         headers: {

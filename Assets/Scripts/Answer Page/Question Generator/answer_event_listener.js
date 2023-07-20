@@ -11,7 +11,9 @@ export const answer_input_checker = (Question) => {
             range_item_eventListener_setter(Question,document.querySelectorAll(`#Q${Question.id} .range__number`))
             break;
         case 'integer_selective':
-            integer_selective_eventListener(Question)
+            integer_selective_eventListener(Question);
+            preview_degree_eventListener_setter(document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option'),
+            document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option input'))
             break;
         case 'file':
             file_event_listener(Question);
@@ -189,6 +191,10 @@ export const file_preview_setter = (FileSrc,FileType,preview_image_side,preview_
             file_input_container.className =  'inputUploader uploaded audio_uploaded';
             preview_video_side.removeAttribute("src");
             break;
+        default : 
+            file_input_container.className =  'inputUploader uploaded file_uploaded';
+            preview_video_side.removeAttribute("src");
+            break;
     }
 }
 const multiple_answer_eventListener = (Question) => {
@@ -226,10 +232,8 @@ const selected_option_controller = (max_select_option) => {
             selected_number++;
         if(option_input.checked && option_input.nextElementSibling.textContent == 'هیچ کدام')
             option_input.checked = false;
-            // options_answer_inActive_setter('هیچ کدام');
         if(option_input.checked && option_input.nextElementSibling.textContent == 'همه گزینه ها')
             option_input.checked = false;
-            // options_answer_inActive_setter('همه گزینه ها');
     })
     if(selected_number > max_select_option)
         selected_options_input[0].checked = false;
@@ -289,4 +293,27 @@ const integer_selective_eventListener = (Question) => {
             document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
         })
     })
+}
+const preview_degree_eventListener_setter = (degree_items,input_items) => {
+    degree_items.forEach((preview_degree_item,index) => {
+        preview_degree_item.addEventListener('click',() => {
+            input_items.forEach((item) => 
+            { 
+                item.classList.remove('selected_answer')
+                if(preview_degree_item.firstElementChild.getAttribute('id') !== item.getAttribute('id')) 
+                    item.checked = false
+             })
+           degree_click_handler(degree_items.length - index,input_items,preview_degree_item.firstElementChild);
+        })
+    })
+    const degree_click_handler = (Click_index,preview_degree_inputs,clicked_input) => {
+        preview_degree_inputs.forEach((item,index) => {
+            if(preview_degree_inputs.length - index <= Click_index - 1)
+            {   
+                console.log(item)
+                item.checked = true;
+                clicked_input.classList.add('selected_answer');
+            }
+        })
+    }
 }

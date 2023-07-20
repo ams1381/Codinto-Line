@@ -80,7 +80,6 @@ const preview_default_order_setter = (PostData) => {
                 { text : sorted_select_item.lastElementChild.textContent }
             )
         })
-    console.log(slider_option_postData)
 }
 Answer_option_buttons.forEach((answer_option_button) => {
     if(answer_option_button.classList.contains('answer-option-add'))
@@ -98,7 +97,6 @@ multiple_answer_toggle.addEventListener('click',() => {
 })
 answer_option_inputs.forEach((answer_option_input,index) => {
     answer_option_input.addEventListener('input',(e) => {
-        console.log('hi')
         if(EditableQuestion)
             preview_option_label_updater(index,e.target.value,"SliderOption",EditableQuestion);
         else

@@ -934,6 +934,10 @@ input[type=range]::-webkit-slider-thumb {
 {
     display: none;
 }
+.saveQuestion.saving
+{
+    pointer-events: none;
+}
 /* .uploaded_file_avatar .uploaded_file_video */
 .saveQuestion.saving .dot-pulse , .confirm-button.operating .dot-pulse
 {

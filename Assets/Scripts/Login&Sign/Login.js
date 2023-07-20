@@ -24,3 +24,8 @@ const login_confirm_handler = async (e) => {
 }
 
 login_confirm_button.addEventListener('click',login_confirm_handler)
+// user_phone_phoneNumber_input.addEventListener('mousewheel',(e) => {
+//     $(e.target).blur(function (e) { 
+//         e.preventDefault();
+//     })();
+// })

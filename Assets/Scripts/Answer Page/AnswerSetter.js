@@ -16,7 +16,6 @@ const single_answer_poster = async (questionnaireUUID,AnswerSetID,DataToPost) =>
    }
 }
 const file_answer_poster = async (questionnaireUUID,AnswerSetID,DataToPost) => {
-    console.log(DataToPost)
     const formData = new FormData();
   
     for (let key_number in DataToPost[0])
@@ -34,7 +33,6 @@ const file_answer_poster = async (questionnaireUUID,AnswerSetID,DataToPost) => {
 
 export const total_answer_set_handler = async (Questionnaire,AnswerSetID,Questions) =>
 {
-    
     if(total_answers.length)
         total_answers.length = 0;
     const asyncForEach = async (array) => {
@@ -51,11 +49,8 @@ export const total_answer_set_handler = async (Questionnaire,AnswerSetID,Questio
         }
       }
     await asyncForEach(Questions);
-    console.log(total_answers)
-   
 }
 export const single_answer_setter = async (Questionnaireuuid,AnswerSetID,Question,QuestionHTML,AnswerMode) => {
-    console.log([...QuestionHTML.classList][1])
     try 
     {
       switch([...QuestionHTML.classList][1])
@@ -308,7 +303,7 @@ const drop_down_answer_setter = async (Questionnaireuuid,AnswerSetID,Question,re
 const selective_degree_answer_setter = async (Questionnaireuuid,AnswerSetID,Question,required,AnswerMode) => {
     
     let answer_to_post
-    let selected_degree_option = document.querySelector(`#${Question.getAttribute("id")} .degree_answer_block-option input:checked`);
+    let selected_degree_option = document.querySelector(`#${Question.getAttribute("id")} .degree_answer_block-option input.selected_answer`);
     if(!selected_degree_option)
     {
         answer_to_post = 

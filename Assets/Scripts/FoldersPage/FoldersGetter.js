@@ -8,6 +8,7 @@ const loading_container = document.getElementById('loading-animation');
 const folderUrl = baseUrl + '/user-api/folders/';
 
 const folderLoader =  async () => {
+    loading_container.classList.remove('hide');
     try
         {
             let FoldersRes = await getRequest(folderUrl);
@@ -17,7 +18,7 @@ const folderLoader =  async () => {
                     loading_container.classList.add('hide');
                     folder_side_body.classList.add("emptyActive");
                     folder_main.classList.add("emptyActive");
-                    
+                    $('.block__main #loading-animation').addClass('hide');
                 }   
                 else
                 {
@@ -26,6 +27,8 @@ const folderLoader =  async () => {
                     FoldersRes.forEach((item, index) => {
                         folder_generator(item.name,item.id,item.questionnaires);
                     })  
+                    $('.block__main').removeClass('loading');
+                    $('.block__main #loading-animation').addClass('hide');
                 }
                    
                 loading_container.classList.add('hide');

@@ -131,6 +131,8 @@ window.addEventListener('resize',() => {
     if(window.innerWidth > 770)
     {
         block_side.classList.remove('add_question_active');
+        block_side.removeAttribute('style');
+        block_main.removeAttribute('style');
         $(block_main).show(120);
         $('.AssistiveButton').hide();
     }

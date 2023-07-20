@@ -20,6 +20,7 @@ export const QuestionnaireCleaner = () => {
         item.remove();
     }        
  })
+ 
 }
 const QuestionnaireReloader = async () => {
     let FoldersRes = await getRequest(folderUrl);
@@ -54,11 +55,13 @@ const QuestionnaireSearchHandler = async (e) => {
         }
 }
 export const search_button_handler = async (SearchButton) => {
-    nav_search_container.classList.toggle("search-active");
+    // nav_search_container.classList.toggle("search-active");
     search_Questionnaire_input.value = '';
         if(SearchButton.classList.contains("search-active"))
         {
             SearchButton.classList.remove("search-active");
+            search_Questionnaire_container.classList.remove("search-active");
+            $(nav_search_container).show(100);
             let search_timeout;
             search_Questionnaire_input.addEventListener('input',QuestionnaireSearchHandler);
             QuestionnaireCleaner();
@@ -66,9 +69,11 @@ export const search_button_handler = async (SearchButton) => {
         }
         else if(!SearchButton.classList.contains("search-active"))
         {
+            SearchButton.classList.add("search-active");
+            search_Questionnaire_container.classList.add("search-active");
+            $(nav_search_container).hide(100);
             search_Questionnaire_input.value = '';
             let search_timeout;
-            SearchButton.classList.add("search-active");
             search_Questionnaire_input.focus();
             QuestionnaireCleaner();
            search_Questionnaire_input.addEventListener('input',QuestionnaireSearchHandler);
@@ -76,5 +81,5 @@ export const search_button_handler = async (SearchButton) => {
 
     
 
-    search_Questionnaire_container.classList.toggle("search-active");
+    
 }

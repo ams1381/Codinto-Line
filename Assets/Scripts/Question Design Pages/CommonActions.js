@@ -102,7 +102,7 @@ const text_style_class_setter = (input,input_text,text_style,preview_text,style_
 export const shuffleArray = (array,PostData,Option_Type,preview_option_className) => {
     let preview_options = document.querySelectorAll(`.${preview_option_className}`);
     let options_random_numbers = [...Array(array.length)].map((_,index) => index + 1);
-    let newArray = [...array]; // Create a new array to avoid modifying the original array
+    let newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
