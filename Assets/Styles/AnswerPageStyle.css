@@ -9,10 +9,10 @@ body
     justify-content: center;
     align-items: center;
 }
-.parent_container.single 
+/* .parent_container.single 
 {
     height: 90%;
-}
+} */
 .parent_container.total 
 {
     height: auto;

@@ -20,7 +20,6 @@ const folderLoader =  async () => {
                     folder_side_body.classList.add("emptyActive");
                     folder_main.classList.add("emptyActive");
                     $('.block__main #loading-animation').addClass('hide');
-                    
                 }   
                 else
                 {
