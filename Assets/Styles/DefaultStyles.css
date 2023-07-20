@@ -458,6 +458,10 @@ html
     .viewFormQuestions {
         display: block;
     }
+    .block__section
+    {
+        padding-bottom: 0;
+    }
 }
 
 @media only screen and (max-width : 576px) {
