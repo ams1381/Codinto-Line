@@ -167,6 +167,8 @@ const create_questionnaire = async (e) => {
         QuestionnaireSaveBtn.classList.remove('operating');
     }
         let create_questionnaire_res;
+    try 
+    {
         if(LoadedQuestionnaire)
         {
             if(!dateChanged)
@@ -174,17 +176,23 @@ const create_questionnaire = async (e) => {
             create_questionnaire_res = await patchRequest(baseUrl + '/question-api/questionnaires/' + QuestionnaireToEdit.uuid + '/',LoadedQuestionnaire);
             if(create_questionnaire_res)
                 localStorage.setItem("SelectedQuestionnaire",JSON.stringify(LoadedQuestionnaire));
-            QuestionnaireSaveBtn.classList.remove('operating');
+            
         }
         else
         {
             create_questionnaire_res = await postRequest(baseUrl + '/question-api/questionnaires/','application/json',Questionnaire_PostData); 
             if(create_questionnaire_res)
                 localStorage.setItem("SelectedQuestionnaire",JSON.stringify(create_questionnaire_res.data));
-            QuestionnaireSaveBtn.classList.remove('operating');
+            
         }
         if(create_questionnaire_res)
             window.open("/Pages/FormDesign.html","_self");
+    }
+    catch(error)
+    {
+        QuestionnaireSaveBtn.classList.remove('operating');
+    }
+        
 }
 const nameSetter = (e) => {
     QuestionnaireNameInputs.classList.remove("error");
@@ -274,8 +282,8 @@ const post_data_date_setter = (Year,Month,Day,postData,date_type) => {
     if(!dateChanged)
     {
         dateChanged = true;
-        if(!QuestionnaireToEdit.pub_date)
-            QuestionnaireToEdit.pub_date == null;
+        if(QuestionnaireToEdit && !QuestionnaireToEdit.pub_date)
+            delete QuestionnaireToEdit.pub_date;
     }
         
     QuestionnaireStartDatePicker.classList.remove('error');

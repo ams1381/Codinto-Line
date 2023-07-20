@@ -506,6 +506,18 @@
     {
         display: block;
     }
+    #loading-animation
+    {
+        display: none;
+    }
+    .linear-activity
+    {
+        top: 0;
+    }
+    .block__main.loading .linear-activity
+    {
+        display: block;
+    }
     #loading-animation .spinner {
         top: 22%;
         left: 8%;

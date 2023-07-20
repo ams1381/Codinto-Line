@@ -350,7 +350,38 @@ html
     box-shadow: 2px 2px 10px var(--folder-shadow-color);
     border-radius: 10px;
   }
-  
+  .linear-activity {
+    overflow: hidden;
+    width: 100%;
+    height: 4px;
+    background-color: #B3E5FC;
+    position: absolute;
+    bottom: 0;
+    display: none;
+}
+.indeterminate {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.indeterminate:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    background-color: var(--brand-color);
+    animation: indeterminate_first 1.5s infinite ease-out;
+}
+@keyframes indeterminate_first {
+    0% {
+        left: -100%;
+        width: 100%;
+    }
+    100% {
+        left: 100%;
+        width: 10%;
+    }
+}
 #loading-animation  .spinner {
     position: absolute;
     top: 50%;

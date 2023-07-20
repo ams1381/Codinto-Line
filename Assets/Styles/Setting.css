@@ -281,6 +281,14 @@ body
     background: #ff000099;
     color: var(--theme-white);
  }
+ .save-Form.saveQuestion.operating
+{
+    pointer-events: none;
+}
+.block__header.loading .linear-activity
+{
+    display: block;
+}
 @media only screen and (max-width : 400px)
 {
     .SettingContainer

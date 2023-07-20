@@ -27,8 +27,8 @@ const QuestionnaireInfoGetter = async (QuestionnaireUUID) => {
     return await getRequest(baseUrl + '/question-api/questionnaires/' + QuestionnaireUUID + '/')
 }
 export const QuestionnaireInfoSetter = async (QuestionnaireUUID) => {
+    $('.block__header').addClass('loading');
    let QuestionnaireRes =  await QuestionnaireInfoGetter(QuestionnaireUUID);
-   console.log(QuestionnaireRes)
    QuestionnaireNameInputs.value = QuestionnaireRes.name 
    if(QuestionnaireRes.progress_bar)
         QuestionnaireProgressBar.checked = QuestionnaireRes.progress_bar;
@@ -57,6 +57,7 @@ export const QuestionnaireInfoSetter = async (QuestionnaireUUID) => {
         QuestionnaireTimerInputsM.value = parseInt(QuestionnaireRes.timer.split(":")[1]);
         QuestionnaireTimerInputsS.value = parseInt(QuestionnaireRes.timer.split(":")[2]);
     }
+    $('.block__header').removeClass('loading');
 }   
 const date_transformer = (Date_to_transform) => {
     let Year =  parseInt(Date_to_transform.split("-")[0])

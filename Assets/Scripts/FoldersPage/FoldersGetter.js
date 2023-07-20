@@ -8,6 +8,7 @@ const loading_container = document.getElementById('loading-animation');
 const folderUrl = baseUrl + '/user-api/folders/';
 
 const folderLoader =  async () => {
+    $('.block__main').addClass('loading');
     loading_container.classList.remove('hide');
     try
         {
@@ -19,6 +20,7 @@ const folderLoader =  async () => {
                     folder_side_body.classList.add("emptyActive");
                     folder_main.classList.add("emptyActive");
                     $('.block__main #loading-animation').addClass('hide');
+                    
                 }   
                 else
                 {
@@ -29,6 +31,7 @@ const folderLoader =  async () => {
                     })  
                     $('.block__main').removeClass('loading');
                     $('.block__main #loading-animation').addClass('hide');
+                    $('.block__main').removeClass('loading');
                 }
                    
                 loading_container.classList.add('hide');
