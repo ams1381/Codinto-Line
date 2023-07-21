@@ -1,4 +1,4 @@
-import { postRequest , baseUrl } from "../ajax/ajaxRequsts.js";
+import { postRequest , baseUrl, errorHandler } from "../ajax/ajaxRequsts.js";
 import { showAlert , form_data_convertor , detectFileFormat , file_src_setter } from "../Question Design Pages/CommonActions.js";
 export const answer_set_postData = {
     'answers' : []
@@ -8,7 +8,12 @@ export let error_occur = false;
 const single_answer_poster = async (questionnaireUUID,AnswerSetID,DataToPost) => {
     try
     {
-       await postRequest(`${baseUrl}/question-api/questionnaires/${questionnaireUUID}/answer-sets/${AnswerSetID}/add-answer/`,'application/json',DataToPost);
+       await axios.post(`${baseUrl}/question-api/questionnaires/${questionnaireUUID}/answer-sets/${AnswerSetID}/add-answer/`,
+       DataToPost,
+       {
+        'Content-Type' : 'application/json'
+        }
+       );
     }
    catch(err)
    {
@@ -20,10 +25,13 @@ const file_answer_poster = async (questionnaireUUID,AnswerSetID,DataToPost) => {
   
     for (let key_number in DataToPost[0])
         formData.append(`[0]${key_number}`,DataToPost[0][key_number] !== null ? DataToPost[0][key_number] : 'null')
-    console.log([...formData])
     try
     {
-        console.log(await postRequest(`${baseUrl}/question-api/questionnaires/${questionnaireUUID}/answer-sets/${AnswerSetID}/add-answer/`,'multipart/form-data',formData))
+        await axios.post(`${baseUrl}/question-api/questionnaires/${questionnaireUUID}/answer-sets/${AnswerSetID}/add-answer/`,
+        formData,
+        {
+          'Content-Type' : 'multipart/form-data'
+        })
     }
     catch(err)
     {

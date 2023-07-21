@@ -1,6 +1,5 @@
 import { showAlert } from "../Question Design Pages/CommonActions.js";
 let baseUrl = 'https://codinto-line.codinguy.ir';
-// let baseUrl = 'http://62.106.95.214:8003/';
 var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE2NDg1NTk5LCJqdGkiOiJhNDZlZGMzOTg3MTE0ZDc0OTYzMDI2MWY2MTMxMzZlMSIsInVzZXJfaWQiOjF9.S4jJOFS7nMjhwb5q4fssHslS1H7W--a5ktAOZTikjzI";
 let accessToken;
 const cookies_reader = (cname) => 
@@ -99,10 +98,9 @@ async function renewToken() {
     try {
       const response = await axios.post(`${baseUrl}/user-api/auth/refresh-token`, {
       });
-      localStorage.removeItem("ACCESS_TOKEN")
-      localStorage.setItem("ACCESS_TOKEN",response.data.access)
-      cookies_reader('access') = response.data.access;
-      accessToken = response.data.access;
+      cookie_setter('access',response.data.access)
+      response.data.access = cookies_reader('access') 
+      token = cookies_reader('access');
     } 
     catch (error) 
     {
@@ -110,7 +108,7 @@ async function renewToken() {
       return error;
     }
 }
-async function errorHandler(errorRes,errorCode,error,url)
+export async function errorHandler(errorRes,errorCode,error,url)
 {
     switch(errorRes.status)
     {
@@ -127,6 +125,7 @@ async function errorHandler(errorRes,errorCode,error,url)
 }
 function er400handler(error) 
 { 
+
   if(Array.isArray(error.data))
   {
     error.data.forEach((item) => {
@@ -136,8 +135,6 @@ function er400handler(error)
         document.querySelector(`#Q${Object.keys(item)[0]}`).scrollIntoView()
         showAlert(item[Object.keys(item)[0]][0])
       }
-        
-      
     })
   }
       else

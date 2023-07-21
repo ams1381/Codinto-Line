@@ -310,7 +310,6 @@ const preview_degree_eventListener_setter = (degree_items,input_items) => {
         preview_degree_inputs.forEach((item,index) => {
             if(preview_degree_inputs.length - index <= Click_index - 1)
             {   
-                console.log(item)
                 item.checked = true;
                 clicked_input.classList.add('selected_answer');
             }

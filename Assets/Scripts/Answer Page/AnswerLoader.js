@@ -1,13 +1,18 @@
 import { detectFileFormat } from "../Question Design Pages/CommonActions.js";
-import { file_event_listener } from "./Question Generator/answer_event_listener.js";
+import { file_event_listener, file_preview_setter } from "./Question Generator/answer_event_listener.js";
 
 export const answer_loader = (QuestionData,Question,answer_set_postData) => {
+    
     answer_set_postData.answers.forEach((answer_object) => {
-        
+        if(!Question.getAttribute("id"))
+            return
         if(answer_object.question == parseInt(Question.getAttribute("id").split("Q")[1]))
-            {
+            {   
                 if(!answer_object.answer)
+                {
+                    answer_object.file ? file_answer_loader(QuestionData,answer_object.file) : ''
                     return;
+                }
                 switch([...Question.classList][1])
                 {
                     case 'text_answer':
@@ -17,10 +22,7 @@ export const answer_loader = (QuestionData,Question,answer_set_postData) => {
                         range_answer_loader(QuestionData,answer_object.answer.integer_range);
                         break;
                     case 'integer_selective':
-                        selective_degree_answer_loader(answer_object.answer.integer_selective);
-                        break;
-                    case 'file':
-                        file_answer_loader(QuestionData,answer_object.file);
+                        selective_degree_answer_loader(QuestionData,answer_object.answer.integer_selective);
                         break;
                     case 'drop_down':
                         drop_down_answer_loader(QuestionData,answer_object.answer.selected_options[0])
@@ -37,20 +39,21 @@ export const answer_loader = (QuestionData,Question,answer_set_postData) => {
                     case 'email_field':
                         email_answer_loader(answer_object.answer.email_field);
                         break;
-                    case 'group':          
-                        if(QuestionData.question.child_questions)
-                        {
-                            QuestionData.question.child_questions.forEach((item) => {
-                                answer_loader(item,document.querySelector(`#Q${item.question.id}`),answer_set_postData)
-                            })
-                        }
-                        break;
                     case 'sort':
                         sort_answer_loader(QuestionData,answer_object.answer.sorted_options)
                         break;
                 }
             }
-           
+        else 
+        {
+            if(QuestionData.question.child_questions)
+            {
+                QuestionData.question.child_questions.forEach((item) => {
+                    console.log(item,document.querySelector(`#Q${item.question.id}`),answer_set_postData)
+                    answer_loader(item,document.querySelector(`#Q${item.question.id}`),answer_set_postData)
+                })
+            }
+        }
         })
 }
 const text_answer_loader = (QuestionData,Answer_to_load) => {
@@ -65,31 +68,39 @@ const range_answer_loader = (QuestionData,Answer_to_load) => {
         selected_range_item_input.parentElement.classList.add('range__active');
     } 
 }
-const selective_degree_answer_loader = (Answer_to_load) => {
-  let selected_degree_option = document.querySelector(`.degree_answer_block-option #answer-n${Answer_to_load}`);
-  console.log(selected_degree_option)
+const selective_degree_answer_loader = (QuestionData,Answer_to_load) => {
+  let selected_degree_option = document.querySelector(`#Q${QuestionData.question.id} .degree_answer_block-option #answer-n${Answer_to_load}`);
+  let preview_degree_inputs = document.querySelectorAll(`#Q${QuestionData.question.id} .degree_answer_block-option input`);
+  console.log(selected_degree_option,preview_degree_inputs)
   if(selected_degree_option)
+  {
+    selected_degree_option.classList.add('selected_answer');
     selected_degree_option.checked = true;
+  }
+  preview_degree_inputs.forEach((item,index) => {
+    if(preview_degree_inputs.length - index <= preview_degree_inputs.length - Answer_to_load)
+        item.checked = true;
+    })
 }
 const drop_down_answer_loader = (QuestionData,Answer_to_load) => {
+   
     let selected_drop_down_option;
     if(QuestionData.question)
-        selected_drop_down_option = document.querySelector(`#Q${QuestionData.question.id}  .selection__item #select_item_input_${Answer_to_load}`);
+        selected_drop_down_option = document.querySelector(`#Q${QuestionData.question.id}  .selection__item #select_item_input_${Answer_to_load.id}`);
     else
-        selected_drop_down_option = document.querySelector(`#Q${QuestionData.id}  .selection__item #select_item_input_${Answer_to_load}`);
+        selected_drop_down_option = document.querySelector(`#Q${QuestionData.id}  .selection__item #select_item_input_${Answer_to_load.id}`);
     let slider_button = document.querySelector(`#Q${QuestionData.question.id}  .slider_toggle_button`)
-    let slider_options = document.querySelectorAll(`#Q${QuestionData.question.id} .selection__item`);
+    let slider_option = document.querySelector(`#select_item_${Answer_to_load.id}`);
+    let slider_options = document.querySelectorAll('.selection__item');
     if(selected_drop_down_option)
     {
         selected_drop_down_option.checked = true;
         selected_drop_down_option.classList.add('slide_selected'); 
         slider_button.classList.add("up");
     }
-    slider_options.forEach((item) => {
-        if(item.getAttribute('id').split('select_item_')[1] == Answer_to_load)
-            item.classList.add('slide_selected');
-    })
+    slider_option.classList.add('slide_selected')
     $(slider_options).not(".slide_selected").slideUp(10);
+    console.log(selected_drop_down_option.checked)
 }
 const number_answer_loader = (Answer_to_load) => {
     console.log('number question',Answer_to_load)
@@ -108,65 +119,54 @@ const multiple_answer_loader = (QuestionData,Answer_to_load) => {
     console.log(Answer_to_load)
     if(Array.isArray(Answer_to_load))
         Answer_to_load.forEach((loaded_option) => {
-            document.querySelector(`#Q${QuestionData.question.id} .multiple_answer_block-option #answer-n${loaded_option}`).checked = true;
+            document.querySelector(`#Q${QuestionData.question.id} .multiple_answer_block-option #answer-n${loaded_option.id}`).checked = true;
         })
     else
     {
-        document.querySelector(`#Q${QuestionData.question.id} .multiple_answer_block-option #answer-n${Answer_to_load}`).checked = true;
+        document.querySelector(`#Q${QuestionData.question.id} .multiple_answer_block-option #answer-n${Answer_to_load.id}`).checked = true;
     }
 }
 const file_answer_loader = async (QuestionData,Answer_to_load) => {
-    console.log(QuestionData , Answer_to_load)
+    // console.log(await axios.get(Answer_to_load,{}))
+    
+    let file_input = document.querySelector(`#Q${QuestionData.question.id} input`);
     // if(Answer_to_load)
     // {
-    //     // file_preview_setter(await generateFileSrc(Answer_to_load),detectFileFormat(Answer_to_load.name),
+    //     try {
+    //         const response = await axios.get(Answer_to_load,{
+    //             'Access-Control-Allow-Origin' : 'http://127.0.0.1:5500/',
+    //             'redirect' : 'follow',
+    //             'responseType': 'blob'
+                
+    //         });
+            
+    //         if (!response.ok) {
+    //           throw new Error('Network response was not ok');
+    //         }
+      
+    //         const fileBlob = await response.blob();
+    //         const fileReader = new FileReader();
+      
+    //         fileReader.onload = function(event) {
+    //           const fileContents = event.target.result;
+    //           // Here, 'fileContents' contains the contents of the file as a string
+    //           console.log(fileContents);
+    //         };
+      
+    //         fileReader.readAsText(fileBlob);
+    //       } 
+    //       catch (error) {
+    //         console.error('Error downloading file:', error);
+    //       }
+    //     const myFile = new File([myFileData], 'myFile.', { type: 'text/plain' });
+    //     // detectFileFormat(Answer_to_load.name)
+    //     // file_preview_setter(Answer_to_load,detectFileFormat(Answer_to_load.name),
     //     // document.querySelector(`#Q${QuestionData.question.id} .inputUploader .uploaded_file_image`),
     //     // document.querySelector(`#Q${QuestionData.question.id} .uploaded_file_video`) ,
     //     // document.querySelector(`#Q${QuestionData.question.id} .inputUploader`)
     //     // )
-    //     console.log(document.querySelector(`#Q${QuestionData.question.id}`))
-    //     console.log(document.querySelector(`#Q${QuestionData.question.id} .inputUploader .uploaded_file_image`),
-    //     document.querySelector(`#Q${QuestionData.question.id} .uploaded_file_video`) ,
-    //     document.querySelector(`#Q${QuestionData.question.id} .inputUploader`))
-    //     // file_input.files[0] = Answer_to_load;
+    //     // file_input.files[0] = {}
     // }
-}
-const generateFileSrc = (file) => 
-{
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-  
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = () => reject(new Error('Error reading file.'));
-      
-      reader.readAsDataURL(file);
-    });
-}
-const file_preview_setter = (FileSrc,FileType,preview_image_side,preview_video_side,file_input_container) => {
-    // if(!file_input_container)
-    //     return
-    console.log(preview_image_side)
-    console.log('testsdgsdgasdg')
-    if(file_input_container)
-        file_input_container.classList.add("uploaded");
-
-    switch(FileType)
-    {
-        case 'Picture' :
-            if(file_input_container)
-            {
-                file_input_container.classList.add("image_uploaded"); 
-                file_input_container.classList.remove("video_uploaded");  
-            }
-            preview_image_side.src = FileSrc;  
-            preview_video_side.removeAttribute("src");
-            break;
-        case 'Video':
-            file_input_container.classList.add("video_uploaded");  
-            file_input_container.classList.remove("image_uploaded");  
-            preview_video_side.src = FileSrc;
-            break;         
-    }
 }
 const sort_answer_loader = (QuestionData,Answer_to_load) => {
     

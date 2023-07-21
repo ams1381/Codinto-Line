@@ -26,8 +26,8 @@ export const welcome_component_generator = (welcome) => {
                 <div class="preview_file_box ${preview_file_className}">
                 ${
                     (detectFileFormat(welcome.media) == 'Picture') ? 
-                    `<img class="preview_image" src=${media_src ? media_src : ""}></img>` :
-                     `<video class="preview_video" src=${media_src ? media_src : ""} controls></video>`
+                    `<img class="preview_image" src=${media_src ? media_src : " "}></img>` :
+                     `<video class="preview_video" src=${media_src ? media_src + 'controls' : " "} ></video>`
                  }
                 </div>
                 <div class="QuestionStart">

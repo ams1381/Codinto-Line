@@ -31,9 +31,10 @@
 .form p 
 {
     font-size: calc(0.8rem + 0.5vw);
-    margin-bottom: 11px;
+    padding: 0 0.4rem 0.8rem 0.4rem;
     font-family: IRANSans;
     text-align: center;
+    line-height: 26px;
 }
 .form i
 {
@@ -104,6 +105,7 @@
 .Selected
 {
     background-color: #5360ed1a;
+    text-align: right;
 }
 .Folder .FolderEdit  , .Folder .FolderRemove
 {

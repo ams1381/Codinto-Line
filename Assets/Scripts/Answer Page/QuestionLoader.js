@@ -1,4 +1,4 @@
-import { getRequest , baseUrl, postRequest } from "../ajax/ajaxRequsts.js";
+import { getRequest , baseUrl, postRequest , errorHandler } from "../ajax/ajaxRequsts.js";
 import { welcome_component_generator } from "./Question Generator/Welcome.js";
 import { question_component_generator } from "./Question Generator/question_comp_generator.js";
 import { showAlert } from "../Question Design Pages/CommonActions.js";
@@ -8,7 +8,7 @@ import { answer_loader } from "./AnswerLoader.js";
 import { thank_component_generator } from "./Question Generator/Thank_Component.js";
 import {error_occur } from './AnswerSetter.js'
 const questionnaire_for_preview = JSON.parse(localStorage.getItem("questionnaire_for_preview"));
-const getQuestionsUrl = baseUrl + '/question-api/questionnaires/';
+const getQuestionsUrl = baseUrl + '/question-api/';
 const answer_page_container = document.querySelector('.answer_page_container');
 const block__header = document.querySelector('.block__header');
 const urlParams = new URLSearchParams(window.location.search);
@@ -16,36 +16,60 @@ const Questionnaireuuid = urlParams.get('Questionnaireuuid');
 let start_question_index = 0;
 let answer_set_id;
 let first_question_number;
-
+const answer_set_post_requester = async (url) => {
+    try {
+       let response = await axios.post(url,{},{});
+       return response;
+      } 
+      catch (error) 
+      {
+        throw error;
+      }
+}
+const questionnaire_getter = async (url) => {
+    try
+    {
+        let response = await axios.get(url);
+        return response.data;
+    }
+    catch (error) 
+      {
+        throw error;
+      }
+}
 const answer_set_creator = async () => {
     try 
     {
-        if(Questionnaireuuid)
-        {
-            let answer_set_res = await postRequest(`${baseUrl}/question-api/questionnaires/${Questionnaireuuid}/answer-sets/`);
-            answer_set_id = answer_set_res.data.id;
-        }
+        let answer_set_res = await answer_set_post_requester(`${baseUrl}/question-api/questionnaires/${Questionnaireuuid}/answer-sets/`);
+        answer_set_id = answer_set_res.data.id;
     }
     catch(error)
     {
-        answer_page_container.classList.add('not_found');
-        $('.not_found_container').show(100);
+        throw error;
     }
 }
 const loader_initializer = async () => {
-    await answer_set_creator()
+    
     let questionnaire;
     try
     {
+        
         if(Questionnaireuuid)
-            questionnaire  = await getRequest(getQuestionsUrl + Questionnaireuuid + '/');
+        {
+            await answer_set_creator()
+            questionnaire  = await questionnaire_getter(getQuestionsUrl + Questionnaireuuid + '/');
+        }  
         else
-             questionnaire  = await getRequest(getQuestionsUrl + questionnaire_for_preview.uuid + '/')
+             questionnaire  = await questionnaire_getter(getQuestionsUrl + questionnaire_for_preview.uuid + '/')
     }
     catch(err)
     {
-        window.open('404Page.html');
+        console.log(err)
+        answer_page_container.classList.add('not_found');
+        $('.not_found_container').show(100);
+        return
     }
+    console.log(questionnaire)
     if(!questionnaire.is_active)
     {
         showAlert("این پرسشنامه غیر فعال میباشد.");
@@ -285,6 +309,7 @@ const next_question_handler = async (next_question_button,questionnaire,Question
     catch(error)
     {
         next_question_button.classList.remove('operating')
+        await errorHandler(error.response,error.status,error)
         return;
     }         
         $(curQuestion).fadeOut(100);
@@ -298,9 +323,9 @@ const next_question_handler = async (next_question_button,questionnaire,Question
         curQuestion = document.querySelector(".QuestionContainer")
         if(Questionnaireuuid)
         {
-            posted_answer_set = await getRequest(`${baseUrl}/question-api/questionnaires/${Questionnaireuuid}/answer-sets/${answer_set_id}/`);
+            posted_answer_set = await axios.get(`${baseUrl}/question-api/questionnaires/${Questionnaireuuid}/answer-sets/${answer_set_id}/`,{});
             if(curQuestion)
-                answer_loader(Questions[CurrState + 1],curQuestion,posted_answer_set);    
+                answer_loader(Questions[CurrState + 1],curQuestion,posted_answer_set.data);    
        }   
 }
 const prev_question_handler = async (questionnaire,Questions,CurrState,progress_bar) => {
@@ -326,10 +351,9 @@ const prev_question_handler = async (questionnaire,Questions,CurrState,progress_
         let curQuestion = document.querySelector(".QuestionContainer");
         if(Questionnaireuuid)
         {
-            console.log(start_question_index,CurrState - 1)
-            posted_answer_set = await getRequest(`${baseUrl}/question-api/questionnaires/${Questionnaireuuid}/answer-sets/${answer_set_id}/`);
+            posted_answer_set = await axios.get(`${baseUrl}/question-api/questionnaires/${Questionnaireuuid}/answer-sets/${answer_set_id}/`,{});
             if(curQuestion)
-                answer_loader(Questions[CurrState - 1],curQuestion,posted_answer_set)
+                answer_loader(Questions[CurrState - 1],curQuestion,posted_answer_set.data)
             //     answer_loader(Questions[CurrState - 1],curQuestion,posted_answer_set);
             // else
                 

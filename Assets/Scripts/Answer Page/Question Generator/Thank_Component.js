@@ -18,5 +18,16 @@ export const thank_component_generator = (thank) => {
                      `<video class="preview_video" src=${media_src} controls></video>`
                  }
                 </div>
+                ${
+                    thank.share_link ?
+                    `
+                    <div class="shareLink" style="display : block; !important">
+                        <p>
+                            ${window.location.href}
+                        </p>
+                </div>` :
+                ' '
+                }
+               
             </div>`
 }

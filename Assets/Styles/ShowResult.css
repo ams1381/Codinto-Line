@@ -19,11 +19,15 @@
 .resultTable {
 
     width: 100%;
+    display: table-caption;
     text-align: center;
     border-collapse: separate;
     table-layout: fixed;
     font-family: IRANSans;
+    white-space: nowrap;
     border-spacing: 0.25rem 0.25rem;
+    overflow: auto;
+    cursor: grab;
 }
 
 .resultTable #result_table_body
@@ -39,7 +43,7 @@
     font-size: 0.8rem;
     padding: 0.45rem 0.2rem 0.45rem 0.2rem;
     word-break: break-all;
-    box-shadow: 1px 1px 10px #00000017;
+    box-shadow: 1px 1px 2px #00000017;
     border-radius: 5px;
 }
 .resultTable #result_table_body tr:nth-child(even) {
@@ -54,7 +58,7 @@
     font-weight: 500;
     color: var(--theme-white);
     text-align: center;
-    padding: 0.3rem;
+    padding: 0.9rem;
     border-radius: 5px;
     word-break: break-word;
 }
@@ -89,7 +93,7 @@
 {
     width: 95%;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 834px) {
     .container
     {
         position: unset;
@@ -107,6 +111,8 @@
     padding: 0;
     width: 100%;
     table-layout: fixed;
+    display: block;
+    white-space: initial;
   }
 
   .resultTable caption {

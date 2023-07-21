@@ -44,6 +44,7 @@ file_input.addEventListener('input',() => {
 })
 share_link_toggle.addEventListener('click',() => {
     toggle_handler(EditableQuestion,share_link_toggle.parentElement.parentElement.parentElement,share_link_toggle,thank_page_postData);
+    $('.shareLink').toggle(100);
 })
 text_style_label_eventListener_setter(EditableQuestion,thank_page_postData);
 view_question_button.addEventListener('click',preview_question_toggle);

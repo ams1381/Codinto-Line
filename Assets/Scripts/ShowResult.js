@@ -40,8 +40,7 @@ const result_loader = async () => {
    }
 }
 const head_item_generator = (Head_item) => {
-   // ${Head_item.child_questions ? 'colspan=' + Head_item.child_questions.length : 'rowspan="2"' }
-   if(Head_item.question_type == 'noanswer')
+   if(Head_item.question_type == 'no_answer')
       return
    if(Head_item.question_type != 'group')
    {
@@ -68,6 +67,13 @@ const head_item_generator = (Head_item) => {
    }
    $(result_table_head_row).hide();
    $(result_table_head_row).show(100);
+   // $(".resultTable").dragNscroll({
+   //    reverse : false,
+   //    acceleration: .185,
+   //    deceleration: .185,
+   //    decelRate: 150,
+   // })
+   
 }
 const padArrayWithNull = (array, indices,maxLength) => {
   const paddedArray = Array.from({ length: maxLength }, (_, index) =>
@@ -94,10 +100,10 @@ const body_row_generator = (RowTextItems,Questions,question_ids) => {
       {
          multiple_option_data = '';
          item.answer.forEach((item) => {
-            multiple_option_data += ' ' +item.text + ' '
+            multiple_option_data += ' ' + item.text + ' '
       })
 
-         table_row_data += `<td data-label="${data_label}" id="${item.question_id}"><p>${multiple_option_data}</p></td>`
+         table_row_data += `<td data-label="${data_label}" id="${item.question_id}"><p>${multiple_option_data ? multiple_option_data : '&nbsp'}</p></td>`
       }
       else
       {
@@ -111,7 +117,7 @@ const body_row_generator = (RowTextItems,Questions,question_ids) => {
                : table_row_data += `<td data-label="${data_label}" id="${item.question_id}"><svg width="47" height="47" viewBox="0 0 32.00 32.00" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#3F52E3"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>file-document</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke-width="0.00032" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-154.000000, -99.000000)" fill="#3F52E3"> <path d="M174,107 C172.896,107 172,106.104 172,105 L172,101 L178,107 L174,107 L174,107 Z M178,127 C178,128.104 177.104,129 176,129 L158,129 C156.896,129 156,128.104 156,127 L156,103 C156,101.896 156.896,101 158,101 L169.972,101 C169.954,103.395 170,105 170,105 C170,107.209 171.791,109 174,109 L178,109 L178,127 L178,127 Z M172,99 L172,99.028 C171.872,99.028 171.338,98.979 170,99 L158,99 C155.791,99 154,100.791 154,103 L154,127 C154,129.209 155.791,131 158,131 L176,131 C178.209,131 180,129.209 180,127 L180,109 L180,107 L172,99 L172,99 Z" id="file-document" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg></td>`
             } 
          else
-            table_row_data += `<td data-label="${data_label}" id="${item.question_id}"><p>${item.answer}</p></td>`
+            table_row_data += `<td data-label="${data_label}" id="${item.question_id}"><p>${item.answer ? item.answer : '&nbsp'}</p></td>`
             
       }
       // table_row_data += item.answer
@@ -130,14 +136,16 @@ const body_row_generator = (RowTextItems,Questions,question_ids) => {
          sort_of_empty_row.push(question_ids.findIndex(element => element == item.question_id))
       })
    }
+   sort_of_empty_row.sort()
    let table_data = [...document.querySelectorAll(`#R${RowTextItems.id} td`)]
    document.querySelectorAll(`#R${RowTextItems.id} td`).forEach((item) => { item.remove() })
    table_data = [... new Set(question_ids.map(id => table_data.find(element => element.id === id)))]
+   
    table_data = table_data.filter((element) => element !== undefined)
    
    if(table_data.length < question_ids.length)
       table_data = padArrayWithNull(table_data,sort_of_empty_row,question_ids.length)
-   
+  
    table_data.forEach((item,index) => {
       if(item)
          document.querySelector(`#R${RowTextItems.id}`).innerHTML += item.outerHTML;
@@ -161,12 +169,10 @@ const exportTableToExcel = (table, filename = 'table') => {
 
    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-   // Create a download link
    const link = document.createElement('a');
    link.href = URL.createObjectURL(blob);
    link.download = `${filename}.xlsx`;
 
-   // Add the link to the document
    document.body.appendChild(link);
 
    link.click();
@@ -182,8 +188,6 @@ const result_searcher = async (search_text) => {
    result_search_res.forEach((item) => {
       body_row_generator(item,loaded_questions,question_ids)
    })
-   
-   
 }
 await result_loader();
 search_result_button.addEventListener('click',async () => {
@@ -196,9 +200,6 @@ search_result_button.addEventListener('click',async () => {
       $('#loading-animation').removeClass('hide');
       await result_loader();
       $('#loading-animation').addClass('hide');
-      // result_response.forEach((item) => {
-      //    body_row_generator(item,questionnaire_response.questions,question_ids)
-      // })
    }
    else
    {

@@ -682,7 +682,7 @@ export const detectFileFormat = (fileName) => {
     let zip_formats  = ['zip','rar','7z'];
     let audio_formats = ['mp3','wav','ogg','mpeg-1']
     let fileFormat = fileName.split(".")[fileName.split(".").length - 1];
-    
+
     return pictureFormats.includes(fileFormat) ? 'Picture' :
            videoFormats.includes(fileFormat) ? 'Video' : zip_formats.includes(fileFormat) ?
             'Zip' : audio_formats.includes(fileFormat) ? 'Audio' : 'UNKNOWN';

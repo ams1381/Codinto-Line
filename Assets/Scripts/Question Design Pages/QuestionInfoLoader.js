@@ -264,6 +264,7 @@ export const question_info_loader = (Question) => {
     toggle_loader(Question)
 }
 const toggle_loader = (Question) => {
+   
     if(Question.is_required)
     {
         required_toggle.checked = Question.is_required;
@@ -281,7 +282,10 @@ const toggle_loader = (Question) => {
         preview_answer_options_container.classList.add('vertical-order')
     }
     if(Question.share_link)
+    {
         share_link_toggle.checked = Question.share_link;  
+         $('.shareLink').show(100);
+    }
     if(Question.is_random_options)
         randomize_options_toggle.checked = Question.is_random_options;
     if(Question.multiple_choice)

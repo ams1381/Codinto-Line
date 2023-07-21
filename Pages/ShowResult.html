@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    
 </head>
 <body>
     <header class="block__header">
@@ -42,7 +43,7 @@
         <div id="loading-animation">
             <div class="spinner"></div>
         </div>
-        <table class="resultTable" id="myTable">
+        <table class="resultTable dragscroll" id="myTable">
             <thead>
             <tr id="result_table_head_row">
             </tr>
@@ -53,6 +54,7 @@
         </table>
             <button id="exportButton">خروجی اکسل</button>
     </div>
+    <script src="../Assets/Scripts/dragscroll.js"></script>
     <script src="../Assets/Scripts/jquery.resizableColumns.js"></script>
     <script src="../Assets/Scripts/ShowResult.js" type="module"></script>
 </body>
