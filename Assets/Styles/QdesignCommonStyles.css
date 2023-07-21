@@ -365,6 +365,10 @@
     word-break: break-word;
     line-height: 22px;
 }
+.QuestionContainer.Greeting .description_block
+{
+    line-height: 30px;
+}
 .multiple_answer_block-options
 {
     display: grid;

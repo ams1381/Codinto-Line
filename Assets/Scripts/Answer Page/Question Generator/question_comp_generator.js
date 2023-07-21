@@ -168,7 +168,7 @@ export const question_component_generator = (Question) => {
             Question.options.forEach((option,index) => {
                 if(option)
                     option_html +=  `<div class="multiple_answer_block-option">
-                            <input type="${Question.multiple_choice ? 'checkbox' : 'radio'}" class="answer_option_input" name="answer__option" id="answer-n${option.id}">
+                            <input type="${Question.multiple_choice ? 'checkbox' : 'radio'}" class="answer_option_input" name="question${Question.id}_answer_option" id="answer-n${option.id}">
                             <label class="answer_option-label" for="answer-n${option.id}">${option.text}</label>
                     </div>`
                 answer_box_html = `

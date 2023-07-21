@@ -205,27 +205,27 @@ const multiple_answer_eventListener = (Question) => {
         console.log(answer_option.textContent)
        if(answer_option.textContent == 'هیچ کدام')
         {
-            options_answer_inActive_setter("هیچ کدام")
+            options_answer_inActive_setter(Question.id,"هیچ کدام")
         }
         if(answer_option.textContent == 'همه گزینه ها')
         {
-            options_answer_inActive_setter("همه گزینه ها")
+            options_answer_inActive_setter(Question.id,"همه گزینه ها")
         }
         if(Question.max_selected_options > 1)
-            selected_option_controller(Question.max_selected_options);
+            selected_option_controller(Question.id,Question.max_selected_options);
     })
    })
 }
-const options_answer_inActive_setter = (Text) => {
-    let answer_options = document.querySelectorAll('.multiple_answer_block-option label');
+const options_answer_inActive_setter = (QuestionID,Text) => {
+    let answer_options = document.querySelectorAll(`#Q${QuestionID} .multiple_answer_block-option label`);
     answer_options.forEach((answer_option) => {
         if(answer_option.textContent != Text)
             answer_option.previousElementSibling.checked = false;
     })
 }
-const selected_option_controller = (max_select_option) => {
-    let answer_options = document.querySelectorAll('.multiple_answer_block-option input');
-    let selected_options_input = document.querySelectorAll('.multiple_answer_block-option input:checked')
+const selected_option_controller = (QuestionID,max_select_option) => {
+    let answer_options = document.querySelectorAll(`#Q${QuestionID} .multiple_answer_block-option input`);
+    let selected_options_input = document.querySelectorAll(`#Q${QuestionID} .multiple_answer_block-option input:checked`)
     let selected_number = 1;
     answer_options.forEach((option_input) => {
         if(option_input.checked)
