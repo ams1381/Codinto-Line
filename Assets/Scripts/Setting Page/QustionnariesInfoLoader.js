@@ -1,5 +1,5 @@
 import { baseUrl , getRequest } from "../ajax/ajaxRequsts.js"
-import  { DateSetter  }  from "./QuestionnaireSetting.js";
+import  { current_date_getter, DateSetter  }  from "./QuestionnaireSetting.js";
 
 const QuestionnaireNameInputs = document.querySelector("#form-name-input");
 const QuestionnaireStartDateToggle = document.querySelector(".date-start .Switch-toggle input");
@@ -40,6 +40,7 @@ export const QuestionnaireInfoSetter = async (QuestionnaireUUID) => {
         QuestionnaireStartDatePicker.classList.add('active');
         date_setter(StartYearItems,StartMonthItems,StartDayItems,date_transformer(QuestionnaireRes.pub_date));
         DateSetter();
+        data_updater(StartYearItems,StartMonthItems,StartDayItems,date_transformer(QuestionnaireRes.pub_date))
     }
     if(QuestionnaireRes.end_date)
     {
@@ -79,4 +80,28 @@ const date_setter = (Year_Labels,Month_Labels,Day_Labels,Date) => {
         if(item.textContent == Date[2])
             item.previousElementSibling.checked = true;
     })
+}
+const data_updater = (Year_Labels,Month_Labels,Day_Labels,Date) => {
+    let currentDate = current_date_getter();
+    if(Date[0] == currentDate[0])
+    {
+        Month_Labels.forEach((item,index) => {
+            if(index + 1 < currentDate[1])
+                item.previousElementSibling.disabled = true;
+        })
+        if(Date[1] == currentDate[1])
+        {
+            console.log('hi')
+            Day_Labels.forEach((Day_Label,index) => {
+                if(index + 1 < currentDate[2])
+                    Day_Label.previousElementSibling.disabled = true;
+            })
+        }
+        if(Date[1] < currentDate[1])
+        {
+            Day_Labels.forEach((Day_Label,index) => {
+                Day_Label.previousElementSibling.disabled = true;
+            })
+        }
+    }
 }

@@ -309,7 +309,7 @@ export const answer_option_adder = (Option_Type,Option_Text,PostData) => {
                 <label class="anw-option-label">
                   ${(last_answer_option_number + 1)}
                 </label>  
-                <input type="text" class="anw-option-input" id="option_input_${last_answer_option_number + 1}" value="${Option_Text ? Option_Text : `گزینه ${last_answer_option_number + 1}`}">    
+                <input type="text" class="anw-option-input" id="option_input_${last_answer_option_number + 1}" placeholder="${Option_Text ? Option_Text : `گزینه ${last_answer_option_number + 1}`}">    
             </div>
             <div class="anw-option-tools">
                 <button class="answer-option-view">

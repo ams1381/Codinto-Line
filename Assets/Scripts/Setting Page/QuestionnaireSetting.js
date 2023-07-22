@@ -35,7 +35,7 @@ let endDayInputs = document.querySelectorAll(".end-picker .DayPicker input");
 let dateChanged = false;
 let LoadedQuestionnaire;
 
-const current_date_getter = () => {
+export const current_date_getter = () => {
     let currentDate = new Date();
     let currentDateString = currentDate.toLocaleDateString();
 
@@ -60,6 +60,30 @@ export const Form_Date_Updater = (YearInputs,MonthInputs,DayInputs) => {
         if(YearInput.value < currentDate[0])
             YearInput.disabled  = true;
     })
+    StartMonthItems.forEach((StartMonthItem,index) => {
+        StartMonthItem.addEventListener('click',() => {
+            if(parseInt(StartMonthInputs[index].value.split("m")[1]) <= 6)
+            {
+                $('.start-picker #sd31 + label').show(50);
+            }
+            else if(parseInt(StartMonthInputs[index].value.split("m")[1]) > 6)
+            {
+                $('.start-picker #sd31 + label').hide(50);
+            }
+        })
+    })
+    endMonthItems.forEach((EndMonthItem,index) => {
+        EndMonthItem.addEventListener('click',() => {
+            if(parseInt(endMonthInputs[index].value.split("m")[1]) <= 6)
+            {
+                $('.end-picker #sd31 + label').show(50);
+            }
+            else if(parseInt(endMonthInputs[index].value.split("m")[1]) > 6)
+            {
+                $('.end-picker #sd31 + label').hide(50);
+            }
+        })
+    })
     Form_Date_Month_Updater(currentDate,YearInputs,MonthInputs,DayInputs);
     Form_Date_Day_Updater(currentDate,YearInputs,MonthInputs,DayInputs);
 }
@@ -75,26 +99,27 @@ const Form_Date_Day_Updater = (currentDate,YearInputs,MonthInputs,DayInputs) => 
             if(parseInt(MonthInput.value.split("m")[1]) < currentDate[1] && SelectedYear.value < currentDate[0])
                 MonthInput.disabled = true;
             MonthInput.addEventListener('click',() => {
+                DayInputs.forEach((DayInput) => {
+                        DayInput.disabled = false;
+                })
                 if(MonthInput.value.split("m")[1] == currentDate[1] && SelectedYear.value == currentDate[0])
                 {
                     DayInputs.forEach((DayInput) => {
                         if(parseInt(DayInput.value.split("d")[1]) < currentDate[2])
                             DayInput.disabled = true;
                     })
+                    if(parseInt(MonthInput.value.split("m")[1]) <= 6)
+                    {
+                        $('#sd31 + label').show(50);
+                        $('#sd31').attr('checked','false')
+                    }
+                    if(parseInt(MonthInput.value.split("m")[1]) > 6)
+                    {
+                        $('#sd31 + label').hide(50);
+                        $('#sd31').attr('checked','false')
+                    }
                 }
-                if(parseInt(MonthInput.value.split('m')[1]) <= 6)
-                {
-                    console.log(MonthInput.previousElementSibling)
-                    document.querySelector('.DayPicker').innerHTML += `
-                        <input type="radio" name="sDay" id="sd31" value="d31">
-                            <label for="sd31">31</label>
-                        `
-                }
-                else if(parseInt(MonthInput.value.split('m')[1]) > 6 && document.querySelector(`.DayPicker #sd31`))
-                {
-                    document.querySelectorAll('.DayPicker label')[document.querySelectorAll('.DayPicker label').length - 1].remove();
-                    document.querySelectorAll('.DayPicker input')[document.querySelectorAll('.DayPicker input').length - 1].remove();
-                }
+               
                 else
                     DayInputs.forEach((DayInput) => {
                             DayInput.disabled = false;
@@ -124,6 +149,12 @@ const Form_Date_Month_Updater = (currentDate,YearInputs,MonthInputs,DayInputs) =
                 MonthInputs.forEach((MonthInput) => {
                     if(parseInt(MonthInput.value.split("m")[1]) < currentDate[1])
                         MonthInput.disabled = true;
+                    if(parseInt(MonthInput.value.split("m")[1]) < currentDate[1] && MonthInput.checked)
+                    {
+                        DayInputs.forEach((DayInput) => {
+                                DayInput.disabled = true;
+                        })
+                    }
                     else if(parseInt(MonthInput.value.split("m")[1]) == currentDate[1])
                     {
                         DayInputs.forEach((DayInput) => {

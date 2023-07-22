@@ -17,7 +17,6 @@ import { multiple_option_postData } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from './QuestionInfoLoader.js'
 const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-const double_image_size_toggle = document.querySelector('.double_picture_size .Switch-Container .slider-button')
 const Title_input = document.getElementById("title__input");
 const Description_input = document.getElementById("desc_input");
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
@@ -169,20 +168,6 @@ multiple_answer_select_inputs.forEach((multiple_answer_select_input) => {
             : multiple_option_postData.max_selected_options = multiple_answer_select_input.value
         }
 })
-})
-double_image_size_toggle.addEventListener('click',() => {
-    preview_image_main.classList.toggle('double_size');
-    if(!double_image_size_toggle.previousElementSibling.checked)
-        {
-          EditableQuestion ? EditableQuestion.double_picture_size = true :
-          multiple_option_postData.double_picture_size = true;
-        }
-    else
-        {
-          EditableQuestion ? EditableQuestion.double_picture_size = false :
-          multiple_option_postData.double_picture_size = false;
-        }
-    console.log(EditableQuestion)
 })
 Title_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',multiple_option_postData)});
 Description_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',multiple_option_postData)});

@@ -22,7 +22,6 @@ const show_number_toggle = document.querySelector(".show_number .Switch-Containe
 const required_toggle = document.querySelector('.is_required .Switch-Container .slider-button');
 const multiple_answer_selector = document.querySelector(".answer-number-selector");
 const multiple_answer_toggle = document.querySelector(".multiple_choice .Switch-toggle .slider-button");
-const double_image_size_toggle = document.querySelector('.double_picture_size .Switch-Container .slider-button')
 const file_input = document.querySelector("#file.box__file");
 const answer_option_inputs = document.querySelectorAll(".anw-option-input");
 const Title_input = document.getElementById("title__input");
@@ -42,8 +41,7 @@ if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
 }
-
-save_question_btn.addEventListener('click',async () => {
+save_question_btn.addEventListener('click' , async () => {
     if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
         await question_creator(ACTION_TYPE,EditableQuestion,'dropdown-questions',QuestionnaireUUID,slider_option_postData)
     else
@@ -180,20 +178,7 @@ is_alphabetic_toggle.addEventListener('click',() => {
              preview_default_order_setter(slider_option_postData)
         }
 })
-double_image_size_toggle.addEventListener('click',() => {
-    preview_image_main.classList.toggle('double_size');
-    if(!double_image_size_toggle.previousElementSibling.checked)
-        {
-          EditableQuestion ? EditableQuestion.double_picture_size = true :
-          slider_option_postData.double_picture_size = true;
-        }
-    else
-        {
-          EditableQuestion ? EditableQuestion.double_picture_size = false :
-          slider_option_postData.double_picture_size = false;
-        }
-    console.log(EditableQuestion)
-})
+  
 Title_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',slider_option_postData)});
 Description_input.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',slider_option_postData)});
 

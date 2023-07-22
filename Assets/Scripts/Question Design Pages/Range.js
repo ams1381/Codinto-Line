@@ -25,7 +25,6 @@ const back_to_design_button = document.querySelector(".block__main .block__main_
 // leftInput.value = null;
 // rangeInput.value = 0;
 // range_question_postData.min = 3;
-
 // functions--------------------------------------
 question_placement_setter(localStorage.getItem("question_placement"),range_question_postData)
 function rangePreview(input){
@@ -60,23 +59,6 @@ middleInput.addEventListener('input',() => {
     preview_label_text_handler(middleInput.value,preview_middle_label)
     range_question_postData.mid_label = middleInput.value;
 })
-// function textStyle(input){
-//     const textEditor = document.querySelector(".TitleInputOptions")
-//     textEditor.addEventListener("click" , (e)=>{
-//         switch (e.target.classList[1]){
-//             case "fa-bold":
-//                 input.classList.toggle("bold")
-//                 break;
-//             case "fa-italic":
-//                 input.classList.toggle("italic")
-//                 break;
-//             case "fa-underline":
-//                 input.classList.toggle("underline")
-//                 break;
-//         }
-//     })
-// }
-// textStyle(titleInput)
 function rangeChange(input){
     if(input)
     input.addEventListener("input" , (e)=>

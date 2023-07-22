@@ -289,6 +289,7 @@ const question_copier = (Question,QuestionID) => {
     localStorage.removeItem("ACTION-TYPE")
     localStorage.setItem("ACTION-TYPE","Copy")
     localStorage.setItem("QuestionData",JSON.stringify(clicked_question))
-    QuestionDesignOpener(clicked_question.question_type);
+    console.log(clicked_question)
+    // QuestionDesignOpener(clicked_question.question_type);
 }
 const isStrongEmUElement = (element) => ['STRONG', 'EM', 'U'].includes(element.tagName);

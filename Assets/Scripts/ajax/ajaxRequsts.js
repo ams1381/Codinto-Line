@@ -27,6 +27,7 @@ export const cookie_setter = (cname, cvalue, exdays = 2) => {
 const getRequest = async (url) => 
   {
     accessToken = cookies_reader('access');
+
     try {
       const response = await axios.get(url, {
         headers: {

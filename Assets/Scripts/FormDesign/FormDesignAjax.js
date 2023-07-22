@@ -22,6 +22,7 @@ const remove_folder_popup = document.querySelector(".removeFolderPopUp");
 const folder_cancel_button = document.querySelectorAll(".cancel-button");
 const questionnaire_preview_button = document.querySelector('.viewFormQuestions');
 const questionnaire_share_button = document.querySelector('.shareQuestionnaire');
+console.log(SelectedQuestionnaire)
 QuestionnaireName.textContent = SelectedQuestionnaire.name;
 if(window.innerWidth < 770)
             $('.AssistiveButton').css('display','none');

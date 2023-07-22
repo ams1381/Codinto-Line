@@ -582,19 +582,15 @@
 .Answer-Option .anw-option-number
 {
     width: 50%;
-    /*color: var(--brand-color);*/
-    /*background-color: var(--text-input-bg-color);*/
     display: flex;
     align-items: center;
     position: relative;
-    /*border-radius: 10px;*/
 }
 .question__option__text{
     width: 100%;
     text-align: center;
     background: var(--text-input-bg-color);
     border-radius: 0.5rem;
-    /*cursor: pointer;*/
     color: var(--brand-color);
     outline: none;
     border: none;
@@ -633,6 +629,10 @@
     border-radius: 10px;
     cursor: pointer;
     transition: 0.2s;
+}
+.answer-option-view
+{
+    display: none;
 }
 .anw-option-tools .answer-option-view.hidden-option
 {
@@ -749,7 +749,7 @@ input[type=range]::-webkit-slider-thumb {
     z-index: 5;
     cursor: pointer;
     transition: 0.3s;
-    margin-top: -13px;
+    margin: -1.3rem 0;
 }  
 .range-setter #markers
 {
