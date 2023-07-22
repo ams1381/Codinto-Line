@@ -127,46 +127,41 @@ const multiple_answer_loader = (QuestionData,Answer_to_load) => {
     }
 }
 const file_answer_loader = async (QuestionData,Answer_to_load) => {
-    // console.log(await axios.get(Answer_to_load,{}))
-    
     let file_input = document.querySelector(`#Q${QuestionData.question.id} input`);
-    // if(Answer_to_load)
-    // {
-    //     try {
-    //         const response = await axios.get(Answer_to_load,{
-    //             'Access-Control-Allow-Origin' : 'http://127.0.0.1:5500/',
-    //             'redirect' : 'follow',
-    //             'responseType': 'blob'
-                
-    //         });
-            
-    //         if (!response.ok) {
-    //           throw new Error('Network response was not ok');
-    //         }
-      
-    //         const fileBlob = await response.blob();
-    //         const fileReader = new FileReader();
-      
-    //         fileReader.onload = function(event) {
-    //           const fileContents = event.target.result;
-    //           // Here, 'fileContents' contains the contents of the file as a string
-    //           console.log(fileContents);
-    //         };
-      
-    //         fileReader.readAsText(fileBlob);
-    //       } 
-    //       catch (error) {
-    //         console.error('Error downloading file:', error);
-    //       }
-    //     const myFile = new File([myFileData], 'myFile.', { type: 'text/plain' });
-    //     // detectFileFormat(Answer_to_load.name)
-    //     // file_preview_setter(Answer_to_load,detectFileFormat(Answer_to_load.name),
-    //     // document.querySelector(`#Q${QuestionData.question.id} .inputUploader .uploaded_file_image`),
-    //     // document.querySelector(`#Q${QuestionData.question.id} .uploaded_file_video`) ,
-    //     // document.querySelector(`#Q${QuestionData.question.id} .inputUploader`)
-    //     // )
-    //     // file_input.files[0] = {}
-    // }
+    if(Answer_to_load)
+    {
+        file_answer_preview_loader(Answer_to_load,detectFileFormat(Answer_to_load),
+        document.querySelector(`#Q${QuestionData.question.id} .uploaded_file_video`) ,
+        document.querySelector(`#Q${QuestionData.question.id} .inputUploader .uploaded_file_image`),
+        document.querySelector(`#Q${QuestionData.question.id} .inputUploader`))
+    }
+}
+const file_answer_preview_loader = (FileSrc,FileType,preview_video_side,preview_image_side,file_input_container) => {
+    switch(FileType)
+    {
+        case 'Picture' :
+            file_input_container.className =  'inputUploader uploaded image_uploaded';
+            preview_image_side.src = FileSrc;  
+            preview_video_side.removeAttribute("src");
+            console.log(preview_video_side)
+            break;
+        case 'Video':
+            file_input_container.className = 'inputUploader uploaded video_uploaded';  
+            preview_video_side.src = FileSrc;
+            break;    
+        case 'Zip':
+            file_input_container.className =  'inputUploader uploaded zip_uploaded';
+            preview_video_side.removeAttribute("src");
+            break;
+        case 'Audio':
+            file_input_container.className =  'inputUploader uploaded audio_uploaded';
+            preview_video_side.removeAttribute("src");
+            break;
+        default : 
+            file_input_container.className =  'inputUploader uploaded file_uploaded';
+            preview_video_side.removeAttribute("src");
+            break;
+    }
 }
 const sort_answer_loader = (QuestionData,Answer_to_load) => {
     

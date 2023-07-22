@@ -53,7 +53,6 @@ const loader_initializer = async () => {
     let questionnaire;
     try
     {
-        
         if(Questionnaireuuid)
         {
             await answer_set_creator()
@@ -79,7 +78,7 @@ const loader_initializer = async () => {
         welcome_loader(questionnaire.welcome_page)
         let start_button = document.querySelector(".QuestionContainer.Greeting .QuestionStart button");
         let start_container = document.querySelector(".QuestionContainer.Greeting");
-
+        $('#loading-animation').addClass('hide');
         start_button.addEventListener('click',async () => {
             $(start_container).hide(100);
             start_container.remove()
@@ -130,6 +129,7 @@ const loader_initializer = async () => {
     {
         if(!questionnaire.show_question_in_pages)
         {
+            $('#loading-animation').addClass('hide');
             $('.parent_container').addClass('total');
             questionnaire.questions.forEach((Question) => {
                 if(Question.question)
@@ -161,7 +161,7 @@ const loader_initializer = async () => {
         else 
         {
             $('.parent_container').addClass('single');
-            
+            $('#loading-animation').addClass('hide');
             if(questionnaire.questions[start_question_index])
                 while(!questionnaire.questions[start_question_index].question)
                     start_question_index += 1;

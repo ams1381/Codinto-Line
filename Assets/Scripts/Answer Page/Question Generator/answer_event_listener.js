@@ -60,7 +60,7 @@ const sort_input_eventListener = (Question) => {
     })
 }
 const number_input_eventListener = (Question) => {
-    let number_answer_input = document.querySelector('#number_answer_input');
+    let number_answer_input = document.querySelector(`#Q${Question.id} #number_answer_input`);
     if(number_answer_input)
         number_answer_input.addEventListener('input',() => {
             console.log('input test')
@@ -202,7 +202,6 @@ const multiple_answer_eventListener = (Question) => {
    answer_options.forEach((answer_option) => {
     answer_option.addEventListener('click',() =>{
         document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
-        console.log(answer_option.textContent)
        if(answer_option.textContent == 'هیچ کدام')
         {
             options_answer_inActive_setter(Question.id,"هیچ کدام")
@@ -288,7 +287,7 @@ const range_item_eventListener_setter = (Question,range_select_options) => {
     }
 }
 const integer_selective_eventListener = (Question) => {
-    document.querySelectorAll('.degree_answer_block-option label').forEach((item) => {
+    document.querySelectorAll(`#Q${Question.id} .degree_answer_block-option label`).forEach((item) => {
         item.addEventListener('click',() => {
             document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
         })
