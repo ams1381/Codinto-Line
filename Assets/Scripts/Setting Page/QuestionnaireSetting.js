@@ -82,11 +82,25 @@ const Form_Date_Day_Updater = (currentDate,YearInputs,MonthInputs,DayInputs) => 
                             DayInput.disabled = true;
                     })
                 }
+                if(parseInt(MonthInput.value.split('m')[1]) <= 6)
+                {
+                    console.log(MonthInput.previousElementSibling)
+                    document.querySelector('.DayPicker').innerHTML += `
+                        <input type="radio" name="sDay" id="sd31" value="d31">
+                            <label for="sd31">31</label>
+                        `
+                }
+                else if(parseInt(MonthInput.value.split('m')[1]) > 6 && document.querySelector(`.DayPicker #sd31`))
+                {
+                    document.querySelectorAll('.DayPicker label')[document.querySelectorAll('.DayPicker label').length - 1].remove();
+                    document.querySelectorAll('.DayPicker input')[document.querySelectorAll('.DayPicker input').length - 1].remove();
+                }
                 else
                     DayInputs.forEach((DayInput) => {
                             DayInput.disabled = false;
                     })
-            })
+                
+            })  
         })
     }
 }

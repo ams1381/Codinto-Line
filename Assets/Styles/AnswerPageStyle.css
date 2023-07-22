@@ -182,13 +182,13 @@ body
         width: 45%;
     }
 }
-.not_found_container {
+.not_found_container , .no_question{
     text-align: center;
     font-family: 'IRANSANS';
     color: var(--brand-color);
     display: none;
 }
-.answer_page_container.not_found  , .answer_page_container.ended
+.answer_page_container.not_found  , .answer_page_container.ended , .answer_page_container.noQuestion
 {
     background: var(--theme-white);
     border-radius: 20px;
@@ -197,6 +197,10 @@ body
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.answer_page_container.noQuestion .no_question
+{
+    display: block;
 }
 .inputUploader.audio_uploaded .uploaded_file_video , .inputUploader.zip_uploaded .uploaded_file_video
 , .inputUploader.file_uploaded .uploaded_file_video

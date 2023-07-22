@@ -65,6 +65,7 @@ const loader_initializer = async () => {
     {
         console.log(err)
         answer_page_container.classList.add('not_found');
+        $('#loading-animation').addClass('hide');
         $('.not_found_container').show(100);
         return
     }
@@ -82,7 +83,12 @@ const loader_initializer = async () => {
         start_button.addEventListener('click',async () => {
             $(start_container).hide(100);
             start_container.remove()
-            console.log(questionnaire)
+            console.log(questionnaire.questions.questions)
+            if(questionnaire.questions.length == 0)
+            {
+                $('.answer_page_container').addClass('noQuestion');
+                return;
+            }
             if(!questionnaire.show_question_in_pages)
             {
                 $('.parent_container').addClass('total');
