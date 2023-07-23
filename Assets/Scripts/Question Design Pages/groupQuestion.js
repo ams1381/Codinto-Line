@@ -78,9 +78,6 @@ saveBtn.addEventListener("click" , async function (event){
     else
         await question_creator(ACTION_TYPE,null,'question-groups',QuestionnaireUUID,group_question_postData);
 })
-necessaryQuestion.addEventListener('click',() => {
-    toggle_handler(EditableQuestion,necessaryQuestion.parentElement.parentElement.parentElement,necessaryQuestion,group_question_postData);
-})
 QuestionNumber.addEventListener('click',() => {
     toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,group_question_postData);
 })

@@ -242,7 +242,13 @@
 {
     display: none;
 }
-
+.login__image , .left__container{
+    animation:fadeInUp 1s ease backwards;
+}
+@keyframes fadeInUp{
+    0%{transform:translate(0px, 100px); opacity: 0;}
+    100%{transform:translate(0px, 0); opacity: 1;}
+}
 @media only screen and (max-width : 768px)
 {
     .right__container

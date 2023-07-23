@@ -3,8 +3,6 @@ import { showAlert } from '../Question Design Pages/CommonActions.js'
 
 const login_confirm_button = document.querySelector('#loginForm .Login__btn');
 const user_phone_phoneNumber_input = document.querySelector('#PhoneNumberInput');
-
-
 const login_confirm_handler = async (e) => {
     login_confirm_button.classList.add("loading");
     e.preventDefault();

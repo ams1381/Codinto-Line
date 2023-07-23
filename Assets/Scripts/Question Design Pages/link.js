@@ -23,7 +23,7 @@ const view_question_button = document.querySelector(".SideHeaderBody .viewQuesti
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
 console.log(ACTION_TYPE)
 let options = null;
-
+console.log(localStorage.getItem('QuestionData'))
 // initial data------------------------------------
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {

@@ -173,10 +173,6 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
                 parseInt(item.parentElement.parentElement.getAttribute('id').split("Question")[1]))
         })
     }
-    if(sub_copy_buttons)
-    {
-        
-    }
     remove_eventListener_setter(delete_question_button,Question.question_type,Question.id);
     if(copy_question_button)
         copy_question_button.addEventListener('click',() => {
@@ -190,46 +186,21 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
             })
         })
     }
-    const question_click_handler = (QuestionId,e) => {
-        localStorage.removeItem("QuestionData")
-        let clicked_question;
-        if(Question.id == QuestionId)
-            clicked_question = Question;
-        else
-        {
-            if(Question.child_questions)
-            {
-                Question.child_questions.forEach((child_question) => {
-                    if(child_question.question.id == QuestionId)
-                        clicked_question = child_question.question;
-                })
-            }
-        }
-        if(e.target.classList[0] == 'Questionitem' || e.target.classList[0] == 'QuestionLabel' ||
-        e.target.classList[0] == 'QuestionitemText' || isStrongEmUElement(e.target)
-        || e.target instanceof HTMLParagraphElement)
-            {
-                localStorage.setItem("ACTION-TYPE",'Edit');
-                localStorage.setItem("QuestionData",JSON.stringify(clicked_question))
-                QuestionDesignOpener(clicked_question.question_type);
-            }  
-    }
     
         if(sub_question_elements.length != 0)
         {
             console.log(sub_question_elements)
-            sub_question_elements.forEach((item) => {
+            sub_question_elements.forEach((item,index) => {
                 item.addEventListener('click',(e) => {
-                    question_click_handler(item.getAttribute("id").split("Question")[1],e)   
+                    question_click_handler(Question.child_questions[index].question,item.getAttribute("id").split("Question")[1],e)   
                 })
             })
         }
     question_element.addEventListener('click',(e) => {
-        question_click_handler(question_element.getAttribute("id").split("Question")[1],e)     
+        question_click_handler(Question,question_element.getAttribute("id").split("Question")[1],e)     
     })
    
 }
-
 const question_sub_itemGenerator = (Question,question_label,question_tools_box,question_number) => {
     let parsed_question_number =  new DOMParser().parseFromString(question_label,'text/html').firstChild.lastChild.firstChild;
     parsed_question_number.textContent = question_number;
@@ -276,20 +247,42 @@ const question_copier = (Question,QuestionID) => {
         if(Question.id == QuestionID)
             clicked_question = Question;
         else
-        {
             if(Question.child_questions)
-            {
                 Question.child_questions.forEach((child_question) => {
                     if(child_question.question.id == QuestionID)
                         clicked_question = child_question.question;
                 })
-            }
-        }
     localStorage.removeItem("QuestionData")
     localStorage.removeItem("ACTION-TYPE")
     localStorage.setItem("ACTION-TYPE","Copy")
     localStorage.setItem("QuestionData",JSON.stringify(clicked_question))
-    console.log(clicked_question)
-    // QuestionDesignOpener(clicked_question.question_type);
+    console.log(localStorage.getItem('QuestionData'))
+    QuestionDesignOpener(clicked_question.question_type);
 }
+const question_click_handler = (Question,QuestionId,e) => {
+    // localStorage.removeItem("QuestionData")
+    let clicked_question;
+    if(Question.id == QuestionId)
+        clicked_question = Question;
+    else
+    {
+        if(Question.child_questions)
+        {
+            console.log(Question.child_questions)
+            Question.child_questions.forEach((child_question) => {
+                if(child_question.question.id == QuestionId)
+                    clicked_question = child_question.question;
+            })
+        }
+    }
+    
+    if(e.target.classList[0] == 'Questionitem' || e.target.classList[0] == 'QuestionLabel' ||
+    e.target.classList[0] == 'QuestionitemText' || isStrongEmUElement(e.target)
+    || e.target instanceof HTMLParagraphElement)
+        {
+            localStorage.setItem("ACTION-TYPE",'Edit');
+            localStorage.setItem("QuestionData",JSON.stringify(clicked_question))
+            QuestionDesignOpener(clicked_question.question_type);
+        }  
+}  
 const isStrongEmUElement = (element) => ['STRONG', 'EM', 'U'].includes(element.tagName);
