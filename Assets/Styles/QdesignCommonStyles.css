@@ -324,6 +324,9 @@
 .Question-Title , .Greeting-Title
 {
     line-height: 40px;
+}
+.Greeting-Title
+{
     width: calc(14.4em + 17vw);
 }
 .Greeting .Greeting-Title
@@ -363,7 +366,7 @@
     padding: 10px;
     color: var(--brand-color);
     word-break: break-word;
-    line-height: 22px;
+    line-height: 30px;
 }
 .QuestionContainer.Greeting .description_block
 {
@@ -994,7 +997,6 @@ input[type=range]::-webkit-slider-thumb {
         margin: 0.9rem auto 0.9rem auto;
     }
     .Greeting.QuestionContainer {
-        padding: 0.5rem;
         padding-top: 0;
         padding-bottom: 1.4rem;
     }
@@ -1018,16 +1020,16 @@ input[type=range]::-webkit-slider-thumb {
     {
         width: 80%;
     }
-    .Greeting.QuestionContainer
+    .Greeting.QuestionContainer , .Thanks.QuestionContainer
     {
-        width: 95%;
+        width: calc(15rem + 17vw);
     }
 }
 @media only  screen and (max-width : 480px)
 {
     .QuestionContainer
     {
-        width: 95%;
-        margin-right: 0;
+        width: 85%;
+        margin: inherit auto 0 auto;
     }
 }

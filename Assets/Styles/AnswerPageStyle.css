@@ -169,10 +169,10 @@ body
 }
 @media only screen and (max-width : 900px)
 {
-    .answer_page_container
+    /* .answer_page_container
     {
         width: 80%;
-    }
+    } */
     .QuestionContainer
     {
         width: 80%;
@@ -180,6 +180,10 @@ body
     .saveQuestion, .cancelQuestion
     {
         width: 45%;
+    }
+    .answer_page_container.noQuestion , .answer_page_container.not_found
+    {
+        margin-top: 1.5rem;
     }
 }
 .not_found_container , .no_question{
@@ -218,6 +222,10 @@ body
 }
 @media only screen and (max-width : 576px)
 {
+    .answer_page_container.not_found
+    {
+        margin-top: 1.5rem !important;
+    }
     .answer_page_container
     {
         padding: 0.5rem 0;
@@ -238,5 +246,9 @@ body
     .QuestionContainer
     {
         width: 88%;
+    }
+    .answer_page_container.not_found , .answer_page_container.ended , .answer_page_container.noQuestion
+    {
+        width: 95%;
     }
 }

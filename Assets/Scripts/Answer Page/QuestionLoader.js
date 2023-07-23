@@ -62,7 +62,7 @@ const loader_initializer = async () => {
         }  
         else
         {
-            questionnaire  = await getRequest(getQuestionsUrl + questionnaire_for_preview.uuid + '/')
+            questionnaire  = await getRequest(getQuestionsUrl + 'questionnaires/' + questionnaire_for_preview.uuid + '/')
         }
              
     }
