@@ -58,12 +58,11 @@ const loader_initializer = async () => {
             console.log(Questionnaireuuid.split(" "))
             await answer_set_creator()
             console.log()
-            questionnaire  = await questionnaire_getter(getQuestionsUrl + Questionnaireuuid.split(" ")[0] + '/');
+            questionnaire  = await questionnaire_getter(getQuestionsUrl + Questionnaireuuid + '/');
         }  
         else
         {
-            console.log('b')
-            questionnaire  = await questionnaire_getter(getQuestionsUrl + questionnaire_for_preview.uuid + '/')
+            questionnaire  = await getRequest(getQuestionsUrl + questionnaire_for_preview.uuid + '/')
         }
              
     }

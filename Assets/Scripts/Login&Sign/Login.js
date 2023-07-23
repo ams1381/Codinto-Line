@@ -8,7 +8,7 @@ const login_confirm_handler = async (e) => {
     e.preventDefault();
     try
     {
-        await postRequest(baseUrl + '/user-api/auth/gateway/','application/json',{ 'phone_number' : user_phone_phoneNumber_input.value });
+        await axios.post(baseUrl + '/user-api/auth/gateway/',{ 'phone_number' : user_phone_phoneNumber_input.value },{});
         localStorage.setItem("enteredPhoneNumber",user_phone_phoneNumber_input.value);
        
     }

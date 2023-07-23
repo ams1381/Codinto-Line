@@ -444,7 +444,7 @@ const additional_options_handler = (Addition_type,state,PostData) =>
         })
         answer_options.forEach((answer_option) => {
            let answer_option_input = document.querySelector(`#${answer_option.getAttribute("id")} .anw-option-input`);
-            if(answer_option_input.value == 'همه گزینه ها' || answer_option_input.value == 'هیچ کدام')
+            if(answer_option_input.placeholder == 'همه گزینه ها' || answer_option_input.placeholder == 'هیچ کدام')
             {
                 $(answer_option).hide(70);
                 answer_option.remove();
@@ -465,7 +465,7 @@ const single_additional_option_toggle_handler = (Addition_text,PostData) => {
          })
          answer_options.forEach((answer_option,index) => {
             let answer_option_input = document.querySelector(`#${answer_option.getAttribute("id")} .anw-option-input`);
-            if(answer_option_input.value == Addition_text)
+            if(answer_option_input.placeholder == Addition_text)
             {
                 $(answer_option).hide(70);
                 answer_option.remove();

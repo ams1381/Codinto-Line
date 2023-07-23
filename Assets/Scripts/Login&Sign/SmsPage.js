@@ -15,9 +15,11 @@ const sent_sms_handler = async (e) => {
     
         try
         {
-            let accessToken = await postRequest(baseUrl + '/user-api/auth/verify-otp/','application/json',
+            let accessToken = await axios.post(baseUrl + '/user-api/auth/verify-otp/',
             { 'token' : sms_code , 'phone_number' : localStorage.getItem('enteredPhoneNumber') }
-            );
+            ,{
+                'Content-Type' : 'application/json'
+            });
             if(accessToken)
             {
                 localStorage.setItem("ACCESS_TOKEN",accessToken.data.access)
@@ -27,6 +29,7 @@ const sent_sms_handler = async (e) => {
         }
         catch(error)
         {
+            console.log({ 'token' : sms_code , 'phone_number' : localStorage.getItem('enteredPhoneNumber') })
             showAlert('کد وارد شده نا معتبر است')
             console.log(error)
             login_sms_confirm_button.classList.remove("loading");
