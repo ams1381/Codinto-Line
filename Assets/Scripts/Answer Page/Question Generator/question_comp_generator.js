@@ -79,8 +79,8 @@ export const question_component_generator = (Question) => {
             for(let i = 0; i < Question.max ; i++)
                 degree_option_html += `
                     <div class="degree_answer_block-option">
-                        <input type="radio" id="answer-n${i + 1}">
-                        <label class="answer_option-label" for="answer-n${i + 1}">${degree_shape}</label>
+                        <input type="radio" id="IS_answer-n${i + 1}">
+                        <label class="answer_option-label" for="IS_answer-n${i + 1}">${degree_shape}</label>
                     </div>
                     `;
                     
