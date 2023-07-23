@@ -987,8 +987,17 @@ input[type=range]::-webkit-slider-thumb {
     .block__main.preview_active
     {
         width: 100%;
-        display: flex;
+        display: grid;
     }  
+    .QuestionContainer
+    {
+        margin: 0.9rem auto 0.9rem auto;
+    }
+    .Greeting.QuestionContainer {
+        padding: 0.5rem;
+        padding-top: 0;
+        padding-bottom: 1.4rem;
+    }
 }
 @media only  screen and (max-width : 768px)
 {
@@ -1008,6 +1017,10 @@ input[type=range]::-webkit-slider-thumb {
     .QuestionContainer
     {
         width: 80%;
+    }
+    .Greeting.QuestionContainer
+    {
+        width: 95%;
     }
 }
 @media only  screen and (max-width : 480px)
