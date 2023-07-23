@@ -16,6 +16,7 @@
     display: flex;
     width: 90%;
     margin: 1rem auto;
+    flex-wrap: wrap;
 }
 .degree_answer_block-option {
     margin-right: 0.5rem;
