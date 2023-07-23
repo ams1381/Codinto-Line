@@ -12,8 +12,8 @@ export const answer_input_checker = (Question) => {
             break;
         case 'integer_selective':
             integer_selective_eventListener(Question);
-            preview_degree_eventListener_setter(document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option'),
-            document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option input'))
+            preview_degree_eventListener_setter(document.querySelectorAll(`#Q${Question.id} .degree_answer_block-options .degree_answer_block-option`),
+            document.querySelectorAll(`#Q${Question.id} .degree_answer_block-options .degree_answer_block-option input`))
             break;
         case 'file':
             file_event_listener(Question);
