@@ -60,7 +60,6 @@ const preview_middle_label = document.querySelector(".range__select_labels .rang
 const answer_options_container = document.querySelector(".Answer-Options");
 
 export const question_info_loader = (Question) => {
-    console.log(Question)
     if(!Question)
         return
     Title_input.textContent = $(new DOMParser().parseFromString(Question.title,'text/html')).text();

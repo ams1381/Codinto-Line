@@ -206,7 +206,6 @@ search_result_button.addEventListener('click',async () => {
       search_result_button.classList.add('search-active');
       search_result_container.classList.add('search_active');
    }
-   console.log(window.innerWidth)
    window.innerWidth < 600 ? $('.navbar-codinto-title').toggle() : ''
 })
 search_result_input.addEventListener('input',async (e) => {

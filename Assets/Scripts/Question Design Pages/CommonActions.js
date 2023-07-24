@@ -62,7 +62,6 @@ export const  showAlert = (text) =>
     }, 3000);
 }
 export const text_style_setter = (PostData,DataToChange,Style,preview_text,input,input_text) => {
-    console.log(PostData)
     switch(Style)
     {
         case 'fa fa-bold':
@@ -97,7 +96,6 @@ const text_style_class_setter = (input,input_text,text_style,preview_text,style_
         PostData[`${DataToChange}`] = `<${style_tag}>${input_text}</${style_tag}>`;
 
     }
-    console.log(DataToChange)
 }
 export const shuffleArray = (array,PostData,Option_Type,preview_option_className) => {
     let preview_options = document.querySelectorAll(`.${preview_option_className}`);
@@ -344,7 +342,6 @@ export const answer_option_adder = (Option_Type,Option_Text,PostData) => {
             )
             break;
     }
-    console.log(PostData)
 }
 export const answer_option_eventListener_setter = (OptionNumber,Option_Type,PostData) => {  
     let answer_option_adder_button = document.querySelector(`#anw-option-${OptionNumber} .anw-option-tools .answer-option-add`);
@@ -402,7 +399,6 @@ export const answer_option_remover = (Option_Type,PostData) => {
     {
         showAlert('دو گزینه را نمی توان حذف یا مخفی کرد')
     }
-    console.log(PostData)
 }
 export const preview_option_label_updater = (input_number,input_value,Option_Type,PostData) => {
     let changed_label;
@@ -453,7 +449,6 @@ const additional_options_handler = (Addition_type,state,PostData) =>
             }  
          })
     }
-    console.log(PostData)
 }
 const single_additional_option_toggle_handler = (Addition_text,PostData) => {
     let answer_options = document.querySelectorAll(".Answer-Option");
@@ -473,7 +468,6 @@ const single_additional_option_toggle_handler = (Addition_text,PostData) => {
                 document.querySelector(`#preview-option-${answer_option.getAttribute("id").split("-")[2]}`).remove();
             }
          })
-         console.log(PostData)
 }
 export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,PostData) => {
     if(!toggle_button.previousElementSibling.checked)
@@ -525,11 +519,10 @@ export const toggle_handler = (EditableQuestion,toggle_element,toggle_button,Pos
         switch(toggle_element.classList[0])
         {
             case 'additional_options' : 
-            console.log(EditableQuestion)
-            if(EditableQuestion)
-                additional_options_handler('additional_toggle','deActive',EditableQuestion)
-            else
-                additional_options_handler('additional_toggle','deActive',multiple_option_postData)
+                if(EditableQuestion)
+                    additional_options_handler('additional_toggle','deActive',EditableQuestion)
+                else
+                    additional_options_handler('additional_toggle','deActive',multiple_option_postData)
                 break;
             case 'is_vertical':
                 preview_answer_options_container.classList.remove('vertical-order')
@@ -586,7 +579,6 @@ export const file_upload_handler = (FileType,FileInput,EditableQuestion,PostData
         preview_image_cancel_button.addEventListener('click',() => {
             file_input_empty_setter(FileInput,EditableQuestion);
     })
-    console.log(EditableQuestion)
     }
         
     else 
@@ -613,7 +605,6 @@ export const file_input_empty_setter = (FileInput,PostData) => {
     preview_image_main.removeAttribute("src");
     preview_video_main.removeAttribute("src");
     PostData.media = '';
-    console.log(PostData)
 }
 const getVideoCoverImage = (videoElement) => {
     return new Promise((resolve, reject) => {

@@ -26,10 +26,10 @@ const sent_sms_handler = async (e) => {
                 cookie_setter('access',accessToken.data.access);
                 window.open("/Pages/Folders.html","_Self");
             }
+            login_sms_confirm_button.classList.remove("loading");
         }
         catch(error)
         {
-            console.log({ 'token' : sms_code , 'phone_number' : localStorage.getItem('enteredPhoneNumber') })
             showAlert('کد وارد شده نا معتبر است')
             console.log(error)
             login_sms_confirm_button.classList.remove("loading");

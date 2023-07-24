@@ -95,7 +95,6 @@ const preview_default_order_setter = (PostData) => {
                  { text : sorted_select_item.lastElementChild.textContent }
              )
          })
-     console.log(slider_option_postData)
 }
 multiple_answer_toggle.addEventListener('click',() => {
   

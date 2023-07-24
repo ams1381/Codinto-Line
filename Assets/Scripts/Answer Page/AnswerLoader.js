@@ -49,7 +49,6 @@ export const answer_loader = (QuestionData,Question,answer_set_postData) => {
             if(QuestionData.question.child_questions)
             {
                 QuestionData.question.child_questions.forEach((item) => {
-                    console.log(item,document.querySelector(`#Q${item.question.id}`),answer_set_postData)
                     answer_loader(item,document.querySelector(`#Q${item.question.id}`),answer_set_postData)
                 })
             }
@@ -71,7 +70,6 @@ const range_answer_loader = (QuestionData,Answer_to_load) => {
 const selective_degree_answer_loader = (QuestionData,Answer_to_load) => {
   let selected_degree_option = document.querySelector(`#Q${QuestionData.question.id} .degree_answer_block-option #answer-n${Answer_to_load}`);
   let preview_degree_inputs = document.querySelectorAll(`#Q${QuestionData.question.id} .degree_answer_block-option input`);
-  console.log(selected_degree_option,preview_degree_inputs)
   if(selected_degree_option)
   {
     selected_degree_option.classList.add('selected_answer');
@@ -100,10 +98,8 @@ const drop_down_answer_loader = (QuestionData,Answer_to_load) => {
     }
     slider_option.classList.add('slide_selected')
     $(slider_options).not(".slide_selected").slideUp(10);
-    console.log(selected_drop_down_option.checked)
 }
 const number_answer_loader = (Answer_to_load) => {
-    console.log('number question',Answer_to_load)
     let number_answer_input = document.querySelector('#number_answer_input');
     number_answer_input.value = Answer_to_load;
 }
@@ -116,7 +112,6 @@ const email_answer_loader = (Answer_to_load) => {
     email_answer_input.value = Answer_to_load;
 }
 const multiple_answer_loader = (QuestionData,Answer_to_load) => {
-    console.log(Answer_to_load)
     if(Array.isArray(Answer_to_load))
         Answer_to_load.forEach((loaded_option) => {
             document.querySelector(`#Q${QuestionData.question.id} .multiple_answer_block-option #answer-n${loaded_option.id}`).checked = true;
@@ -143,7 +138,6 @@ const file_answer_preview_loader = (FileSrc,FileType,preview_video_side,preview_
             file_input_container.className =  'inputUploader uploaded image_uploaded';
             preview_image_side.src = FileSrc;  
             preview_video_side.removeAttribute("src");
-            console.log(preview_video_side)
             break;
         case 'Video':
             file_input_container.className = 'inputUploader uploaded video_uploaded';  

@@ -189,7 +189,6 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
     
         if(sub_question_elements.length != 0)
         {
-            console.log(sub_question_elements)
             sub_question_elements.forEach((item,index) => {
                 item.addEventListener('click',(e) => {
                     question_click_handler(Question.child_questions[index].question,item.getAttribute("id").split("Question")[1],e)   
@@ -256,7 +255,6 @@ const question_copier = (Question,QuestionID) => {
     localStorage.removeItem("ACTION-TYPE")
     localStorage.setItem("ACTION-TYPE","Copy")
     localStorage.setItem("QuestionData",JSON.stringify(clicked_question))
-    console.log(localStorage.getItem('QuestionData'))
     QuestionDesignOpener(clicked_question.question_type);
 }
 const question_click_handler = (Question,QuestionId,e) => {
@@ -268,7 +266,6 @@ const question_click_handler = (Question,QuestionId,e) => {
     {
         if(Question.child_questions)
         {
-            console.log(Question.child_questions)
             Question.child_questions.forEach((child_question) => {
                 if(child_question.question.id == QuestionId)
                     clicked_question = child_question.question;

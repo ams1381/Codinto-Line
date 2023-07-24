@@ -61,9 +61,7 @@ const loader_initializer = async () => {
     {
         if(Questionnaireuuid)
         {
-            console.log(Questionnaireuuid.split(" "))
             await answer_set_creator()
-            console.log()
             questionnaire  = await questionnaire_getter(getQuestionsUrl + Questionnaireuuid + '/');
         }  
         else
@@ -80,7 +78,6 @@ const loader_initializer = async () => {
         $('.not_found_container').show(100);
         return
     }
-    console.log(questionnaire)
     if(!questionnaire.is_active)
     {
         showAlert("این پرسشنامه غیر فعال میباشد.");

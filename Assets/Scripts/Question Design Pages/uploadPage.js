@@ -55,7 +55,6 @@ QuestionNumber.addEventListener('click',() => {
 toggle_handler(EditableQuestion,QuestionNumber.parentElement.parentElement.parentElement,QuestionNumber,file_question_PostData);
 })
 file_input.addEventListener('input',() => {
-    console.log(file_question_PostData)
     let selected_file_type;
     document.querySelectorAll(".fileFormat input").forEach((item) => {
         if(item.checked)

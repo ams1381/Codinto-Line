@@ -196,7 +196,6 @@ export const question_component_generator = (Question) => {
                 </button>
              </div>
              ${Question.child_questions.map((item) => {
-                // console.log(question_component_generator(item.question))
                 return question_component_generator(item.question)
              })}
             `

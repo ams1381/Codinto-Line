@@ -63,7 +63,6 @@ const number_input_eventListener = (Question) => {
     let number_answer_input = document.querySelector(`#Q${Question.id} #number_answer_input`);
     if(number_answer_input)
         number_answer_input.addEventListener('input',() => {
-            console.log('input test')
             if(Question.max && parseInt(number_answer_input.value) > Question.max)
             {
                 showAlert(`حداکثر عدد ${Question.max} است`)
@@ -171,7 +170,6 @@ export const file_event_listener = (Question) => {
 }
 export const file_preview_setter = (FileSrc,FileType,preview_image_side,preview_video_side,file_input_container) => {
     file_input_container.classList.add("uploaded");
-    console.log(FileType)
     switch(FileType)
     {
         case 'Picture' :

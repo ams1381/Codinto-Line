@@ -21,7 +21,6 @@ export const remove_eventListener_setter = (delete_button_element,question_type,
     })
 }
 const DeleteQuestionItemHandler = async (QuestionInfo) => {
-    console.log('test')
     delete_confirm_button.classList.add('operating');
     let deleteQuestionRes;
     let deleteQuestionHTMLItem = document.querySelector(`#Question${QuestionInfo.question_id}`);

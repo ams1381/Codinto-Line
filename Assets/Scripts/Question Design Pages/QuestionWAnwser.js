@@ -55,7 +55,6 @@ selection.addEventListener("change", function (event) {
     }
 });
 const answer_pattern_selector = (Pattern,postData,selectedOption) => {
-    console.log(postData)
     switch (Pattern) {
         case "text":
             $(minVmax).show(50)

@@ -2,7 +2,6 @@ import { baseUrl } from "../../ajax/ajaxRequsts.js";
 import { detectFileFormat } from "../../Question Design Pages/CommonActions.js";
 
 export const thank_component_generator = (thank) => {
-    console.log(thank)
     let media_src = thank.media;
     return `<div class="QuestionContainer Greeting thank-page">
                 <div class="Question-Title Greeting-Title">

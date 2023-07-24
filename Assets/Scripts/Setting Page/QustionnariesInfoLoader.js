@@ -48,6 +48,7 @@ export const QuestionnaireInfoSetter = async (QuestionnaireUUID) => {
         QuestionnaireEndDatePicker.classList.add('active');
         date_setter(endYearItems,endMonthItems,endDayItems,date_transformer(QuestionnaireRes.end_date));
         DateSetter();
+        data_updater(endYearItems,endMonthItems,endDayItems,date_transformer(QuestionnaireRes.end_date))
     }
     if(QuestionnaireRes.timer)
     {
@@ -91,7 +92,6 @@ const data_updater = (Year_Labels,Month_Labels,Day_Labels,Date) => {
         })
         if(Date[1] == currentDate[1])
         {
-            console.log('hi')
             Day_Labels.forEach((Day_Label,index) => {
                 if(index + 1 < currentDate[2])
                     Day_Label.previousElementSibling.disabled = true;

@@ -40,7 +40,7 @@ const folderLoader =  async () => {
         }
     catch (err)
         {
-            console.log(err)
+           
         }
 }
 await folderLoader();

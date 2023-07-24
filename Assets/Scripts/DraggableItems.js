@@ -79,7 +79,6 @@ const MainDroppedHandler = async (el,target) => {
     {
       let sub_question_id;
       let sub_question_type = el.classList[1];
-      console.log(el)
       if(el.getAttribute("id"))
       {
         sub_question_id = parseInt(el.getAttribute("id").split("Question")[1]);
@@ -105,7 +104,6 @@ const MainDroppedHandler = async (el,target) => {
     {
       if(el.firstElementChild.className.includes('sub-label'))
       {
-        console.log('checkcccc')
         let sub_question_id = parseInt(el.getAttribute("id").split("Question")[1]);
         await group_question_patcher(el.classList[1],sub_question_id , null,'ungroup')
       }
@@ -212,8 +210,7 @@ const group_question_patcher = async (Question_Type,QuestionID,group_question_id
     if(Question_Type == 'group')
       retrieved_question = await  getRequest(`${baseUrl}/question-api/questionnaires/${SelectedQuestionnaire.uuid}/question-groups/${QuestionID}/`);
     
-      
-    console.log(Question_Type,Group_state)
+
     
     if(Group_state == 'group')
       retrieved_question.group = group_question_id;
@@ -221,6 +218,5 @@ const group_question_patcher = async (Question_Type,QuestionID,group_question_id
       retrieved_question.group = null;
 
       delete retrieved_question.media;
-    console.log(retrieved_question)
     await patchRequest(`${baseUrl}/question-api/questionnaires/${SelectedQuestionnaire.uuid}/${Question_Type}-questions/${QuestionID}/`,retrieved_question)
 }

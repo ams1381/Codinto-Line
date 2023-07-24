@@ -81,7 +81,6 @@ answer_option_buttons.forEach((answer_option_button) => {
             answer_option_remover();
             preview_answer_option_remover("MultipleOption");
         })
-    console.log(priority_question_PostData)
 })
 answer_option_view_buttons.forEach((answer_option_view_button,index) => {
     answer_option_view_button.addEventListener('click',() => {
