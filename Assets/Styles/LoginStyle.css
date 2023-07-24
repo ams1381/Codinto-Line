@@ -234,6 +234,10 @@
     font-size: 0.8rem;
     font-family: 'IRANSANS';
 }
+.Login__btn.loading
+{
+    pointer-events: none;
+}
 .Login__btn.loading .dot-pulse 
 {
     display: block;
