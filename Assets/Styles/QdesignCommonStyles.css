@@ -531,7 +531,8 @@
     margin-right: 20px;
     border: 1px solid var(--brand-color);
     transition: border 0.3s;
-    font-size: calc(0.8rem + 0.4vw);
+    font-size: calc(0.75rem + 0.4vw);
+    line-height: 0;
 }
 .answer-number-selector .label-text-input
 {
@@ -741,8 +742,19 @@
     background-color: var(--input-title-bg-color);
     height: 5px;
     transition: 0.3s;
+    -webkit-appearance: none;
 }
-input[type=range]::-webkit-slider-thumb {
+.rangeInput::-webkit-slider-runnable-track {
+    background-color: var(--input-title-bg-color);
+  }
+.rangeInput::-moz-range-thumb {
+    position: relative;
+    -webkit-appearance: none;
+    width: 10px;
+    height: 26px;
+    background-color: var(--brand-color);
+  }
+.rangeInput[type=range]::-webkit-slider-thumb  {
     position: relative;
     -webkit-appearance: none;
     width: 10px;
@@ -1016,20 +1028,21 @@ input[type=range]::-webkit-slider-thumb {
     {
         display: flex;
     }
-    .QuestionContainer
+    /* .QuestionContainer
     {
         width: 80%;
-    }
+    } */
     .Greeting.QuestionContainer , .Thanks.QuestionContainer
     {
         width: calc(15rem + 17vw);
     }
+    
 }
 @media only  screen and (max-width : 480px)
 {
     .QuestionContainer
     {
-        width: 85%;
+        /* width: 85%; */
         margin: inherit auto 0 auto;
     }
 }

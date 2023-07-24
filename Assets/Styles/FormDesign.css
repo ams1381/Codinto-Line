@@ -384,4 +384,13 @@
     {
         width: 25px;
     }
+    .shareQuestionnaire i svg
+    {
+        width: 25px;
+        height: 25px;
+    }
+    .viewFormQuestions i svg { 
+        width: 28px;
+        height: 40px;
+    }
 }

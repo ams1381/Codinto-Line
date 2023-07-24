@@ -88,6 +88,7 @@
 {
   padding-bottom: 0;
   margin-left: 0.7rem;
+  line-height: 0;
 }
 .search_result_box.search_active  input
 {

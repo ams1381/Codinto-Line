@@ -16,6 +16,12 @@ const Questionnaireuuid = urlParams.get('Questionnaireuuid');
 let start_question_index = 0;
 let answer_set_id;
 let first_question_number;
+const scroll_progress_handler = (progress_bar) => {
+    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolled = (winScroll / height) * 100;
+    progress_bar.value = scrolled;
+  }
 const answer_set_post_requester = async (url) => {
     try {
        let response = await axios.post(url,{},{});
@@ -96,6 +102,14 @@ const loader_initializer = async () => {
             }
             if(!questionnaire.show_question_in_pages)
             {
+                if(questionnaire.progress_bar)
+                {
+                    document.querySelector(".answer_page_progressBar").classList.add('active','totalMode');
+                    document.querySelector(".answer_page_progressBar").value = 0;
+                    window.addEventListener('scroll',() => {
+                        scroll_progress_handler(document.querySelector(".answer_page_progressBar"))
+                    })  
+                }
                 $('.parent_container').addClass('total');
                 questionnaire.questions.forEach((Question) => {
                     if(Question.question)
@@ -140,6 +154,14 @@ const loader_initializer = async () => {
     {
         if(!questionnaire.show_question_in_pages)
         {
+            if(questionnaire.progress_bar)
+            {
+                document.querySelector(".answer_page_progressBar").classList.add('active','totalMode');
+                document.querySelector(".answer_page_progressBar").value = 0;
+                window.addEventListener('scroll',() => {
+                    scroll_progress_handler(document.querySelector(".answer_page_progressBar"))
+                })
+            }
             $('#loading-animation').addClass('hide');
             $('.parent_container').addClass('total');
             questionnaire.questions.forEach((Question) => {
