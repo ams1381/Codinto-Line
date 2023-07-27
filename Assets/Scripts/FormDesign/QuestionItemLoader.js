@@ -198,7 +198,10 @@ export const QuestionItemGenerator = (Question,QuestionOrderNumber) =>
     question_element.addEventListener('click',(e) => {
         question_click_handler(Question,question_element.getAttribute("id").split("Question")[1],e)     
     })
-   
+   document.querySelectorAll('.Question-Nested.nested-container.group').forEach((item) => {
+        if(!item.firstElementChild.hasAttribute('id'))
+            item.remove();
+   })
 }
 const question_sub_itemGenerator = (Question,question_label,question_tools_box,question_number) => {
     let parsed_question_number =  new DOMParser().parseFromString(question_label,'text/html').firstChild.lastChild.firstChild;

@@ -10,6 +10,10 @@ const table = document.querySelector('.resultTable');
 const search_result_button = document.querySelector('.Search_results');
 const search_result_container = document.querySelector('.search_result_box');
 const search_result_input = document.querySelector('#result_search_input')
+const Line_charts_container = document.querySelector('.Line_charts_container');
+const Bar_charts_container = document.querySelector('.Bar_charts_container');
+const Pie_chart_container = document.querySelector('.Pie_chart_container')
+const Shape_chart_container = document.querySelector('.Shape_chart_container')
 let question_ids = [...document.querySelectorAll('#result_table_head_row th')].map((item) => item.getAttribute('id'));
 let loaded_questions;
 let result_response;
@@ -17,6 +21,7 @@ let questionnaire_response
 const result_loader = async () => {
    let result_response = await getRequest(`${baseUrl}/result-api/${Questionnaire.uuid}/answer-sets/`);
    let questionnaire_response = await getRequest(baseUrl + '/question-api/questionnaires/' + Questionnaire.uuid + '/');
+   console.log(result_response)
    loaded_questions = questionnaire_response.questions;
    result_container.classList.remove('loading');
    $('#loading-animation').addClass('hide');
@@ -66,14 +71,7 @@ const head_item_generator = (Head_item) => {
       result_table_head_row.innerHTML += sub_ths;
    }
    $(result_table_head_row).hide();
-   $(result_table_head_row).show(100);
-   // $(".resultTable").dragNscroll({
-   //    reverse : false,
-   //    acceleration: .185,
-   //    deceleration: .185,
-   //    decelRate: 150,
-   // })
-   
+   $(result_table_head_row).show(100); 
 }
 const padArrayWithNull = (array, indices,maxLength) => {
   const paddedArray = Array.from({ length: maxLength }, (_, index) =>
@@ -189,7 +187,7 @@ const result_searcher = async (search_text) => {
       body_row_generator(item,loaded_questions,question_ids)
    })
 }
-await result_loader();
+
 search_result_button.addEventListener('click',async () => {
    if(search_result_button.classList.contains('search-active'))
    {
@@ -211,3 +209,241 @@ search_result_button.addEventListener('click',async () => {
 search_result_input.addEventListener('input',async (e) => {
    await result_searcher(e.target.value)
 })
+const chart_loader = async () => {
+   let plot_res;
+   try
+   {
+      plot_res = await getRequest(`${baseUrl}/result-api/${Questionnaire.uuid}/plots/`);
+   }
+   catch(err)
+   {
+      return
+   }
+   plot_res.forEach((item) => {
+      let Question_title = $(new DOMParser().parseFromString(item.question,'text/html').firstChild.lastChild.firstChild).text()
+      if(item.question_type != 'integer_selective')
+      {
+         Line_chart_generator(Question_title,`LineChart${item.question_id}`,item.options.map(option => option.text),Object.values(item.counts));
+         Bar_chart_generator(Question_title,`BarChart${item.question_id}`,item.options.map(option => option.text),Object.values(item.counts));
+         Pie_chart_generator(Question_title,`PierChart${item.question_id}`,item.options.map(option => option.text),Object.values(item.counts));
+      }
+      else if(item.question_type =='integer_selective')
+      {
+         Shape_chart_generator(Question_title,`ShapeChart${item.question_id}`,item.count,item.average,item.shape)
+      }
+   })
+}
+const Line_chart_generator = (QuestionTitle,ChartID,xValues,yValues) => {
+   let chart_canvas  = `
+   <div class="chart_graph">
+   <p>
+      ${QuestionTitle}
+   </P>
+       <canvas id="${ChartID}" class="chart_canvas" style="width:100%;max-width:600px"></canvas>
+   </div>
+   `;
+
+   Line_charts_container.appendChild(new DOMParser().parseFromString(chart_canvas,'text/html').firstChild.lastChild.firstChild)
+   new Chart(ChartID, {
+     type: "line",
+     data: {
+       labels: xValues,
+       datasets: [{
+         fill: false,
+         lineTension: 0,
+         backgroundColor: "rgba(0,0,255,1.0)",
+         borderColor: "rgba(0,0,255,0.1)",
+         fontFamily : 'IRANSans',
+         data: yValues
+       }]
+     },
+     options: {
+      plugins: {
+         title: {
+           font: {
+             family: 'IRANSans', // Set your desired font family here
+             weight: 'bold' // You can also set the font weight if needed
+           }
+         },
+         legend: {
+           display: false
+         },
+         tooltip: {
+           bodyFont: {
+             family: 'IRANSANS'
+           }
+         }
+       },
+       scales: {
+         x: {
+           ticks: {
+             font: {
+               family: 'IRANSANS'
+             }
+           }
+         },
+         y: {
+           ticks: {
+             font: {
+               family: 'IRANSANS'
+             }
+           }
+         }
+       }
+    }
+   });
+}
+const Pie_chart_generator = (QuestionTitle,ChartID,xValues,yValues) => {
+   let chart_canvas  = `
+   <div class="chart_graph">
+   <p>
+      ${QuestionTitle}
+   </P>
+       <canvas id="${ChartID}" class="chart_canvas" style="width:100%;max-width:600px"></canvas>
+   </div>
+   `;
+   Pie_chart_container.appendChild(new DOMParser().parseFromString(chart_canvas,'text/html').firstChild.lastChild.firstChild)
+   let barColors = generateRandomColors(yValues.length)
+
+   new Chart(ChartID, {
+      type: "pie",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+        },
+        plugins: {
+         legend: {
+           labels: {
+             font: {
+               family: 'IRANSANS' // Set font family for the legend labels
+             }
+           }
+         }
+      }
+   }
+    });
+}
+const Bar_chart_generator = (QuestionTitle,ChartID,xValues,yValues) => {
+      let chart_canvas  = `
+      <div class="chart_graph">
+         <p>
+            ${QuestionTitle}
+         </P>
+         <canvas id="${ChartID}" class="chart_canvas" style="width:100%;max-width:600px"></canvas>
+      </div>
+      `;
+
+      Bar_charts_container.appendChild(new DOMParser().parseFromString(chart_canvas,'text/html').firstChild.lastChild.firstChild)
+      var barColors = generateRandomColors(xValues.length)
+
+      new Chart(ChartID, {
+      type: "bar",
+      data: {
+         labels: xValues,
+         datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+         }]
+      },
+      options: {
+         legend: {display: false},
+         title: {
+            display: true,
+            text: "World Wine Production 2018"
+          },
+          plugins: {
+            tooltip: {
+              enabled: false // Hide the tooltip
+            }
+          },
+         scales: {
+            x: {
+              ticks: {
+                font: {
+                  family: 'IRANSANS'
+                }
+              }
+            },
+            y: {
+               beginAtZero: true,
+               ticks: {
+                  font: {
+                     family: 'IRANSANS'
+                  }
+              }
+            }
+          }
+      }
+      });
+}
+const Shape_chart_generator = (QuestionTitle,ChartID,count,average,shape) => {
+      console.log(shape)
+      let chart_shape_icon = '';
+      let chart_shape_before_content = '';
+      if(shape == 'H')
+         chart_shape_icon = '❤'
+      else if(shape == 'S')
+         chart_shape_icon = '★'
+      else if(shape == 'L')
+         chart_shape_icon = '👍'
+         Array.from({ length : count }).forEach(() => {
+            chart_shape_before_content += chart_shape_icon;
+         })
+      let Shape_chart_html = `
+      <div class="shape_chart">
+      <p>
+         ${QuestionTitle}
+      </p>
+      <span> میانگین انتخاب ${Math.round(average * 10) / 10} است </span>
+      <div class="Stars" class="shapes" id="${ChartID}">
+         </div>
+         </div>
+      `
+   console.log(count,average)
+   Shape_chart_container.append(new DOMParser().parseFromString(Shape_chart_html,'text/html').firstChild.lastChild.firstChild)
+   $(`#${ChartID}`).css({
+      "--percent": `calc(${average} / ${count} * 100%)`,
+      "font-size" : "1.5rem" ,
+      "font-family": "Times",
+      "line-height" : "1",
+      "margin": "10px auto",
+      "display": "flex",
+   })
+   document.head.innerHTML += `
+   <style>
+   #${ChartID}::before 
+   {
+      content: '${chart_shape_before_content}';
+      letter-spacing: 3px;
+      filter: drop-shadow(2px 4px 0px #0000001A);
+      background: linear-gradient(90deg, #ffff2a  calc(${average} / ${count} * 100%), #dbdbdb  calc(${average} / ${count} * 100%));
+      -webkit-background-clip : text;
+      -webkit-text-fill-color: transparent;
+      font-size: 3rem;
+      margin: 0 auto;
+      word-break: break-word;
+   }
+   </style>
+   `
+}
+const generateRandomColors = (count) => {
+   const colors = [];
+   const letters = '0123456789ABCDEF';
+ 
+   while (colors.length < count) {
+     const color = '#' + Array.from({ length: 6 }, () => letters[Math.floor(Math.random() * 16)]).join('');
+     colors.push(color);
+   }
+ 
+   return colors;
+};
+
+await result_loader();
+await chart_loader();

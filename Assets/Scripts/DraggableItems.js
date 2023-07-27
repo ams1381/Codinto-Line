@@ -15,6 +15,7 @@ export const drag_drop_setter = (container_to_Set) => {
     [...container_to_Set], {
          direction: 'vertical',
          slideFactorX: 0,
+         'dom-autoscroller' : 'window',
          mirrorContainer: document.body, 
          moves: function (el, source, handle, sibling) {
           $('.gu-mirror').css({
@@ -69,9 +70,16 @@ export const drag_drop_setter = (container_to_Set) => {
         MainDroppedHandler(el,target)
         await ReorderQuestionsPoster();
     })
+    autoScroll([
+      document.querySelector('.block__main')
+    ],{
+    margin: 110,
+    autoScroll: function(){
+      return this.down && mainDrake.dragging;
+    }
+    });
     // mainDrake.on('drop',ReorderQuestionsPoster)
 }
-
 const MainDroppedHandler = async (el,target) => {
     
   let sup_labels = document.querySelectorAll(".sup-label");
@@ -220,3 +228,4 @@ const group_question_patcher = async (Question_Type,QuestionID,group_question_id
       delete retrieved_question.media;
     await patchRequest(`${baseUrl}/question-api/questionnaires/${SelectedQuestionnaire.uuid}/${Question_Type}-questions/${QuestionID}/`,retrieved_question)
 }
+

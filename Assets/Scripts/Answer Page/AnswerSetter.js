@@ -43,7 +43,9 @@ export const total_answer_set_handler = async (Questionnaire,AnswerSetID,Questio
 {
     if(total_answers.length)
         total_answers.length = 0;
+    
     const asyncForEach = async (array) => {
+        Questionnaire.questions = Questionnaire.questions.filter((element) => element.question !== null);
         try {
           for (let i = 0; i < array.length; i++) {
             if(Questionnaire.questions[i].question)
@@ -56,9 +58,11 @@ export const total_answer_set_handler = async (Questionnaire,AnswerSetID,Questio
            throw ex;
         }
       }
+    
     await asyncForEach(Questions);
 }
 export const single_answer_setter = async (Questionnaireuuid,AnswerSetID,Question,QuestionHTML,AnswerMode) => {
+   
     try 
     {
       switch([...QuestionHTML.classList][1])
@@ -326,7 +330,7 @@ const selective_degree_answer_setter = async (Questionnaireuuid,AnswerSetID,Ques
             {
             "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
-                'integer_selective' : parseInt(selected_degree_option.getAttribute("id").split('answer-n')[1])
+                'integer_selective' : parseInt(selected_degree_option.getAttribute("id").split('_answer-n')[1])
             }
         }
     }

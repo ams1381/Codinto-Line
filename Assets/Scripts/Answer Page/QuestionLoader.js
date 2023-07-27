@@ -338,6 +338,7 @@ const next_question_handler = async (next_question_button,questionnaire,Question
     }
     catch(error)
     {
+        console.log('checsdgsedgds')
         next_question_button.classList.remove('operating')
         await errorHandler(error.response,error.status,error)
         return;
