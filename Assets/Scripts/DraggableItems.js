@@ -67,16 +67,16 @@ export const drag_drop_setter = (container_to_Set) => {
     }
   );
     mainDrake.on('drop',async (	el, target, source, sibling) => {
-        MainDroppedHandler(el,target)
+        await MainDroppedHandler(el,target)
         await ReorderQuestionsPoster();
     })
     autoScroll([
       document.querySelector('.block__main')
     ],{
-    margin: 110,
-    autoScroll: function(){
-      return this.down && mainDrake.dragging;
-    }
+      margin: 110,
+      autoScroll: function(){
+        return this.down && mainDrake.dragging;
+      }
     });
     // mainDrake.on('drop',ReorderQuestionsPoster)
 }
@@ -190,7 +190,7 @@ const ReorderQuestionsPoster = async () => {
     })
    replacementPostObject.placements.pop();
   await postRequest(`${baseUrl}/question-api/questionnaires/${SelectedQuestionnaire.uuid}/change-questions-placements/`,'application/json',replacementPostObject)
-  
+  console.log(replacementPostObject)
 }
 const question_subNumber_setter = (sub_labels,target) => {
     sub_labels.forEach((item,index) => {

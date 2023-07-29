@@ -27,6 +27,7 @@
     cursor: pointer;
     position: relative;
     padding: calc(3rem + 1vw) 0 calc(3rem + 1vw) 0;
+    transition: background 0.3s;
 }
 .form p 
 {

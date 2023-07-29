@@ -14,6 +14,8 @@ const Line_charts_container = document.querySelector('.Line_charts_container');
 const Bar_charts_container = document.querySelector('.Bar_charts_container');
 const Pie_chart_container = document.querySelector('.Pie_chart_container')
 const Shape_chart_container = document.querySelector('.Shape_chart_container')
+
+const charts_main_container = document.querySelector('.charts_box');
 let question_ids = [...document.querySelectorAll('#result_table_head_row th')].map((item) => item.getAttribute('id'));
 let loaded_questions;
 let result_response;
@@ -21,7 +23,6 @@ let questionnaire_response
 const result_loader = async () => {
    let result_response = await getRequest(`${baseUrl}/result-api/${Questionnaire.uuid}/answer-sets/`);
    let questionnaire_response = await getRequest(baseUrl + '/question-api/questionnaires/' + Questionnaire.uuid + '/');
-   console.log(result_response)
    loaded_questions = questionnaire_response.questions;
    result_container.classList.remove('loading');
    $('#loading-animation').addClass('hide');
@@ -219,31 +220,85 @@ const chart_loader = async () => {
    {
       return
    }
+   $('.charts_box').show(10);
    plot_res.forEach((item) => {
+      let question_plot_row = `
+      <div class="question_chart_row" id="chartRow${item.question_id}">
+                <div class="row__top_part">
+                    <p>${$(new DOMParser().parseFromString(item.question,'text/html').firstChild.lastChild.firstChild).text()}</p>
+                    
+                    <div class="chart_icons_selector">
+                        <label id="bar_chart${item.question_id}_checkbox">
+                           <i class="bar_chart">
+                              <svg height="32" width="32" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 490.40 490.40" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <path d="M17.2,251.55c-9.5,0-17.2,7.7-17.2,17.1v179.7c0,9.5,7.7,17.2,17.2,17.2h113c9.5,0,17.1-7.7,17.1-17.2v-179.7 c0-9.5-7.7-17.1-17.1-17.1L17.2,251.55L17.2,251.55z M113,431.25H34.3v-145.4H113V431.25z"></path> <path d="M490.4,448.45v-283.7c0-9.5-7.7-17.2-17.2-17.2h-113c-9.5,0-17.2,7.7-17.2,17.2v283.6c0,9.5,7.7,17.2,17.2,17.2h113 C482.7,465.55,490.4,457.85,490.4,448.45z M456.1,431.25h-78.7v-249.3h78.7L456.1,431.25L456.1,431.25z"></path> <path d="M301.7,465.55c9.5,0,17.1-7.7,17.1-17.2V42.05c0-9.5-7.7-17.2-17.1-17.2h-113c-9.5,0-17.2,7.7-17.2,17.2v406.3 c0,9.5,7.7,17.2,17.2,17.2H301.7z M205.9,59.25h78.7v372h-78.7L205.9,59.25L205.9,59.25z"></path> </g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </g> </g></svg>
+                           </i>
+                        </label>
+                        <label id="pie_chart${item.question_id}_checkbox">
+                           <i class="pie_chart">
+                              <svg width="30" height="30" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3M21 12C21 7.02944 16.9706 3 12 3M21 12H12M12 3V12M12 12L16.9948 19.4879" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                        </i>
+                        </label>
+                        <label id="line_chart${item.question_id}_checkbox">
+                           <i class="line_chart">
+                              <svg width="30" height="30" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21 21H7.8C6.11984 21 5.27976 21 4.63803 20.673C4.07354 20.3854 3.6146 19.9265 3.32698 19.362C3 18.7202 3 17.8802 3 16.2V3M15 10V17M7 13V17M19 5V17M11 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                           </i>
+                        </label>
+                        
+                    </div>
+                </div>
+                <div class="row_down_part">
+                    <div class="chart_container">
+                    </div>
+                </div>
+            </div>
+      `
+      charts_main_container.append(new DOMParser().parseFromString(question_plot_row,'text/html').firstChild.lastChild.firstChild)
       let Question_title = $(new DOMParser().parseFromString(item.question,'text/html').firstChild.lastChild.firstChild).text()
-      if(item.question_type != 'integer_selective')
-      {
-         Line_chart_generator(Question_title,`LineChart${item.question_id}`,item.options.map(option => option.text),Object.values(item.counts));
-         Bar_chart_generator(Question_title,`BarChart${item.question_id}`,item.options.map(option => option.text),Object.values(item.counts));
-         Pie_chart_generator(Question_title,`PierChart${item.question_id}`,item.options.map(option => option.text),Object.values(item.counts));
-      }
-      else if(item.question_type =='integer_selective')
-      {
-         Shape_chart_generator(Question_title,`ShapeChart${item.question_id}`,item.count,item.average,item.shape)
-      }
+
+         let axis_x_variables = item.options ? 
+            item.options.map(option => option.text)
+          : Object.keys(item.counts)
+            Line_chart_generator(Question_title,item.question_id,`LineChart${item.question_id}`,axis_x_variables,Object.values(item.counts));
+            Bar_chart_generator(Question_title,item.question_id,`BarChart${item.question_id}`,axis_x_variables,Object.values(item.counts));
+            Pie_chart_generator(Question_title,item.question_id,`PieChart${item.question_id}`,axis_x_variables,Object.values(item.counts));
+
+      let chart_icons = document.querySelectorAll(`#chartRow${item.question_id} .chart_icons_selector label`);
+      chart_icons.forEach((chart_icon) => {
+         chart_icon.addEventListener('click',() => {
+            document.querySelectorAll(`#chartRow${item.question_id} canvas`).forEach((canvasItem) => {
+               canvasItem.style.display = 'none'
+            })
+            document.querySelectorAll(`#chartRow${item.question_id} .chart_icons_selector label`).forEach((LabelItem) => {
+               if(LabelItem.getAttribute('id') !== chart_icon.getAttribute('id'))
+                     LabelItem.classList.remove('checked');
+            })
+            if(!chart_icon.classList.contains('checked'))
+            {
+               chart_icon.classList.add('checked')
+               document.querySelector(`#chartRow${item.question_id} canvas.${chart_icon.firstElementChild.className}`).setAttribute('style','display : block !important;');
+            }
+            else
+            {
+               chart_icon.classList.remove('checked')
+               $(`#chartRow${item.question_id} canvas.${chart_icon.firstElementChild.className}`).hide(140);
+               // document.querySelector(`#chartRow${item.question_id} canvas.${chart_icon.firstElementChild.className}`).setAttribute('style','display : none !important;');
+            }   
+         })
+      })
    })
+   
 }
-const Line_chart_generator = (QuestionTitle,ChartID,xValues,yValues) => {
+document.querySelectorAll('.chart_icons_selector i ').forEach((item) => {
+   item.addEventListener('click',() => {
+      $('.chart_container').slideToggle();
+   })
+})
+const Line_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) => {
    let chart_canvas  = `
-   <div class="chart_graph">
-   <p>
-      ${QuestionTitle}
-   </P>
-       <canvas id="${ChartID}" class="chart_canvas" style="width:100%;max-width:600px"></canvas>
-   </div>
+       <canvas class="line_chart chart_canvas" id="${ChartID}"  style="width:100%;max-width:600px"></canvas>
    `;
 
-   Line_charts_container.appendChild(new DOMParser().parseFromString(chart_canvas,'text/html').firstChild.lastChild.firstChild)
+   document.querySelector(`#chartRow${QuestionID} .row_down_part .chart_container`).appendChild(new DOMParser().parseFromString(chart_canvas,'text/html').firstChild.lastChild.firstChild)
    new Chart(ChartID, {
      type: "line",
      data: {
@@ -293,16 +348,11 @@ const Line_chart_generator = (QuestionTitle,ChartID,xValues,yValues) => {
     }
    });
 }
-const Pie_chart_generator = (QuestionTitle,ChartID,xValues,yValues) => {
+const Pie_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) => {
    let chart_canvas  = `
-   <div class="chart_graph">
-   <p>
-      ${QuestionTitle}
-   </P>
-       <canvas id="${ChartID}" class="chart_canvas" style="width:100%;max-width:600px"></canvas>
-   </div>
+       <canvas class="pie_chart chart_canvas" id="${ChartID}" style="width:100%;max-width:600px"></canvas>
    `;
-   Pie_chart_container.appendChild(new DOMParser().parseFromString(chart_canvas,'text/html').firstChild.lastChild.firstChild)
+   document.querySelector(`#chartRow${QuestionID} .row_down_part .chart_container`).appendChild(new DOMParser().parseFromString(chart_canvas,'text/html').firstChild.lastChild.firstChild)
    let barColors = generateRandomColors(yValues.length)
 
    new Chart(ChartID, {
@@ -330,17 +380,12 @@ const Pie_chart_generator = (QuestionTitle,ChartID,xValues,yValues) => {
    }
     });
 }
-const Bar_chart_generator = (QuestionTitle,ChartID,xValues,yValues) => {
+const Bar_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) => {
       let chart_canvas  = `
-      <div class="chart_graph">
-         <p>
-            ${QuestionTitle}
-         </P>
-         <canvas id="${ChartID}" class="chart_canvas" style="width:100%;max-width:600px"></canvas>
-      </div>
+         <canvas id="${ChartID}" class="bar_chart chart_canvas" style="width:100%;max-width:600px"></canvas>
       `;
 
-      Bar_charts_container.appendChild(new DOMParser().parseFromString(chart_canvas,'text/html').firstChild.lastChild.firstChild)
+      document.querySelector(`#chartRow${QuestionID} .row_down_part .chart_container`).appendChild(new DOMParser().parseFromString(chart_canvas,'text/html').firstChild.lastChild.firstChild)
       var barColors = generateRandomColors(xValues.length)
 
       new Chart(ChartID, {
@@ -406,8 +451,7 @@ const Shape_chart_generator = (QuestionTitle,ChartID,count,average,shape) => {
          </div>
          </div>
       `
-   console.log(count,average)
-   Shape_chart_container.append(new DOMParser().parseFromString(Shape_chart_html,'text/html').firstChild.lastChild.firstChild)
+   document.querySelector(`#chartRow${QuestionID} .row_down_part .chart_container`).append(new DOMParser().parseFromString(Shape_chart_html,'text/html').firstChild.lastChild.firstChild)
    $(`#${ChartID}`).css({
       "--percent": `calc(${average} / ${count} * 100%)`,
       "font-size" : "1.5rem" ,
