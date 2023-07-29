@@ -316,6 +316,7 @@ const selective_degree_answer_setter = async (Questionnaireuuid,AnswerSetID,Ques
     
     let answer_to_post
     let selected_degree_option = document.querySelector(`#${Question.getAttribute("id")} .degree_answer_block-option input.selected_answer`);
+    let options_number = document.querySelectorAll(`#${Question.getAttribute("id")} .degree_answer_block-option input`).length
     if(!selected_degree_option)
     {
         answer_to_post = 
@@ -330,7 +331,7 @@ const selective_degree_answer_setter = async (Questionnaireuuid,AnswerSetID,Ques
             {
             "question": parseInt(Question.getAttribute("id").split("Q")[1]),
             "answer" : {
-                'integer_selective' : parseInt(selected_degree_option.getAttribute("id").split('_answer-n')[1])
+                'integer_selective' : options_number -  parseInt(selected_degree_option.getAttribute("id").split('_answer-n')[1]) + 1
             }
         }
     }
