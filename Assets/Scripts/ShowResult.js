@@ -288,11 +288,11 @@ const chart_loader = async () => {
    })
    
 }
-document.querySelectorAll('.chart_icons_selector i ').forEach((item) => {
-   item.addEventListener('click',() => {
-      $('.chart_container').slideToggle();
-   })
-})
+// document.querySelectorAll('.chart_icons_selector i ').forEach((item) => {
+//    item.addEventListener('click',() => {
+//       $('.chart_container').slideToggle();
+//    })
+// })
 const Line_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) => {
    let chart_canvas  = `
        <canvas class="line_chart chart_canvas" id="${ChartID}"  style="width:100%;max-width:600px"></canvas>
@@ -316,8 +316,8 @@ const Line_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) 
       plugins: {
          title: {
            font: {
-             family: 'IRANSans', // Set your desired font family here
-             weight: 'bold' // You can also set the font weight if needed
+             family: 'IRANSans', 
+             weight: 'bold' 
            }
          },
          legend: {
@@ -372,7 +372,7 @@ const Pie_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) =
          legend: {
            labels: {
              font: {
-               family: 'IRANSANS' // Set font family for the legend labels
+               family: 'IRANSANS'
              }
            }
          }
@@ -400,10 +400,15 @@ const Bar_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) =
       options: {
          legend: {display: false},
          title: {
-            display: true,
-            text: "World Wine Production 2018"
+            display: false,
           },
+          tooltips: {
+            enabled: false
+         },
           plugins: {
+            legend: {
+               display: false
+           },
             tooltip: {
               enabled: false // Hide the tooltip
             }
@@ -429,7 +434,6 @@ const Bar_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) =
       });
 }
 const Shape_chart_generator = (QuestionTitle,ChartID,count,average,shape) => {
-      console.log(shape)
       let chart_shape_icon = '';
       let chart_shape_before_content = '';
       if(shape == 'H')

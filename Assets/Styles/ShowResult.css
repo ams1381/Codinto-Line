@@ -158,13 +158,13 @@
 }
 .bar_chart svg 
 {
-  fill: #5d5de2;
+  fill: #6a6aef;
   transition: 0.3s;
 }
 .pie_chart svg , .line_chart svg
 {
   fill: none;
-  stroke: #5d5de2;
+  stroke: #6a6aef;
   transition: 0.3s;
 }
 label.checked .pie_chart svg , label.checked .line_chart svg
