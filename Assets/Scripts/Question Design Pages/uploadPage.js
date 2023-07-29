@@ -31,6 +31,8 @@ question_placement_setter(localStorage.getItem("question_placement"),file_questi
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
+    ACTION_TYPE == 'Copy' ? 
+    question_placement_setter(localStorage.getItem("question_placement"),EditableQuestion) : ' '
 }
 
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',file_question_PostData)})
@@ -41,7 +43,7 @@ saveBtn.addEventListener("click", async function (event) {
 // console.log(sizeInput.value);
 
      
-    if(EditableQuestion && ACTION_TYPE == 'Edit')
+    if(EditableQuestion)
         await question_creator(ACTION_TYPE,EditableQuestion,'file-questions',QuestionnaireUUID,file_question_PostData);
     else
         await question_creator(ACTION_TYPE,null,'file-questions',QuestionnaireUUID,file_question_PostData);

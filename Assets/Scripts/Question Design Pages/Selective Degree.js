@@ -32,6 +32,8 @@ question_placement_setter(localStorage.getItem("question_placement"),selective_d
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
+    ACTION_TYPE == 'Copy' ? 
+    question_placement_setter(localStorage.getItem("question_placement"),EditableQuestion) : ' '
 }
 
 const preview_degree_handler = (degree,shape_icon_className) => {
@@ -58,7 +60,7 @@ const preview_degree_handler = (degree,shape_icon_className) => {
      preview_degree_shapes = document.querySelectorAll('.degree_answer_block-option label i');
      input_items = document.querySelectorAll('.degree_answer_block-options .degree_answer_block-option input')
 
-     if(EditableQuestion && ACTION_TYPE == 'Edit')
+     if(EditableQuestion)
         EditableQuestion.max = degree;
     else
         selective_degree_postData.max = degree;

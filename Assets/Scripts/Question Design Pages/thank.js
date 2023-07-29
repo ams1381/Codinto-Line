@@ -27,7 +27,7 @@ if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',thank_page_postData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',thank_page_postData)})
 saveBtn.addEventListener("click", async function (event) {
-    if(EditableQuestion && ACTION_TYPE == 'Edit')
+    if(EditableQuestion)
         await question_creator(ACTION_TYPE,EditableQuestion,'thanks-pages',QuestionnaireUUID,thank_page_postData);
     else
         await question_creator(ACTION_TYPE,null,'thanks-pages',QuestionnaireUUID,thank_page_postData);

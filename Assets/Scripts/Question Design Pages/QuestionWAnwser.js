@@ -21,9 +21,11 @@ const view_question_button = document.querySelector(".SideHeaderBody .viewQuesti
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
 let options = null;
 question_placement_setter(localStorage.getItem("question_placement"),text_question_with_answer_postData)
-if (ACTION_TYPE == 'Edit') {
+if (ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy') {
      
     question_info_loader(EditableQuestion)
+    ACTION_TYPE == 'Copy' ? 
+    question_placement_setter(localStorage.getItem("question_placement"),EditableQuestion) : ' '
 }
 // initial data------------------------------------
 options = "free"
@@ -47,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 selection.addEventListener("change", function (event) {
     let selectedOption = event.target.options[event.target.selectedIndex];
     let classList = selectedOption.classList;
-    if(EditableQuestion && ACTION_TYPE == 'Edit')
+    if(EditableQuestion)
         answer_pattern_selector(classList[1],EditableQuestion,selectedOption);
     else
     {
@@ -125,7 +127,7 @@ const answer_pattern_selector = (Pattern,postData,selectedOption) => {
 
 saveBtn.addEventListener("click",async function (event) {
      
-    if(EditableQuestion && ACTION_TYPE == 'Edit')
+    if(EditableQuestion)
         await question_creator(ACTION_TYPE,EditableQuestion,'textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);
     else
         await question_creator(ACTION_TYPE,null,'textanswer-questions',QuestionnaireUUID,text_question_with_answer_postData);

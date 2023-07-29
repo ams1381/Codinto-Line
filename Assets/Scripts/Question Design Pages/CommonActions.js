@@ -712,6 +712,7 @@ export const question_creator =  async (ACTION_TYPE,Question,QuestionPostType,Qu
                     createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`,'multipart/form-data', form_data_convertor(DataForPost));
                     break;
                 case 'Copy':
+                    console.log([...form_data_convertor(Question)])
                     createRes = await postRequest(`${baseUrl}/question-api/questionnaires/${QuestionnaireUUID}/${QuestionPostType}/`,'multipart/form-data', form_data_convertor(Question));
                     break;
         }

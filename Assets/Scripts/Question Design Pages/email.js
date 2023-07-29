@@ -40,7 +40,7 @@ textInput.addEventListener('input',() => {preview_change_handler(EditableQuestio
 
 saveBtn.addEventListener("click", async function(event) {
      
-    if(EditableQuestion && ACTION_TYPE == 'Edit')
+    if(EditableQuestion)
         await question_creator(ACTION_TYPE,EditableQuestion,'email-questions',QuestionnaireUUID,email_question_PostData);
     else
         await question_creator(ACTION_TYPE,null,'email-questions',QuestionnaireUUID,email_question_PostData);

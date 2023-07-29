@@ -352,6 +352,7 @@
     justify-content: flex-start;
     padding-right: 10px;
     word-break: break-word;
+    flex-wrap: wrap;
 }
 .Question-Title p 
 {

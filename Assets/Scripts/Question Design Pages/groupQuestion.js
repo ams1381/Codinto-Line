@@ -25,6 +25,8 @@ const back_to_design_button = document.querySelector(".block__main .block__main_
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
+ACTION_TYPE == 'Copy' ? 
+question_placement_setter(localStorage.getItem("question_placement"),EditableQuestion) : ' '
 }
 question_placement_setter(localStorage.getItem("question_placement"),group_question_postData);
 // functions
@@ -73,7 +75,7 @@ shapeSelector.forEach((e)=>{
     })
 })
 saveBtn.addEventListener("click" , async function (event){
-    if(EditableQuestion && ACTION_TYPE == 'Edit')
+    if(EditableQuestion)
         await question_creator(ACTION_TYPE,EditableQuestion,'question-groups',QuestionnaireUUID,group_question_postData);
     else
         await question_creator(ACTION_TYPE,null,'question-groups',QuestionnaireUUID,group_question_postData);

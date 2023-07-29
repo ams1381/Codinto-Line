@@ -99,7 +99,7 @@ file_input.addEventListener('input',() => {
 })
 saveBtn.addEventListener("click" , async function (event){
      
-    if(EditableQuestion && ACTION_TYPE == 'Edit')
+    if(EditableQuestion)
         await question_creator(ACTION_TYPE,EditableQuestion,'integerrange-questions',QuestionnaireUUID,range_question_postData);
     else
         await question_creator(ACTION_TYPE,null,'integerrange-questions',QuestionnaireUUID,range_question_postData);
@@ -117,4 +117,6 @@ text_style_label_eventListener_setter(EditableQuestion,rangeChange);
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
+    ACTION_TYPE == 'Copy' ? 
+    question_placement_setter(localStorage.getItem("question_placement"),EditableQuestion) : ' '
 }

@@ -45,12 +45,18 @@ const save_question_btn = document.querySelector('.SideFooter .saveQuestion')
 
 let answer_option_buttons = document.querySelectorAll(".anw-option-tools button");
 question_placement_setter(localStorage.getItem("question_placement"),multiple_option_postData);
+
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
+    ACTION_TYPE == 'Copy' ? 
+    question_placement_setter(localStorage.getItem("question_placement"),EditableQuestion) : ' '
 }
 save_question_btn.addEventListener('click', async () => {  
-   await question_creator(ACTION_TYPE,EditableQuestion,'optional-questions',QuestionnaireUUID,multiple_option_postData);
+    if(EditableQuestion)
+        await question_creator(ACTION_TYPE,EditableQuestion,'optional-questions',QuestionnaireUUID,multiple_option_postData);
+    else
+         await question_creator(ACTION_TYPE,null,'optional-questions',QuestionnaireUUID,multiple_option_postData);
 })
 answer_number_selector_inputs.forEach((answer_number_selector_input) => {
     answer_number_selector_input.addEventListener('input',() => {

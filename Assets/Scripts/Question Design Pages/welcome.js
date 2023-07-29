@@ -65,7 +65,7 @@ titleInput.addEventListener('input',() => {preview_change_handler(EditableQuesti
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',welcome_page_postData)})
 saveBtn.addEventListener("click" , async function (event){
      
-    if(EditableQuestion && ACTION_TYPE == 'Edit')
+    if(EditableQuestion)
         await question_creator(ACTION_TYPE,EditableQuestion,'welcome-pages',QuestionnaireUUID,welcome_page_postData);
     else
         await question_creator(ACTION_TYPE,null,'welcome-pages',QuestionnaireUUID,welcome_page_postData);

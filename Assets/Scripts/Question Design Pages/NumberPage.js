@@ -22,6 +22,8 @@ question_placement_setter(localStorage.getItem("question_placement"),number_ques
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
+    ACTION_TYPE == 'Copy' ? 
+    question_placement_setter(localStorage.getItem("question_placement"),EditableQuestion) : ' '
 }
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',number_question_postData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',number_question_postData)})

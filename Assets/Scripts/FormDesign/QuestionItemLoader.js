@@ -254,10 +254,13 @@ const question_copier = (Question,QuestionID) => {
                     if(child_question.question.id == QuestionID)
                         clicked_question = child_question.question;
                 })
-    localStorage.removeItem("QuestionData")
-    localStorage.removeItem("ACTION-TYPE")
+
     localStorage.setItem("ACTION-TYPE","Copy")
-    localStorage.setItem("QuestionData",JSON.stringify(clicked_question))
+    if(JSON.stringify(clicked_question))
+        localStorage.setItem("QuestionData",JSON.stringify(clicked_question))
+    localStorage.removeItem('question_placement');
+    localStorage.setItem("question_placement",parseInt(document.querySelectorAll('.sup-label')[document.querySelectorAll('.sup-label').length - 1].textContent) + 1)
+
     QuestionDesignOpener(clicked_question.question_type);
 }
 const question_click_handler = (Question,QuestionId,e) => {

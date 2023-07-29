@@ -40,6 +40,8 @@ question_placement_setter(localStorage.getItem("question_placement"),slider_opti
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
+    ACTION_TYPE == 'Copy' ? 
+    question_placement_setter(localStorage.getItem("question_placement"),EditableQuestion) : ' '
 }
 save_question_btn.addEventListener('click' , async () => {
     if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')

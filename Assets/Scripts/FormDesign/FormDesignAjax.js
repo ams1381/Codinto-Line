@@ -97,7 +97,7 @@ const QuestionDesignItemsHandler = async (QuestionType) => {
     localStorage.setItem("ACTION-TYPE",'Create');
     localStorage.removeItem("QuestionData");
     document.querySelectorAll('.sup-label').length > 0 ?
-        localStorage.setItem("question_placement",document.querySelectorAll('.sup-label').length + 1) 
+        localStorage.setItem("question_placement",parseInt(document.querySelectorAll('.sup-label')[document.querySelectorAll('.sup-label').length - 1].textContent) + 1)
     :   localStorage.removeItem('question_placement');
     
     let questionnaire_retrieved = await questionnaire_retriever();

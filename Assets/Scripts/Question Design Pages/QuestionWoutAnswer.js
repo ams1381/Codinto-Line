@@ -21,6 +21,8 @@ question_placement_setter(localStorage.getItem("question_placement"),text_questi
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
     question_info_loader(EditableQuestion)
+    ACTION_TYPE == 'Copy' ? 
+    question_placement_setter(localStorage.getItem("question_placement"),EditableQuestion) : ' '
 }
 
 titleInput.addEventListener('input', () => { preview_change_handler(EditableQuestion,'Title-change', text_question_with_out_answer_postData) })
@@ -79,7 +81,7 @@ show_number_toggle.addEventListener('click',() => {
     toggle_handler(EditableQuestion,show_number_toggle.parentElement.parentElement.parentElement,show_number_toggle,text_question_with_out_answer_postData);
 })
 saveBtn.addEventListener("click" , async function (event){
-    if(EditableQuestion && ACTION_TYPE == 'Edit')
+    if(EditableQuestion)
         await question_creator(ACTION_TYPE,EditableQuestion,'noanswer-questions',QuestionnaireUUID,text_question_with_out_answer_postData);
     else
         await question_creator(ACTION_TYPE,null,'noanswer-questions',QuestionnaireUUID,text_question_with_out_answer_postData);
