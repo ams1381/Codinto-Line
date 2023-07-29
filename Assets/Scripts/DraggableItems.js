@@ -2,13 +2,6 @@ import { getRequest , patchRequest, postRequest } from "./ajax/ajaxRequsts.js";
 import { baseUrl } from "./ajax/ajaxRequsts.js";
 
 const SelectedQuestionnaire = JSON.parse(localStorage.getItem("SelectedQuestionnaire"));
-const reorderQuestionsUrl = baseUrl + `/question-api/questionnaires/${SelectedQuestionnaire.uuid}/change-questions-placements/`;
-// const nestedContainer = document.querySelectorAll('.nested');
-let nestedQuestionContainer = document.querySelectorAll(".nested_container");
-const sideContainer = document.querySelectorAll(".block__side");
-const QuestionBoxContainer = document.querySelector('.QuestionsBox');
-const ThankPageItem = document.querySelector('.ThankPage');
-
 
 export const drag_drop_setter = (container_to_Set) => {
   let mainDrake = dragula(
@@ -78,7 +71,7 @@ export const drag_drop_setter = (container_to_Set) => {
         return this.down && mainDrake.dragging;
       }
     });
-    // mainDrake.on('drop',ReorderQuestionsPoster)
+
 }
 const MainDroppedHandler = async (el,target) => {
     
@@ -145,8 +138,9 @@ const MainDroppedHandler = async (el,target) => {
 const DashedNumberSorter = () => {
     var sub_labels = [...document.querySelectorAll(".sub-label")];
     sub_labels = [...new Set(sub_labels)];
+
     var QuestionSubNumbers = sub_labels.map((item) => item.textContent)
-    var nestedLabels = [...document.querySelectorAll(".Question-Nested .QuestionLabel")]
+    var nestedLabels = [...document.querySelectorAll(".Question-Nested .QuestionLabel.sup-label")]
     nestedLabels = [...new Set(nestedLabels)]
     const splitByDash = str => str.split(/-/).map(Number);
 
@@ -157,11 +151,13 @@ const DashedNumberSorter = () => {
     QuestionSubNumbers = [...new Set(QuestionSubNumbers)].sort((a, b) =>
       compareArrays(splitByDash(a), splitByDash(b))
     );
-    Array.from(QuestionSubNumbers).forEach((item,index) => {
 
+    QuestionSubNumbers.forEach((item,index) => {
+        
         let QuestionNumber =  QuestionSubNumbers[index];
+        let sup_number = sub_labels[index].parentElement.parentElement.parentElement.previousElementSibling.firstElementChild.textContent; 
         QuestionNumber =  QuestionNumber.slice(1,QuestionNumber.length)
-        sub_labels[index].textContent = nestedLabels[0].textContent.trim()[0] + QuestionNumber;
+        sub_labels[index].textContent = sup_number + '-' + QuestionNumber.split('-')[1];
      }
     ) 
 }
@@ -177,10 +173,9 @@ const ReorderQuestionsPoster = async () => {
     let replacementPostObject = {
        'placements' : []
     } ;
-    
+
     QuestionSupLabels.forEach((QuestionSupLabel) => {
       let placement = QuestionSupLabel.textContent.split("-")[1] ? QuestionSupLabel.textContent.split("-")[1] : QuestionSupLabel.textContent.split("-")[0]
-      
         replacementPostObject.placements.push(
           {
             'question_id' : parseInt(QuestionSupLabel.parentElement.getAttribute("id").split("Question")[1]) ,
@@ -188,9 +183,17 @@ const ReorderQuestionsPoster = async () => {
             }
         )
     })
-   replacementPostObject.placements.pop();
+    replacementPostObject.placements == removeDuplicates(replacementPostObject.placements)
+
   await postRequest(`${baseUrl}/question-api/questionnaires/${SelectedQuestionnaire.uuid}/change-questions-placements/`,'application/json',replacementPostObject)
-  console.log(replacementPostObject)
+  
+}
+const removeDuplicates = (ArrayToIterate) => {
+  let jsonObject = ArrayToIterate.map(JSON.stringify);
+  let uniqueSet = new Set(jsonObject);
+  let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+
+  return uniqueArray
 }
 const question_subNumber_setter = (sub_labels,target) => {
     sub_labels.forEach((item,index) => {

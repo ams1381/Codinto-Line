@@ -76,7 +76,7 @@ const selective_degree_answer_loader = (QuestionData,Answer_to_load) => {
     selected_degree_option.checked = true;
   }
   preview_degree_inputs.forEach((item,index) => {
-    if(preview_degree_inputs.length - index <= preview_degree_inputs.length - Answer_to_load)
+    if(preview_degree_inputs.length - index<= Answer_to_load)
         item.checked = true;
     })
 }
