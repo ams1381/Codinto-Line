@@ -258,6 +258,7 @@ const chart_loader = async () => {
          let axis_x_variables = item.options ? 
             item.options.map(option => option.text)
           : Object.keys(item.counts)
+
             Line_chart_generator(Question_title,item.question_id,`LineChart${item.question_id}`,axis_x_variables,Object.values(item.counts));
             Bar_chart_generator(Question_title,item.question_id,`BarChart${item.question_id}`,axis_x_variables,Object.values(item.counts));
             Pie_chart_generator(Question_title,item.question_id,`PieChart${item.question_id}`,axis_x_variables,Object.values(item.counts));
@@ -313,6 +314,7 @@ const Line_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) 
        }]
      },
      options: {
+      aspectRatio: 1,
       plugins: {
          title: {
            font: {
@@ -381,6 +383,7 @@ const Pie_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) =
     });
 }
 const Bar_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) => {
+   console.log(xValues,yValues)
       let chart_canvas  = `
          <canvas id="${ChartID}" class="bar_chart chart_canvas" style="width:100%;max-width:600px"></canvas>
       `;
@@ -398,6 +401,7 @@ const Bar_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) =
          }]
       },
       options: {
+         aspectRatio: 1,
          legend: {display: false},
          title: {
             display: false,
