@@ -406,15 +406,17 @@
     word-wrap: break-word;
     padding: 5px 10px 3px 10px;
     text-align: right;
-}
-.multiple_answer_block-option input:checked + .answer_option-label
-{
-    color: var(--brand-color);
+    transition: 0.2s;
 }
 .multiple_answer_block-option input:checked + .answer_option-label{
     background-color: var(--brand-color);
-    color: white;
+    color: var(--theme-white);
     transition: 0.2s;
+}
+.multiple_answer_block-option input:disabled + .answer_option-label
+{
+    color: var(--deActive-input-text-color);
+    pointer-events: none;
 }
 .multiple_answer_block-option input
 {

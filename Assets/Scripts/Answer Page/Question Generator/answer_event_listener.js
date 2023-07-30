@@ -199,17 +199,29 @@ const multiple_answer_eventListener = (Question) => {
    let answer_options = document.querySelectorAll(`#Q${Question.id} .multiple_answer_block-option label`);
    answer_options.forEach((answer_option) => {
     answer_option.addEventListener('click',() =>{
+        answer_option.previousElementSibling.classList.toggle('option_checked')
         document.querySelector(`#Q${Question.id}`).classList.remove('error_occur');
+        if(!Question.multiple_choice)
+            return
        if(answer_option.textContent == 'هیچ کدام')
         {
             options_answer_inActive_setter(Question.id,"هیچ کدام")
+            answer_options.forEach((item) => {
+                item.previousElementSibling.disabled = false;
+                item.previousElementSibling.classList.remove('option_checked')
+            })
         }
         if(answer_option.textContent == 'همه گزینه ها')
         {
             options_answer_inActive_setter(Question.id,"همه گزینه ها")
+            answer_options.forEach((item) => {
+                item.previousElementSibling.disabled = false;
+                item.previousElementSibling.classList.remove('option_checked')
+            })
         }
-        if(Question.max_selected_options > 1)
+        if(Question.max_selected_options >= 1)
             selected_option_controller(Question.id,Question.max_selected_options);
+        
     })
    })
 }
@@ -223,17 +235,47 @@ const options_answer_inActive_setter = (QuestionID,Text) => {
 const selected_option_controller = (QuestionID,max_select_option) => {
     let answer_options = document.querySelectorAll(`#Q${QuestionID} .multiple_answer_block-option input`);
     let selected_options_input = document.querySelectorAll(`#Q${QuestionID} .multiple_answer_block-option input:checked`)
-    let selected_number = 1;
-    answer_options.forEach((option_input) => {
-        if(option_input.checked)
-            selected_number++;
-        if(option_input.checked && option_input.nextElementSibling.textContent == 'هیچ کدام')
-            option_input.checked = false;
-        if(option_input.checked && option_input.nextElementSibling.textContent == 'همه گزینه ها')
-            option_input.checked = false;
+    let checked_inputs = document.querySelectorAll(`#Q${QuestionID} .multiple_answer_block-option .option_checked`);
+    answer_options.forEach((item) => {
+        item.disabled = false;
     })
-    if(selected_number > max_select_option)
-        selected_options_input[0].checked = false;
+    let selected_number = checked_inputs.length;
+    answer_options.forEach((option_input) => {
+        // if(option_input.checked)
+        //     selected_number++;
+        if(option_input.checked && (option_input.nextElementSibling.textContent == 'هیچ کدام' ||
+        option_input.nextElementSibling.textContent == 'همه گزینه ها'))
+        {
+            option_input.checked = false;
+            option_input.classList.remove('option_checked')
+        }  
+        // if(option_input.checked && option_input.nextElementSibling.textContent == 'همه گزینه ها')
+        // {
+        //      option_input.checked = false;
+        //      option_input.classList.remove('option_checked')
+        // }
+    })
+    
+    if(selected_number == max_select_option)
+    {
+        answer_options.forEach((item) => {
+            
+            if(!item.classList.contains('option_checked'))
+            {
+                if(item.nextElementSibling.textContent != 'هیچ کدام' && item.nextElementSibling.textContent != 'همه گزینه ها')
+                    item.disabled = true;
+                // item.nextElementSibling.style.display = "none"
+            }
+        })
+        // selected_options_input[0].checked = false;
+    }
+    if(selected_number < max_select_option)
+    {
+        answer_options.forEach((item) => {
+            item.disabled = false;
+            })
+    }
+        
 }
 const slider_options_eventListener_setter = (QuestionHTML,slider_button,slider_options) => {
     slider_button.addEventListener('click',() => {

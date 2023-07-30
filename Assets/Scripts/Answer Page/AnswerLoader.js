@@ -112,14 +112,31 @@ const email_answer_loader = (Answer_to_load) => {
     email_answer_input.value = Answer_to_load;
 }
 const multiple_answer_loader = (QuestionData,Answer_to_load) => {
+    console.log(QuestionData.multiple_choice)
     if(Array.isArray(Answer_to_load))
+    {
         Answer_to_load.forEach((loaded_option) => {
             document.querySelector(`#Q${QuestionData.question.id} .multiple_answer_block-option #answer-n${loaded_option.id}`).checked = true;
+            document.querySelector(`#Q${QuestionData.question.id} .multiple_answer_block-option #answer-n${loaded_option.id}`).classList.add('option_checked')
         })
+        if(QuestionData.question.multiple_choice)
+            multiple_options_noneSelected_deActiver(QuestionData.question.id)
+    }
+        
     else
     {
         document.querySelector(`#Q${QuestionData.question.id} .multiple_answer_block-option #answer-n${Answer_to_load.id}`).checked = true;
+        document.querySelector(`#Q${QuestionData.question.id} .multiple_answer_block-option #answer-n${Answer_to_load.id}`).classList.add('option_checked');
+        if(QuestionData.question.multiple_choice)
+            multiple_options_noneSelected_deActiver(QuestionData.question.id) 
     }
+}
+const multiple_options_noneSelected_deActiver = (QuestionID) => {
+    document.querySelectorAll(`#Q${QuestionID} input`).forEach((item) => {
+        if(!item.classList.contains('option_checked') && item.nextElementSibling.textContent != 'هیچ کدام' && 
+            item.nextElementSibling.textContent != 'همه گزینه ها')
+            item.disabled = true;
+    })
 }
 const file_answer_loader = async (QuestionData,Answer_to_load) => {
     let file_input = document.querySelector(`#Q${QuestionData.question.id} input`);
