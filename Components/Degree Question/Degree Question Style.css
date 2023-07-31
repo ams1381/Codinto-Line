@@ -34,4 +34,5 @@
 {
     font-size: 1.6rem;
     cursor: pointer;
+    transition: 0.2s;
 }

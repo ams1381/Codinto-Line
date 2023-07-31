@@ -407,6 +407,7 @@
     padding: 5px 10px 3px 10px;
     text-align: right;
     transition: 0.2s;
+    user-select: none;
 }
 .multiple_answer_block-option input:checked + .answer_option-label{
     background-color: var(--brand-color);
