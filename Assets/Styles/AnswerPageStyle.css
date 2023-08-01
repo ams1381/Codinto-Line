@@ -4,6 +4,10 @@ body
     background: var(--theme-Page-Graybg);
     height: 100vh;
 }
+*
+{
+    letter-spacing: 0;
+}
 .parent_container {
     display: flex;
     justify-content: center;

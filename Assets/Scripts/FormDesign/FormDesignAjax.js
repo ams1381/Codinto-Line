@@ -6,6 +6,9 @@ import DeleteQuestionItemHandler from "./QuestionItemRemover.js";
 import { QuestionDesignOpener } from "./QuestionItemLoader.js";
 import { showAlert } from "../Question Design Pages/CommonActions.js";
 import { drag_drop_setter } from "../DraggableItems.js";
+import { question_component_generator } from "../Answer Page/Question Generator/question_comp_generator.js";
+import { welcome_component_generator } from "../Answer Page/Question Generator/Welcome.js";
+import { thank_component_generator } from "../Answer Page/Question Generator/Thank_Component.js";
 
 const SelectedQuestionnaire = JSON.parse(localStorage.getItem("SelectedQuestionnaire"));
 const getQuestionsUrl = baseUrl + '/question-api/questionnaires/';
@@ -22,6 +25,8 @@ const remove_folder_popup = document.querySelector(".removeFolderPopUp");
 const folder_cancel_button = document.querySelectorAll(".cancel-button");
 const questionnaire_preview_button = document.querySelector('.viewFormQuestions');
 const questionnaire_share_button = document.querySelector('.shareQuestionnaire');
+const Pdf_export_button = document.querySelector('.ExportPDF');
+const navBar_Toggle_button = document.querySelector('.navMenu_toggle');
 console.log(SelectedQuestionnaire)
 QuestionnaireName.textContent = SelectedQuestionnaire.name;
 if(window.innerWidth < 770)
@@ -81,6 +86,13 @@ export const QuestionItemSetter = async () => {
     
                 QuestionsBoxContainer.append(emptyListContainer);
             }
+            Pdf_export_button.addEventListener('click',() => {
+                exportToPDF(QuestionsResponse);
+                setTimeout(() => {
+                    $('.linear-activity').hide();
+                }, 5000);
+                
+            })
         }
         
         let loading = document.getElementById('loading-animation');
@@ -129,6 +141,7 @@ QuestionItemSetter();
 export default { QuestionItemSetter , QuestionDesignItemsHandler};
 
 window.addEventListener('resize',() => {
+    navBar_Toggle_button.classList.remove('active')
     if(window.innerWidth > 770)
     {
         block_side.classList.remove('add_question_active');
@@ -136,10 +149,12 @@ window.addEventListener('resize',() => {
         block_main.removeAttribute('style');
         $(block_main).show(120);
         $('.AssistiveButton').hide();
+        $('.navBar_button_lists').css({'display' : 'flex'})
     }
     else
     {
         $('.AssistiveButton').css('display','flex')
+        $('.navBar_button_lists').css({'display' : 'none'})
     }
 })
 
@@ -162,3 +177,77 @@ questionnaire_share_button.addEventListener('click',() => {
     window.open("/Pages/Share.html");
     localStorage.setItem("questionnaire_for_share",JSON.stringify(SelectedQuestionnaire));
 })
+navBar_Toggle_button.addEventListener('click',() => {
+    navBar_Toggle_button.classList.toggle('active')
+    $('.navBar_button_lists').slideToggle(100);
+})
+const exportToPDF = async (Questionnaire) => {
+    $('.linear-activity').show();
+    let generated_html_for_pdf = '';
+    // if(Questionnaire.welcome_page)
+    //     generated_html_for_pdf += welcome_component_generator(Questionnaire.welcome_page);
+    if(Questionnaire.questions.length)
+        Questionnaire.questions.forEach((Question) => {
+            if(Question.question)
+                generated_html_for_pdf += question_component_generator(Question.question)
+        })
+    if(Questionnaire.thanks_page)
+        generated_html_for_pdf += thank_component_generator(Questionnaire.thanks_page)
+    let pdf_container_div = `
+        <div class="parent_container total">
+            <div class="answer_page_container">
+                ${generated_html_for_pdf}
+            </div>
+        </div>
+    `
+    let rendered_html_for_pdf = new DOMParser().parseFromString(pdf_container_div,'text/html').firstChild.lastChild.firstChild;
+        const cssURLs = [
+            '/Assets/Styles/DefaultStyles.css',
+            '/Assets/Styles/AnswerPageStyle.css',
+            '/Assets/Styles/Question Components Styles/CommonStyles.css',
+            '/Assets/Styles/Question Components Styles/Input_field_question.css',
+            '/Assets/Styles/Question Components Styles/rangeSelect.css',
+            '/Assets/Styles/Question Components Styles/Degree Question Style.css',
+            '/Assets/Styles/Question Components Styles/uploadQuestion.css',
+            '/Assets/Styles/Question Components Styles/MultipleOption.css',
+            '/Assets/Styles/Question Components Styles/SliderList.css',
+          ];
+    try
+    {
+        setTimeout(async () => {
+            await Promise.all(cssURLs.map(url =>
+                fetch(url)
+                  .then(response => response.text())
+                  .then(cssText => {
+                    const style = document.createElement('style');
+                    style.innerHTML = cssText;
+                    rendered_html_for_pdf.appendChild(style);
+                  })
+              ));
+              const opt = {
+                margin: -10,
+                filename: 'rendered_html_for_pdf.pdf',
+                image: { type: 'jpeg', quality: 0.99 },
+                html2canvas: { scale: 1.5 },
+                jsPDF: {
+                   unit: 'mm', 
+                   format: 'a3', 
+                   orientation: 'portrait' ,
+                   lazy_load : true,
+                   putOnlyUsedFonts: true
+                  },
+                  fontStyle: {
+                    'Persian': 'IRANSANS'
+                    // Replace 'path/to/your/fontfile.ttf' with the path to your custom font file.
+                  }
+              };
+                html2pdf().from(rendered_html_for_pdf).set(opt).save();
+        }, 3000);
+        
+    }
+    catch(err)
+    {
+        console.log(err)
+    }
+    
+  };

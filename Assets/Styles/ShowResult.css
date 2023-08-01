@@ -179,6 +179,12 @@ label.checked .bar_chart svg
 {
   display: none;
 }
+.png_export_button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
 /* .shape_chart {
   width: 90%;
   margin: 0 auto;

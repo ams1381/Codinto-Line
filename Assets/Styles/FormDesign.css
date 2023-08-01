@@ -326,6 +326,84 @@
     margin: 0.5rem 0 0.2rem 0.4rem;
     border-radius: 2px;
 }
+.block__header nav
+{
+    align-items: center;
+    flex-wrap: wrap;
+}
+.navBar_button_lists
+{
+    display: flex;
+}
+.navButton p 
+{
+    display: none;
+}
+.navbar-codinto-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 70%;
+}
+.navMenu_toggle{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: none;
+    margin-left: 1rem;
+    z-index: 333;
+  }
+  .navMenu_toggle .line{
+    display: block;
+    width: 28px;
+    height: 2.1px;
+    background-color: var(--brand-color);
+    margin-top: 5px;
+    border-radius: 4px;
+    transition: transform .5s,
+    opacity .25s;
+  }
+  .navMenu_toggle.active .line:nth-child(1){
+    transform: translateY(8px)
+    rotate(45deg); 
+  }
+  .navMenu_toggle.active .line:nth-child(2){
+    opacity: 0; 
+  }
+  .navMenu_toggle.active .line:nth-child(3){
+    transform: translateY(-8px)
+    rotate(-45deg);
+}  
+#pdf_loading_animation.hide 
+{
+    display: none;
+}
+/* .ExportPDF #pdf_loading_animation
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+#pdf_loading_animation .pdf_spinner 
+{
+    animation: Pdf_loading 1.5s linear infinite;
+    width: 25px;
+    height: 25px;
+    border: 4px solid var(--loading-spinner_bg);
+    border-top: 4px solid var(--brand-color);
+    border-radius: 50%;
+} */
+/* @keyframes Pdf_loading
+{
+    0% {
+        transform: translate(-5%, -5%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-5%, -5%) rotate(360deg);
+    }
+} */
+
 @media only screen and (max-width : 992px)
 {
     .block__section main .QuestionsBox {
@@ -340,6 +418,16 @@
     .block__section .block__side 
     {
         display: none; 
+    }
+    .navMenu_toggle
+    {
+        display: block;
+    }
+    .navBar_button_lists
+    {
+        display: none;
+        width: 100%;
+        border-top: 2px solid var(--brand-color);
     }
     .block__side.add_question_active
     {
@@ -364,6 +452,26 @@
     .QuestionsBox.loading , .QuestionsBox.emptyActive 
     {
         height: 620px !important;
+    }
+    .viewFormQuestions, .ExportPDF , .shareQuestionnaire 
+    {
+        width: 80%;
+        margin: 0.9rem auto;
+        display: flex;
+        justify-content: space-around;
+        transition: 0.3s;
+        height: 45px;
+    }
+    .viewFormQuestions:hover , .ExportPDF:hover , .shareQuestionnaire:hover
+    {
+        border-right: 10px solid var(--brand-color);
+        background: var(--input-placeholder-color);
+        border-radius: 1rem 0 0 1rem;
+    }
+    .navButton p 
+    {
+        display: block;
+        font-size: 1rem;
     }
     .viewFormQuestions i svg 
     {

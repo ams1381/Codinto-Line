@@ -1,0 +1,152 @@
+.QuestionContainer
+{
+    width: calc(15rem + 17vw);
+    margin: 1rem 1.5rem 0 0;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px var(--folder-shadow-color);
+    padding-bottom: 1.4rem;
+    padding: 0.9rem;
+}
+.Greeting.QuestionContainer
+{
+    padding: 0;
+    padding-bottom: 1.4rem;
+}
+.Question-Title , .Greeting-Title
+{
+    line-height: 40px;
+}
+.Greeting-Title
+{
+    width: calc(14.4em + 17vw);
+}
+.Greeting .Greeting-Title
+{
+    border-radius: 15px 15px 0 0;
+    background: var(--brand-color);
+    display: flex;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    width: 100%;
+    padding: 0;
+}
+.Greeting .Greeting-Title p
+{
+    margin: 0 0.4rem 0 0.4rem;
+}
+.Question-Title
+{
+    color: var(--brand-color);
+    display: flex;
+    justify-content: flex-start;
+    padding-right: 10px;
+    word-break: break-word;
+    flex-wrap: wrap;
+}
+.Question-Title p 
+{
+    margin-right: 5px;
+}
+.Question-Title label
+{
+    margin-left: 5px;
+}
+.description_block
+{
+    padding: 10px;
+    color: var(--brand-color);
+    word-break: break-word;
+    line-height: 30px;
+}
+.QuestionContainer.Greeting .description_block
+{
+    line-height: 30px;
+}
+.uploaded_file_avatar , .uploaded_file_name
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+}
+.uploaded_file_avatar .uploaded_file_image
+{
+    object-fit: contain;
+}
+.uploaded_file_video , .uploaded_file_image
+{
+    height: 75%;
+    border-radius: 5px;
+}
+.image_uploaded .uploaded_file_video 
+{
+    display: none;
+}
+.video_uploaded .uploaded_file_image 
+{
+    display: none;
+}
+.preview_file_box .preview_video {
+    margin-right: 1rem;
+    display: none;
+}
+.QuestionStart
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+.QuestionStartButton
+{
+    padding: 10px 25px 10px 25px;
+    background: var(--brand-color);
+    transition: 0.3s;
+    font-family: 'IRANSANS';
+    cursor: pointer;
+    margin: 0 0.7rem 0 0.7rem;
+    word-break: break-word;
+}
+.QuestionStartButton.solid 
+{
+    background: var(--brand-color);
+    color: var(--theme-white);
+    border: none;
+}
+.QuestionStartButton.empty 
+{
+    background: var(--theme-white);
+    color: var(--brand-color);
+    border: 2px solid var(--brand-color);
+}
+.QuestionStartButton.oval 
+{
+    border-radius: 40px;
+}
+.QuestionStartButton.round 
+{
+    border-radius: 10px;
+}
+.QuestionStartButton.sharp 
+{
+    border-radius: 0;
+}
+.preview_image, .preview_video {
+    width: calc(15rem + 7vw);
+    padding-top: 0.75rem;
+    margin-right: 1rem;
+    border-radius: 0.6rem;
+    max-height: 18.75rem;
+    display: none;
+    transition: 0.2s;
+}
+.preview_file_box.preview_image_active .preview_image {
+    display: block;
+}
+.preview_file_box.preview_video_active .preview_video
+{
+    display: block;
+}

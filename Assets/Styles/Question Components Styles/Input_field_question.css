@@ -1,0 +1,16 @@
+.action__input{
+    background-color: transparent;
+    border: 1px solid var(--brand-color);
+    height: 30px;
+    outline: none;
+    box-shadow: var(--input-title-bg-color) 0px 2px 8px 0px;
+    color: var(--brand-color);
+    font-size: 15px;
+    font-weight: 400;
+    font-family: IRANSans;
+    border-radius: 25px;
+    padding: 0.6rem; 
+    border: 1px solid var(--brand-color);
+    transition: 0.4s;
+    width: 100%;
+}

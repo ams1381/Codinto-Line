@@ -188,7 +188,6 @@ const result_searcher = async (search_text) => {
       body_row_generator(item,loaded_questions,question_ids)
    })
 }
-
 search_result_button.addEventListener('click',async () => {
    if(search_result_button.classList.contains('search-active'))
    {
@@ -248,6 +247,9 @@ const chart_loader = async () => {
                 </div>
                 <div class="row_down_part">
                     <div class="chart_container">
+                    <button class="png_export_button"> 
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 22.0002H16C18.8284 22.0002 20.2426 22.0002 21.1213 21.1215C22 20.2429 22 18.8286 22 16.0002V15.0002C22 12.1718 22 10.7576 21.1213 9.8789C20.3529 9.11051 19.175 9.01406 17 9.00195M7 9.00195C4.82497 9.01406 3.64706 9.11051 2.87868 9.87889C2 10.7576 2 12.1718 2 15.0002L2 16.0002C2 18.8286 2 20.2429 2.87868 21.1215C3.17848 21.4213 3.54062 21.6188 4 21.749" stroke="#3F52E3" stroke-width="1.5" stroke-linecap="round"></path> <path d="M12 2L12 15M12 15L9 11.5M12 15L15 11.5" stroke="#3F52E3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                     </button
                     </div>
                 </div>
             </div>
@@ -275,11 +277,18 @@ const chart_loader = async () => {
             })
             if(!chart_icon.classList.contains('checked'))
             {
+               $(`#chartRow${item.question_id} .png_export_button`).off('click')
+               $(`#chartRow${item.question_id} .png_export_button`).show(40);
+               $(`#chartRow${item.question_id} .png_export_button`).on('click',() => {
+                  exportChart($(`#chartRow${item.question_id} canvas.${chart_icon.firstElementChild.className}`).attr("id"))
+               })
                chart_icon.classList.add('checked')
                document.querySelector(`#chartRow${item.question_id} canvas.${chart_icon.firstElementChild.className}`).setAttribute('style','display : block !important;');
             }
             else
             {
+               $(`#chartRow${item.question_id} .png_export_button`).off('click')
+               $(`#chartRow${item.question_id} .png_export_button`).hide(20);
                chart_icon.classList.remove('checked')
                $(`#chartRow${item.question_id} canvas.${chart_icon.firstElementChild.className}`).hide(140);
                // document.querySelector(`#chartRow${item.question_id} canvas.${chart_icon.firstElementChild.className}`).setAttribute('style','display : none !important;');
@@ -496,6 +505,14 @@ const generateRandomColors = (count) => {
  
    return colors;
 };
-
+const exportChart = async (ChartID) => {
+      const canvas = document.getElementById(ChartID);
+      console.log(canvas)
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = imgData;
+      link.download = 'chart.png';
+      link.click();
+};
 await result_loader();
 await chart_loader();

@@ -19,13 +19,23 @@ const QuestionNumber = document.querySelector(".show_number .Switch-toggle .slid
 const saveBtn = document.querySelector(".saveQuestion")
 const rangeInput = document.querySelector(".range-input input");
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
-const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
+const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button");
+const range_dataList_options = document.querySelectorAll('#markers option');
 // rightInput.value = null;
 // middleInput.value = null;
 // leftInput.value = null;
 // rangeInput.value = 0;
 // range_question_postData.min = 3;
 // functions--------------------------------------
+
+range_dataList_options.forEach((item) => {
+    item.addEventListener('click',() => {
+        range_item_generator(parseInt(item.getAttribute('value')))
+        rangeInput.value = parseInt(item.getAttribute('value'));
+
+    })
+})
+
 question_placement_setter(localStorage.getItem("question_placement"),range_question_postData)
 function rangePreview(input){
     input.addEventListener("input" , (e)=>{
@@ -38,7 +48,7 @@ rangePreview(rangeInput)
 titleInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Title-change',range_question_postData)})
 textInput.addEventListener('input',() => {preview_change_handler(EditableQuestion,'Desc-change',range_question_postData)})
 
- const preview_label_text_handler = (text,changed_label) => {
+const preview_label_text_handler = (text,changed_label) => {
     if(document.querySelectorAll('.range__select_items .range__number').length % 2 == 0)
         preview_middle_label.parentElement.style.display = 'none';
     else    

@@ -1,0 +1,30 @@
+.image_or_video_box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: 0.2s;
+    z-index: -2;
+}
+.inputUploader {
+    height: 150px;
+    background: var(--text-input-bg-color);
+    border-radius: 0 0 var(--theme-radius-size) var(--theme-radius-size);
+    text-align: center;
+    line-height: 150px;
+    font-size: 40px;
+    color: var(--theme-Codinto);
+    cursor: pointer;
+    position: relative;
+}
+.inputUploader .upload_file_label {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+.inputUploader input {
+    display: none;
+}

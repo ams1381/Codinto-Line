@@ -1,0 +1,50 @@
+.multiple_answer_block-options
+{
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 95%;
+    margin: 0 auto;
+}
+.multiple_answer_block-options.vertical-order 
+{
+    grid-template-columns: auto;
+}
+.multiple_answer_block-option {
+    display: flex;
+    margin: 0.4rem auto 0.4rem auto;
+    word-break: break-all;
+    line-height: 32px;
+    width: 100%;
+}
+.multiple_answer_block-option .answer_option-label
+{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    background: var(--text-input-bg-color);
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-right: 10px;
+    color: var(--answer-option-default-color);
+    direction: ltr;
+    word-break: break-word;
+    padding: 5px 10px 3px 10px;
+    text-align: right;
+    transition: 0.2s;
+    user-select: none;
+}
+.multiple_answer_block-option input:checked + .answer_option-label{
+    background-color: var(--brand-color);
+    color: var(--theme-white);
+    transition: 0.2s;
+}
+.multiple_answer_block-option input:disabled + .answer_option-label
+{
+    color: var(--deActive-input-text-color);
+    pointer-events: none;
+}
+.multiple_answer_block-option input
+{
+    display: none;
+}
