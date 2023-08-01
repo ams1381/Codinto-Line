@@ -6,24 +6,28 @@ const all_options_toggle = document.querySelector(".all_options .Switch-Containe
 const no_options_toggle = document.querySelector(".nothing_selected .Switch-Container .slider-button");
 let answer_options = document.querySelectorAll(".Answer-Option");
 
-export const preview_answer_option_remover = (Option_Type) => {
+export const preview_answer_option_remover = (Option_Type , OptionID) => {
     let preview_answer_options;
     switch (Option_Type) {
         case 'MultipleOption' :
             preview_answer_options = document.querySelectorAll(".multiple_answer_block-option");
             if (preview_answer_options.length > 2) {
-                $(preview_answer_options[preview_answer_options.length - 1]).hide(300);
-                preview_answer_options[preview_answer_options.length - 1].remove();
+                
+                $([...preview_answer_options].find((item) => item.getAttribute('id') == `preview-option-${OptionID}`)).hide(300);
+                [...preview_answer_options].find((item) => item.getAttribute('id') == `preview-option-${OptionID}`).remove();
+                // $(preview_answer_options[preview_answer_options.length - 1]).hide(300);
+                // preview_answer_options[preview_answer_options.length - 1].remove();
             }
 
             break;
         case 'SliderOption' :
             preview_answer_options = document.querySelectorAll(".selection__box  .selection__item");
             if (preview_answer_options.length > 2) {
-                $(preview_answer_options[preview_answer_options.length - 1]).hide(300);
-                preview_answer_options[preview_answer_options.length - 1].remove();
+                $([...preview_answer_options].find((item) => item.getAttribute('id') == `select_item_${OptionID}`)).hide(300);
+                [...preview_answer_options].find((item) => item.getAttribute('id') == `select_item_${OptionID}`).remove();
+                // $(preview_answer_options[preview_answer_options.length - 1]).hide(300);
+                // preview_answer_options[preview_answer_options.length - 1].remove();
             }
-
             break;
     }
 }
