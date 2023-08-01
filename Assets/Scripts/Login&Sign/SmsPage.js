@@ -48,6 +48,7 @@ sms_inputs.forEach((sms_input,index) =>
             sms_inputs[index - 1].focus();
         if(sms_inputs[0] == sms_input)
         {
+            sms_input.blur();
             await sent_sms_handler(e)
         }
       });

@@ -194,8 +194,13 @@ const exportToPDF = async (Questionnaire) => {
     if(Questionnaire.thanks_page)
         generated_html_for_pdf += thank_component_generator(Questionnaire.thanks_page)
     let pdf_container_div = `
-        <div class="parent_container total">
-            <div class="answer_page_container">
+        <div class="parent_container total" style="background : #F6F6F6;">
+            <div class="answer_page_container" style="
+            display : flex !important;
+            flex-direction : column !important;
+            align-items : center !important;
+            justify-content : center !important;
+        ">
                 ${generated_html_for_pdf}
             </div>
         </div>
@@ -212,6 +217,7 @@ const exportToPDF = async (Questionnaire) => {
             '/Assets/Styles/Question Components Styles/MultipleOption.css',
             '/Assets/Styles/Question Components Styles/SliderList.css',
           ];
+        // console.log(rendered_html_for_pdf.firstElementChild)
     try
     {
         setTimeout(async () => {
@@ -225,7 +231,8 @@ const exportToPDF = async (Questionnaire) => {
                   })
               ));
               const opt = {
-                margin: -10,
+                margin: 0,
+                padding : 50,
                 filename: 'rendered_html_for_pdf.pdf',
                 image: { type: 'jpeg', quality: 0.99 },
                 html2canvas: { scale: 1.5 },

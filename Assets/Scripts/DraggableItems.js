@@ -59,9 +59,13 @@ export const drag_drop_setter = (container_to_Set) => {
          removeOnSpill: false,
     }
   );
+    mainDrake.on('drag',() => {
+      document.addEventListener('touchmove', function(e) { e.preventDefault(); }, { passive:false });
+    })
     mainDrake.on('drop',async (	el, target, source, sibling) => {
         await MainDroppedHandler(el,target)
         await ReorderQuestionsPoster();
+        $(document).off('touchstart')
     })
     autoScroll([
       document.querySelector('.block__main')
