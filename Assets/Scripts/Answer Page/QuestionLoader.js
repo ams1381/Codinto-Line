@@ -1,7 +1,7 @@
 import { getRequest , baseUrl, postRequest , errorHandler } from "../ajax/ajaxRequsts.js";
 import { welcome_component_generator } from "./Question Generator/Welcome.js";
 import { question_component_generator } from "./Question Generator/question_comp_generator.js";
-import { showAlert } from "../Question Design Pages/CommonActions.js";
+import { showAlert } from "../Question Design Pages/CommonActions/CommonActions.js";
 import { answer_input_checker, file_event_listener } from "./Question Generator/answer_event_listener.js";
 import { total_answer_set_handler , single_answer_setter } from './AnswerSetter.js';
 import { answer_loader } from "./AnswerLoader.js";

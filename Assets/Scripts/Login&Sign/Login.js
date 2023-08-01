@@ -1,5 +1,5 @@
 import { postRequest , baseUrl } from '../ajax/ajaxRequsts.js';
-import { showAlert } from '../Question Design Pages/CommonActions.js'
+import { showAlert } from '../Question Design Pages/CommonActions/CommonActions.js'
 
 const login_confirm_button = document.querySelector('#loginForm .Login__btn');
 const user_phone_phoneNumber_input = document.querySelector('#PhoneNumberInput');

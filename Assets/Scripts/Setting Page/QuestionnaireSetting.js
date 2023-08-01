@@ -1,6 +1,6 @@
 import { postRequest , baseUrl, patchRequest , getRequest} from '../ajax/ajaxRequsts.js';
 import { Questionnaire_PostData } from "../ajax/QuestionPostData.js";
-import { showAlert } from "../Question Design Pages/CommonActions.js";
+import { showAlert } from "../Question Design Pages/CommonActions/CommonActions.js";
 import { QuestionnaireInfoSetter } from './QustionnariesInfoLoader.js';
 
 Questionnaire_PostData.folder = localStorage.getItem("SelectedFolderID");

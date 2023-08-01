@@ -1,5 +1,5 @@
 import { baseUrl } from "../../ajax/ajaxRequsts.js";
-import { detectFileFormat } from "../../Question Design Pages/CommonActions.js";
+import { detectFileFormat } from "../../Question Design Pages/CommonActions/CommonActions.js";
 
 export const welcome_component_generator = (welcome) => {
     let preview_file_className = '';

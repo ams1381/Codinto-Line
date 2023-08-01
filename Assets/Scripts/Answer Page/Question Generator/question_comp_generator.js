@@ -1,4 +1,4 @@
-import { detectFileFormat } from "../../Question Design Pages/CommonActions.js"
+import { detectFileFormat } from "../../Question Design Pages/CommonActions/CommonActions.js"
 import { baseUrl } from "../../ajax/ajaxRequsts.js";
 
 

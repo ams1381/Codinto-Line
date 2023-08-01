@@ -1,9 +1,16 @@
-import {file_upload_handler, preview_question_toggle, question_creator, question_placement_setter, text_style_label_eventListener_setter, toggle_handler} from "./CommonActions.js";
-import { preview_change_handler } from "./CommonActions.js";
+import {
+    file_upload_handler,
+    preview_question_toggle,
+    question_placement_setter,
+    text_style_label_eventListener_setter,
+    toggle_handler
+} from "./CommonActions/CommonActions.js";
+import { preview_change_handler } from "./CommonActions/CommonActions.js";
 import {
     group_question_postData
 } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
+import {question_creator} from "./CommonActions/Create_Edit_request.js";
 const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");

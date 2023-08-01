@@ -1,6 +1,14 @@
 import { text_question_with_out_answer_postData } from "../ajax/QuestionPostData.js"
-import { preview_question_toggle , preview_change_handler , file_upload_handler, question_creator, text_style_label_eventListener_setter, question_placement_setter, toggle_handler } from "./CommonActions.js";
+import {
+    preview_question_toggle,
+    preview_change_handler,
+    file_upload_handler,
+    text_style_label_eventListener_setter,
+    question_placement_setter,
+    toggle_handler
+} from "./CommonActions/CommonActions.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
+import {question_creator} from "./CommonActions/Create_Edit_request.js";
 
 const titleInput = document.querySelector(".GTitle .TitleTextInput");
 const textInput = document.querySelector(".GDesc .TitleTextInput");

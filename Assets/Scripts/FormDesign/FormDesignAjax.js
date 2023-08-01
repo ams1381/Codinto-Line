@@ -4,7 +4,7 @@ import { deleteQuestionInfo } from "./QuestionItemRemover.js";
 import { QuestionItemGenerator } from "./QuestionItemLoader.js";
 import DeleteQuestionItemHandler from "./QuestionItemRemover.js";
 import { QuestionDesignOpener } from "./QuestionItemLoader.js";
-import { showAlert } from "../Question Design Pages/CommonActions.js";
+import { showAlert } from "../Question Design Pages/CommonActions/CommonActions.js";
 import { drag_drop_setter } from "../DraggableItems.js";
 import { question_component_generator } from "../Answer Page/Question Generator/question_comp_generator.js";
 import { welcome_component_generator } from "../Answer Page/Question Generator/Welcome.js";
@@ -90,6 +90,7 @@ export const QuestionItemSetter = async () => {
                 exportToPDF(QuestionsResponse);
                 setTimeout(() => {
                     $('.linear-activity').hide();
+                    $('.ExportPDF').attr('style','pointer-events : all;')
                 }, 5000);
                 
             })
@@ -136,10 +137,9 @@ folder_cancel_button.forEach((item,index) => { item.addEventListener('click',fol
 remove_folder_confirm_btn.addEventListener('click',() => {
     DeleteQuestionItemHandler(deleteQuestionInfo)
 });
-
 QuestionItemSetter();
-export default { QuestionItemSetter , QuestionDesignItemsHandler};
 
+export default { QuestionItemSetter , QuestionDesignItemsHandler};
 window.addEventListener('resize',() => {
     navBar_Toggle_button.classList.remove('active')
     if(window.innerWidth > 770)
@@ -157,7 +157,6 @@ window.addEventListener('resize',() => {
         $('.navBar_button_lists').css({'display' : 'none'})
     }
 })
-
 AssistiveToggleButton.addEventListener('click',() => {
     $(block_main).hide();
     $(block_side).show(100);
@@ -182,6 +181,7 @@ navBar_Toggle_button.addEventListener('click',() => {
     $('.navBar_button_lists').slideToggle(100);
 })
 const exportToPDF = async (Questionnaire) => {
+    $('.ExportPDF').attr('style','pointer-events : none;')
     $('.linear-activity').show();
     let generated_html_for_pdf = '';
     // if(Questionnaire.welcome_page)

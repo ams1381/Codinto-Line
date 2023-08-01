@@ -113,7 +113,17 @@
     margin-top: 20px;
     cursor: pointer;
 }
-
+.viewFormQuestions , .ExportPDF{
+    margin-left: 15px;
+}
+.shareQuestionnaire
+{
+    margin-left: 1.2rem;
+}
+.viewFormQuestions  i , .back__button i
+{
+    display: flex;
+}
 .Question-Nested-items
 {
     width: 91% !important;

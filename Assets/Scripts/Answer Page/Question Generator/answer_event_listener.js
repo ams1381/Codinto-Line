@@ -1,4 +1,4 @@
-import { detectFileFormat, showAlert } from "../../Question Design Pages/CommonActions.js";
+import { detectFileFormat, showAlert } from "../../Question Design Pages/CommonActions/CommonActions.js";
 import { answer_set_postData } from "../AnswerSetter.js";
 
 export const answer_input_checker = (Question) => {

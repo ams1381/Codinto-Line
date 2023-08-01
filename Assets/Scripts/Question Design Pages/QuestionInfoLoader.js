@@ -1,6 +1,7 @@
 import { baseUrl } from "../ajax/ajaxRequsts.js";
-import { file_upload_handler , file_src_setter , preview_answer_option_generator, answer_option_eventListener_setter, detectFileFormat, file_input_empty_setter} from "./CommonActions.js";
+import { file_upload_handler , file_src_setter , detectFileFormat, file_input_empty_setter} from "./CommonActions/CommonActions.js";
 import { range_item_eventListener_setter } from "../../../Components/questionBox/rangeSelect.js";
+import {answer_option_eventListener_setter, preview_answer_option_generator} from "./CommonActions/OptionHandler.js";
 const show_number_toggle = document.querySelector(".show_number .Switch-Container input")
 const required_toggle = document.querySelector('.is_required .Switch-Container input');
 const multiple_answer_toggle = document.querySelector(".multiple_choice .Switch-toggle input");

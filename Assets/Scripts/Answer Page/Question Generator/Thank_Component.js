@@ -1,5 +1,5 @@
 import { baseUrl } from "../../ajax/ajaxRequsts.js";
-import { detectFileFormat } from "../../Question Design Pages/CommonActions.js";
+import { detectFileFormat } from "../../Question Design Pages/CommonActions/CommonActions.js";
 
 export const thank_component_generator = (thank) => {
     let media_src = thank.media;

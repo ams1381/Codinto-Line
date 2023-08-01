@@ -1,20 +1,21 @@
-import { preview_answer_option_generator 
-    , preview_option_label_updater 
-    , preview_answer_option_hider
-    , preview_answer_option_remover
-    , preview_change_handler
-    , answer_option_adder
-    , answer_option_remover
-    , question_creator
-    , toggle_handler 
+import {
+    preview_change_handler
+    , toggle_handler
     , file_upload_handler,
     preview_question_toggle,
     text_style_label_eventListener_setter,
     question_placement_setter,
     shuffleArray
- } from './CommonActions.js'
+} from './CommonActions/CommonActions.js'
 import {priority_question_PostData} from "../ajax/QuestionPostData.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
+import {question_creator} from "./CommonActions/Create_Edit_request.js";
+import {
+    answer_option_adder,
+    answer_option_remover, preview_answer_option_generator,
+    preview_answer_option_hider, preview_answer_option_remover,
+    preview_option_label_updater
+} from "./CommonActions/OptionHandler.js";
 const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
@@ -39,7 +40,7 @@ if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {    
     question_info_loader(EditableQuestion)
 }
-const answer_options_drag = dragula(
+dragula(
     [...preview_answer_options_container], {
     direction : 'vertical',
     slideFactorX : 0,

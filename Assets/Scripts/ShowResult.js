@@ -1,5 +1,5 @@
 import { baseUrl ,  getRequest } from "./ajax/ajaxRequsts.js" 
-import { detectFileFormat } from "./Question Design Pages/CommonActions.js";
+import { detectFileFormat } from "./Question Design Pages/CommonActions/CommonActions.js";
 const Questionnaire = JSON.parse(localStorage.getItem('QuestionnaireToShowResult'));
 const result_table_head_row = document.querySelector('#result_table_head_row');
 const result_table_head = document.querySelector('.resultTable thead')

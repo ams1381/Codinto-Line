@@ -1,4 +1,4 @@
-import { showAlert } from "../Question Design Pages/CommonActions.js";
+import { showAlert } from "../Question Design Pages/CommonActions/CommonActions.js";
 
 let baseUrl = 'https://codinto-line.codinguy.ir';
 

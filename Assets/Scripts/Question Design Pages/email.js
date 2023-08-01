@@ -5,13 +5,13 @@ import {
     preview_change_handler,
     file_upload_handler,
     toggle_handler,
-    question_creator,
     preview_question_toggle,
     text_style_label_eventListener_setter,
     question_placement_setter
-} from "./CommonActions.js";
+} from "./CommonActions/CommonActions.js";
 import {email_question_PostData, } from "../ajax/QuestionPostData.js";
 import { question_info_loader } from "./QuestionInfoLoader.js";
+import {question_creator} from "./CommonActions/Create_Edit_request.js";
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
@@ -28,7 +28,9 @@ let options = null;
 
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
-     question_info_loader(EditableQuestion)
+    question_info_loader(EditableQuestion)
+    ACTION_TYPE == 'Copy' ? 
+    question_placement_setter(localStorage.getItem("question_placement"),EditableQuestion) : ' '
 }
 // initial data------------------------------------
 options =  "free"

@@ -1,5 +1,5 @@
 import { postRequest , baseUrl , cookie_setter} from '../ajax/ajaxRequsts.js';
-import { showAlert } from '../Question Design Pages/CommonActions.js'
+import { showAlert } from '../Question Design Pages/CommonActions/CommonActions.js'
 
 const login_sms_confirm_button = document.getElementById('sms_confirm_button');
 const sms_inputs = document.querySelectorAll(".SMS_SignUp_LContainer__inputs input");

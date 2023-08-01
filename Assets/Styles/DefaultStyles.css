@@ -152,17 +152,7 @@ html
 {
     color: var(--brand-color);
 }
-.viewFormQuestions , .ExportPDF{
-    margin-left: 15px;
-}
-.shareQuestionnaire
-{
-    margin-left: 1.2rem;
-}
-.viewFormQuestions  i , .back__button i
-{
-    display: flex;
-}
+
 .navMenu {
     width: 65%;
     right: -70%;
@@ -491,11 +481,6 @@ html
 }
 
 @media only screen and (max-width : 768px) {
-
-    .navToggleButton,
-    .viewFormQuestions {
-        display: block;
-    }
     .block__section
     {
         padding-bottom: 0;

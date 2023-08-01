@@ -1,5 +1,10 @@
 import { postRequest , baseUrl, errorHandler } from "../ajax/ajaxRequsts.js";
-import { showAlert , form_data_convertor , detectFileFormat , file_src_setter } from "../Question Design Pages/CommonActions.js";
+import {
+    showAlert,
+    detectFileFormat,
+    file_src_setter
+} from "../Question Design Pages/CommonActions/CommonActions.js";
+import {form_data_convertor} from "../Question Design Pages/CommonActions/Create_Edit_request";
 export const answer_set_postData = {
     'answers' : []
 }

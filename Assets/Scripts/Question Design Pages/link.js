@@ -3,13 +3,12 @@ import {link_question_PostData} from "../ajax/QuestionPostData.js";
 import {
     file_upload_handler,
     preview_change_handler,
-    preview_question_toggle,
-    question_creator,
-    question_placement_setter,
+    preview_question_toggle, question_placement_setter,
     showAlert,
     text_style_label_eventListener_setter,
     toggle_handler
-} from "./CommonActions.js";
+} from "./CommonActions/CommonActions.js";
+import {question_creator} from "./CommonActions/Create_Edit_request.js";
 const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
@@ -27,8 +26,9 @@ console.log(localStorage.getItem('QuestionData'))
 // initial data------------------------------------
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {
-     
     question_info_loader(EditableQuestion)
+    ACTION_TYPE == 'Copy' ? 
+    question_placement_setter(localStorage.getItem("question_placement"),EditableQuestion) : ' '
 }
 // options =  "free"
 // sampleAnswer.value = null;

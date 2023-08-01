@@ -1,4 +1,4 @@
-import { detectFileFormat } from "../Question Design Pages/CommonActions.js";
+import { detectFileFormat } from "../Question Design Pages/CommonActions/CommonActions.js";
 import { file_event_listener, file_preview_setter } from "./Question Generator/answer_event_listener.js";
 
 export const answer_loader = (QuestionData,Question,answer_set_postData) => {
