@@ -14,8 +14,14 @@ export let multiple_option_postData = {
     nothing_selected : false,
     is_vertical : false,
     options : [
-        { 'text' : 'گزینه 1', },
-        { 'text' : 'گزینه 2',}
+        { 
+            text : 'گزینه 1' ,
+            id : 1
+        } , 
+        { 
+            text : "گزینه 2" , 
+            id : 2
+         }
     ]
 }
 export let slider_option_postData = {
@@ -34,8 +40,14 @@ export let slider_option_postData = {
     nothing_selected : false,
     is_vertical : false,
     options : [
-        { 'text' : 'گزینه 1' },
-        { 'text' : 'گزینه 2'}
+        { 
+            text : 'گزینه 1' ,
+            id : 1
+        } , 
+        { 
+            text : "گزینه 2" , 
+            id : 2
+         }
     ]
 }
 export let range_question_postData = {
@@ -171,8 +183,14 @@ export let priority_question_PostData = {
     answer_template: null,
     pattern: 'free',
     options : [
-        { text : 'گزینه 1' } , 
-        { text : "گزینه 2" }
+        { 
+            text : 'گزینه 1' ,
+            id : 1
+        } , 
+        { 
+            text : "گزینه 2" , 
+            id : 2
+         }
     ]
 }
 export let email_question_PostData = {

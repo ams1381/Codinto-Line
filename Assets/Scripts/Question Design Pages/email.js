@@ -15,7 +15,6 @@ import {question_creator} from "./CommonActions/Create_Edit_request.js";
 const ACTION_TYPE = localStorage.getItem("ACTION-TYPE");
 const QuestionnaireUUID = JSON.parse(localStorage.getItem("SelectedQuestionnaire")).uuid;
 let EditableQuestion = JSON.parse(localStorage.getItem('QuestionData'));
-const reqUrl = baseUrl + `/question-api/questionnaires/${QuestionnaireUUID}/email-questions/`;
 const titleInput = document.querySelector(".GTitle .TitleTextInput")
 const textInput = document.querySelector(".GDesc .TitleTextInput")
 const necessaryQuestion = document.querySelector(".is_required .Switch-toggle .slider-button")

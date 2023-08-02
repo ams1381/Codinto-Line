@@ -63,7 +63,6 @@ const preview_default_order_setter = (PostData) => {
              )
          })
 }
-
 answer_option_inputs.forEach((answer_option_input,index) => {
     answer_option_input.addEventListener('input',(e) => {
         if(EditableQuestion)
@@ -79,8 +78,11 @@ answer_option_buttons.forEach((answer_option_button) => {
         })
     if(answer_option_button.classList.contains('answer-option-remove'))
         answer_option_button.addEventListener('click',() => {
-            answer_option_remover();
-            preview_answer_option_remover("MultipleOption");
+            if(EditableQuestion)
+                 answer_option_remover('MultipleOption',EditableQuestion,answer_option_button.parentElement.parentElement.getAttribute('id').split('anw-option-')[1]);
+            else
+                answer_option_remover('MultipleOption',priority_question_PostData,answer_option_button.parentElement.parentElement.getAttribute('id').split('anw-option-')[1]);
+                
         })
 })
 answer_option_view_buttons.forEach((answer_option_view_button,index) => {

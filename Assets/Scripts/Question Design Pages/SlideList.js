@@ -90,8 +90,13 @@ Answer_option_buttons.forEach((answer_option_button) => {
         })
     if(answer_option_button.classList.contains('answer-option-remove'))
         answer_option_button.addEventListener('click',() => {
-            answer_option_remover("SliderOption");
-            preview_answer_option_remover("SliderOption");
+            if(EditableQuestion)
+                 answer_option_remover('SliderOption',EditableQuestion,answer_option_button.parentElement.parentElement.getAttribute('id').split('anw-option-')[1]);
+            else
+                answer_option_remover('SliderOption',slider_option_postData,answer_option_button.parentElement.parentElement.getAttribute('id').split('anw-option-')[1]);
+                
+            // answer_option_remover("SliderOption");
+            // preview_answer_option_remover("SliderOption");
         })
 })
 multiple_answer_toggle.addEventListener('click',() => {
