@@ -9,12 +9,13 @@
   top: 0%;
 }
 .container{
-    width: 80%;
+    max-width: 80%;
     height: 70%;
     display: flex;
     margin: 3.5rem auto;
     flex-direction: column;
     justify-content: center;
+    width: fit-content;
 }
 .resultTable {
 
@@ -22,7 +23,9 @@
     display: table-caption;
     text-align: center;
     border-collapse: separate;
+    height: fit-content;
     table-layout: fixed;
+    max-height: 461px;
     font-family: IRANSans;
     white-space: nowrap;
     border-spacing: 0.25rem 0.25rem;
@@ -97,7 +100,6 @@
 {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 1rem;
 }
 .chart_graph
 {
@@ -119,6 +121,7 @@
   margin: 1rem;
   font-weight: 600;
   line-height: 1.6rem;
+  word-break: break-word;
 }
 .charts_box {
   margin-top: 2.5rem;
@@ -143,12 +146,17 @@
   background: var(--input-title-bg-color);
   padding: 0.5rem;
   margin: 1rem auto;
-  width: 95%;
+  width: 90%;
+  max-width: 95%;
+  border-radius: 12px;
+  box-shadow: 2px 2px 3px #00000038;
 }
 .chart_icons_selector {
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 .chart_icons_selector i 
 {

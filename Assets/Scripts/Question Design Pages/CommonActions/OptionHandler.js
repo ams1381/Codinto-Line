@@ -13,22 +13,23 @@ export const preview_answer_option_remover = (Option_Type , OptionID) => {
         case 'MultipleOption' :
             preview_answer_options = document.querySelectorAll(".multiple_answer_block-option");
             if (preview_answer_options.length > 2) {
+                if([...preview_answer_options].find((item) => item.getAttribute('id') == `preview-option-${OptionID}`))
+                {
+                    $([...preview_answer_options].find((item) => item.getAttribute('id') == `preview-option-${OptionID}`)).hide(300);
+                    [...preview_answer_options].find((item) => item.getAttribute('id') == `preview-option-${OptionID}`).remove();
+                }
                 
-                console.log(OptionID)
-                $([...preview_answer_options].find((item) => item.getAttribute('id') == `preview-option-${OptionID}`)).hide(300);
-                [...preview_answer_options].find((item) => item.getAttribute('id') == `preview-option-${OptionID}`).remove();
-                // $(preview_answer_options[preview_answer_options.length - 1]).hide(300);
-                // preview_answer_options[preview_answer_options.length - 1].remove();
             }
 
             break;
         case 'SliderOption' :
             preview_answer_options = document.querySelectorAll(".selection__box  .selection__item");
             if (preview_answer_options.length > 2) {
-                $([...preview_answer_options].find((item) => item.getAttribute('id') == `select_item_${OptionID}`)).hide(300);
-                [...preview_answer_options].find((item) => item.getAttribute('id') == `select_item_${OptionID}`).remove();
-                // $(preview_answer_options[preview_answer_options.length - 1]).hide(300);
-                // preview_answer_options[preview_answer_options.length - 1].remove();
+                if([...preview_answer_options].find((item) => item.getAttribute('id') == `select_item_${OptionID}`))
+                {
+                    $([...preview_answer_options].find((item) => item.getAttribute('id') == `select_item_${OptionID}`)).hide(300);
+                    [...preview_answer_options].find((item) => item.getAttribute('id') == `select_item_${OptionID}`).remove();
+                }
             }
             break;
     }
@@ -38,22 +39,15 @@ export const answer_option_remover = (Option_Type, PostData , OptionID) => {
     let last_answer_option = answer_options[answer_options.length - 1];
     let last_option_input = document.querySelector(`#${last_answer_option.getAttribute("id")} .anw-option-input`);
     if (answer_options.length > 2) {
-        // $(last_answer_option).hide(80);
-        // last_answer_option.remove();
        if(![...answer_options])
-            return
-        if(document.querySelector(`#option_input_${OptionID}`).value == 'همه گزینه ها')
-            all_options_controller(PostData,false);
-            if(document.querySelector(`#option_input_${OptionID}`).value == 'هیچ کدام')
-            no_options_controller(PostData,false);
+            return            
         $([...answer_options].find(item => item.getAttribute('id') == `anw-option-${OptionID}`)).hide(80);
         [...answer_options].find(item => item.getAttribute('id') == `anw-option-${OptionID}`).remove();
         preview_answer_option_remover(Option_Type,OptionID);
-        // if (PostData)
-        //     PostData.options.pop();
+        console.log(OptionID)
         if(!PostData.options.find((option) => option.id == OptionID))
             PostData.options.forEach((opt,index) => {
-                if(index + 1 == OptionID)
+                if(index == OptionID - 1)
                     PostData.options.splice(index,1);
             })
         else
@@ -61,8 +55,8 @@ export const answer_option_remover = (Option_Type, PostData , OptionID) => {
                 if(option.id == OptionID)
                     PostData.options.splice(index,1);
             })
-        options_labels = document.querySelectorAll('.anw-option-label')
-        document.querySelectorAll('.anw-option-input').forEach((inputItem,index) => {
+        options_labels = document.querySelectorAll('.Answer-Option.shown_options .anw-option-label')
+        document.querySelectorAll('.Answer-Option.shown_options .anw-option-input').forEach((inputItem,index) => {
             inputItem.setAttribute('placeholder',`گزینه ${index + 1}`)
             if(!inputItem.value)
             {
@@ -77,27 +71,11 @@ export const answer_option_remover = (Option_Type, PostData , OptionID) => {
             option_label.textContent = index + 1;
         })
     }
-    // if (last_option_input.value == 'هیچ کدام') {
-    //     no_options_toggle.previousElementSibling.checked = false;
-    //     PostData.options.forEach((item, index) => {
-    //         if (item.text == 'هیچ کدام') {
-    //             PostData.options.splice(index, 1);
-    //         }
-    //     })
-    //     PostData.nothing_selected = false;
-    // }
-    // if (last_option_input.value == 'همه گزینه ها') {
-    //     all_options_toggle.previousElementSibling.checked = false;
-    //     PostData.options.forEach((item, index) => {
-    //         if (item.text == 'همه گزینه ها') {
-    //             PostData.options.splice(index, 1);
-    //         }
-    //     })
-    //     PostData.all_options = false;
-    // }
     if (answer_options.length == 2) {
         showAlert('دو گزینه را نمی توان حذف یا مخفی کرد')
+        
     }
+    console.log(PostData.options)
 }
 export const preview_answer_option_generator = (preview_option_number, Option_Type, Option_Text) => {
     let preview_answer_option;
@@ -105,7 +83,7 @@ export const preview_answer_option_generator = (preview_option_number, Option_Ty
     switch (Option_Type) {
         case 'MultipleOption' :
             preview_answer_option = `
-            <div class="multiple_answer_block-option" id="preview-option-${preview_option_number}">
+            <div class="multiple_answer_block-option ${Option_Text ? 'additional' : ''}" id="preview-option-${preview_option_number}">
                 <input type="radio" name="answer__option" id="answer-n${preview_option_number}">
                 <label class="answer_option-label" for="answer-n${preview_option_number}">${Option_Text}</label>
             </div>
@@ -154,6 +132,7 @@ export const preview_answer_option_hider = (view_button, option_number, Option_T
             preview_answer_options[option_number].classList.remove("hidden_option");
         }
         view_button.classList.toggle("hidden-option");
+
     }
     if (answer_options.length == 2) {
         showAlert('دو گزینه را نمی توان حذف یا مخفی کرد')
@@ -161,45 +140,54 @@ export const preview_answer_option_hider = (view_button, option_number, Option_T
 }
 export const answer_option_adder = (Option_Type, Option_Text, PostData) => {
     answer_options = document.querySelectorAll(".Answer-Option");
+    let shown_answer_options = document.querySelectorAll('.Answer-Option.shown_options');
     options_labels = document.querySelectorAll('.anw-option-label')
     let Last_answer_option = answer_options[answer_options.length - 1];
     let last_answer_option_number = parseInt(Last_answer_option.getAttribute("id").split("-")[2]);
     let last_answer_option_label = answer_options.length;
-    const answer_option_element = `
-    <div class="Answer-Option" id="anw-option-${last_answer_option_number + 1}">
-            <div class="anw-option-number">
-                <label class="anw-option-label">
-                  ${(last_answer_option_label + 1)}
-                </label>  
-                <input type="text" class="anw-option-input" id="option_input_${last_answer_option_number + 1}" 
-               ${(Option_Text == 'همه گزینه ها' || Option_Text == 'هیچ کدام') ? 'value="' + Option_Text + '"' :
-               'placeholder="' + (Option_Text ? Option_Text : 'گزینه ' + (last_answer_option_label + 1)) + '"' }>    
-            </div>
-            <div class="anw-option-tools">
-                <button class="answer-option-view">
-                    <i class="fa fa-eye"></i>
-                </button>
-                <button class="answer-option-remove">
-                    <i class="fa fa-trash"></i>
-                </button>
-                <button class="answer-option-add">
-                    <i class="fa fa-plus-circle"></i>
-                </button>
-            </div>
-     </div>`
-    const parser = new DOMParser();
-    const parsed_answer_option_element = parser.parseFromString((answer_option_element), 'text/html').firstChild.lastChild.lastChild;
+    // if(Option_Text != 'همه گزینه ها' && Option_Text != 'هیچ کدام')
+    // {
 
-    answer_options_container.append(parsed_answer_option_element);
-    answer_option_eventListener_setter(last_answer_option_number + 1, Option_Type, PostData);
+        const answer_option_element = `
+        <div class="Answer-Option ${(Option_Text == 'همه گزینه ها' || Option_Text == 'هیچ کدام') ? 'hidden_option' : 'shown_options'}" 
+        id="anw-option-${last_answer_option_number + 1}" ${Option_Text == 'همه گزینه ها' || Option_Text == 'هیچ کدام' ? 'style="display : none;"' : ''} >
+                <div class="anw-option-number">
+                    <label class="anw-option-label">${(Option_Text == 'همه گزینه ها' || Option_Text == 'هیچ کدام') ? `<span>${Option_Text}</span>` :last_answer_option_label + 1}</label>  
+                    <input type="text" class="anw-option-input" id="option_input_${last_answer_option_number + 1}" 
+                   ${(Option_Text == 'همه گزینه ها' || Option_Text == 'هیچ کدام') ? 'value="' + Option_Text + '"' :
+                   'placeholder="' + (Option_Text ? Option_Text : 'گزینه ' + (shown_answer_options.length + 1)) + '"' }>    
+                </div>
+                <div class="anw-option-tools">
+                    <button class="answer-option-view">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <button class="answer-option-remove">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                    <button class="answer-option-add">
+                        <i class="fa fa-plus-circle"></i>
+                    </button>
+                </div>
+         </div>`
+        const parser = new DOMParser();
+        const parsed_answer_option_element = parser.parseFromString((answer_option_element), 'text/html').firstChild.lastChild.lastChild;
+        answer_options_container.append(parsed_answer_option_element);
+        answer_option_eventListener_setter(last_answer_option_number + 1, Option_Type, PostData);
+    // }
+
+    
+    // Changed Argument last_answer_option_number + 1
+    
 
     preview_answer_option_generator(last_answer_option_number + 1,
-        Option_Type, Option_Text ? Option_Text : `گزینه  ${last_answer_option_label + 1}`);
+        Option_Type, Option_Text ? (Option_Text == 'همه گزینه ها' || Option_Text == 'هیچ کدام') ? `<span>${Option_Text}</span>` 
+        : Option_Text : `گزینه  ${last_answer_option_label + 1}`);
     switch (Option_Type) {
         case 'MultipleOption':
             PostData.options.push(
                 {
-                    text: Option_Text ? Option_Text : `${last_answer_option_label + 1} گزینه`,
+                    text: Option_Text ? (Option_Text == 'همه گزینه ها' || Option_Text == 'هیچ کدام') ? `<span>${Option_Text}</span>` 
+                    : Option_Text : `${last_answer_option_label + 1} گزینه`,
                     id : last_answer_option_number + 1
                 },
             )
@@ -213,7 +201,6 @@ export const answer_option_adder = (Option_Type, Option_Text, PostData) => {
             )
             break;
     }
-    console.log(PostData.options)
 }
 export const answer_option_eventListener_setter = (OptionNumber, Option_Type, PostData) => {
     let answer_option_adder_button = document.querySelector(`#anw-option-${OptionNumber} .anw-option-tools .answer-option-add`);
@@ -225,6 +212,7 @@ export const answer_option_eventListener_setter = (OptionNumber, Option_Type, Po
     })
     answer_option_adder_button.addEventListener("click", () => {
         answer_option_adder(Option_Type, null, PostData);
+        
     })
     answer_option_remover_button.addEventListener("click", () => {
         answer_option_remover(Option_Type, PostData , OptionNumber)
@@ -243,75 +231,67 @@ export const preview_option_label_updater = (input_number, input_value, Option_T
         case 'SliderOption' :
             changed_label = document.querySelector(`#select_item_${input_number + 1} label`);
     }
+
     if(PostData.options.find(option => option.id == (input_number + 1)))
         PostData.options.find(option => option.id == (input_number + 1)).text = input_value.toString();
     else
         PostData.options.forEach((option,index) => {
             if(index == input_number)
+            {
                 option.text = input_value.toString();
+            }
+                
         })
-    if(changed_label.textContent == 'همه گزینه ها')
-        all_options_controller(PostData,false);
-        
-    if(changed_label.textContent == 'هیچ کدام')
-        no_options_controller(PostData,false);
-    
-        
+      
     changed_label.textContent = input_value;
 
-    if(changed_label.textContent == 'همه گزینه ها')
-        all_options_controller(PostData,true);
-        
-    if(changed_label.textContent == 'هیچ کدام')
-        no_options_controller(PostData,true);
-    console.log(PostData.options)
 }
 export const additional_options_handler = (Addition_type, state, PostData) => {
     let answer_options = document.querySelectorAll(".Answer-Option");
+    let answer_option_labels = [...document.querySelectorAll(".answer_option-label")];
     all_options_toggle.previousElementSibling.checked = false;
     no_options_toggle.previousElementSibling.checked = false;
     PostData.all_options = false;
     PostData.nothing_selected = false;
     if (Addition_type == 'additional_toggle' && state == 'deActive') {
         PostData.options.forEach((item, index) => {
-            if (item.text == 'همه گزینه ها') {
+            if (item.text.includes('همه گزینه ها') && item.text.includes('span')) {
                 let item_index = PostData.options.indexOf(item);
                 PostData.options.splice(item_index, 1);
             }
         })
         PostData.options.forEach((item, index) => {
-            if (item.text == 'هیچ کدام') {
+            if (item.text.includes('هیچ کدام') && item.text.includes('span')) {
                 let item_index = PostData.options.indexOf(item);
                 PostData.options.splice(item_index, 1);
             }
         })
-        answer_options.forEach((answer_option) => {
-            let answer_option_input = document.querySelector(`#${answer_option.getAttribute("id")} .anw-option-input`);
-            if (answer_option_input.value == 'همه گزینه ها' || answer_option_input.placeholder == 'هیچ کدام') {
-                $(answer_option).hide(70);
-                answer_option.remove();
-                $(`#preview-option-${answer_option.getAttribute("id").split("-")[2]}`).hide()
-                document.querySelector(`#preview-option-${answer_option.getAttribute("id").split("-")[2]}`).remove()
-            }
-        })
+        $(answer_option_labels.find((item) => item.children.length && $(item).text() == 'همه گزینه ها')).hide(200);
+        answer_option_labels.find((item) => item.children.length && $(item).text() == 'همه گزینه ها').parentElement.remove();
+
+        $(answer_option_labels.find((item) => item.children.length &&  $(item).text() == 'هیچ کدام')).hide(200);
+        answer_option_labels.find((item) => item.children.length &&  $(item).text() == 'هیچ کدام').parentElement.remove();
+
     }
 }
 export const single_additional_option_toggle_handler = (Addition_text, PostData) => {
+    
     let answer_options = document.querySelectorAll(".Answer-Option");
+    let side_option_labels = [...document.querySelectorAll('.anw-option-label')];
+    let answer_option_labels = [...document.querySelectorAll(".answer_option-label")];
     PostData.options.forEach((item, index) => {
-        if (item.text == Addition_text) {
+        if (item.text.includes(Addition_text) && item.text.includes('span')) {
             PostData.options.splice(index, 1);
         }
     })
-    answer_options.forEach((answer_option, index) => {
-        let answer_option_input = document.querySelector(`#${answer_option.getAttribute("id")} .anw-option-input`);
-        if (answer_option_input.value == Addition_text) {
-            $(answer_option).hide(70);
-            answer_option.remove();
-            $(`#preview-option-${answer_option.getAttribute("id").split("-")[2]}`).hide()
-            document.querySelector(`#preview-option-${answer_option.getAttribute("id").split("-")[2]}`).remove();
-        }
-    })
+    $(answer_option_labels.find((item) => item.children.length && $(item).text() == Addition_text).parentElement).hide(200);
+    answer_option_labels.find((item) => item.children.length && $(item).text() == Addition_text).parentElement.remove();
+
+   side_option_labels.forEach((item) => {
+    console.log(item.children.length,$(item).text(),$(item).text() == Addition_text )
+        item.children.length && $(item).text() == Addition_text ? item.parentElement.parentElement.remove() : ''
+   })
+
 }
 const all_options_controller = (PostData,state) => {
     all_options_toggle.previousElementSibling.checked = state;

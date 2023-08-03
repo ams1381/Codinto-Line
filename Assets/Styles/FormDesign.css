@@ -4,7 +4,10 @@
     display: flex;
     justify-content: center;
 }
-
+.block__section
+{
+    padding-bottom: 0;
+}
 .question_design_items
 {
     display: grid;
@@ -512,3 +515,9 @@
         height: 40px;
     }
 }
+@media print {
+    header , nav
+    {
+        display: none;
+    }
+  }

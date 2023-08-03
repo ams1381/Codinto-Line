@@ -1,3 +1,23 @@
+body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust:exact !important;
+}
+@media print { 
+    img {
+       display: block !important; 
+    }
+    .separator
+    {
+        /* margin: 1rem 0 1rem 0; */
+        page-break-after: always;
+        page-break-before : always;
+        /* page-break-inside: avoid; */
+    }
+  }
+.separator
+{
+    width: 100%;
+}
 .QuestionContainer
 {
     width: calc(15rem + 17vw);

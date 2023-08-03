@@ -4,7 +4,7 @@ import {
     detectFileFormat,
     file_src_setter
 } from "../Question Design Pages/CommonActions/CommonActions.js";
-import {form_data_convertor} from "../Question Design Pages/CommonActions/Create_Edit_request";
+import {form_data_convertor} from "../Question Design Pages/CommonActions/Create_Edit_request.js";
 export const answer_set_postData = {
     'answers' : []
 }
@@ -48,16 +48,15 @@ export const total_answer_set_handler = async (Questionnaire,AnswerSetID,Questio
 {
     if(total_answers.length)
         total_answers.length = 0;
-    
     const asyncForEach = async (array) => {
         Questionnaire.questions = Questionnaire.questions.filter((element) => element.question !== null);
         try {
           for (let i = 0; i < array.length; i++) {
-            if(Questionnaire.questions[i].question)
+            if(Questionnaire.questions[i] && Questionnaire.questions[i].question)
                 await single_answer_setter(Questionnaire.uuid,AnswerSetID,Questionnaire.questions[i].question,Questions[i],'Total');
           }
+          
           let res = await postRequest(`${baseUrl}/question-api/questionnaires/${Questionnaire.uuid}/answer-sets/${AnswerSetID}/add-answer/`,'application/json',total_answers);
-            console.log(res)
         }
         catch (ex) {
            throw ex;

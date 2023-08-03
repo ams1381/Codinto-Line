@@ -195,6 +195,7 @@ export const question_component_generator = (Question) => {
                     <p> ${Question.button_text} </p>
                 </button>
              </div>
+             <div class="separator"></div>
              ${Question.child_questions.map((item) => {
                 return question_component_generator(item.question)
              })}
@@ -233,23 +234,30 @@ export const question_component_generator = (Question) => {
             break;
     }
     
-   return default_question_html = `<div id="Q${Question.id}" class="QuestionContainer ${Question.question_type} ${Question.is_required ? 'required' : ''}">
-                <div class="Question-Title">
-                    <label>${!Question.show_number ? Question.placement : ""}</label> ${!Question.show_number  ? ':' : ''}
-                    <p>${Question.title} ${Question.is_required ? '*' : ''}</p>
-                </div>
-                <div class="description_block">
-                    <p>${Question.question_text ? Question.question_text : ''}</p>
-                </div>
-                <div class="preview_file_box ${preview_file_className}">
-                ${
-                    (detectFileFormat(Question.media) == 'Picture') ? 
-                    `<img class="preview_image ${Question.double_picture_size ? 'double_size' : ' '}" src=${media_src ? media_src : ''}></img>` :
-                    `<video class="preview_video" controls >
-                            <source src=${media_src ? media_src : ''} />
-                    </video>`
-                }
-                </div>
-                ${answer_box_html}
-            </div>`
+   return default_question_html = `
+   <div>
+        <div class="separator"></div>
+                <div id="Q${Question.id}" class="QuestionContainer ${Question.question_type} ${Question.is_required ? 'required' : ''}">
+                            <div class="Question-Title">
+                                <label>${!Question.show_number ? Question.placement : ""}</label> ${!Question.show_number  ? ':' : ''}
+                                <p>${Question.title} ${Question.is_required ? '*' : ''}</p>
+                            </div>
+                            <div class="description_block">
+                                <p>${Question.question_text ? Question.question_text : ''}</p>
+                            </div>
+                            <div class="preview_file_box ${preview_file_className}">
+                            ${
+                                (detectFileFormat(Question.media) == 'Picture') ? 
+                                `<img class="preview_image ${Question.double_picture_size ? 'double_size' : ' '}" src=${media_src ? media_src : ''}></img>` :
+                                `<video class="preview_video" controls >
+                                        <source src=${media_src ? media_src : ''} />
+                                </video>`
+                            }
+                            </div>
+                            ${answer_box_html}
+                    </div>
+                    
+        </div>
+        `
+        
 }

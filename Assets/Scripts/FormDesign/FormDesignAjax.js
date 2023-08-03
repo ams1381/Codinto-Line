@@ -190,6 +190,7 @@ const exportToPDF = async (Questionnaire) => {
         Questionnaire.questions.forEach((Question) => {
             if(Question.question)
                 generated_html_for_pdf += question_component_generator(Question.question)
+                
         })
     if(Questionnaire.thanks_page)
         generated_html_for_pdf += thank_component_generator(Questionnaire.thanks_page)
@@ -198,8 +199,11 @@ const exportToPDF = async (Questionnaire) => {
             <div class="answer_page_container" style="
             display : flex !important;
             flex-direction : column !important;
+            margin : 0 auto;
+            width : 100%;
             align-items : center !important;
             justify-content : center !important;
+            
         ">
                 ${generated_html_for_pdf}
             </div>
@@ -237,9 +241,10 @@ const exportToPDF = async (Questionnaire) => {
                 image: { type: 'jpeg', quality: 0.99 },
                 html2canvas: { scale: 1.5 },
                 jsPDF: {
+                //    putTotalPages: true,
                    unit: 'mm', 
-                   format: 'a3', 
-                   orientation: 'portrait' ,
+                   format: 'a4', 
+                   orientation: 'landscape' ,
                    lazy_load : true,
                    putOnlyUsedFonts: true
                   },

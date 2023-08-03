@@ -353,7 +353,7 @@ const slide_list_question_info_loader = (options,double_size,Question) => {
     optional_question_answer_options.forEach((item) => { item.remove() });
     document.querySelectorAll('.selection__item').forEach((item) => { item.remove() })
     options.forEach((option,index) => {
-        slide_list_option_generator(index + 1,option.text,Question)
+            slide_list_option_generator(index + 1,option.text,Question)
     }) 
 }
 const range_item_generator = (number_to_generate) => {
@@ -395,6 +395,7 @@ const preview_degree_handler = (degree,shape_icon_className) => {
 
 }
 const main_multiple_option_generator = (OptionNumber,OptionText,Question) => {
+    console.log(OptionText)
  let main_option_html =  `<div class="multiple_answer_block-option" id="preview-option-${OptionNumber}">
                 <input type="radio" name="answer__option" id="answer-n${OptionNumber}">
                 <label class="answer_option-label" for="answer-n${OptionNumber}">${OptionText}</label>
@@ -420,7 +421,7 @@ const slide_list_option_generator = (OptionNumber,OptionText,Question) => {
     $(parsed_preview_answer_option).show(100);
 }
 const side_answer_option_generator = (OptionNumber,OptionText,Option_Type,Question) => {
-    let side_option_html = `<div class="Answer-Option" id="anw-option-${OptionNumber}">
+    let side_option_html = `<div class="Answer-Option ${OptionText.includes('span') ? 'hidden_option' : 'shown_options'}" id="anw-option-${OptionNumber}" ${OptionText.includes('span')? 'style="display : none;"' : ''}>
     <div class="anw-option-number">
         <label class="anw-option-label">
             ${OptionNumber}
