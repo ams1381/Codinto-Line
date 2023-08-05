@@ -6,13 +6,6 @@ body {
     img {
        display: block !important; 
     }
-    .separator
-    {
-        /* margin: 1rem 0 1rem 0; */
-        page-break-after: always;
-        page-break-before : always;
-        /* page-break-inside: avoid; */
-    }
   }
 .separator
 {
@@ -64,6 +57,7 @@ body {
     justify-content: flex-start;
     padding-right: 10px;
     word-break: break-word;
+    text-overflow: ellipsis;
     flex-wrap: wrap;
 }
 .Question-Title p 

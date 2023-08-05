@@ -71,6 +71,7 @@
 .block__section main 
 {
     width: 70%;
+    padding-bottom: 1rem;
 }
 .block__section main .QuestionsBox
 {

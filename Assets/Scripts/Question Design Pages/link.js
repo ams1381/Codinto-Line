@@ -20,9 +20,9 @@ const saveBtn = document.querySelector(".saveQuestion")
 const file_input = document.querySelector("#file.box__file")
 const view_question_button = document.querySelector(".SideHeaderBody .viewQuestion")
 const back_to_design_button = document.querySelector(".block__main .block__main_navbar .back_to_design_button")
-console.log(ACTION_TYPE)
+
 let options = null;
-console.log(localStorage.getItem('QuestionData'))
+
 // initial data------------------------------------
 if(ACTION_TYPE == 'Edit' || ACTION_TYPE == 'Copy')
 {

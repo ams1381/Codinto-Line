@@ -27,7 +27,7 @@ const questionnaire_preview_button = document.querySelector('.viewFormQuestions'
 const questionnaire_share_button = document.querySelector('.shareQuestionnaire');
 const Pdf_export_button = document.querySelector('.ExportPDF');
 const navBar_Toggle_button = document.querySelector('.navMenu_toggle');
-console.log(SelectedQuestionnaire)
+
 QuestionnaireName.textContent = SelectedQuestionnaire.name;
 if(window.innerWidth < 770)
             $('.AssistiveButton').css('display','none');
@@ -119,6 +119,11 @@ const QuestionDesignItemsHandler = async (QuestionType) => {
         showAlert("صفحه ی خوش آمد گویی وجود دارد.");
         return
     }
+    if(QuestionType == 'thank-page' && questionnaire_retrieved.thanks_page)
+    {
+        showAlert("صفحه ی تشکر وجود دارد");
+        return
+    }
         
     QuestionDesignOpener(QuestionType);
 }
@@ -189,7 +194,11 @@ const exportToPDF = async (Questionnaire) => {
     if(Questionnaire.questions.length)
         Questionnaire.questions.forEach((Question) => {
             if(Question.question)
+            {
                 generated_html_for_pdf += question_component_generator(Question.question)
+                generated_html_for_pdf += `<div class="html2pdf__page-break"></div>`
+            }
+                
                 
         })
     if(Questionnaire.thanks_page)
@@ -225,6 +234,7 @@ const exportToPDF = async (Questionnaire) => {
     try
     {
         setTimeout(async () => {
+            
             await Promise.all(cssURLs.map(url =>
                 fetch(url)
                   .then(response => response.text())
@@ -238,8 +248,9 @@ const exportToPDF = async (Questionnaire) => {
                 margin: 0,
                 padding : 50,
                 filename: 'rendered_html_for_pdf.pdf',
-                image: { type: 'jpeg', quality: 0.99 },
-                html2canvas: { scale: 1.5 },
+                image: { type: 'jpeg', quality: 0.20 },
+                html2canvas: { scale: 1.5 , useCORS: true },
+                enableLinks : true ,
                 jsPDF: {
                 //    putTotalPages: true,
                    unit: 'mm', 
@@ -253,6 +264,10 @@ const exportToPDF = async (Questionnaire) => {
                     // Replace 'path/to/your/fontfile.ttf' with the path to your custom font file.
                   }
               };
+              html2pdf().set({
+                pagebreak: { mode: ['css'] }
+              });
+
                 html2pdf().from(rendered_html_for_pdf).set(opt).save();
         }, 3000);
         
@@ -263,3 +278,16 @@ const exportToPDF = async (Questionnaire) => {
     }
     
   };
+  async function convertImageToBase64(imageUrl) {
+    try {
+      const response = await fetch(imageUrl);
+      const buffer = await response.buffer();
+      const base64 = buffer.toString('base64');
+      return base64;
+    } catch (error) {
+      console.error('Error:', error.message);
+      throw error;
+    }
+  }
+  
+  // Example usage:

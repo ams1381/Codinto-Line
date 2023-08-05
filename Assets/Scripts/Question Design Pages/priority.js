@@ -82,7 +82,8 @@ answer_option_buttons.forEach((answer_option_button) => {
                  answer_option_remover('MultipleOption',EditableQuestion,answer_option_button.parentElement.parentElement.getAttribute('id').split('anw-option-')[1]);
             else
                 answer_option_remover('MultipleOption',priority_question_PostData,answer_option_button.parentElement.parentElement.getAttribute('id').split('anw-option-')[1]);
-                
+            
+            
         })
 })
 answer_option_view_buttons.forEach((answer_option_view_button,index) => {

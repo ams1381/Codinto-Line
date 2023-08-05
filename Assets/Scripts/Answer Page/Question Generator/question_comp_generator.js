@@ -195,7 +195,7 @@ export const question_component_generator = (Question) => {
                     <p> ${Question.button_text} </p>
                 </button>
              </div>
-             <div class="separator"></div>
+             <div class="html2pdf__page-break"></div>
              ${Question.child_questions.map((item) => {
                 return question_component_generator(item.question)
              })}
@@ -235,8 +235,6 @@ export const question_component_generator = (Question) => {
     }
     
    return default_question_html = `
-   <div>
-        <div class="separator"></div>
                 <div id="Q${Question.id}" class="QuestionContainer ${Question.question_type} ${Question.is_required ? 'required' : ''}">
                             <div class="Question-Title">
                                 <label>${!Question.show_number ? Question.placement : ""}</label> ${!Question.show_number  ? ':' : ''}
@@ -257,7 +255,6 @@ export const question_component_generator = (Question) => {
                             ${answer_box_html}
                     </div>
                     
-        </div>
         `
         
 }

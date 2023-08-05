@@ -10,7 +10,7 @@ let answer_options = document.querySelectorAll(".Answer-Option");
 export const preview_answer_option_remover = (Option_Type , OptionID) => {
     let preview_answer_options;
     switch (Option_Type) {
-        case 'MultipleOption' :
+        case 'MultipleOption':
             preview_answer_options = document.querySelectorAll(".multiple_answer_block-option");
             if (preview_answer_options.length > 2) {
                 if([...preview_answer_options].find((item) => item.getAttribute('id') == `preview-option-${OptionID}`))
@@ -20,7 +20,6 @@ export const preview_answer_option_remover = (Option_Type , OptionID) => {
                 }
                 
             }
-
             break;
         case 'SliderOption' :
             preview_answer_options = document.querySelectorAll(".selection__box  .selection__item");
@@ -183,11 +182,11 @@ export const answer_option_adder = (Option_Type, Option_Text, PostData) => {
         Option_Type, Option_Text ? (Option_Text == 'همه گزینه ها' || Option_Text == 'هیچ کدام') ? `<span>${Option_Text}</span>` 
         : Option_Text : `گزینه  ${last_answer_option_label + 1}`);
     switch (Option_Type) {
-        case 'MultipleOption':
+        case 'MultipleOption' , 'Priority':
             PostData.options.push(
                 {
                     text: Option_Text ? (Option_Text == 'همه گزینه ها' || Option_Text == 'هیچ کدام') ? `<span>${Option_Text}</span>` 
-                    : Option_Text : `${last_answer_option_label + 1} گزینه`,
+                    : Option_Text : `${last_answer_option_number + 1} گزینه`,
                     id : last_answer_option_number + 1
                 },
             )
@@ -199,6 +198,8 @@ export const answer_option_adder = (Option_Type, Option_Text, PostData) => {
                     id : last_answer_option_number + 1
                 }
             )
+            break;
+        case 'Priority':
             break;
     }
 }
@@ -224,12 +225,14 @@ export const answer_option_eventListener_setter = (OptionNumber, Option_Type, Po
 export const preview_option_label_updater = (input_number, input_value, Option_Type, PostData) => {
     let changed_label;
     switch (Option_Type) {
-        case 'MultipleOption' :
+        case 'MultipleOption' , 'Priority':
             changed_label = document.querySelector(`#preview-option-${input_number + 1} label`);
-            ;
             break;
         case 'SliderOption' :
             changed_label = document.querySelector(`#select_item_${input_number + 1} label`);
+            break;
+        case 'Priority':
+            break;
     }
 
     if(PostData.options.find(option => option.id == (input_number + 1)))
@@ -288,7 +291,6 @@ export const single_additional_option_toggle_handler = (Addition_text, PostData)
     answer_option_labels.find((item) => item.children.length && $(item).text() == Addition_text).parentElement.remove();
 
    side_option_labels.forEach((item) => {
-    console.log(item.children.length,$(item).text(),$(item).text() == Addition_text )
         item.children.length && $(item).text() == Addition_text ? item.parentElement.parentElement.remove() : ''
    })
 

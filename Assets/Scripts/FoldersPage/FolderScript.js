@@ -167,7 +167,6 @@ const folder_popup_handler = (popup_element,popup_input,popup_type) => {
         popup_input.value = '';
     if(popup_type == 'rename')
     {
-        console.log(document.querySelector('.Folder.Selected .FolderName p').textContent)
         popup_input.value = document.querySelector('.Folder.Selected .FolderName p').textContent;
     }
     popup_element.classList.add("active");

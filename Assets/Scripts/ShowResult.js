@@ -23,6 +23,16 @@ let questionnaire_response
 const result_loader = async () => {
    let result_response = await getRequest(`${baseUrl}/result-api/${Questionnaire.uuid}/answer-sets/`);
    let questionnaire_response = await getRequest(baseUrl + '/question-api/questionnaires/' + Questionnaire.uuid + '/');
+   console.log(result_response)
+   if(!result_response.length)
+   {
+      $(".resultTable , .charts_box , #exportButton").remove();
+      $('.container').addClass('empty_result')
+      result_container.innerHTML = `
+         <p>نتیجه ای جهت نمایش وجود ندارد</p>
+      `
+      return
+   }
    loaded_questions = questionnaire_response.questions;
    result_container.classList.remove('loading');
    $('#loading-animation').addClass('hide');
@@ -44,6 +54,7 @@ const result_loader = async () => {
                table_body_tr.remove()
       })
    }
+   await chart_loader();
 }
 const head_item_generator = (Head_item) => {
    if(Head_item.question_type == 'no_answer')
@@ -515,4 +526,3 @@ const exportChart = async (ChartID) => {
       link.click();
 };
 await result_loader();
-await chart_loader();

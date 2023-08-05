@@ -17,6 +17,22 @@
     justify-content: center;
     width: fit-content;
 }
+.container.empty_result 
+{
+    width: 80%;
+    height: 71vh;
+    box-shadow: 2px 2px 6px #00000042;
+    border-radius: 0.7rem;
+    padding: 1rem;
+}
+.container.empty_result p
+{
+  display: block;
+  animation: fadeInUp 1s ease backwards;
+  text-align: center;
+  font-family: 'IRANSANS';
+  color: var(--brand-color);
+}
 .resultTable {
 
     width: 100%;
@@ -31,6 +47,7 @@
     border-spacing: 0.25rem 0.25rem;
     overflow: auto;
     cursor: grab;
+    animation: fadeInUp 1s ease backwards;
 }
 .resultTable #result_table_body
 {
@@ -112,7 +129,6 @@
   display: none !important;
   margin: 0 auto;
 }
-
 .row_down_part
 {
   width: 100%;
@@ -150,6 +166,7 @@
   max-width: 95%;
   border-radius: 12px;
   box-shadow: 2px 2px 3px #00000038;
+  animation: fadeInUp 1s ease backwards;
 }
 .chart_icons_selector {
   height: 100%;
@@ -193,27 +210,10 @@ label.checked .bar_chart svg
   cursor: pointer;
   display: none;
 }
-/* .shape_chart {
-  width: 90%;
-  margin: 0 auto;
-  text-align: center;
+@keyframes fadeInUp{
+  0%{transform:translate(0px, 100px); opacity: 0;}
+  100%{transform:translate(0px, 0); opacity: 1;}
 }
-.shape_chart span {
-  color: var(--brand-color);
-  font-family: 'IRANSANS';
-  margin: 0.4rem 0 18.4rem 0;
-}
-.chart_graph p  , .shape_chart p{
-  width: 91%;
-  color: var(--theme-white);
-  font-family: 'IRANSANS';
-  border-radius: 0.5rem;
-  padding: 0.6rem;
-  font-size: calc(0.7vw + 0.5rem);
-  background: var(--brand-color);
-  margin: 0.6rem auto 1.2rem auto;
-  text-align: center;
-} */
 @media screen and (max-width: 834px) {
     .container
     {
