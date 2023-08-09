@@ -309,12 +309,9 @@ const chart_loader = async () => {
    })
    
 }
-// document.querySelectorAll('.chart_icons_selector i ').forEach((item) => {
-//    item.addEventListener('click',() => {
-//       $('.chart_container').slideToggle();
-//    })
-// })
 const Line_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) => {
+   xValues = xValues.map(item => item.includes('<span>','</span>') ? item = item.replace("<span>","").replace("</span>","") : item)
+
    let chart_canvas  = `
        <canvas class="line_chart chart_canvas" id="${ChartID}"  style="width:100%;max-width:600px"></canvas>
    `;
@@ -371,6 +368,7 @@ const Line_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) 
    });
 }
 const Pie_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) => {
+   xValues = xValues.map(item => item.includes('<span>','</span>') ? item = item.replace("<span>","").replace("</span>","") : item)
    let chart_canvas  = `
        <canvas class="pie_chart chart_canvas" id="${ChartID}" style="width:100%;max-width:600px"></canvas>
    `;
@@ -403,6 +401,7 @@ const Pie_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) =
     });
 }
 const Bar_chart_generator = (QuestionTitle,QuestionID,ChartID,xValues,yValues) => {
+   xValues = xValues.map(item => item.includes('<span>','</span>') ? item = item.replace("<span>","").replace("</span>","") : item)
    console.log(xValues,yValues)
       let chart_canvas  = `
          <canvas id="${ChartID}" class="bar_chart chart_canvas" style="width:100%;max-width:600px"></canvas>
